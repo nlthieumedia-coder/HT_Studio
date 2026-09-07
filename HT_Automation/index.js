@@ -1,4 +1,4 @@
-// ==== HT_Automation — v4.0: Premiere Pro UXP Plugin ====
+// ==== HT_Automation — v3.0.5: Premiere Pro UXP Plugin ====
 // Tab 1: Ảnh + Âm thanh
 // Tab 2: Video + Âm thanh (dùng HTTP Bridge gọi FFmpeg đổi tốc độ video khớp audio)
 
