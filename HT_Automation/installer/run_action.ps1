@@ -42,10 +42,35 @@ if (-not $isAdministrator) {
 }
 
 $success = $false
+$temporaryPackageRoot = $null
 try {
     Start-Transcript -LiteralPath $LogPath -Force | Out-Null
     Write-Host "HT_Automation - $Action" -ForegroundColor Cyan
     Write-Host "Nhat ky: $LogPath" -ForegroundColor DarkGray
+
+    # The launchers also live in the development source tree. In that case the
+    # distributable payload is inside dist\HT_Automation_Setup_Windows.zip.
+    # Extract it silently to a temporary folder so reinstall/repair can be run
+    # directly from cong_cu without asking the user to unpack dist manually.
+    if ($Action -ne "Uninstall") {
+        $packageCcx = Get-ChildItem -LiteralPath $PackageRoot -Filter "*.ccx" -File -ErrorAction SilentlyContinue | Select-Object -First 1
+        $packagePayload = Join-Path $PackageRoot "payload"
+        if (-not $packageCcx -or -not (Test-Path -LiteralPath $packagePayload -PathType Container)) {
+            $distZip = Join-Path $PackageRoot "dist\HT_Automation_Setup_Windows.zip"
+            if (-not (Test-Path -LiteralPath $distZip -PathType Leaf)) {
+                throw "Khong tim thay bo cai $distZip. Hay chay cong_cu\phat_trien\TAO_BO_CAI.bat truoc."
+            }
+            $temporaryPackageRoot = Join-Path ([IO.Path]::GetTempPath()) ("HT_Automation_LocalInstall_" + [Guid]::NewGuid().ToString("N"))
+            New-Item -ItemType Directory -Path $temporaryPackageRoot -Force | Out-Null
+            Write-Host "Dang chuan bi bo cai moi nhat tu thu muc dist..." -ForegroundColor Cyan
+            Expand-Archive -LiteralPath $distZip -DestinationPath $temporaryPackageRoot -Force
+            if (-not (Test-Path -LiteralPath (Join-Path $temporaryPackageRoot "installer\install.ps1") -PathType Leaf)) {
+                throw "Bo cai trong dist khong hop le hoac bi thieu file."
+            }
+            $PackageRoot = $temporaryPackageRoot
+        }
+    }
+
     switch ($Action) {
         "Install" { & (Join-Path $PackageRoot "installer\install.ps1") -PackageRoot $PackageRoot }
         "UpdateLocal" { & (Join-Path $PackageRoot "installer\install.ps1") -PackageRoot $PackageRoot }
@@ -58,6 +83,9 @@ try {
     Write-Host $message -ForegroundColor Red
 } finally {
     try { Stop-Transcript | Out-Null } catch {}
+    if ($temporaryPackageRoot -and (Test-Path -LiteralPath $temporaryPackageRoot)) {
+        Remove-Item -LiteralPath $temporaryPackageRoot -Recurse -Force -ErrorAction SilentlyContinue
+    }
 }
 
 if ($success) {

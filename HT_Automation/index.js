@@ -1,4 +1,4 @@
-// ==== HT_Automation — v3.0.5: Premiere Pro UXP Plugin ====
+// ==== HT_Automation — v3.0.8: Premiere Pro UXP Plugin ====
 // Tab 1: Ảnh + Âm thanh
 // Tab 2: Video + Âm thanh (dùng HTTP Bridge gọi FFmpeg đổi tốc độ video khớp audio)
 
@@ -34,10 +34,22 @@ async function runFfmpegProcess(exePath, args, timeoutMs = 0) {
 
 async function runProcessWithHeartbeat(exePath, args, timeoutMs, label, detail, percent) {
   const started = Date.now();
-  const update = () => showTaskProgress(label, `${detail} · đang chạy ${formatClockDuration((Date.now() - started) / 1000)}`, percent);
+  let lastLoggedSecond = -5;
+  const update = () => {
+    const elapsed = Math.floor((Date.now() - started) / 1000);
+    showTaskProgress(label, `${detail} · đang chạy ${formatClockDuration(elapsed)}`, percent);
+    if (elapsed - lastLoggedSecond >= 5) {
+      log(`⏳ ${label}: ${detail} · ${formatClockDuration(elapsed)}`);
+      lastLoggedSecond = elapsed;
+    }
+  };
   update();
   const timer = setInterval(update, 1000);
-  try { return await runFfmpegProcess(exePath, args, timeoutMs); }
+  try {
+    const result = await runFfmpegProcess(exePath, args, timeoutMs);
+    log(`${result && result.exitCode === 0 ? "✅" : "❌"} ${label} kết thúc sau ${formatClockDuration((Date.now() - started) / 1000)}.`);
+    return result;
+  }
   finally { clearInterval(timer); }
 }
 
@@ -55,16 +67,33 @@ function listen(id, eventName, callback) {
   }
 }
 
+const MAX_LOG_LINES = 300;
+
+function scrollLogToLatest() {
+  const logEl = getEl("log");
+  if (!logEl) return;
+  logEl.scrollTop = Math.max(0, logEl.scrollHeight - logEl.clientHeight);
+}
+
 function log(msg) {
   console.log(msg);
   const logEl = getEl("log");
-  if (logEl) {
-    const current = String(logEl.textContent || "");
-    const lines = `${current}\n${msg}`.split("\n");
-    logEl.textContent = lines.slice(-300).join("\n");
-    const container = document.querySelector(".log-container");
-    if (container && !container.classList.contains("collapsed")) logEl.scrollTop = logEl.scrollHeight;
+  if (!logEl) return;
+
+  // Append instead of rebuilding the complete log on every message. This lets
+  // UXP paint each step immediately and keeps long-running workflows smooth.
+  const text = String(msg == null ? "" : msg);
+  logEl.appendChild(document.createTextNode(`${logEl.textContent ? "\n" : ""}${text}`));
+  const lines = String(logEl.textContent || "").split("\n");
+  if (lines.length > MAX_LOG_LINES) {
+    logEl.textContent = lines.slice(-MAX_LOG_LINES).join("\n");
   }
+
+  // Scroll now, then once more after layout. The second pass is important in
+  // Premiere UXP because scrollHeight can be updated one render tick later.
+  scrollLogToLatest();
+  if (typeof requestAnimationFrame === "function") requestAnimationFrame(scrollLogToLatest);
+  else setTimeout(scrollLogToLatest, 0);
 }
 
 function setBtnDisabled(btnId, disabled) {
@@ -94,6 +123,7 @@ function setSystemState(kind, label, stateClass) {
 
 let activeTaskStartedAt = 0;
 let taskPauseRequested = false;
+let taskCancelRequested = false;
 let subtitleBuildRunning = false;
 
 // Bind the primary subtitle action early. It must remain usable even if an
@@ -106,11 +136,20 @@ if (earlySubtitleButton) {
 }
 
 async function waitIfTaskPaused() {
+  throwIfTaskCancelled();
   if (!taskPauseRequested) return;
   const box = getEl("taskStatus");
   if (box) box.classList.add("paused");
-  while (taskPauseRequested) await new Promise((resolve) => setTimeout(resolve, 150));
+  while (taskPauseRequested && !taskCancelRequested) await new Promise((resolve) => setTimeout(resolve, 150));
   if (box) box.classList.remove("paused");
+  throwIfTaskCancelled();
+}
+
+function throwIfTaskCancelled() {
+  if (!taskCancelRequested) return;
+  const error = new Error("Đã hủy dựng theo yêu cầu.");
+  error.code = "TASK_CANCELLED";
+  throw error;
 }
 
 listen("btnPauseTask", "click", () => {
@@ -123,8 +162,37 @@ listen("btnPauseTask", "click", () => {
   if (detail && taskPauseRequested) detail.textContent = "Sẽ tạm dừng ngay sau file hoặc clip hiện tại...";
 });
 
+listen("btnCancelTask", "click", () => {
+  if (!activeTaskStartedAt || taskCancelRequested) return;
+  taskCancelRequested = true;
+  taskPauseRequested = false;
+  const button = getEl("btnCancelTask");
+  if (button) {
+    button.textContent = "Đang hủy...";
+    button.classList.add("disabled");
+  }
+  const pauseButton = getEl("btnPauseTask");
+  if (pauseButton) pauseButton.textContent = "Tạm dừng";
+  const box = getEl("taskStatus");
+  if (box) box.classList.remove("paused");
+  const detail = getEl("taskStatusDetail");
+  if (detail) detail.textContent = "Đang hủy an toàn sau bước xử lý hiện tại...";
+});
+
 function showTaskProgress(label, detail = "", percent = 0) {
-  activeTaskStartedAt = activeTaskStartedAt || Date.now();
+  if (taskCancelRequested) return;
+  if (!activeTaskStartedAt) {
+    activeTaskStartedAt = Date.now();
+    taskCancelRequested = false;
+    const logContainer = document.querySelector(".log-container");
+    if (logContainer) logContainer.classList.remove("collapsed");
+    if (getEl("btnToggleLog")) getEl("btnToggleLog").textContent = "Ẩn";
+    const cancelButton = getEl("btnCancelTask");
+    if (cancelButton) {
+      cancelButton.textContent = "Hủy dựng";
+      cancelButton.classList.remove("disabled");
+    }
+  }
   const box = getEl("taskStatus");
   if (box) box.style.display = "block";
   getEl("taskStatusText").textContent = label;
@@ -148,7 +216,12 @@ function finishTask(message, kind = "success") {
   }
   activeTaskStartedAt = 0;
   taskPauseRequested = false;
+  taskCancelRequested = false;
   if (getEl("btnPauseTask")) getEl("btnPauseTask").textContent = "Tạm dừng";
+  if (getEl("btnCancelTask")) {
+    getEl("btnCancelTask").textContent = "Hủy dựng";
+    getEl("btnCancelTask").classList.remove("disabled");
+  }
   if (getEl("taskStatus")) getEl("taskStatus").classList.remove("paused");
   if (kind === "error") {
     const logContainer = document.querySelector(".log-container");
@@ -1165,8 +1238,13 @@ listen("btnBuildProject", "click", async () => {
     log("\n🎉 HOÀN TẤT DỰNG PROJECT (ẢNH + ÂM THANH)!");
     finishTask(`Đã dựng ${matchedPairs.length} cặp ảnh và âm thanh.`, imageScanHasMissing ? "warning" : "success");
   } catch (err) {
-    log("❌ Lỗi khi dựng project (ảnh): " + err.message);
-    finishTask(err.message, "error");
+    if (err && err.code === "TASK_CANCELLED") {
+      log("⛔ Đã hủy dựng Ảnh + Audio.");
+      finishTask("Đã hủy dựng. Các clip đã hoàn tất trước đó được giữ nguyên.", "warning");
+    } else {
+      log("❌ Lỗi khi dựng project (ảnh): " + err.message);
+      finishTask(err.message, "error");
+    }
   }
 });
 
@@ -1338,22 +1416,26 @@ async function ensureSyncedSubfolder() {
   return syncedSubfolderEntry;
 }
 
-async function runFfmpegSpeedMatch(videoPath, outputEntry, ptsFactor, targetDurationSec) {
+async function runFfmpegSpeedMatch(videoPath, outputEntry, ptsFactor, targetDurationSec, targetFps, progressPercent = 5) {
   const args = [
     "-nostdin", "-hide_banner", "-loglevel", "error", "-y",
     "-i", videoPath,
-    "-filter:v", `setpts=${ptsFactor.toFixed(6)}*PTS,tpad=stop_mode=clone:stop_duration=0.5`,
+    "-map", "0:v:0",
+    "-filter:v", `setpts=${ptsFactor.toFixed(6)}*PTS,fps=${Number(targetFps).toFixed(6)},tpad=stop_mode=clone:stop_duration=0.5`,
     "-t", Number(targetDurationSec).toFixed(6),
     "-an",
     "-c:v", "libx264",
     "-preset", "ultrafast",
     "-crf", "18",
+    "-pix_fmt", "yuv420p",
+    "-movflags", "+faststart",
     outputEntry.nativePath
   ];
   const result = await runProcessWithHeartbeat(
     getFfmpegPath(), args, 0,
-    "Đang đồng bộ tốc độ video", outputEntry.name, 5
+    "Đang kéo/co tốc độ video", outputEntry.name, progressPercent
   );
+  throwIfTaskCancelled();
   if (result.exitCode !== 0) {
     throw new Error(`FFmpeg loi (exitCode=${result.exitCode}):\n${(result.stderr || "").slice(-600)}`);
   }
@@ -1366,7 +1448,7 @@ async function runFfmpegTrim(videoPath, outputEntry, durationSec) {
     "-nostdin", "-hide_banner", "-loglevel", "error", "-y",
     "-i", videoPath,
     "-t", paddedDurationSec.toFixed(6),
-    "-an",
+    "-an", "-sn", "-dn",
     // Trường hợp video dài hơn audio chỉ cần cắt và bỏ audio gốc. Remux
     // stream giúp hoàn tất trong vài giây thay vì mã hóa lại toàn bộ video.
     "-c:v", "copy",
@@ -1377,10 +1459,22 @@ async function runFfmpegTrim(videoPath, outputEntry, durationSec) {
     getFfmpegPath(), args, 0,
     "Đang cắt video", outputEntry.name, 5
   );
+  throwIfTaskCancelled();
   if (result.exitCode !== 0) {
     throw new Error(`FFmpeg loi (exitCode=${result.exitCode}):\n${(result.stderr || "").slice(-600)}`);
   }
   return outputEntry;
+}
+
+async function setProjectItemDuration(project, rawItem, durationTickTime, label) {
+  if (!rawItem || !durationTickTime) return;
+  const clipItem = castToClip(rawItem) || rawItem;
+  const zeroTime = await ppro.TickTime.createWithSeconds(0);
+  if (typeof clipItem.createSetInOutPointsAction === "function") {
+    await runAction(project, () => clipItem.createSetInOutPointsAction(zeroTime, durationTickTime), label);
+  } else if (typeof clipItem.createSetOutPointAction === "function") {
+    await runAction(project, () => clipItem.createSetOutPointAction(durationTickTime), label);
+  }
 }
 
 listen("btnBuildProjectVideo", "click", async () => {
@@ -1426,7 +1520,9 @@ listen("btnBuildProjectVideo", "click", async () => {
 
     const tenFrameDuration = await getTenFrameDuration(sequence);
     const tenFrameSec = getSecondsValue(tenFrameDuration);
+    const sequenceFps = 1 / (await getSequenceFrameSeconds(sequence));
     let videoProgressIndex = 0;
+    const buildRunId = Date.now().toString(36);
 
     for (const pair of matchedPairsVideo) {
       await waitIfTaskPaused();
@@ -1444,32 +1540,32 @@ listen("btnBuildProjectVideo", "click", async () => {
         continue;
       }
 
-      const slotDurationSec = pair.audioEntry ? audioDurSec : tenFrameSec;
-      const slotDurationTickTime = pair.audioEntry
-        ? await ppro.TickTime.createWithSeconds(audioDurSec)
-        : tenFrameDuration;
+      const alignedSlot = pair.audioEntry
+        ? await alignDurationToVideoFrames(sequence, audioDurSec)
+        : { seconds: tenFrameSec, tickTime: tenFrameDuration };
+      const slotDurationSec = alignedSlot.seconds;
+      const slotDurationTickTime = alignedSlot.tickTime;
       let outputEntry = null;
 
       if (pair.videoEntry) {
         const dotIdx = pair.videoEntry.name.lastIndexOf(".");
         const baseName = dotIdx > 0 ? pair.videoEntry.name.substring(0, dotIdx) : pair.videoEntry.name;
-        const outputName = `${baseName}_synced.mp4`;
+        const outputName = `${baseName}_synced_${buildRunId}.mp4`;
         try {
           outputEntry = await syncedSubfolderEntry.createFile(outputName, { overwrite: true });
           if (!pair.audioEntry) {
             log(`  ⬜ Thiếu audio: giữ video #${pair.num} trong 10 frame.`);
             await runFfmpegTrim(pair.videoEntry.nativePath, outputEntry, tenFrameSec);
-          } else if (videoDurSec > audioDurSec) {
-            await runFfmpegTrim(pair.videoEntry.nativePath, outputEntry, audioDurSec);
-          } else if (videoDurSec < audioDurSec) {
-            await runFfmpegSpeedMatch(pair.videoEntry.nativePath, outputEntry, audioDurSec / videoDurSec, audioDurSec);
           } else {
-            await runFfmpegTrim(pair.videoEntry.nativePath, outputEntry, audioDurSec);
+            const speedFactor = slotDurationSec / videoDurSec;
+            log(`  ⏱️ Video #${pair.num}: ${videoDurSec.toFixed(3)}s → ${slotDurationSec.toFixed(3)}s (hệ số PTS ${speedFactor.toFixed(6)}).`);
+            await runFfmpegSpeedMatch(pair.videoEntry.nativePath, outputEntry, speedFactor, slotDurationSec, sequenceFps, 5 + ((videoProgressIndex - 1) / matchedPairsVideo.length) * 90);
           }
           log(`  ✅ Đã tạo video đầu ra: ${outputEntry.name}`);
         } catch (ffErr) {
+          if (ffErr && ffErr.code === "TASK_CANCELLED") throw ffErr;
           log(`  ❌ Bỏ qua mốc #${pair.num}: Lỗi FFmpeg — ${ffErr.message}`);
-          cursor = cursor.add(slotDurationTickTime);
+          cursor = (await snapTickTimeToVideoFrame(sequence, cursor)).add(slotDurationTickTime);
           continue;
         }
       }
@@ -1498,25 +1594,14 @@ listen("btnBuildProjectVideo", "click", async () => {
 
       if ((outputEntry && !rawVideoItem) || (pair.audioEntry && !rawAudioItem)) {
         log(`  ❌ Không import được media của mốc #${pair.num}.`);
-        cursor = cursor.add(slotDurationTickTime);
+        cursor = (await snapTickTimeToVideoFrame(sequence, cursor)).add(slotDurationTickTime);
         continue;
       }
 
-      // FFmpeg có thêm một ít frame đệm để tránh hụt hình. Riêng mốc thiếu
-      // audio phải giới hạn ProjectItem đúng 10 frame trước khi đưa lên V1.
-      if (rawVideoItem && !pair.audioEntry) {
-        try {
-          const videoClipItem = castToClip(rawVideoItem) || rawVideoItem;
-          const zeroTime = await ppro.TickTime.createWithSeconds(0);
-          if (typeof videoClipItem.createSetInOutPointsAction === "function") {
-            await runAction(project, () => videoClipItem.createSetInOutPointsAction(zeroTime, tenFrameDuration), `Set 10-frame video #${pair.num}`);
-          } else if (typeof videoClipItem.createSetOutPointAction === "function") {
-            await runAction(project, () => videoClipItem.createSetOutPointAction(tenFrameDuration), `Set 10-frame video #${pair.num}`);
-          }
-        } catch (durationErr) {
-          log(`  ⚠️ Không giới hạn được video #${pair.num} đúng 10 frame: ${durationErr.message}`);
-        }
-      }
+      // Căn cùng một Out Point cho V1 và A1 trước khi overwrite. Việc này loại
+      // bỏ frame đệm của FFmpeg và ngăn sai số duration tích lũy qua nhiều cặp.
+      if (rawVideoItem) await setProjectItemDuration(project, rawVideoItem, slotDurationTickTime, `Set video duration #${pair.num}`);
+      if (rawAudioItem) await setProjectItemDuration(project, rawAudioItem, slotDurationTickTime, `Set audio duration #${pair.num}`);
 
       await ensureTrackUnlocked(sequence, "video", VIDEO_TRACK_INDEX);
       await ensureTrackUnlocked(sequence, "audio", AUDIO_TRACK_INDEX);
@@ -1525,8 +1610,8 @@ listen("btnBuildProjectVideo", "click", async () => {
       if (rawVideoItem) {
         await runAction(
           project,
-          () => editor.createInsertProjectItemAction(rawVideoItem, slotStart, VIDEO_TRACK_INDEX, AUDIO_TRACK_INDEX, true),
-          `Insert video #${pair.num}`
+          () => editor.createOverwriteItemAction(rawVideoItem, slotStart, VIDEO_TRACK_INDEX, AUDIO_TRACK_INDEX),
+          `Overwrite video #${pair.num}`
         );
       } else {
         log(`  ⬜ V1 mốc #${pair.num}: để trống theo thời lượng audio.`);
@@ -1535,8 +1620,8 @@ listen("btnBuildProjectVideo", "click", async () => {
       if (rawAudioItem) {
         await runAction(
           project,
-          () => editor.createInsertProjectItemAction(rawAudioItem, slotStart, VIDEO_TRACK_INDEX, AUDIO_TRACK_INDEX, false),
-          `Insert audio #${pair.num}`
+          () => editor.createOverwriteItemAction(rawAudioItem, slotStart, VIDEO_TRACK_INDEX, AUDIO_TRACK_INDEX),
+          `Overwrite audio #${pair.num}`
         );
       } else {
         log(`  ⬜ A1 mốc #${pair.num}: để trống 10 frame.`);
@@ -1549,8 +1634,13 @@ listen("btnBuildProjectVideo", "click", async () => {
     log("\n🎉 HOÀN TẤT DỰNG PROJECT (VIDEO + ÂM THANH)!");
     finishTask(`Đã dựng ${matchedPairsVideo.length} cặp video và âm thanh.`, videoScanHasMissing ? "warning" : "success");
   } catch (err) {
-    log("❌ Lỗi khi dựng project (video): " + err.message);
-    finishTask(err.message, "error");
+    if (err && err.code === "TASK_CANCELLED") {
+      log("⛔ Đã hủy dựng Video + Audio.");
+      finishTask("Đã hủy dựng. Các clip đã hoàn tất trước đó được giữ nguyên.", "warning");
+    } else {
+      log("❌ Lỗi khi dựng project (video): " + err.message);
+      finishTask(err.message, "error");
+    }
   }
 });
 
@@ -1689,8 +1779,13 @@ listen("btnBuildAudioOnly", "click", async () => {
     log(`🎉 Hoàn tất: ${insertedCount} audio trên A1${spacingText}.`);
     finishTask(`Đã thêm ${insertedCount} audio vào A1${spacingText}.`, insertedCount === audioOnlyEntries.length ? "success" : "warning");
   } catch (err) {
-    log("❌ Lỗi khi dựng chỉ âm thanh: " + err.message);
-    finishTask(err.message, "error");
+    if (err && err.code === "TASK_CANCELLED") {
+      log("⛔ Đã hủy dựng âm thanh.");
+      finishTask("Đã hủy dựng. Các clip đã hoàn tất trước đó được giữ nguyên.", "warning");
+    } else {
+      log("❌ Lỗi khi dựng chỉ âm thanh: " + err.message);
+      finishTask(err.message, "error");
+    }
   }
 });
 
@@ -2157,7 +2252,7 @@ let detectedLogicalProcessors = 0;
 let whisperBackend = "CPU";
 let subtitleMachineProfile = { physicalMemoryGB: 0, gpuMemoryMB: 0, runtimeDriveFreeGB: 0 };
 let subtitleTempPaths = [];
-const HT_AUTOMATION_VERSION = "3.0.5";
+const HT_AUTOMATION_VERSION = "3.0.8";
 let latestDiagnostics = null;
 
 function trackSubtitleTemp(entryOrPath) {

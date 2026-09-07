@@ -31,7 +31,7 @@
     <div class="app-title">
       <img class="brand-logo" src="./icons/logo_icon.png" alt="HT_Automation Logo" />
       <h2>HT_Automation</h2>
-      <span class="version-tag">v3.0.5</span>
+      <span class="version-tag">v3.0.8</span>
     </div>
     <div class="connection-status">
       <div id="statusDot" class="status-dot"></div>
@@ -369,18 +369,18 @@
   </div>
 
   <div id="taskStatus" class="task-status" style="display:none">
-    <div class="task-status-top"><span id="taskStatusText">Đang xử lý...</span><div class="task-status-actions"><span id="taskStatusPercent">0%</span><div id="btnPauseTask" role="button" tabindex="0" class="btn btn-icon">Tạm dừng</div></div></div>
+    <div class="task-status-top"><span id="taskStatusText">Đang xử lý...</span><div class="task-status-actions"><span id="taskStatusPercent">0%</span><div id="btnPauseTask" role="button" tabindex="0" class="btn btn-icon">Tạm dừng</div><div id="btnCancelTask" role="button" tabindex="0" class="btn btn-icon btn-cancel">Hủy dựng</div></div></div>
     <div class="progress"><div id="taskProgressBar" class="progress-bar"></div></div>
     <div id="taskStatusDetail" class="task-detail"></div>
   </div>
   <div id="resultAlert" class="alert" style="display:none"></div>
 
-  <div class="log-container collapsed">
+  <div class="log-container">
     <div class="log-header">
       <span class="card-title"><svg class="icon section-icon"><use href="#i-list"/></svg>Nhật ký hoạt động</span>
-      <div class="log-actions"><div id="btnToggleLog" role="button" tabindex="0" class="btn btn-icon">Xem</div><div id="btnClearLog" role="button" tabindex="0" class="btn btn-icon">Xóa</div></div>
+      <div class="log-actions"><div id="btnToggleLog" role="button" tabindex="0" class="btn btn-icon">Ẩn</div><div id="btnClearLog" role="button" tabindex="0" class="btn btn-icon">Xóa</div></div>
     </div>
-    <div id="log">Sẵn sàng thực thi quy trình.</div>
+    <div id="log" role="log" aria-live="polite" aria-relevant="additions">Sẵn sàng thực thi quy trình.</div>
   </div>
 </div>
 

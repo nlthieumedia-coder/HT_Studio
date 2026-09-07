@@ -1,4 +1,25 @@
-# HT_Automation 3.0.5
+# HT_Automation 3.0.8
+
+## Cài lại trực tiếp từ project
+
+- Tại thư mục mã nguồn, chạy `cong_cu\cai_dat\CAI_DAT_MOT_CLICK.bat` hoặc `SUA_CHUA.bat`; launcher tự dùng `dist\HT_Automation_Setup_Windows.zip`, không cần giải nén thủ công.
+- File ZIP trong `dist` vẫn là bộ cài độc lập để gửi sang máy khác và cần được giải nén trên máy nhận.
+
+## Nhật ký trực tiếp 3.0.8
+
+- Nhật ký hoạt động mở mặc định và tự mở lại khi bắt đầu một tác vụ.
+- Trong khi FFmpeg/Whisper chạy, nhật ký cập nhật nhịp tim mỗi 5 giây và tự cuộn đến dòng mới nhất.
+
+## Hủy tác vụ dựng 3.0.7
+
+- Thêm nút `Hủy dựng` cạnh `Tạm dừng` và dừng an toàn sau bước xử lý hiện tại.
+- Không import hoặc chèn thêm cặp media sau khi nhận yêu cầu hủy.
+
+## Sửa đồng bộ Video + Audio 3.0.6
+
+- Mọi video đều được kéo hoặc co tốc độ để khớp chính xác thời lượng audio, không cắt cụt video dài.
+- Dùng Overwrite edit thay cho Insert edit để không ripple và làm lệch vị trí các cặp tiếp theo.
+- Căn mốc V1/A1 theo frame của sequence và dùng media đồng bộ mới cho từng lần dựng để tránh cache duration cũ.
 
 ## Sửa đứng 5% với đường dẫn tiếng Việt 3.0.5
 

@@ -1,4 +1,4 @@
-HT_AUTOMATION 3.0.5 - CAI DAT WINDOWS X64
+HT_AUTOMATION 3.0.8 - CAI DAT WINDOWS X64
 ==========================================
 
 1. Giai nen toan bo HT_Automation_Setup_Windows.zip.

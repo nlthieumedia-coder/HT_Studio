@@ -586,6 +586,8 @@
   .task-status-top { display:flex; justify-content:space-between; margin-bottom:7px; color:var(--color-text); font-size:11px; font-weight:600; }
   .task-status-actions { display:flex; align-items:center; gap:8px; }
   .task-status-actions .btn { width:72px; height:24px; padding:0 7px; color:var(--color-text-muted); }
+  .task-status-actions .btn-cancel { color:var(--color-error); border-color:rgba(239,100,100,.35); }
+  .task-status-actions .btn-cancel:hover { background:rgba(239,100,100,.10); border-color:rgba(239,100,100,.65); }
   .task-status.paused { border-color:rgba(226,168,74,.45); }
   .task-status.paused .progress-bar { background:var(--color-warning); }
   .task-detail { margin-top:6px; color:var(--color-text-muted); font-size:10px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
@@ -628,7 +630,8 @@
   .subtitle-edit-row.has-issue { background:rgba(226,168,74,.05); }
   .subtitle-edit-row.filtered-out { display:none; }
   @media (max-width:390px) { .subtitle-edit-row { flex-wrap:wrap; } .subtitle-edit-index { flex-basis:20px; } .subtitle-edit-time { flex:1 1 auto; } .subtitle-edit-text { flex:0 0 100%; width:100%; } }
-  .folder-path, .text-input, .select-control, .media-list, .post-row, .action-tile, .system-strip, .mode-switch, .alert, #log { overflow:hidden; }
+  .folder-path, .text-input, .select-control, .media-list, .post-row, .action-tile, .system-strip, .mode-switch, .alert { overflow:hidden; }
+  #log { overflow-x:hidden; overflow-y:auto; scroll-behavior:auto; }
   .card, .btn, .task-status { overflow:visible; }
   .folder-path, .text-input, .select-control, .btn { border-radius:var(--radius-md); }
   .card, .action-tile, .system-strip, .post-row, .alert, #log { border-radius:var(--radius-lg); }

@@ -6,7 +6,7 @@ HT Studio là monorepo tập hợp các công cụ hỗ trợ quy trình dựng 
 
 | Dự án | Phiên bản | Nền tảng | Mô tả |
 | --- | ---: | --- | --- |
-| [HT_Automation](./HT_Automation/) | 3.0.5 | Premiere Pro UXP | Ghép media, đồng bộ hình/âm thanh, tạo subtitle offline, thêm nhạc nền và video overlay. |
+| [HT_Automation](./HT_Automation/) | 3.0.8 | Premiere Pro UXP | Ghép media, đồng bộ hình/âm thanh, tạo subtitle offline, thêm nhạc nền và video overlay. |
 | [HT_BinBuilder](./HT_BinBuilder/) | 1.4.0 | Premiere Pro UXP | Tạo, lưu preset và khôi phục cấu trúc Bin lồng nhau trong project. |
 | [HT_Finder](./HT_Finder/) | 2.0.3 | Premiere Pro UXP | Tìm, tải và đưa B-roll từ Pexels, Pixabay, YouTube hoặc Wikimedia vào project. |
 | [HT_Downloader](./HT_Downloader/) | 2.0.2 | Windows Desktop | Quét liên kết media và tải video bằng ứng dụng Electron. |
