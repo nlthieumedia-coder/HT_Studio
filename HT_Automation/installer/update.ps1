@@ -5,7 +5,7 @@ $ErrorActionPreference = "Stop"
 $isAdministrator = ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
 if (-not $isAdministrator) {
     $arguments = @("-NoProfile", "-ExecutionPolicy", "Bypass", "-File", ('"{0}"' -f $PSCommandPath), "-Repository", ('"{0}"' -f $Repository))
-    $elevated = Start-Process powershell.exe -Verb RunAs -Wait -PassThru -ArgumentList $arguments
+    $elevated = Start-Process powershell.exe -Verb RunAs -WindowStyle Hidden -Wait -PassThru -ArgumentList $arguments
     exit $elevated.ExitCode
 }
 
@@ -26,7 +26,10 @@ try {
 
 $latestText = ([string]$release.tag_name).TrimStart("v", "V")
 try { $latestVersion = [version]$latestText } catch { throw "Tag release khong dung SemVer: $($release.tag_name)" }
-if ($currentVersion -ge $latestVersion) {
+# v3.0.5 starts the new public numbering scheme and supersedes the legacy
+# v5.7.x line even though its numeric SemVer value is lower.
+$migratingFromLegacyVersion = $currentVersion.Major -eq 5 -and $currentVersion.Minor -eq 7 -and $latestVersion.Major -eq 3
+if (-not $migratingFromLegacyVersion -and $currentVersion -ge $latestVersion) {
     Write-Host "Ban dang dung phien ban moi nhat $currentVersion." -ForegroundColor Green
     exit 0
 }

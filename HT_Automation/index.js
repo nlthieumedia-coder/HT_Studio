@@ -161,6 +161,7 @@ function saveUiPreferences() {
   try {
     localStorage.setItem("htAutomationPreferences", JSON.stringify({
       subtitleLanguage: getEl("selectSubtitleLanguage") ? getEl("selectSubtitleLanguage").value : "auto",
+      subtitleQuality: getEl("selectSubtitleQuality") ? getEl("selectSubtitleQuality").value : "accurate",
       subtitleLineLength: getEl("inputSubtitleLineLength") ? getEl("inputSubtitleLineLength").value : "42",
       subtitleMaxLines: getEl("selectSubtitleMaxLines") ? getEl("selectSubtitleMaxLines").value : "2",
       subtitleImport: getEl("checkSubtitleImport") ? getEl("checkSubtitleImport").checked : true,
@@ -179,6 +180,7 @@ function restoreUiPreferences() {
   try {
     const saved = JSON.parse(localStorage.getItem("htAutomationPreferences") || "{}");
     if (saved.subtitleLanguage && getEl("selectSubtitleLanguage")) getEl("selectSubtitleLanguage").value = saved.subtitleLanguage;
+    if (["accurate", "fast"].includes(saved.subtitleQuality) && getEl("selectSubtitleQuality")) getEl("selectSubtitleQuality").value = saved.subtitleQuality;
     if (saved.subtitleLineLength && getEl("inputSubtitleLineLength")) getEl("inputSubtitleLineLength").value = saved.subtitleLineLength;
     if (saved.subtitleMaxLines && getEl("selectSubtitleMaxLines")) getEl("selectSubtitleMaxLines").value = saved.subtitleMaxLines;
     if (typeof saved.subtitleImport === "boolean" && getEl("checkSubtitleImport")) getEl("checkSubtitleImport").checked = saved.subtitleImport;
@@ -192,7 +194,7 @@ function restoreUiPreferences() {
   } catch (e) {}
 }
 restoreUiPreferences();
-for (const preferenceId of ["selectSubtitleLanguage", "inputSubtitleLineLength", "selectSubtitleMaxLines", "checkSubtitleImport", "selectSubtitleTrack", "selectAudioOnlySpacing", "inputAudioOnlyGapFrames", "inputMusicLufs", "inputMusicTrack", "checkMusicLoop", "checkMusicNormalize"]) {
+for (const preferenceId of ["selectSubtitleLanguage", "selectSubtitleQuality", "inputSubtitleLineLength", "selectSubtitleMaxLines", "checkSubtitleImport", "selectSubtitleTrack", "selectAudioOnlySpacing", "inputAudioOnlyGapFrames", "inputMusicLufs", "inputMusicTrack", "checkMusicLoop", "checkMusicNormalize"]) {
   listen(preferenceId, "change", saveUiPreferences);
   listen(preferenceId, "input", saveUiPreferences);
 }
@@ -633,6 +635,15 @@ function findItemForEntry(itemsList, fileEntry) {
   });
 }
 
+async function waitForItemInBin(binItem, fileEntry, attempts = 20, delayMs = 250) {
+  for (let i = 0; i < attempts; i++) {
+    const item = findItemForEntry(await getBinChildren(binItem), fileEntry);
+    if (item) return item;
+    await new Promise((resolve) => setTimeout(resolve, delayMs));
+  }
+  return null;
+}
+
 async function getDurationFromClipItem(clipItem) {
   if (!clipItem) return null;
   try {
@@ -720,20 +731,23 @@ async function snapTickTimeToVideoFrame(sequence, tickTime) {
 
 async function resolveSequence(project) {
   let seq = null;
+  const mustCreateNew = selectedSequenceIndex === "CREATE_NEW";
   if (selectedSequenceIndex !== "CREATE_NEW" && typeof selectedSequenceIndex === "number") {
     seq = availableSequences[selectedSequenceIndex] || null;
   }
-  if (!seq) {
+  if (!seq && !mustCreateNew) {
     try { seq = await project.getActiveSequence(); } catch (e) {}
   }
   if (!seq) {
     log("Đang tạo Timeline mới...");
     const seqName = `HT_Automation_Timeline_${Date.now().toString().slice(-4)}`;
     try {
-      if (typeof project.createSequenceAction === "function") {
+      // createSequence() is the public Premiere UXP API and returns the newly
+      // created sequence. Prefer that return value so we do not accidentally
+      // continue with the sequence which happened to be active beforehand.
+      if (typeof project.createSequence === "function") seq = await project.createSequence(seqName);
+      else if (typeof project.createSequenceAction === "function") {
         await runAction(project, () => project.createSequenceAction(seqName), `Create Sequence ${seqName}`);
-      } else if (typeof project.createSequence === "function") {
-        await project.createSequence(seqName);
       }
     } catch (createErr) {
       log(`  Lưu ý tạo Sequence: ${createErr.message}`);
@@ -1324,18 +1338,22 @@ async function ensureSyncedSubfolder() {
   return syncedSubfolderEntry;
 }
 
-async function runFfmpegSpeedMatch(videoPath, outputEntry, ptsFactor) {
+async function runFfmpegSpeedMatch(videoPath, outputEntry, ptsFactor, targetDurationSec) {
   const args = [
-    "-y",
+    "-nostdin", "-hide_banner", "-loglevel", "error", "-y",
     "-i", videoPath,
     "-filter:v", `setpts=${ptsFactor.toFixed(6)}*PTS,tpad=stop_mode=clone:stop_duration=0.5`,
+    "-t", Number(targetDurationSec).toFixed(6),
     "-an",
     "-c:v", "libx264",
-    "-preset", "veryfast",
+    "-preset", "ultrafast",
     "-crf", "18",
     outputEntry.nativePath
   ];
-  const result = await runFfmpegProcess(getFfmpegPath(), args, 300000);
+  const result = await runProcessWithHeartbeat(
+    getFfmpegPath(), args, 0,
+    "Đang đồng bộ tốc độ video", outputEntry.name, 5
+  );
   if (result.exitCode !== 0) {
     throw new Error(`FFmpeg loi (exitCode=${result.exitCode}):\n${(result.stderr || "").slice(-600)}`);
   }
@@ -1345,18 +1363,20 @@ async function runFfmpegSpeedMatch(videoPath, outputEntry, ptsFactor) {
 async function runFfmpegTrim(videoPath, outputEntry, durationSec) {
   const paddedDurationSec = durationSec + 0.08;
   const args = [
-    "-y",
-    "-ss", "0",
+    "-nostdin", "-hide_banner", "-loglevel", "error", "-y",
     "-i", videoPath,
     "-t", paddedDurationSec.toFixed(6),
-    "-filter:v", "tpad=stop_mode=clone:stop_duration=0.5",
     "-an",
-    "-c:v", "libx264",
-    "-preset", "veryfast",
-    "-crf", "18",
+    // Trường hợp video dài hơn audio chỉ cần cắt và bỏ audio gốc. Remux
+    // stream giúp hoàn tất trong vài giây thay vì mã hóa lại toàn bộ video.
+    "-c:v", "copy",
+    "-avoid_negative_ts", "make_zero",
     outputEntry.nativePath
   ];
-  const result = await runFfmpegProcess(getFfmpegPath(), args);
+  const result = await runProcessWithHeartbeat(
+    getFfmpegPath(), args, 0,
+    "Đang cắt video", outputEntry.name, 5
+  );
   if (result.exitCode !== 0) {
     throw new Error(`FFmpeg loi (exitCode=${result.exitCode}):\n${(result.stderr || "").slice(-600)}`);
   }
@@ -1404,8 +1424,6 @@ listen("btnBuildProjectVideo", "click", async () => {
     const VIDEO_TRACK_INDEX = 0;
     const AUDIO_TRACK_INDEX = 0;
 
-    let currentVideoCount = 0;
-    let currentAudioCount = 0;
     const tenFrameDuration = await getTenFrameDuration(sequence);
     const tenFrameSec = getSecondsValue(tenFrameDuration);
     let videoProgressIndex = 0;
@@ -1444,7 +1462,7 @@ listen("btnBuildProjectVideo", "click", async () => {
           } else if (videoDurSec > audioDurSec) {
             await runFfmpegTrim(pair.videoEntry.nativePath, outputEntry, audioDurSec);
           } else if (videoDurSec < audioDurSec) {
-            await runFfmpegSpeedMatch(pair.videoEntry.nativePath, outputEntry, audioDurSec / videoDurSec);
+            await runFfmpegSpeedMatch(pair.videoEntry.nativePath, outputEntry, audioDurSec / videoDurSec, audioDurSec);
           } else {
             await runFfmpegTrim(pair.videoEntry.nativePath, outputEntry, audioDurSec);
           }
@@ -1458,24 +1476,21 @@ listen("btnBuildProjectVideo", "click", async () => {
 
       log(`  📦 Đang import file vào Project...`);
       if (outputEntry) {
-        currentVideoCount++;
-        await project.importFiles([outputEntry.nativePath], true, videosBin, false);
+        const importedVideo = await project.importFiles([outputEntry.nativePath], true, videosBin, false);
+        if (importedVideo === false) log(`  ⚠️ Premiere báo không import được video #${pair.num}.`);
       }
       if (pair.audioEntry) {
-        currentAudioCount++;
-        await project.importFiles([pair.audioEntry.nativePath], true, audioBin, false);
+        const importedAudio = await project.importFiles([pair.audioEntry.nativePath], true, audioBin, false);
+        if (importedAudio === false) log(`  ⚠️ Premiere báo không import được audio #${pair.num}.`);
       }
 
-      const videoItemsInBin = outputEntry ? await waitForItemsInBin(videosBin, currentVideoCount) : [];
-      const audioItemsInBin = pair.audioEntry ? await waitForItemsInBin(audioBin, currentAudioCount) : [];
-
-      let rawVideoItem = outputEntry ? findItemForEntry(videoItemsInBin, outputEntry) : null;
+      let rawVideoItem = outputEntry ? await waitForItemInBin(videosBin, outputEntry) : null;
       if (outputEntry && !rawVideoItem && videosBin !== rootItem) {
         const rootItems = await getBinChildren(rootItem);
         rawVideoItem = findItemForEntry(rootItems, outputEntry);
       }
 
-      let rawAudioItem = pair.audioEntry ? findItemForEntry(audioItemsInBin, pair.audioEntry) : null;
+      let rawAudioItem = pair.audioEntry ? await waitForItemInBin(audioBin, pair.audioEntry) : null;
       if (pair.audioEntry && !rawAudioItem && audioBin !== rootItem) {
         const rootItems = await getBinChildren(rootItem);
         rawAudioItem = findItemForEntry(rootItems, pair.audioEntry);
@@ -2142,7 +2157,7 @@ let detectedLogicalProcessors = 0;
 let whisperBackend = "CPU";
 let subtitleMachineProfile = { physicalMemoryGB: 0, gpuMemoryMB: 0, runtimeDriveFreeGB: 0 };
 let subtitleTempPaths = [];
-const HT_AUTOMATION_VERSION = "5.7.15";
+const HT_AUTOMATION_VERSION = "3.0.5";
 let latestDiagnostics = null;
 
 function trackSubtitleTemp(entryOrPath) {
@@ -2579,21 +2594,29 @@ function validateSubtitleRequest() {
   return errors;
 }
 
-async function transcribeA1Clip(clip, index, language) {
+async function transcribeA1Clip(clip, index, language, totalClips = 1) {
+  const boundaryPadding = 0.35;
+  const safeTotal = Math.max(1, Number(totalClips) || 1);
+  const clipStartPercent = 5 + (index / safeTotal) * 90;
+  const clipEndPercent = 5 + ((index + 1) / safeTotal) * 90;
   const stem = `ht_sub_${Date.now()}_${String(index + 1).padStart(3, "0")}`;
   const wavName = `${stem}.wav`;
   const wavEntry = await subtitleOutputFolder.createFile(wavName, { overwrite: true });
   trackSubtitleTemp(wavEntry);
   const sourceDuration = clip.sourceOut - clip.sourceIn;
-  const ffmpeg = await runProcessWithHeartbeat(getFfmpegPath(), ["-nostdin", "-hide_banner", "-loglevel", "error", "-y", "-ss", String(clip.sourceIn), "-t", String(sourceDuration), "-i", clip.mediaPath, "-vn", "-ac", "1", "-ar", "16000", "-c:a", "pcm_s16le", wavEntry.nativePath], 60000, `Đang chuẩn hóa clip ${index + 1}`, clip.mediaPath, 6);
+  const seekStart = Math.max(0, clip.sourceIn - 1);
+  const trimStart = clip.sourceIn - seekStart;
+  const paddedDuration = sourceDuration + boundaryPadding * 2;
+  const audioFilter = `atrim=start=${trimStart.toFixed(6)}:duration=${sourceDuration.toFixed(6)},asetpts=PTS-STARTPTS,aresample=16000,aformat=sample_fmts=s16:channel_layouts=mono,dynaudnorm=f=150:g=12:p=0.9:m=8,adelay=${Math.round(boundaryPadding * 1000)}:all=1,apad=pad_dur=${boundaryPadding},atrim=duration=${paddedDuration.toFixed(6)}`;
+  const ffmpeg = await runProcessWithHeartbeat(getFfmpegPath(), ["-nostdin", "-hide_banner", "-loglevel", "error", "-y", "-ss", String(seekStart), "-i", clip.mediaPath, "-vn", "-af", audioFilter, "-c:a", "pcm_s16le", wavEntry.nativePath], 60000, `Đang chuẩn hóa clip ${index + 1}/${safeTotal}`, clip.mediaPath, clipStartPercent);
   if (ffmpeg.exitCode !== 0) throw new Error(`FFmpeg không tách được audio clip ${index + 1}: ${ffmpeg.stderr || "unknown error"}`);
   const prefix = `${subtitleOutputFolder.nativePath}\\${stem}`;
   trackSubtitleTemp(`${prefix}.json`);
   const whisperArgs = ["-m", whisperModelPath, "-f", wavEntry.nativePath, "-l", language || "auto", "-t", String(getWhisperThreadCount())];
   if (whisperBackend.toUpperCase().includes("CUDA")) whisperArgs.push("-fa");
   else whisperArgs.push("-ng");
-  whisperArgs.push("-oj", "-of", prefix);
-  const result = await runFfmpegProcess(whisperExePath, whisperArgs);
+  whisperArgs.push("-ml", "56", "-sow", "-nth", "0.90", "-oj", "-of", prefix);
+  const result = await runWhisperWithProgress(whisperArgs, paddedDuration, Math.min(clipEndPercent - 0.5, clipStartPercent + 0.5), clipEndPercent, `Clip ${index + 1}/${safeTotal}`);
   if (result.exitCode !== 0) throw new Error(`Whisper lỗi ở clip ${index + 1}: ${result.stderr || result.stdout || "unknown error"}`);
   const jsonEntry = await findOutputEntry(`${stem}.json`);
   if (!jsonEntry) throw new Error(`Whisper chưa tạo ${stem}.json.`);
@@ -2601,10 +2624,10 @@ async function transcribeA1Clip(clip, index, language) {
   const timelineDuration = clip.timelineEnd - clip.timelineStart;
   const ratio = sourceDuration > 0 ? timelineDuration / sourceDuration : 1;
   return segments.map((segment) => ({
-    start: clip.timelineStart + segment.start * ratio,
-    end: Math.min(clip.timelineEnd, clip.timelineStart + segment.end * ratio),
+    start: clip.timelineStart + Math.max(0, segment.start - boundaryPadding) * ratio,
+    end: Math.min(clip.timelineEnd, clip.timelineStart + Math.max(0, segment.end - boundaryPadding) * ratio),
     text: segment.text
-  })).filter((segment) => segment.end > segment.start);
+  })).filter((segment) => segment.text && segment.end > segment.start && segment.start < clip.timelineEnd);
 }
 
 function getWhisperThreadCount() {
@@ -2663,6 +2686,7 @@ function escapeConcatPath(path) {
 }
 
 async function transcribeA1Batch(clips, language) {
+  const boundaryPadding = 0.35;
   const batchStem = `ht_sub_batch_${Date.now()}`;
   const wavEntries = [];
   const ranges = [];
@@ -2681,12 +2705,15 @@ async function transcribeA1Batch(clips, language) {
     let groupDuration = 0;
     groupClips.forEach((clip, localIndex) => {
       const duration = clip.sourceOut - clip.sourceIn;
-      groupDuration += Math.max(0, duration);
-      args.push("-ss", String(clip.sourceIn), "-t", String(duration), "-i", clip.mediaPath);
-      filterParts.push(`[${localIndex}:a]asetpts=PTS-STARTPTS,aresample=16000,aformat=sample_fmts=s16:channel_layouts=mono[a${localIndex}]`);
+      const seekStart = Math.max(0, clip.sourceIn - 1);
+      const trimStart = clip.sourceIn - seekStart;
+      const paddedDuration = duration + boundaryPadding * 2;
+      groupDuration += Math.max(0, paddedDuration);
+      args.push("-ss", String(seekStart), "-i", clip.mediaPath);
+      filterParts.push(`[${localIndex}:a]atrim=start=${trimStart.toFixed(6)}:duration=${duration.toFixed(6)},asetpts=PTS-STARTPTS,aresample=16000,aformat=sample_fmts=s16:channel_layouts=mono,adelay=${Math.round(boundaryPadding * 1000)}:all=1,apad=pad_dur=${boundaryPadding},atrim=duration=${paddedDuration.toFixed(6)}[a${localIndex}]`);
       concatInputs.push(`[a${localIndex}]`);
-      ranges.push({ concatStart: cursor, concatEnd: cursor + duration, clip, sourceDuration: duration });
-      cursor += duration;
+      ranges.push({ concatStart: cursor + boundaryPadding, concatEnd: cursor + boundaryPadding + duration, clip, sourceDuration: duration });
+      cursor += paddedDuration;
     });
     filterParts.push(`${concatInputs.join("")}concat=n=${groupClips.length}:v=0:a=1[outa]`);
     args.push("-vn", "-filter_complex", filterParts.join(";"), "-map", "[outa]", "-c:a", "pcm_s16le", wavEntry.nativePath);
@@ -2721,22 +2748,27 @@ async function transcribeA1Batch(clips, language) {
   const whisperArgs = ["-m", whisperModelPath, "-f", batchWav.nativePath, "-l", language || "auto", "-t", String(getWhisperThreadCount())];
   if (usingGpu) whisperArgs.push("-fa");
   else whisperArgs.push("-ng");
-  whisperArgs.push("-oj", "-of", prefix);
+  whisperArgs.push("-ml", "56", "-sow", "-nth", "0.75", "-oj", "-of", prefix);
   const result = await runWhisperWithProgress(whisperArgs, cursor, 48, 92, formatClockDuration(cursor));
   if (result.exitCode !== 0) throw new Error(`Whisper batch gặp lỗi: ${result.stderr || result.stdout || "unknown error"}`);
   const jsonEntry = await findOutputEntry(`${batchStem}.json`);
   if (!jsonEntry) throw new Error(`Whisper chưa tạo ${batchStem}.json.`);
   const recognized = parseWhisperSegments(JSON.parse(await jsonEntry.read()));
   return recognized.map((segment) => {
-    const midpoint = (segment.start + segment.end) / 2;
-    const range = ranges.find((item) => midpoint >= item.concatStart && midpoint <= item.concatEnd) || ranges[ranges.length - 1];
+    let bestOverlap = 0;
+    let range = null;
+    for (const candidate of ranges) {
+      const overlap = Math.max(0, Math.min(segment.end, candidate.concatEnd) - Math.max(segment.start, candidate.concatStart));
+      if (overlap > bestOverlap) { bestOverlap = overlap; range = candidate; }
+    }
+    if (!range || bestOverlap < 0.01) return null;
     const ratio = range.sourceDuration > 0 ? (range.clip.timelineEnd - range.clip.timelineStart) / range.sourceDuration : 1;
     return {
-      start: range.clip.timelineStart + Math.max(0, segment.start - range.concatStart) * ratio,
-      end: Math.min(range.clip.timelineEnd, range.clip.timelineStart + Math.max(0, segment.end - range.concatStart) * ratio),
+      start: range.clip.timelineStart + Math.max(0, Math.max(segment.start, range.concatStart) - range.concatStart) * ratio,
+      end: Math.min(range.clip.timelineEnd, range.clip.timelineStart + Math.max(0, Math.min(segment.end, range.concatEnd) - range.concatStart) * ratio),
       text: segment.text
     };
-  }).filter((segment) => segment.text && segment.end > segment.start);
+  }).filter((segment) => segment && segment.text && segment.end > segment.start);
 }
 
 const subtitleBuildButton = getEl("btnBuildSubtitle");
@@ -2783,7 +2815,8 @@ async function handleBuildSubtitle() {
     if (!clips.length || scannedSubtitleTrackNumber !== trackNumber) throw new Error(`${trackLabel} chưa được quét hoặc không có audio clip hợp lệ.`);
     const language = getEl("selectSubtitleLanguage").value || "auto";
     let allSegments = [];
-    if (clips.length > 1) {
+    const qualityMode = getEl("selectSubtitleQuality") ? getEl("selectSubtitleQuality").value : "accurate";
+    if (clips.length > 1 && qualityMode === "fast") {
       try {
         log(`⚡ Chế độ nhanh: chuẩn hóa ${clips.length} clip và nạp Whisper một lần.`);
         allSegments = await transcribeA1Batch(clips, language);
@@ -2793,14 +2826,20 @@ async function handleBuildSubtitle() {
         log("↪ Chuyển sang chế độ tương thích từng clip.");
       }
     }
-    if (!allSegments.length) {
-      for (let i = 0; i < clips.length; i++) {
+    if (qualityMode === "accurate") log(`🎯 Chế độ chính xác: nhận dạng độc lập toàn bộ ${clips.length} clip để tránh mất câu trong batch.`);
+    const uncoveredClipIndexes = clips.map((clip, index) => ({ clip, index })).filter(({ clip }) => !allSegments.some((segment) => {
+      const overlap = Math.min(segment.end, clip.timelineEnd) - Math.max(segment.start, clip.timelineStart);
+      return overlap > 0.05;
+    })).map(({ index }) => index);
+    if (uncoveredClipIndexes.length) {
+      if (allSegments.length) log(`🔎 Chế độ nhanh bỏ sót ${uncoveredClipIndexes.length} clip; tự nhận dạng lại riêng các clip này.`);
+      for (const i of uncoveredClipIndexes) {
         await waitIfTaskPaused();
         badge.textContent = `${i + 1}/${clips.length}`;
         showTaskProgress(`Đang nhận dạng clip ${i + 1}/${clips.length}`, clips[i].mediaPath, (i / clips.length) * 90 + 5);
         log(`🎙️ Đang nhận dạng clip ${trackLabel} ${i + 1}/${clips.length}...`);
         try {
-          allSegments.push(...await transcribeA1Clip(clips[i], i, language));
+          allSegments.push(...await transcribeA1Clip(clips[i], i, language, clips.length));
         } catch (clipError) {
           log(`⚠️ Bỏ qua clip ${trackLabel} #${i + 1} vì không xử lý được: ${clipError.message}`);
         }

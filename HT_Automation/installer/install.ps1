@@ -4,7 +4,7 @@ $isAdministrator = ([Security.Principal.WindowsPrincipal][Security.Principal.Win
 if (-not $isAdministrator) {
     $arguments = @("-NoProfile", "-ExecutionPolicy", "Bypass", "-File", ('"{0}"' -f $PSCommandPath), "-PackageRoot", ('"{0}"' -f $PackageRoot))
     if ($Repair) { $arguments += "-Repair" }
-    $elevated = Start-Process powershell.exe -Verb RunAs -Wait -PassThru -ArgumentList $arguments
+    $elevated = Start-Process powershell.exe -Verb RunAs -WindowStyle Hidden -Wait -PassThru -ArgumentList $arguments
     exit $elevated.ExitCode
 }
 $packageRootPath = [System.IO.Path]::GetFullPath($PackageRoot)
@@ -31,14 +31,14 @@ Copy-Item -LiteralPath $ffmpegSource -Destination (Join-Path $runtimeDir "ffmpeg
 # whisper-cli.exe because current official Windows builds are dynamically linked.
 $whisperDir = Join-Path $env:LOCALAPPDATA "HT_Automation\Whisper"
 $whisperExe = Join-Path $whisperDir "whisper-cli.exe"
-$whisperModel = Join-Path $whisperDir "ggml-small.bin"
+$whisperModel = Join-Path $whisperDir "ggml-large-v3-turbo-q5_0.bin"
 $backendMarker = Join-Path $whisperDir "backend.txt"
 New-Item -ItemType Directory -Path $whisperDir -Force | Out-Null
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 
 $offlineWhisper = Join-Path $packageRootPath "payload\Whisper"
 if ((Test-Path -LiteralPath (Join-Path $offlineWhisper "whisper-cli.exe") -PathType Leaf) -and
-    (Test-Path -LiteralPath (Join-Path $offlineWhisper "ggml-small.bin") -PathType Leaf)) {
+    (Test-Path -LiteralPath (Join-Path $offlineWhisper "ggml-large-v3-turbo-q5_0.bin") -PathType Leaf)) {
     Write-Host "Dang cai Whisper runtime Full Offline..." -ForegroundColor Cyan
     Copy-Item -Path (Join-Path $offlineWhisper "*") -Destination $whisperDir -Recurse -Force
 }
@@ -96,7 +96,7 @@ function Install-WhisperRuntime([object]$release, [hashtable]$headers, [string]$
         Expand-Archive -LiteralPath $downloadZip -DestinationPath $extractDir -Force
         $downloadedExe = Get-ChildItem -LiteralPath $extractDir -Filter "whisper-cli.exe" -File -Recurse | Select-Object -First 1
         if (-not $downloadedExe) { throw "Goi whisper.cpp khong co whisper-cli.exe." }
-        Get-ChildItem -LiteralPath $whisperDir -File -ErrorAction SilentlyContinue | Where-Object { $_.Name -ne "ggml-small.bin" } | Remove-Item -Force -ErrorAction SilentlyContinue
+        Get-ChildItem -LiteralPath $whisperDir -File -ErrorAction SilentlyContinue | Where-Object { $_.Name -notmatch '^ggml-.*\.bin$' } | Remove-Item -Force -ErrorAction SilentlyContinue
         Copy-Item -Path (Join-Path $downloadedExe.Directory.FullName "*") -Destination $whisperDir -Recurse -Force
         Set-Content -LiteralPath (Join-Path $whisperDir "version.txt") -Value $release.tag_name -Encoding ASCII
         Set-Content -LiteralPath $backendMarker -Value $backendName -Encoding ASCII
@@ -129,7 +129,11 @@ if (-not $nvidiaSmi -and (Test-Path -LiteralPath "$env:WINDIR\System32\nvidia-sm
 $desiredBackend = $(if ($nvidiaSmi) { "CUDA 12.4" } else { "CPU" })
 $installedBackend = $(if (Test-Path -LiteralPath $backendMarker -PathType Leaf) { (Get-Content -LiteralPath $backendMarker -Raw).Trim() } else { "" })
 $runtimeHealthy = $(if ($installedBackend) { Test-WhisperRuntime $installedBackend } else { $false })
-$needsRuntime = -not $runtimeHealthy -or $installedBackend -ne $desiredBackend
+$needsRuntime = -not $runtimeHealthy -or ($Repair -and $installedBackend -ne $desiredBackend)
+if ($runtimeHealthy -and -not $Repair -and $installedBackend -ne $desiredBackend) {
+    Write-Host "Giu backend Whisper $installedBackend dang hoat dong. Chay SUA_CHUA neu muon thu lai $desiredBackend." -ForegroundColor DarkGray
+    $desiredBackend = $installedBackend
+}
 if ($needsRuntime) {
     Write-Host "Dang tai whisper.cpp $desiredBackend tu GitHub chinh thuc..." -ForegroundColor Cyan
     $headers = @{ "User-Agent" = "HT_Automation-Installer"; "Accept" = "application/vnd.github+json" }
@@ -146,10 +150,10 @@ if ($needsRuntime) {
     }
 }
 if (-not (Test-Path -LiteralPath $whisperModel -PathType Leaf)) {
-    Write-Host "Dang tai model Whisper multilingual small (khoang 466 MB)..." -ForegroundColor Cyan
-    $modelUrl = "https://huggingface.co/ggerganov/whisper.cpp/resolve/main/ggml-small.bin?download=true"
-    Invoke-ReliableDownload -Uri $modelUrl -OutFile $whisperModel -MinimumBytes 400MB
-    if ((Get-Item -LiteralPath $whisperModel).Length -lt 400MB) {
+    Write-Host "Dang tai model Whisper Large V3 Turbo Q5 multilingual (khoang 547 MB)..." -ForegroundColor Cyan
+    $modelUrl = "https://huggingface.co/ggerganov/whisper.cpp/resolve/main/ggml-large-v3-turbo-q5_0.bin?download=true"
+    Invoke-ReliableDownload -Uri $modelUrl -OutFile $whisperModel -MinimumBytes 500MB
+    if ((Get-Item -LiteralPath $whisperModel).Length -lt 500MB) {
         Remove-Item -LiteralPath $whisperModel -Force
         throw "Model Whisper tai ve khong hop le. Hay chay lai bo cai."
     }
@@ -182,6 +186,7 @@ function Test-WhisperInference([string]$backendName) {
     finally { Remove-Item -LiteralPath $testRoot -Recurse -Force -ErrorAction SilentlyContinue }
 }
 
+if ($needsRuntime -or $Repair) {
 Write-Host "Dang kiem tra suy luan Whisper thuc te..." -ForegroundColor Cyan
 if (-not (Test-WhisperInference $desiredBackend)) {
     if ($desiredBackend -like "CUDA*") {
@@ -202,6 +207,9 @@ if (-not (Test-WhisperInference $desiredBackend)) {
         # timed out or produced no transcript on a slow machine.
         Write-Warning "Whisper khong hoan tat self-test am thanh gia, nhung runtime va model da hop le. Tiep tuc cai dat de co the dung Auto Sub."
     }
+}
+} else {
+    Write-Host "Whisper $desiredBackend da hoat dong; bo qua self-test khi cap nhat nhanh." -ForegroundColor DarkGray
 }
 Set-Content -LiteralPath $backendMarker -Value $desiredBackend -Encoding ASCII
 
@@ -307,11 +315,10 @@ if (Test-Path -LiteralPath $updaterSource -PathType Leaf) {
     $updaterCommand = @"
 @echo off
 title Cap nhat HT_Automation
-powershell.exe -NoProfile -Command "exit (Start-Process powershell.exe -Verb RunAs -Wait -PassThru -ArgumentList '-NoProfile -ExecutionPolicy Bypass -File ""$updaterDir\update.ps1""').ExitCode"
+powershell.exe -NoProfile -Command "exit (Start-Process powershell.exe -Verb RunAs -WindowStyle Hidden -Wait -PassThru -ArgumentList '-NoProfile -ExecutionPolicy Bypass -File ""$updaterDir\update.ps1""').ExitCode"
 if errorlevel 1 pause
 "@
     Set-Content -LiteralPath $desktopUpdater -Value $updaterCommand -Encoding ASCII
     Write-Host "Da tao nut cap nhat mot click tren Desktop." -ForegroundColor Green
 }
-Add-Type -AssemblyName PresentationFramework
-[System.Windows.MessageBox]::Show("Da cai HT_Automation, Bridge va Whisper multilingual ma khong can Creative Cloud.`n`nMo lai Premiere Pro, sau do vao Window > UXP Plugins > HT_Automation.", "HT_Automation - Cai dat", "OK", "Information") | Out-Null
+Write-Host "Da cai HT_Automation, Bridge va Whisper multilingual. Mo lai Premiere Pro de su dung." -ForegroundColor Green

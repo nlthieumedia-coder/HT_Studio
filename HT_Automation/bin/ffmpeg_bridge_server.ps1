@@ -3,13 +3,13 @@
 # ============================================================================
 
 $port = 19888
-$bridgeVersion = "5.7.15"
+$bridgeVersion = "3.0.5"
 $localAddr = [System.Net.IPAddress]::Parse("127.0.0.1")
 $scriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
 $defaultFfmpegExe = Join-Path $scriptDir "ffmpeg.exe"
 $whisperDir = Join-Path (Split-Path -Parent $scriptDir) "Whisper"
 $defaultWhisperExe = Join-Path $whisperDir "whisper-cli.exe"
-$defaultWhisperModel = Join-Path $whisperDir "ggml-small.bin"
+$defaultWhisperModel = Join-Path $whisperDir "ggml-large-v3-turbo-q5_0.bin"
 $whisperBackendFile = Join-Path $whisperDir "backend.txt"
 
 # Collect once when the Bridge starts. This avoids repeatedly querying WMI while
@@ -113,14 +113,23 @@ while ($true) {
 
         $bodyText = ""
         if ($contentLength -gt 0) {
-            $buffer = New-Object char[] $contentLength
-            $readCount = 0
-            while ($readCount -lt $contentLength) {
-                $c = $reader.Read($buffer, $readCount, $contentLength - $readCount)
-                if ($c -le 0) { break }
-                $readCount += $c
+            # HTTP Content-Length counts UTF-8 bytes, not .NET UTF-16 chars.
+            # Reading `contentLength` chars blocks forever when JSON contains
+            # Vietnamese paths such as "Kênh 5" because those chars use more
+            # than one UTF-8 byte.
+            $bodyBuilder = New-Object System.Text.StringBuilder
+            $bodyByteCount = 0
+            while ($bodyByteCount -lt $contentLength) {
+                $nextChar = $reader.Read()
+                if ($nextChar -lt 0) { break }
+                $charText = [char]$nextChar
+                [void]$bodyBuilder.Append($charText)
+                $bodyByteCount += [System.Text.Encoding]::UTF8.GetByteCount([string]$charText)
             }
-            $bodyText = New-Object string($buffer, 0, $readCount)
+            $bodyText = $bodyBuilder.ToString()
+            if ($bodyByteCount -lt $contentLength) {
+                throw "Incomplete HTTP body: received $bodyByteCount of $contentLength UTF-8 bytes."
+            }
         }
 
         # Service routes

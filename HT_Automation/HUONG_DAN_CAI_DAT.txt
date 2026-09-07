@@ -1,4 +1,4 @@
-HT_AUTOMATION 5.7.15 - CAI DAT WINDOWS X64
+HT_AUTOMATION 3.0.5 - CAI DAT WINDOWS X64
 ==========================================
 
 1. Giai nen toan bo HT_Automation_Setup_Windows.zip.
@@ -16,7 +16,7 @@ Release, tai dung ban moi nhat va thay the ban cu. Khong can giai nen nhieu vers
 Yeu cau: Premiere Pro 26.2 tro len. Khong can cai Creative Cloud Desktop.
 Khong can cai Git, Node.js, UXP Developer Tool hoac FFmpeg rieng.
 Bo cai se tu tai whisper.cpp CUDA 12.4 neu co NVIDIA; may khac dung ban CPU.
-Model multilingual small (~466 MB) duoc giu nguyen de dam bao chat luong.
+Model multilingual Large V3 Turbo Q5 (~547 MB) duoc dung de tang do chinh xac.
 Can ket noi Internet trong lan cai dau tien. Cac lan cap nhat sau se tai lai neu file bi thieu.
 
 GO CAI DAT

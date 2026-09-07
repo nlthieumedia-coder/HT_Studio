@@ -1,4 +1,48 @@
-# HT_Automation 5.7.15
+# HT_Automation 3.0.5
+
+## Sửa đứng 5% với đường dẫn tiếng Việt 3.0.5
+
+- Bridge đọc request theo đúng số byte UTF-8, không còn chờ vô hạn khi đường dẫn chứa ký tự như `Kênh`.
+
+## Sửa cập nhật bị chờ vô hạn 5.7.22
+
+- Không mở hộp thoại ẩn trong tiến trình Administrator sau khi cài xong.
+- Bỏ qua self-test Whisper nặng khi runtime hiện tại đã hoạt động tốt.
+
+## Sửa dựng Video + Audio 5.7.21
+
+- Cắt video dài bằng remux để không phải mã hóa lại hàng phút trước khi import.
+- Chờ đúng file vừa import kể cả khi Bin đã chứa media từ lần dựng trước.
+- Tạo đúng Timeline mới khi người dùng chọn chế độ tự động tạo Timeline.
+
+## Tiến độ Auto Subtitle 5.7.20
+
+- Hiển thị đúng giai đoạn Whisper thay vì đứng ở nhãn chuẩn hóa FFmpeg.
+- Phần trăm tiến độ tăng theo clip hiện tại và tổng số clip.
+- Ghi rõ chế độ từng clip chính xác sẽ chậm hơn chế độ nhận dạng một lượt.
+
+## Hiển thị tiến độ cập nhật 5.7.19
+
+- CMD hiển thị trạng thái từ log và heartbeat mỗi 5 giây khi PowerShell Administrator chạy ẩn.
+- Không tải lại CUDA/CPU ở mỗi lần cập nhật nếu backend hiện tại vẫn khỏe mạnh.
+
+## Trình cài đặt một cửa sổ 5.7.18
+
+- Chỉ hiển thị cửa sổ CMD trạng thái; PowerShell Administrator chạy ẩn phía sau.
+- Vẫn hiển thị UAC, kết quả cuối và đường dẫn nhật ký khi hoàn tất.
+
+## Auto Subtitle chính xác 5.7.17
+
+- Mặc định nhận dạng độc lập từng clip; chế độ batch nhanh trở thành tùy chọn.
+- Chuẩn hóa động âm lượng giọng nói trước khi nhận dạng.
+- Tăng ngưỡng giữ lại thoại nhỏ và dùng model Large V3 Turbo Q5 đa ngôn ngữ.
+
+## Cải thiện độ chính xác Auto Subtitle 5.7.16
+
+- Thêm khoảng lặng đệm ở đầu và cuối từng clip để Whisper không mất từ sát biên.
+- Tách ranh giới các clip khi nhận dạng batch và ánh xạ câu theo phần giao thời gian lớn nhất.
+- Tự nhận dạng lại riêng mọi clip bị lượt batch bỏ sót.
+- Chia segment theo ranh giới từ và giảm khả năng bỏ qua câu thoại ngắn hoặc nhỏ tiếng.
 
 ## Tự phát hiện audio track 5.7.15
 
@@ -217,7 +261,7 @@ Tính năng chạy offline. Bộ cài một-click tự tải từ nguồn chính
 `%LOCALAPPDATA%\HT_Automation\Whisper`:
 
 - Bản Windows x64 của `whisper.cpp`, gồm `whisper-cli.exe` và các DLL đi kèm.
-- Model multilingual `ggml-small.bin`.
+- Model multilingual `ggml-large-v3-turbo-q5_0.bin` (~547 MiB), ưu tiên độ chính xác nhưng vẫn gọn hơn bản Large đầy đủ.
 
 Panel tự lấy hai đường dẫn trên từ Bridge; nút chọn file vẫn có thể dùng để thay model.
 Chọn timeline hiện có, track nguồn A1/A2/A3, thư mục đầu ra và ngôn ngữ, quét track rồi

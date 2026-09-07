@@ -31,7 +31,7 @@
     <div class="app-title">
       <img class="brand-logo" src="./icons/logo_icon.png" alt="HT_Automation Logo" />
       <h2>HT_Automation</h2>
-      <span class="version-tag">v5.7.15</span>
+      <span class="version-tag">v3.0.5</span>
     </div>
     <div class="connection-status">
       <div id="statusDot" class="status-dot"></div>
@@ -301,10 +301,11 @@
       <div class="workflow-step">
         <div class="step-heading"><span class="step-number">2</span><span>Tạo subtitle</span></div>
       <div id="whisperExeSetting" class="folder-row"><span class="folder-label">whisper-cli.exe</span><div class="input-group"><div id="pathWhisperExe" class="folder-path">Chưa chọn...</div><div id="btnPickWhisperExe" role="button" tabindex="0" class="btn btn-secondary" style="width:90px;flex-shrink:0"><svg class="icon"><use href="#i-folder"/></svg><span>Chọn</span></div></div></div>
-      <div id="whisperModelSetting" class="folder-row"><span class="folder-label">Model multilingual (.bin, ví dụ ggml-small.bin)</span><div class="input-group"><div id="pathWhisperModel" class="folder-path">Chưa chọn...</div><div id="btnPickWhisperModel" role="button" tabindex="0" class="btn btn-secondary" style="width:90px;flex-shrink:0"><svg class="icon"><use href="#i-folder"/></svg><span>Chọn</span></div></div></div>
+      <div id="whisperModelSetting" class="folder-row"><span class="folder-label">Model multilingual (.bin, mặc định Large V3 Turbo Q5)</span><div class="input-group"><div id="pathWhisperModel" class="folder-path">Chưa chọn...</div><div id="btnPickWhisperModel" role="button" tabindex="0" class="btn btn-secondary" style="width:90px;flex-shrink:0"><svg class="icon"><use href="#i-folder"/></svg><span>Chọn</span></div></div></div>
       <div class="folder-row"><span class="folder-label">Thư mục lưu WAV tạm và SRT</span><div class="input-group"><div id="pathSubtitleOutput" class="folder-path">Chưa chọn...</div><div id="btnPickSubtitleOutput" role="button" tabindex="0" class="btn btn-secondary" style="width:90px;flex-shrink:0"><svg class="icon"><use href="#i-folder"/></svg><span>Chọn</span></div></div></div>
       <div class="post-grid">
         <div class="folder-row"><span class="folder-label">Ngôn ngữ nhận dạng</span><select id="selectSubtitleLanguage" class="select-control"><option value="auto">Auto detect (Tự động)</option><option value="vi">Vietnamese (Tiếng Việt)</option><option value="en">English (Tiếng Anh)</option><option value="ja">Japanese (Tiếng Nhật)</option><option value="zh">Chinese (Tiếng Trung)</option><option value="ko">Korean (Tiếng Hàn)</option><option value="fr">French (Tiếng Pháp)</option><option value="de">German (Tiếng Đức)</option><option value="es">Spanish (Tiếng Tây Ban Nha)</option></select></div>
+        <div class="folder-row"><span class="folder-label">Chế độ nhận dạng</span><select id="selectSubtitleQuality" class="select-control"><option value="accurate">Chính xác — từng clip (chậm)</option><option value="fast">Nhanh — xử lý một lượt</option></select></div>
         <div class="folder-row"><span class="folder-label">Số ký tự tối đa mỗi dòng</span><input id="inputSubtitleLineLength" class="text-input" type="text" value="42"></div>
         <div class="folder-row"><span class="folder-label">Số dòng tối đa</span><select id="selectSubtitleMaxLines" class="select-control"><option value="2">2 dòng</option><option value="1">1 dòng</option></select></div>
       </div>

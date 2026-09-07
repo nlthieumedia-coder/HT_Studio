@@ -2,7 +2,7 @@
   "id": "com.hieuyt.htautomation",
   "name": "HT_Automation",
   "shortname": "HTAuto",
-  "version": "5.7.15",
+  "version": "3.0.5",
   "main": "index.html",
   "manifestVersion": 6,
   "host": {

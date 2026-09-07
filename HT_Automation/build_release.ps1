@@ -217,7 +217,7 @@ try {
     if ($OfflineRuntime) {
         $installedWhisper = Join-Path $env:LOCALAPPDATA "HT_Automation\Whisper"
         $offlineWhisper = Join-Path $portableDir "payload\Whisper"
-        if (-not (Test-Path -LiteralPath (Join-Path $installedWhisper "whisper-cli.exe")) -or -not (Test-Path -LiteralPath (Join-Path $installedWhisper "ggml-small.bin"))) {
+        if (-not (Test-Path -LiteralPath (Join-Path $installedWhisper "whisper-cli.exe")) -or -not (Test-Path -LiteralPath (Join-Path $installedWhisper "ggml-large-v3-turbo-q5_0.bin"))) {
             throw "Khong co Whisper runtime/model day du de tao goi Full Offline."
         }
         New-Item -ItemType Directory -Path $offlineWhisper -Force | Out-Null
