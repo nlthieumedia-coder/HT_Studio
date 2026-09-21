@@ -1,0 +1,44 @@
+{
+  "nav": {
+    "dashboard": "Dashboard",
+    "projects": "Projects",
+    "jobs": "Jobs",
+    "queue": "Queue",
+    "interrupted": "Interrupted",
+    "accounts": "Accounts",
+    "outputs": "Outputs",
+    "logs": "Logs",
+    "health": "Health",
+    "settings": "Settings",
+    "productionRuns": "Production Runs"
+  },
+  "actions": {
+    "save": "Save",
+    "cancel": "Cancel",
+    "close": "Close",
+    "delete": "Delete",
+    "edit": "Edit",
+    "retry": "Retry",
+    "refresh": "Refresh",
+    "search": "Search",
+    "loading": "Loading",
+    "confirm": "Confirm",
+    "back": "Back",
+    "next": "Next"
+  },
+  "status": {
+    "UNKNOWN": "Unknown",
+    "AUTHENTICATED": "Authenticated",
+    "LOGIN_REQUIRED": "Login Required",
+    "ERROR": "Error",
+    "IDLE": "Idle",
+    "ONLINE": "Online",
+    "OFFLINE": "Offline",
+    "FAILED": "Failed",
+    "COMPLETED": "Completed",
+    "INTERRUPTED": "Interrupted"
+  },
+  "language": "Language",
+  "vietnamese": "Tiếng Việt",
+  "english": "English"
+}

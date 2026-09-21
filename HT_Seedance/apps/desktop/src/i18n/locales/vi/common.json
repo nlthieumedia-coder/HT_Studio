@@ -1,0 +1,44 @@
+{
+  "nav": {
+    "dashboard": "Tổng quan",
+    "projects": "Dự án",
+    "jobs": "Công việc",
+    "queue": "Hàng đợi",
+    "interrupted": "Bị gián đoạn",
+    "accounts": "Tài khoản",
+    "outputs": "Đầu ra",
+    "logs": "Nhật ký",
+    "health": "Sức khỏe hệ thống",
+    "settings": "Cài đặt",
+    "productionRuns": "Đợt sản xuất"
+  },
+  "actions": {
+    "save": "Lưu",
+    "cancel": "Hủy",
+    "close": "Đóng",
+    "delete": "Xóa",
+    "edit": "Sửa",
+    "retry": "Thử lại",
+    "refresh": "Làm mới",
+    "search": "Tìm kiếm",
+    "loading": "Đang tải",
+    "confirm": "Xác nhận",
+    "back": "Quay lại",
+    "next": "Tiếp theo"
+  },
+  "status": {
+    "UNKNOWN": "Chưa xác định",
+    "AUTHENTICATED": "Đã đăng nhập",
+    "LOGIN_REQUIRED": "Cần đăng nhập",
+    "ERROR": "Lỗi",
+    "IDLE": "Đang chờ",
+    "ONLINE": "Trực tuyến",
+    "OFFLINE": "Ngoại tuyến",
+    "FAILED": "Thất bại",
+    "COMPLETED": "Hoàn tất",
+    "INTERRUPTED": "Bị gián đoạn"
+  },
+  "language": "Ngôn ngữ",
+  "vietnamese": "Tiếng Việt",
+  "english": "English"
+}

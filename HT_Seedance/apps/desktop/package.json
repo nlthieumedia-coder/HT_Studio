@@ -1,0 +1,41 @@
+{
+  "name": "@ht-dola/desktop",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview",
+    "tauri": "tauri",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint src/**/*.ts*",
+    "test": "node scripts/i18n-tests.mjs"
+  },
+  "dependencies": {
+    "@ht-dola/shared": "workspace:*",
+    "@ht-dola/ui": "workspace:*",
+    "@tauri-apps/api": "^2.11.1",
+    "@tauri-apps/plugin-opener": "^2.5.5",
+    "clsx": "^2.1.1",
+    "i18next": "^26.4.2",
+    "lucide-react": "^0.469.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "react-i18next": "^17.0.14",
+    "react-router-dom": "^7.1.1",
+    "tailwind-merge": "^2.6.0"
+  },
+  "devDependencies": {
+    "@tauri-apps/cli": "^2.11.4",
+    "@types/node": "^22.10.2",
+    "@types/react": "^19.0.2",
+    "@types/react-dom": "^19.0.2",
+    "@vitejs/plugin-react": "^4.3.4",
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.4.49",
+    "tailwindcss": "^3.4.17",
+    "typescript": "^5.7.2",
+    "vite": "^6.0.7"
+  }
+}

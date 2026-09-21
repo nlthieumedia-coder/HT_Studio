@@ -1,0 +1,35 @@
+export enum JobState {
+  DRAFT = 'DRAFT',
+  QUEUED = 'QUEUED',
+  WAITING_FOR_WORKER = 'WAITING_FOR_WORKER',
+  STARTING_BROWSER = 'STARTING_BROWSER',
+  PREPARING = 'PREPARING',
+  SUBMITTING = 'SUBMITTING',
+  GENERATING = 'GENERATING',
+  DOWNLOADING = 'DOWNLOADING',
+  PROCESSING = 'PROCESSING',
+  COMPLETED = 'COMPLETED',
+  FAILED = 'FAILED',
+  CANCELLED = 'CANCELLED',
+  INTERRUPTED = 'INTERRUPTED',
+}
+
+export type JobStateType = keyof typeof JobState;
+
+export const TERMINAL_JOB_STATES: ReadonlyArray<JobState> = [
+  JobState.COMPLETED,
+  JobState.FAILED,
+  JobState.CANCELLED,
+  JobState.INTERRUPTED,
+];
+
+export const ACTIVE_JOB_STATES: ReadonlyArray<JobState> = [
+  JobState.QUEUED,
+  JobState.WAITING_FOR_WORKER,
+  JobState.STARTING_BROWSER,
+  JobState.PREPARING,
+  JobState.SUBMITTING,
+  JobState.GENERATING,
+  JobState.DOWNLOADING,
+  JobState.PROCESSING,
+];

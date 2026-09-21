@@ -1,0 +1,12 @@
+{
+  "ACCOUNT_CREATE_FAILED": "Account could not be created.",
+  "PROFILE_CREATE_FAILED": "Browser profile could not be created.",
+  "PROFILE_PATH_FAILED": "Browser profile path could not be created.",
+  "PROFILE_ALREADY_RUNNING": "This browser profile is already running.",
+  "VALIDATION_FAILED": "The submitted information is invalid.",
+  "DATABASE_CONFLICT": "The account conflicts with existing data.",
+  "LOGIN_REQUIRED": "Login is required.",
+  "SESSION_CHECK_FAILED": "Session could not be checked.",
+  "BROWSER_LAUNCH_FAILED": "Browser profile could not be opened.",
+  "UNKNOWN": "The operation could not be completed."
+}

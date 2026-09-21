@@ -1,0 +1,2 @@
+import type { ControlDefinition } from '../../reliability/ControlResolver.js';
+export const dialogControls = { knownError: { id: 'provider_error_dialog', requireEnabled: false, candidates: [{ strategy: 'css', value: "[role='dialog'][data-provider-error]" }] }, unknown: { id: 'unknown_dialog', requireEnabled: false, candidates: [{ strategy: 'role', role: 'dialog' }] } } satisfies Record<string, ControlDefinition>;

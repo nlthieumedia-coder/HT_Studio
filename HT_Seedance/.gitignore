@@ -1,0 +1,44 @@
+# Dependencies
+node_modules
+.pnpm-store
+
+# Build outputs
+dist
+build
+out
+.vite
+**/src-tauri/target/
+.toolchains/
+release/
+apps/desktop/src-tauri/resources/
+apps/desktop/src-tauri/gen/schemas/
+*.tsbuildinfo
+
+# Local Data & DB
+data/ht_dola_studio.db*
+data/browsers/
+data/diagnostics/
+data/qa-*/
+data/recovery/
+data/test-results/
+data/provider-reliability.json
+data/profiles/*
+!data/profiles/.gitkeep
+data/projects/*
+!data/projects/.gitkeep
+data/downloads/*
+!data/downloads/.gitkeep
+data/logs/*
+!data/logs/.gitkeep
+data/temp/*
+!data/temp/.gitkeep
+
+# Environment & Temp
+.env
+.env.local
+*.log
+
+# IDE
+.vscode
+.idea
+*.swp

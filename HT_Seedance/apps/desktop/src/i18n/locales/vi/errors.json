@@ -1,0 +1,12 @@
+{
+  "ACCOUNT_CREATE_FAILED": "Không thể tạo tài khoản.",
+  "PROFILE_CREATE_FAILED": "Không thể tạo hồ sơ trình duyệt.",
+  "PROFILE_PATH_FAILED": "Không thể tạo đường dẫn hồ sơ trình duyệt.",
+  "PROFILE_ALREADY_RUNNING": "Hồ sơ trình duyệt này đang được sử dụng.",
+  "VALIDATION_FAILED": "Thông tin đã nhập không hợp lệ.",
+  "DATABASE_CONFLICT": "Tài khoản xung đột với dữ liệu hiện có.",
+  "LOGIN_REQUIRED": "Bạn cần đăng nhập lại.",
+  "SESSION_CHECK_FAILED": "Không thể kiểm tra phiên đăng nhập.",
+  "BROWSER_LAUNCH_FAILED": "Không thể mở hồ sơ trình duyệt.",
+  "UNKNOWN": "Không thể hoàn tất thao tác."
+}

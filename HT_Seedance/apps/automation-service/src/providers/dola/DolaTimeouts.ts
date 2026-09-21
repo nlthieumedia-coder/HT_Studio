@@ -1,0 +1,1 @@
+export const dolaTimeouts={navigation:Number(process.env.HT_DOLA_NAVIGATION_TIMEOUT??30_000),control:Number(process.env.HT_DOLA_CONTROL_TIMEOUT??10_000),upload:Number(process.env.HT_DOLA_UPLOAD_TIMEOUT??120_000),generation:Number(process.env.HT_DOLA_GENERATION_TIMEOUT??30*60_000),download:Number(process.env.HT_DOLA_DOWNLOAD_TIMEOUT??120_000)} as const;

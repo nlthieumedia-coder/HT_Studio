@@ -1,0 +1,42 @@
+{
+  "name": "@ht-dola/automation-service",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "main": "./dist/index.js",
+  "files": [
+    "dist",
+    "package.json"
+  ],
+  "scripts": {
+    "dev": "node scripts/dev.mjs",
+    "build": "tsc -b && node scripts/copy-static.mjs",
+    "start": "node dist/index.js",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint src/**/*.ts",
+    "test": "pnpm build && node scripts/run-tests.mjs",
+    "test:performance": "pnpm build && node dist/qa/run-phase18.js",
+    "db:migrate": "pnpm build && node dist/db/cli.js migrate",
+    "db:seed": "pnpm build && node dist/db/cli.js seed",
+    "db:status": "pnpm build && node dist/db/cli.js status",
+    "backup:create": "pnpm build && node dist/db/backup-cli.js create",
+    "backup:verify": "pnpm build && node dist/db/backup-cli.js verify",
+    "restore:verify": "pnpm build && node dist/db/backup-cli.js restore-verify"
+  },
+  "dependencies": {
+    "@fastify/cors": "^10.0.1",
+    "@ht-dola/shared": "workspace:*",
+    "better-sqlite3": "^12.4.1",
+    "fastify": "^5.2.0",
+    "pino": "^9.6.0",
+    "pino-pretty": "^13.0.0",
+    "playwright": "^1.49.1",
+    "xlsx": "0.18.5",
+    "zod": "^3.24.1"
+  },
+  "devDependencies": {
+    "@types/better-sqlite3": "^7.6.12",
+    "@types/node": "^22.10.2",
+    "typescript": "^5.7.2"
+  }
+}
