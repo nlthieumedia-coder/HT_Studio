@@ -1,0 +1,82 @@
+{
+  "name": "ht_pagenew",
+  "version": "1.6.0",
+  "description": "Ứng dụng desktop quản lý lịch mở Facebook Feed và Reels",
+  "type": "module",
+  "main": "main.cjs",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "electron": "electron main.cjs",
+    "start": "concurrently \"npm run dev\" \"wait-on http://localhost:5173 && cross-env ELECTRON_START_URL=http://localhost:5173 electron main.cjs\"",
+    "dev:app": "concurrently --kill-others \"vite\" \"wait-on http://localhost:5173 && node scripts/electron-dev.cjs\"",
+    "cleanup": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/cleanup-build.ps1 -KeepNewest 1",
+    "dist": "npm run build && electron-builder --win nsis portable --config.electronDist=node_modules/electron/dist && npm run cleanup"
+  },
+  "build": {
+    "appId": "vn.htstudio.pagenew",
+    "productName": "HT PageNew",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "dist/**/*",
+      "main.cjs",
+      "preload.js",
+      "package.json",
+      "!node_modules/playwright-core/.local-browsers/**/*"
+    ],
+    "extraResources": [
+      {
+        "from": "node_modules/playwright-core/.local-browsers/chromium-1243",
+        "to": "chromium"
+      },
+      {
+        "from": "vendor/atp-cookie",
+        "to": "extensions/atp-cookie",
+        "filter": [
+          "**/*",
+          "!.git{,/**/*}"
+        ]
+      }
+    ],
+    "win": {
+      "target": [
+        "nsis",
+        "portable"
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
+    }
+  },
+  "keywords": [
+    "facebook",
+    "feed",
+    "reels",
+    "schedule",
+    "profiles",
+    "electron",
+    "react",
+    "vite"
+  ],
+  "author": "HT Studio",
+  "license": "ISC",
+  "dependencies": {
+    "lucide-react": "^1.16.0",
+    "playwright-core": "^1.63.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^5.1.4",
+    "concurrently": "^9.2.1",
+    "cross-env": "^10.1.0",
+    "electron": "^38.4.0",
+    "electron-builder": "^26.15.3",
+    "vite": "^6.4.1",
+    "wait-on": "^8.0.3"
+  }
+}
