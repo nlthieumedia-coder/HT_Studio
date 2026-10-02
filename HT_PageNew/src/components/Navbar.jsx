@@ -1,5 +1,5 @@
 import React from 'react';
-import { LayoutDashboard, Users, CalendarClock, History, Send } from 'lucide-react';
+import { LayoutDashboard, Users, CalendarClock, CalendarDays, History, Send } from 'lucide-react';
 import brandLogo from '../../assets/branding/app-icon-128.png';
 
 export default function Navbar({ activeTab, setActiveTab, activeProfilesCount, totalProfilesCount }) {
@@ -7,6 +7,7 @@ export default function Navbar({ activeTab, setActiveTab, activeProfilesCount, t
     { id: 'dashboard', label: 'Tổng quan', icon: LayoutDashboard },
     { id: 'profiles', label: 'Hồ sơ tài khoản', icon: Users, badge: `${activeProfilesCount}/${totalProfilesCount}` },
     { id: 'schedule', label: 'Lịch chạy', icon: CalendarClock },
+    { id: 'scheduled-runs', label: 'Lịch đã lên', icon: CalendarDays },
     { id: 'logs', label: 'Nhật ký hoạt động', icon: History },
     { id: 'telegram', label: 'Telegram & Thông báo', icon: Send },
   ];

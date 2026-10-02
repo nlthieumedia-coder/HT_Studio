@@ -1,6 +1,6 @@
 {
   "name": "ht_pagenew",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Ứng dụng desktop quản lý lịch mở Facebook Feed và Reels",
   "type": "module",
   "main": "main.cjs",

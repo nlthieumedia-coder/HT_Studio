@@ -11,6 +11,7 @@ import TelegramSettingsModal from './components/TelegramSettingsModal';
 import DashboardView from './views/DashboardView';
 import ProfilesView from './views/ProfilesView';
 import ScheduleView from './views/ScheduleView';
+import ScheduledRunsView from './views/ScheduledRunsView';
 import LogsView from './views/LogsView';
 import TelegramView from './views/TelegramView';
 
@@ -337,6 +338,17 @@ export default function App() {
     addToast('Đã dọn dẹp nhật ký hoạt động!', 'info');
   };
 
+  const handleStopScheduledRun = async (profile) => {
+    const result = await ElectronService.stopSession(profile.id);
+    if (result.success) {
+      ProfileStorage.updateProfileExecutionStatus(profile.id, 'completed');
+      addToast(result.message || `Đã dừng phiên của hồ sơ "${profile.name}".`, 'success');
+    } else {
+      addToast(result.message || `Không thể dừng hồ sơ "${profile.name}".`, 'error');
+    }
+    loadData();
+  };
+
   const getTabTitle = () => {
     switch (activeTab) {
       case 'dashboard':
@@ -345,6 +357,8 @@ export default function App() {
         return 'Quản Lý Hồ Sơ & Đăng Nhập Facebook';
       case 'schedule':
         return 'Lịch Chạy Mở Facebook';
+      case 'scheduled-runs':
+        return 'Lịch Đã Lên';
       case 'logs':
         return 'Nhật Ký Hoạt Động';
       case 'telegram':
@@ -356,7 +370,7 @@ export default function App() {
 
   const activeProfilesCount = profiles.filter((p) => p.status).length;
   return (
-    <div className={`app-container ${activeTab === 'dashboard' ? 'dashboard-active' : ''} ${activeTab === 'profiles' ? 'profiles-active' : ''} ${activeTab === 'schedule' ? 'schedule-active' : ''} ${activeTab === 'logs' ? 'logs-active' : ''} ${activeTab === 'telegram' ? 'telegram-active' : ''}`}>
+    <div className={`app-container ${activeTab === 'dashboard' ? 'dashboard-active' : ''} ${activeTab === 'profiles' ? 'profiles-active' : ''} ${activeTab === 'schedule' ? 'schedule-active' : ''} ${activeTab === 'scheduled-runs' ? 'scheduled-runs-active' : ''} ${activeTab === 'logs' ? 'logs-active' : ''} ${activeTab === 'telegram' ? 'telegram-active' : ''}`}>
       {/* Sidebar Navigation */}
       <Navbar
         activeTab={activeTab}
@@ -406,6 +420,18 @@ export default function App() {
 
           {activeTab === 'schedule' && (
             <ScheduleView profiles={profiles} onOpenScheduleModal={handleOpenScheduleModal} />
+          )}
+
+          {activeTab === 'scheduled-runs' && (
+            <ScheduledRunsView
+              profiles={profiles}
+              logs={logs}
+              onRunNow={handleRunPageNow}
+              onStop={handleStopScheduledRun}
+              onEdit={handleOpenScheduleModal}
+              onOpenLogs={() => setActiveTab('logs')}
+              onRefresh={loadData}
+            />
           )}
 
           {activeTab === 'logs' && (
