@@ -1661,44 +1661,59 @@ async function switchFacebookIdentityByCookie(page, context, profile) {
   };
   if (previous?.expires > 0) cookie.expires = previous.expires;
 
+  writeAutomationDiagnostic(profile.id, 'page-switch-step', {
+    stage: 'cookie-switch-start',
+    pageName: profile.pageName,
+    expectedPageId: profile.expectedPageId,
+  });
   try {
-    writeAutomationDiagnostic(profile.id, 'page-switch-step', {
-      stage: 'cookie-switch-start',
-      pageName: profile.pageName,
-      expectedPageId: profile.expectedPageId,
-    });
     await context.addCookies([cookie]);
-    await page.goto('https://www.facebook.com/', { waitUntil: 'domcontentloaded', timeout: 30000 });
-    const identity = await waitForPageIdentity(context, profile.expectedPageId, 7000);
-    const composerConfirmed = identity.success
-      ? await waitForPageComposerIdentity(page, profile.pageName, 7000)
-      : false;
-    if (identity.success && composerConfirmed) {
+  } catch (error) {
+    writeAutomationDiagnostic(profile.id, 'page-switch-step', {
+      stage: 'cookie-switch-write-error',
+      pageName: profile.pageName,
+      message: error.message,
+    });
+    return { success: false };
+  }
+  for (let attempt = 1; attempt <= 3; attempt += 1) {
+    try {
+      // Facebook often aborts the first navigation while internally redirecting
+      // after an identity change. A committed request plus an exact i_user match
+      // is authoritative; ERR_ABORTED is therefore diagnostic, not fatal.
+      await page.goto('https://www.facebook.com/', { waitUntil: 'commit', timeout: 20000 });
+    } catch (error) {
+      writeAutomationDiagnostic(profile.id, 'page-switch-step', {
+        stage: 'cookie-switch-navigation-interrupted',
+        attempt,
+        pageName: profile.pageName,
+        message: error.message,
+      });
+    }
+    await wait(1200);
+    const identity = await getFacebookIdentity(context);
+    if (identity.actingId === String(profile.expectedPageId) && identity.actingId !== identity.personalId) {
+      const composerConfirmed = await waitForPageComposerIdentity(page, profile.pageName, 3000);
       writeAutomationDiagnostic(profile.id, 'page-switch-success', {
         method: 'page-id-cookie',
+        attempt,
         pageName: profile.pageName,
         actingPageId: identity.actingId,
+        composerConfirmed,
       });
       return { success: true, actingId: identity.actingId };
     }
     writeAutomationDiagnostic(profile.id, 'page-switch-step', {
-      stage: 'cookie-switch-rejected',
+      stage: 'cookie-switch-attempt-not-confirmed',
+      attempt,
       pageName: profile.pageName,
       expectedPageId: profile.expectedPageId,
       actingPageId: identity.actingId || '',
-      composerConfirmed,
-    });
-  } catch (error) {
-    writeAutomationDiagnostic(profile.id, 'page-switch-step', {
-      stage: 'cookie-switch-error',
-      pageName: profile.pageName,
-      message: error.message,
     });
   }
 
   // Do not leave the browser in a partially switched identity if Facebook did
-  // not confirm the target Page. Restore the previous i_user before the visible
-  // account-menu fallback.
+  // not confirm the target Page. Restore the previous i_user before returning.
   try {
     await context.clearCookies({ name: 'i_user', domain: cookie.domain, path: cookie.path });
     if (previous?.value) await context.addCookies([{ ...cookie, value: previous.value }]);
@@ -1838,6 +1853,18 @@ async function switchFacebookPageIdentity(page, context, profile) {
       actingPageId: directResult.actingId,
     });
     return directResult;
+  }
+
+  // When a verified numeric Page ID is available, never fall through to
+  // coordinate/text menu clicks. Facebook frequently reorders Stories and
+  // account-menu items, which can otherwise open unrelated content.
+  if (profile.expectedPageId) {
+    writeAutomationDiagnostic(profile.id, 'page-switch-failed', {
+      stage: 'verified-page-id-switch-rejected',
+      pageName: profile.pageName,
+      expectedPageId: profile.expectedPageId,
+    });
+    return { success: false, reason: `Facebook chưa chấp nhận chuyển sang Page "${profile.pageName}" (ID ${profile.expectedPageId}).` };
   }
 
   // Always begin the switch from Facebook Home and use the visible account
