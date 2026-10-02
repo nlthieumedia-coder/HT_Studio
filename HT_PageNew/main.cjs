@@ -1498,6 +1498,67 @@ async function switchFacebookIdentityByUrl(page, context, profile) {
   }
 }
 
+async function switchFacebookIdentityByCookie(page, context, profile) {
+  if (!profile.expectedPageId) return { success: false };
+  const cookies = await context.cookies('https://www.facebook.com');
+  const previous = cookies.find((cookie) => cookie.name === 'i_user');
+  const cookie = {
+    name: 'i_user',
+    value: String(profile.expectedPageId),
+    domain: previous?.domain || '.facebook.com',
+    path: previous?.path || '/',
+    httpOnly: previous?.httpOnly ?? false,
+    secure: previous?.secure ?? true,
+    sameSite: previous?.sameSite || 'None',
+  };
+  if (previous?.expires > 0) cookie.expires = previous.expires;
+
+  try {
+    writeAutomationDiagnostic(profile.id, 'page-switch-step', {
+      stage: 'cookie-switch-start',
+      pageName: profile.pageName,
+      expectedPageId: profile.expectedPageId,
+    });
+    await context.addCookies([cookie]);
+    await page.goto('https://www.facebook.com/', { waitUntil: 'domcontentloaded', timeout: 30000 });
+    const identity = await waitForPageIdentity(context, profile.expectedPageId, 7000);
+    const composerConfirmed = identity.success
+      ? await waitForPageComposerIdentity(page, profile.pageName, 7000)
+      : false;
+    if (identity.success && composerConfirmed) {
+      writeAutomationDiagnostic(profile.id, 'page-switch-success', {
+        method: 'page-id-cookie',
+        pageName: profile.pageName,
+        actingPageId: identity.actingId,
+      });
+      return { success: true, actingId: identity.actingId };
+    }
+    writeAutomationDiagnostic(profile.id, 'page-switch-step', {
+      stage: 'cookie-switch-rejected',
+      pageName: profile.pageName,
+      expectedPageId: profile.expectedPageId,
+      actingPageId: identity.actingId || '',
+      composerConfirmed,
+    });
+  } catch (error) {
+    writeAutomationDiagnostic(profile.id, 'page-switch-step', {
+      stage: 'cookie-switch-error',
+      pageName: profile.pageName,
+      message: error.message,
+    });
+  }
+
+  // Do not leave the browser in a partially switched identity if Facebook did
+  // not confirm the target Page. Restore the previous i_user before the visible
+  // account-menu fallback.
+  try {
+    await context.clearCookies({ name: 'i_user', domain: cookie.domain, path: cookie.path });
+    if (previous?.value) await context.addCookies([{ ...cookie, value: previous.value }]);
+    await page.goto('https://www.facebook.com/', { waitUntil: 'domcontentloaded', timeout: 30000 });
+  } catch (_) {}
+  return { success: false };
+}
+
 async function goToFacebookHome(page) {
   const clicked = await clickFirstVisible(page, [
     '[aria-label="Home"]',
@@ -1608,6 +1669,14 @@ async function switchFacebookPageIdentity(page, context, profile) {
       return { success: true, actingId: persisted.actingId };
     }
   }
+
+  // Both configured profile.php links and Page IDs learned from a previous
+  // successful run can switch deterministically without relying on Facebook's
+  // translated/reordered account menu. Facebook still validates whether the
+  // logged-in account may act as that Page; we also require the composer name
+  // to match before accepting the switch.
+  const cookieResult = await switchFacebookIdentityByCookie(page, context, profile);
+  if (cookieResult.success) return cookieResult;
 
   // A configured profile.php?id=... link gives us an unambiguous Page ID.
   // Prefer Facebook's own profile-switch endpoint and verify the resulting
