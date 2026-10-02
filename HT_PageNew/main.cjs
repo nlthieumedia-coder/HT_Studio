@@ -1329,6 +1329,29 @@ async function waitForPageIdentity(context, expectedPageId = '', timeoutMs = 150
   return { success: false, ...(await getFacebookIdentity(context)) };
 }
 
+async function waitForPageComposerIdentity(page, pageName, timeoutMs = 10000) {
+  const deadline = Date.now() + timeoutMs;
+  while (Date.now() < deadline) {
+    try {
+      const active = await page.evaluate((expectedName) => {
+        const normalize = (value) => String(value || '').replace(/\s+/g, ' ').trim().toLocaleLowerCase();
+        const name = normalize(expectedName);
+        return Array.from(document.querySelectorAll('[aria-label], [placeholder], [role="button"], [contenteditable="true"]'))
+          .some((node) => {
+            const rect = node.getBoundingClientRect();
+            if (rect.top < 60 || rect.top > 420 || rect.width < 80 || rect.height < 20) return false;
+            const value = normalize(`${node.getAttribute('aria-label') || ''} ${node.getAttribute('placeholder') || ''} ${node.textContent || ''}`);
+            const isComposer = value.includes("what's on your mind") || value.includes('bạn đang nghĩ gì') || value.includes('đang nghĩ gì thế');
+            return isComposer && value.includes(name);
+          });
+      }, pageName);
+      if (active) return true;
+    } catch (_) {}
+    await wait(500);
+  }
+  return false;
+}
+
 async function clickFirstVisible(page, selectors, label = 'Click') {
   for (const selector of selectors) {
     const candidates = page.locator(selector);
@@ -1434,6 +1457,30 @@ async function fillFacebookProfileSearch(page, pageName) {
         await wait(1100);
         return true;
       } catch (_) {}
+    }
+  }
+  return false;
+}
+
+async function confirmFacebookProfileSwitch(page) {
+  const labels = [
+    'Switch',
+    'Switch profile',
+    'Continue',
+    'Use profile',
+    'Chuyển',
+    'Chuyển trang cá nhân',
+    'Chuyển hồ sơ',
+    'Tiếp tục',
+    'Sử dụng trang cá nhân',
+  ];
+  for (let attempt = 0; attempt < 3; attempt += 1) {
+    await wait(900);
+    for (const label of labels) {
+      if (await clickExactVisibleText(page, label)) {
+        await wait(1800);
+        return true;
+      }
     }
   }
   return false;
@@ -1640,8 +1687,30 @@ async function switchFacebookPageIdentity(page, context, profile) {
     return { success: false, reason: `Không tìm thấy Page "${profile.pageName}" trong menu chuyển hồ sơ.` };
   }
 
-  identityResult = await waitForPageIdentity(context, profile.expectedPageId, 15000);
-  if (!identityResult.success || identityResult.actingId === beforeIdentity.personalId) {
+
+  const confirmationClicked = await confirmFacebookProfileSwitch(page);
+  writeAutomationDiagnostic(profile.id, 'page-switch-step', {
+    stage: confirmationClicked ? 'switch-confirmed' : 'no-switch-confirmation',
+    pageName: profile.pageName,
+    currentUrl: page.url(),
+  });
+
+  // The ID discoverable in a vanity Page's HTML may refer to a content entity
+  // rather than the acting profile. Trust the identity Facebook actually sets
+  // after the visible selection, then validate the Page name in the composer.
+  identityResult = await waitForPageIdentity(context, '', 10000);
+  await goToFacebookHome(page);
+  const composerConfirmed = await waitForPageComposerIdentity(page, profile.pageName, 8000);
+  const expectedIdMatches = !profile.expectedPageId || identityResult.actingId === profile.expectedPageId;
+  writeAutomationDiagnostic(profile.id, 'page-switch-step', {
+    stage: 'identity-verified',
+    pageName: profile.pageName,
+    expectedPageId: profile.expectedPageId,
+    actingPageId: identityResult.actingId,
+    expectedIdMatches,
+    composerConfirmed,
+  });
+  if ((!identityResult.success && !composerConfirmed) || (identityResult.actingId && identityResult.actingId === beforeIdentity.personalId)) {
     writeAutomationDiagnostic(profile.id, 'page-switch-failed', {
       stage: 'verify-after-click',
       pageName: profile.pageName,
@@ -1651,7 +1720,10 @@ async function switchFacebookPageIdentity(page, context, profile) {
     return { success: false, reason: `Facebook chưa xác nhận chuyển sang Page "${profile.pageName}".` };
   }
 
-  await goToFacebookHome(page);
+  if (composerConfirmed) {
+    writeAutomationDiagnostic(profile.id, 'page-switch-success', { method: 'account-menu-composer', pageName: profile.pageName, actingPageId: identityResult.actingId || '' });
+    return { success: true, actingId: identityResult.actingId || profile.expectedPageId || '' };
+  }
   const persisted = await waitForPageIdentity(context, profile.expectedPageId || identityResult.actingId, 7000);
   if (!persisted.success) {
     writeAutomationDiagnostic(profile.id, 'page-switch-failed', { stage: 'verify-after-home', pageName: profile.pageName, expectedPageId: profile.expectedPageId });
