@@ -1798,20 +1798,50 @@ async function switchFacebookPersonalIdentity(page, context, profile) {
   }
 
   writeAutomationDiagnostic(profile.id, 'personal-switch-start', { actingPageIdBefore: current.actingId, personalId: current.personalId });
-  const switchUrl = `https://www.facebook.com/switchprofile.php?profile_id=${encodeURIComponent(current.personalId)}&next=${encodeURIComponent('https://www.facebook.com/')}`;
+  const cookies = await context.cookies('https://www.facebook.com');
+  const previousActingCookie = cookies.find((cookie) => cookie.name === 'i_user');
   try {
-    await page.goto(switchUrl, { waitUntil: 'domcontentloaded', timeout: 30000 });
-    const deadline = Date.now() + 15000;
+    // Facebook represents the personal identity by the absence of i_user;
+    // c_user remains untouched and continues to hold the authenticated account.
+    await context.clearCookies({ name: 'i_user' });
+    await page.goto('https://www.facebook.com/', { waitUntil: 'domcontentloaded', timeout: 30000 });
+    const deadline = Date.now() + 8000;
     while (Date.now() < deadline) {
       const identity = await getFacebookIdentity(context);
-      if (identity.personalId === current.personalId && (!identity.actingId || identity.actingId === identity.personalId)) {
-        await goToFacebookHome(page);
-        writeAutomationDiagnostic(profile.id, 'personal-switch-success', { personalId: identity.personalId });
+      if (identity.personalId === current.personalId && !identity.actingId) {
+        writeAutomationDiagnostic(profile.id, 'personal-switch-success', {
+          method: 'clear-acting-identity',
+          personalId: identity.personalId,
+        });
         return { success: true, personalId: identity.personalId };
       }
-      await wait(500);
+      await wait(400);
     }
-  } catch (_) {}
+  } catch (error) {
+    writeAutomationDiagnostic(profile.id, 'personal-switch-step', {
+      stage: 'clear-acting-identity-error',
+      message: error.message,
+    });
+  }
+
+  // Restore the Page identity if Facebook did not confirm the personal account.
+  // This keeps the browser in the same known state instead of half-switching.
+  if (previousActingCookie?.value) {
+    try {
+      const restoreCookie = {
+        name: 'i_user',
+        value: previousActingCookie.value,
+        domain: previousActingCookie.domain || '.facebook.com',
+        path: previousActingCookie.path || '/',
+        httpOnly: previousActingCookie.httpOnly ?? false,
+        secure: previousActingCookie.secure ?? true,
+        sameSite: previousActingCookie.sameSite || 'None',
+      };
+      if (previousActingCookie.expires > 0) restoreCookie.expires = previousActingCookie.expires;
+      await context.addCookies([restoreCookie]);
+      await page.goto('https://www.facebook.com/', { waitUntil: 'domcontentloaded', timeout: 30000 });
+    } catch (_) {}
+  }
   const after = await getFacebookIdentity(context);
   writeAutomationDiagnostic(profile.id, 'personal-switch-failed', { actingPageIdAfter: after.actingId, personalId: after.personalId });
   return { success: false, reason: 'Facebook chưa chuyển khỏi vai Page để trở về Trang cá nhân.' };
