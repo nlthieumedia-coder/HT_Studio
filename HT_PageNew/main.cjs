@@ -1390,6 +1390,67 @@ async function getVisibleAccountMenuText(page) {
   } catch (_) { return []; }
 }
 
+async function clickFacebookProfileById(page, expectedPageId, pageName = '') {
+  if (!expectedPageId) return false;
+  const point = await page.evaluate(({ targetId, targetName }) => {
+    const normalize = (value) => String(value || '').replace(/\s+/g, ' ').trim().toLocaleLowerCase();
+    const links = Array.from(document.querySelectorAll('a[href], [role="button"], [tabindex="0"]'));
+    const candidates = links.map((node) => {
+      const rect = node.getBoundingClientRect();
+      const href = node.getAttribute('href') || '';
+      const text = normalize(node.innerText || node.textContent || node.getAttribute('aria-label'));
+      let idMatch = false;
+      try {
+        const parsed = new URL(href, window.location.origin);
+        idMatch = parsed.searchParams.get('profile_id') === targetId
+          || parsed.searchParams.get('id') === targetId
+          || parsed.pathname.split('/').filter(Boolean).includes(targetId);
+      } catch (_) {}
+      return { node, rect, text, idMatch };
+    }).filter(({ rect, idMatch, text }) => rect.width > 8 && rect.height > 8
+      && rect.bottom > 0 && rect.top < window.innerHeight
+      && getComputedStyle(document.elementFromPoint(
+        Math.min(window.innerWidth - 1, Math.max(0, rect.left + rect.width / 2)),
+        Math.min(window.innerHeight - 1, Math.max(0, rect.top + rect.height / 2)),
+      ) || document.body).visibility !== 'hidden'
+      && (idMatch || (targetName && text === normalize(targetName))));
+    candidates.sort((a, b) => Number(b.idMatch) - Number(a.idMatch) || (a.rect.width * a.rect.height) - (b.rect.width * b.rect.height));
+    if (!candidates.length) return null;
+    const rect = candidates[0].rect;
+    return { x: rect.left + rect.width / 2, y: rect.top + rect.height / 2 };
+  }, { targetId: String(expectedPageId), targetName: pageName });
+  if (!point) return false;
+  await moveVirtualCursor(page, point.x, point.y, `Chọn ${pageName || expectedPageId}`);
+  await wait(350);
+  await page.mouse.click(point.x, point.y);
+  return true;
+}
+
+async function switchFacebookIdentityByUrl(page, context, profile) {
+  if (!profile.identitySwitchUrl || !profile.expectedPageId) return { success: false };
+  try {
+    writeAutomationDiagnostic(profile.id, 'page-switch-step', {
+      stage: 'direct-switch-start',
+      pageName: profile.pageName,
+      expectedPageId: profile.expectedPageId,
+    });
+    await page.goto(profile.identitySwitchUrl, { waitUntil: 'domcontentloaded', timeout: 30000 });
+    const result = await waitForPageIdentity(context, profile.expectedPageId, 15000);
+    if (!result.success) return { success: false, actingId: result.actingId };
+    await goToFacebookHome(page);
+    const persisted = await waitForPageIdentity(context, profile.expectedPageId, 7000);
+    if (!persisted.success) return { success: false, actingId: persisted.actingId };
+    return { success: true, actingId: persisted.actingId };
+  } catch (error) {
+    writeAutomationDiagnostic(profile.id, 'page-switch-step', {
+      stage: 'direct-switch-error',
+      pageName: profile.pageName,
+      message: error.message,
+    });
+    return { success: false };
+  }
+}
+
 async function goToFacebookHome(page) {
   const clicked = await clickFirstVisible(page, [
     '[aria-label="Home"]',
@@ -1442,6 +1503,20 @@ async function switchFacebookPageIdentity(page, context, profile) {
     }
   }
 
+  // A configured profile.php?id=... link gives us an unambiguous Page ID.
+  // Prefer Facebook's own profile-switch endpoint and verify the resulting
+  // i_user cookie. This avoids depending on translated/reordered account-menu
+  // labels. The visible menu remains a fallback for URL variants without an ID.
+  const directResult = await switchFacebookIdentityByUrl(page, context, profile);
+  if (directResult.success) {
+    writeAutomationDiagnostic(profile.id, 'page-switch-success', {
+      method: 'profile-id-url',
+      pageName: profile.pageName,
+      actingPageId: directResult.actingId,
+    });
+    return directResult;
+  }
+
   // Always begin the switch from Facebook Home and use the visible account
   // menu. Navigating to a Page URL can show its management surface without
   // actually changing the acting identity.
@@ -1474,7 +1549,8 @@ async function switchFacebookPageIdentity(page, context, profile) {
 
   let selected = false;
   if (openedAllProfiles) {
-    selected = await clickExactVisibleText(page, profile.pageName);
+    selected = await clickFacebookProfileById(page, profile.expectedPageId, profile.pageName);
+    if (!selected) selected = await clickExactVisibleText(page, profile.pageName);
     if (!selected) selected = await clickVisibleTextByDom(page, profile.pageName, { rightSideOnly: false });
     if (!selected) {
       const searched = await fillFacebookProfileSearch(page, profile.pageName);
@@ -1483,14 +1559,16 @@ async function switchFacebookPageIdentity(page, context, profile) {
         pageName: profile.pageName,
       });
       if (searched) {
-        selected = await clickExactVisibleText(page, profile.pageName);
+        selected = await clickFacebookProfileById(page, profile.expectedPageId, profile.pageName);
+        if (!selected) selected = await clickExactVisibleText(page, profile.pageName);
         if (!selected) selected = await clickVisibleTextByDom(page, profile.pageName, { rightSideOnly: false });
       }
     }
   } else {
     // Compatibility fallback for Facebook variants where all managed profiles
     // already appear in the first menu and there is no "See all profiles" row.
-    selected = await clickExactVisibleText(page, profile.pageName);
+    selected = await clickFacebookProfileById(page, profile.expectedPageId, profile.pageName);
+    if (!selected) selected = await clickExactVisibleText(page, profile.pageName);
     if (!selected) selected = await clickVisibleTextByDom(page, profile.pageName);
   }
   if (!selected) {
