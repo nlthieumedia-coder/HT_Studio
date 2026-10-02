@@ -11,6 +11,7 @@ contextBridge.exposeInMainWorld('electronAPI', {
   decryptData: (encryptedText) => ipcRenderer.invoke('decrypt-data', encryptedText),
   getAppPaths: () => ipcRenderer.invoke('get-app-paths'),
   syncSchedulerProfiles: (profiles) => ipcRenderer.invoke('sync-scheduler-profiles', profiles),
+  getSchedulerProfiles: () => ipcRenderer.invoke('get-scheduler-profiles'),
   getTelegramConfig: () => ipcRenderer.invoke('get-telegram-config'),
   saveTelegramConfig: (config) => ipcRenderer.invoke('save-telegram-config', config),
   testTelegram: () => ipcRenderer.invoke('test-telegram'),

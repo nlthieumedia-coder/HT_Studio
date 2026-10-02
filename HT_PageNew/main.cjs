@@ -2329,6 +2329,11 @@ ipcMain.handle('sync-scheduler-profiles', async (event, profiles) => {
   return { success: true, count: scheduledProfiles.length };
 });
 
+ipcMain.handle('get-scheduler-profiles', async () => ({
+  success: true,
+  profiles: JSON.parse(JSON.stringify(scheduledProfiles || [])),
+}));
+
 ipcMain.handle('get-telegram-config', async () => {
   const config = readTelegramConfig();
   return {

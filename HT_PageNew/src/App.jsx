@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Navbar from './components/Navbar';
 import TopHeader from './components/TopHeader';
 import Toast from './components/Toast';
@@ -23,6 +23,8 @@ export default function App() {
   const [profiles, setProfiles] = useState([]);
   const [schedules, setSchedules] = useState([]);
   const [logs, setLogs] = useState([]);
+  const schedulerHydratedRef = useRef(false);
+  const skipNextSchedulerPushRef = useRef(false);
 
   // Toast State
   const [toasts, setToasts] = useState([]);
@@ -51,12 +53,66 @@ export default function App() {
     setLogs(lgs);
   };
 
+  const mergeSchedulerConfiguration = (localProfiles, schedulerProfiles) => {
+    if (!Array.isArray(schedulerProfiles) || !schedulerProfiles.length) return localProfiles;
+    const localById = new Map(localProfiles.map((profile) => [String(profile.id), profile]));
+    const merged = schedulerProfiles.map((remoteProfile) => {
+      const localProfile = localById.get(String(remoteProfile.id));
+      if (!localProfile) return remoteProfile;
+      localById.delete(String(remoteProfile.id));
+      return {
+        ...localProfile,
+        managedPages: Array.isArray(remoteProfile.managedPages)
+          ? remoteProfile.managedPages
+          : localProfile.managedPages,
+      };
+    });
+    return [...merged, ...localById.values()];
+  };
+
+  const applySchedulerProfiles = (schedulerProfiles, { notify = false } = {}) => {
+    if (!Array.isArray(schedulerProfiles)) return false;
+    const localProfiles = ProfileStorage.getProfiles();
+    const merged = mergeSchedulerConfiguration(localProfiles, schedulerProfiles);
+    const changed = JSON.stringify(merged) !== JSON.stringify(localProfiles);
+    if (!changed) return false;
+    skipNextSchedulerPushRef.current = true;
+    ProfileStorage.saveProfiles(merged);
+    setProfiles(merged);
+    if (notify) addToast('Cấu hình Fanpage/lịch vừa được cập nhật từ Telegram.', 'success');
+    return true;
+  };
+
   useEffect(() => {
-    loadData();
+    let cancelled = false;
+    const initialize = async () => {
+      loadData();
+      const localProfiles = ProfileStorage.getProfiles();
+      try {
+        const result = await ElectronService.getSchedulerProfiles();
+        if (cancelled) return;
+        if (result?.success && Array.isArray(result.profiles) && result.profiles.length) {
+          applySchedulerProfiles(result.profiles);
+        } else if (localProfiles.length) {
+          await ElectronService.syncSchedulerProfiles(localProfiles);
+        }
+      } catch (error) {
+        console.error('Không thể tải cấu hình lịch từ tiến trình nền:', error);
+      } finally {
+        schedulerHydratedRef.current = true;
+      }
+    };
+    initialize();
+    return () => { cancelled = true; };
   }, []);
 
   useEffect(() => {
-    if (profiles.length) ElectronService.syncSchedulerProfiles(profiles).catch(console.error);
+    if (!schedulerHydratedRef.current || !profiles.length) return;
+    if (skipNextSchedulerPushRef.current) {
+      skipNextSchedulerPushRef.current = false;
+      return;
+    }
+    ElectronService.syncSchedulerProfiles(profiles).catch(console.error);
   }, [profiles]);
 
   useEffect(() => ElectronService.onScheduledSessionResult(({ profileId, pageId, result }) => {
@@ -123,10 +179,31 @@ export default function App() {
 
   useEffect(() => ElectronService.onTelegramProfilesUpdated(({ profiles: updatedProfiles }) => {
     if (!Array.isArray(updatedProfiles)) return;
-    ProfileStorage.saveProfiles(updatedProfiles);
-    loadData();
-    addToast('Cấu hình Fanpage/lịch vừa được cập nhật từ Telegram.', 'success');
+    applySchedulerProfiles(updatedProfiles, { notify: true });
   }), []);
+
+  useEffect(() => {
+    let busy = false;
+    const refreshFromScheduler = async () => {
+      if (busy || !schedulerHydratedRef.current) return;
+      busy = true;
+      try {
+        const result = await ElectronService.getSchedulerProfiles();
+        if (result?.success) applySchedulerProfiles(result.profiles, { notify: true });
+      } catch (error) {
+        console.error('Không thể đồng bộ lịch Telegram:', error);
+      } finally {
+        busy = false;
+      }
+    };
+    const handleFocus = () => refreshFromScheduler();
+    const timer = window.setInterval(refreshFromScheduler, 5000);
+    window.addEventListener('focus', handleFocus);
+    return () => {
+      window.clearInterval(timer);
+      window.removeEventListener('focus', handleFocus);
+    };
+  }, []);
 
   const addToast = (message, type = 'info') => {
     const id = Date.now();

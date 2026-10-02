@@ -5,6 +5,7 @@ param(
 
 $ErrorActionPreference = 'Stop'
 $projectRoot = (Resolve-Path (Join-Path $PSScriptRoot '..')).Path
+$currentVersion = (Get-Content -LiteralPath (Join-Path $projectRoot 'package.json') -Raw | ConvertFrom-Json).version
 
 function Remove-ProjectItem {
   param([Parameter(Mandatory = $true)][string]$LiteralPath)
@@ -32,6 +33,13 @@ $releaseDirs | Select-Object -Skip $KeepNewest | ForEach-Object {
 $releaseDirs | Select-Object -First $KeepNewest | ForEach-Object {
   Get-ChildItem -LiteralPath $_.FullName -Force | Where-Object {
     $_.Name -eq 'win-unpacked' -or $_.Extension -in @('.blockmap', '.yml', '.yaml') -or $_.Name -match '\.nsis\.7z$'
+  } | ForEach-Object {
+    Remove-ProjectItem -LiteralPath $_.FullName
+  }
+
+  # Keep only distributables for the version currently declared in package.json.
+  Get-ChildItem -LiteralPath $_.FullName -File -Filter 'HT PageNew*.exe' | Where-Object {
+    $_.Name -notin @("HT PageNew $currentVersion.exe", "HT PageNew Setup $currentVersion.exe")
   } | ForEach-Object {
     Remove-ProjectItem -LiteralPath $_.FullName
   }

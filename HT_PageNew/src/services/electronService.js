@@ -147,6 +147,11 @@ export const ElectronService = {
     return { success: true, count: profiles.length };
   },
 
+  getSchedulerProfiles: async () => {
+    if (ElectronService.isElectron()) return await window.electronAPI.getSchedulerProfiles();
+    return { success: true, profiles: [] };
+  },
+
   getTelegramConfig: async () => {
     if (ElectronService.isElectron()) return window.electronAPI.getTelegramConfig();
     return { success: true, config: { enabled: false, chatId: '', hasToken: false, events: { start: true, end: true, error: true } } };
