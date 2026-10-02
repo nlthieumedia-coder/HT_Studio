@@ -359,6 +359,37 @@ export default function App() {
     }
   };
 
+  const handleDeleteSchedule = (profile, target, slot) => {
+    const current = ProfileStorage.getProfiles().find((item) => item.id === profile.id);
+    if (!current) return;
+    if (target.type === 'personal') {
+      const scheduleConfig = {
+        ...(current.scheduleConfig || {}),
+        personalSchedules: (current.scheduleConfig?.personalSchedules || []).filter((item) => item.id !== slot.id),
+      };
+      ProfileStorage.updateProfileSchedule(profile.id, scheduleConfig);
+    } else {
+      const managedPages = (current.managedPages || []).map((page) => {
+        if (typeof page !== 'object' || page.id !== target.id) return page;
+        const schedules = Array.isArray(page.schedules)
+          ? page.schedules
+          : (page.scheduleEnabled ? [{ id: `legacy-${page.id}`, enabled: true, startTime: page.startTime, endTime: page.endTime }] : []);
+        const nextSchedules = schedules.filter((item) => item.id !== slot.id);
+        return { ...page, schedules: nextSchedules, scheduleEnabled: nextSchedules.length > 0 };
+      });
+      ProfileStorage.selectPageForProfile(profile.id, { managedPages }, { silent: true });
+    }
+    ProfileStorage.addLog({
+      profileName: profile.name,
+      pageName: target.name,
+      action: 'Xóa ca chạy',
+      type: 'info',
+      details: `${slot.startTime}–${slot.endTime}`,
+    });
+    loadData();
+    addToast(`Đã xóa ca ${slot.startTime}–${slot.endTime} của ${target.name}.`, 'success');
+  };
+
   const handleConfirmDelete = (id) => {
     setDeletingId(id);
     setIsConfirmDeleteOpen(true);
@@ -516,6 +547,7 @@ export default function App() {
               onRunNow={handleRunPageNow}
               onStop={handleStopScheduledRun}
               onEdit={handleOpenScheduleModal}
+              onDeleteSchedule={handleDeleteSchedule}
               onOpenLogs={() => setActiveTab('logs')}
               onRefresh={loadData}
             />

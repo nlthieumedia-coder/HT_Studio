@@ -44,7 +44,7 @@ function getEntryStatus(entry, selectedDate, logs, now) {
   return { key: 'past', label: 'Đã qua' };
 }
 
-export default function ScheduledRunsView({ profiles, logs, onRunNow, onStop, onEdit, onOpenLogs, onRefresh }) {
+export default function ScheduledRunsView({ profiles, logs, onRunNow, onStop, onEdit, onDeleteSchedule, onOpenLogs, onRefresh }) {
   const [selectedDate, setSelectedDate] = useState(() => new Date());
   const [now, setNow] = useState(() => new Date());
 
@@ -126,7 +126,8 @@ export default function ScheduledRunsView({ profiles, logs, onRunNow, onStop, on
                       : row.status.key === 'completed' || row.status.key === 'error'
                         ? <button onClick={onOpenLogs}>Xem nhật ký</button>
                         : <button className="primary" onClick={() => onRunNow(row.profile, { ...row.target, scheduleEnabled: true, startTime: row.slot.startTime, endTime: row.slot.endTime })}><Play size={13} fill="currentColor" /> Chạy ngay</button>}
-                    <button className="quiet" onClick={() => onEdit(row.profile)}>Chỉnh sửa</button>
+                    <button className="quiet" onClick={() => onEdit(row.profile)}>Sửa lịch</button>
+                    <button className="danger" onClick={() => onDeleteSchedule(row.profile, row.target, row.slot)}>Xóa lịch</button>
                   </div></td>
                 </tr>
               ))}

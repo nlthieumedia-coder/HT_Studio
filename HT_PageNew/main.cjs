@@ -333,7 +333,10 @@ function telegramScheduleListRows() {
       const targetIndex = entry.targetType === 'personal'
         ? -1
         : (profile.managedPages || []).filter((page) => page && typeof page === 'object').findIndex((page) => page.id === entry.targetId);
-      rows.push([telegramButton(`🗑 ${entry.schedule.startTime}–${entry.schedule.endTime} · ${profile.name}/${entry.targetName}`, `dslot:${profileIndex}:${targetIndex}:${entry.scheduleIndex}`)]);
+      rows.push([
+        telegramButton(`✏️ ${entry.schedule.startTime}–${entry.schedule.endTime} · ${profile.name}/${entry.targetName}`, `eslot:${profileIndex}:${targetIndex}:${entry.scheduleIndex}`),
+        telegramButton('🗑 Xóa', `dslot:${profileIndex}:${targetIndex}:${entry.scheduleIndex}`),
+      ]);
     });
   });
   rows.push([telegramButton('↩️ Menu chính', 'menu:home')]);
@@ -478,6 +481,53 @@ async function handleTelegramCallback(query) {
     pendingTelegramActions.set(String(chatId), { type: 'delete-schedule', profileKey: profile.id, targetType: targetIndex === -1 ? 'personal' : 'page', pageKey: targetPage?.id, scheduleId: schedule.id, scheduleIndex });
     return sendTelegramUi(chatId, `⚠️ Xóa lịch ${profile.name} / ${targetName}\n${schedule.startTime}–${schedule.endTime}?`, [[telegramButton('✅ Xóa lịch', 'confirm'), telegramButton('❌ Hủy', 'cancel')]]);
   }
+  if (values[0] === 'eslot') {
+    const targetIndex = Number(values[2]);
+    const scheduleIndex = Number(values[3]);
+    const targetPage = targetIndex === -1 ? null : pages[targetIndex];
+    const schedules = targetIndex === -1 ? (profile?.scheduleConfig?.personalSchedules || []) : getTargetSchedules(targetPage);
+    const schedule = schedules[scheduleIndex];
+    const targetName = targetIndex === -1 ? 'Trang cá nhân' : targetPage?.name;
+    if (!profile || !schedule || !targetName) return sendTelegramUi(chatId, 'Lịch không còn tồn tại.', telegramMainMenuRows());
+    const hourRows = [];
+    for (let hour = 0; hour < 24; hour += 4) hourRows.push([0, 1, 2, 3].map((offset) => telegramButton(`${String(hour + offset).padStart(2, '0')} giờ`, `eh:${profileIndex}:${targetIndex}:${scheduleIndex}:${hour + offset}`)));
+    hourRows.push([telegramButton('↩️ Lịch đã lên', 'menu:schedules')]);
+    return sendTelegramUi(chatId, `✏️ Sửa lịch ${profile.name} / ${targetName}\nHiện tại: ${schedule.startTime}–${schedule.endTime}\n\nChọn giờ IN mới:`, hourRows);
+  }
+  if (values[0] === 'eh') {
+    const targetIndex = Number(values[2]);
+    const scheduleIndex = Number(values[3]);
+    const hour = Number(values[4]);
+    return sendTelegramUi(chatId, `Giờ IN mới: ${String(hour).padStart(2, '0')}:__\nChọn phút:`, [[0, 15, 30, 45].map((minute) => telegramButton(String(minute).padStart(2, '0'), `em:${profileIndex}:${targetIndex}:${scheduleIndex}:${hour}:${minute}`))]);
+  }
+  if (values[0] === 'em') {
+    const targetIndex = Number(values[2]);
+    const scheduleIndex = Number(values[3]);
+    const hour = Number(values[4]);
+    const minute = Number(values[5]);
+    const startTime = `${String(hour).padStart(2, '0')}:${String(minute).padStart(2, '0')}`;
+    return sendTelegramUi(chatId, `IN mới ${startTime}\nChọn thời lượng mới:`, [
+      [5, 10, 15].map((duration) => telegramButton(`${duration} phút`, `ed:${profileIndex}:${targetIndex}:${scheduleIndex}:${hour}:${minute}:${duration}`)),
+      [30, 60, 120].map((duration) => telegramButton(`${duration} phút`, `ed:${profileIndex}:${targetIndex}:${scheduleIndex}:${hour}:${minute}:${duration}`)),
+    ]);
+  }
+  if (values[0] === 'ed') {
+    const targetIndex = Number(values[2]);
+    const scheduleIndex = Number(values[3]);
+    const startTime = `${String(values[4]).padStart(2, '0')}:${String(values[5]).padStart(2, '0')}`;
+    const endTime = addMinutesToTime(startTime, Number(values[6]));
+    const targetPage = targetIndex === -1 ? null : pages[targetIndex];
+    const schedules = targetIndex === -1 ? (profile?.scheduleConfig?.personalSchedules || []) : getTargetSchedules(targetPage);
+    const schedule = schedules[scheduleIndex];
+    const targetName = targetIndex === -1 ? 'Trang cá nhân' : targetPage?.name;
+    if (!profile || !schedule || !targetName) return sendTelegramUi(chatId, 'Lịch không còn tồn tại.', telegramMainMenuRows());
+    const targetType = targetIndex === -1 ? 'personal' : 'page';
+    const targetId = targetIndex === -1 ? 'personal' : targetPage.id;
+    const conflict = findProfileScheduleConflict(profile, { startTime, endTime }, { targetType, targetId, scheduleId: schedule.id });
+    if (conflict) return sendTelegramUi(chatId, `❌ Trùng lịch với ${conflict.targetName}: ${conflict.schedule.startTime}–${conflict.schedule.endTime}.`, telegramScheduleListRows());
+    pendingTelegramActions.set(String(chatId), { type: 'update-schedule', profileKey: profile.id, targetType, pageKey: targetPage?.id, scheduleId: schedule.id, scheduleIndex, startTime, endTime });
+    return sendTelegramUi(chatId, `⚠️ Xác nhận sửa lịch\n${profile.name} / ${targetName}\n${schedule.startTime}–${schedule.endTime} → ${startTime}–${endTime}`, [[telegramButton('✅ Lưu thay đổi', 'confirm'), telegramButton('❌ Hủy', 'cancel')]]);
+  }
   if (values[0] === 'sh') {
     const hour = Number(values[3]);
     return sendTelegramUi(chatId, `Giờ IN: ${String(hour).padStart(2, '0')}:__\n4️⃣ Chọn phút:`, [[0, 15, 30, 45].map((minute) => telegramButton(String(minute).padStart(2, '0'), `sm:${profileIndex}:${pageIndex}:${hour}:${minute}`))]);
@@ -575,6 +625,37 @@ async function executeTelegramAction(action) {
     }
     publishTelegramProfilesUpdate();
     return '✅ Đã xóa ca chạy.';
+  }
+  if (action.type === 'update-schedule') {
+    const targetId = action.targetType === 'personal' ? 'personal' : action.pageKey;
+    const conflict = findProfileScheduleConflict(profile, action, {
+      targetType: action.targetType,
+      targetId,
+      scheduleId: action.scheduleId,
+    });
+    if (conflict) return `❌ Trùng lịch với ${conflict.targetName}: ${conflict.schedule.startTime}–${conflict.schedule.endTime}. Không lưu thay đổi.`;
+    if (action.targetType === 'personal') {
+      const schedules = profile.scheduleConfig?.personalSchedules || [];
+      profile.scheduleConfig.personalSchedules = schedules.map((slot, index) => (
+        (action.scheduleId ? slot.id === action.scheduleId : index === action.scheduleIndex)
+          ? { ...slot, startTime: action.startTime, endTime: action.endTime, lastScheduledRunKey: null }
+          : slot
+      ));
+    } else {
+      const targetPage = findTelegramPage(profile, action.pageKey);
+      if (!targetPage) return '❌ Page không còn tồn tại.';
+      const schedules = getTargetSchedules(targetPage);
+      targetPage.schedules = schedules.map((slot, index) => (
+        (action.scheduleId ? slot.id === action.scheduleId : index === action.scheduleIndex)
+          ? { ...slot, id: slot.id || `slot-${Date.now()}-${index}`, startTime: action.startTime, endTime: action.endTime, lastScheduledRunKey: null }
+          : { ...slot, id: slot.id || `slot-${Date.now()}-${index}` }
+      ));
+      targetPage.scheduleEnabled = targetPage.schedules.length > 0;
+      targetPage.startTime = targetPage.schedules[0]?.startTime || targetPage.startTime;
+      targetPage.endTime = targetPage.schedules[0]?.endTime || targetPage.endTime;
+    }
+    publishTelegramProfilesUpdate();
+    return `✅ Đã sửa ca thành ${action.startTime}–${action.endTime}.`;
   }
   const page = findTelegramPage(profile, action.pageKey);
   if (!page) return `❌ Không tìm thấy Page "${action.pageKey}" trong hồ sơ ${profile.name}.`;
