@@ -1571,6 +1571,32 @@ async function switchFacebookPageIdentity(page, context, profile) {
     actingPageIdBefore: beforeIdentity.actingId,
   });
 
+  // Vanity URLs (for example /conemmedia) do not contain the numeric acting
+  // profile ID. If Facebook is already acting as a Page, verify the visible
+  // composer name before opening the switcher. The active Page is commonly
+  // omitted from the list of profiles, so trying to find it in that menu would
+  // produce a false "Page not found" error.
+  if (!profile.expectedPageId && beforeIdentity.actingId && beforeIdentity.actingId !== beforeIdentity.personalId) {
+    await goToFacebookHome(page);
+    const composerConfirmed = await waitForPageComposerIdentity(page, profile.pageName, 7000);
+    if (composerConfirmed) {
+      const persisted = await waitForPageIdentity(context, beforeIdentity.actingId, 5000);
+      if (persisted.success) {
+        writeAutomationDiagnostic(profile.id, 'page-switch-success', {
+          method: 'vanity-already-active-composer',
+          pageName: profile.pageName,
+          actingPageId: persisted.actingId,
+        });
+        return { success: true, actingId: persisted.actingId };
+      }
+    }
+    writeAutomationDiagnostic(profile.id, 'page-switch-step', {
+      stage: 'vanity-active-page-name-mismatch',
+      pageName: profile.pageName,
+      actingPageIdBefore: beforeIdentity.actingId,
+    });
+  }
+
   // If the requested Page is already active, only return after confirming that
   // the identity survives navigation back to the Facebook home Feed.
   let identityResult = await waitForPageIdentity(context, profile.expectedPageId, 1500);
