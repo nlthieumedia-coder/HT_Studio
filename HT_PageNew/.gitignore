@@ -3,5 +3,5 @@ dist/
 release/
 release-*/
 browser_profiles/
+tests/.artifacts/
 *.log
-

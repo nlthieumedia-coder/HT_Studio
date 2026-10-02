@@ -1,4 +1,4 @@
-import { calculateNextRunTime, formatBangkokTime, createBangkokDate, getBangkokTimeParts } from '../src/services/scheduleCalculator.js';
+import { calculateNextRunTime, formatBangkokTime, createBangkokDate, getBangkokTimeParts } from '../../src/services/scheduleCalculator.js';
 
 console.log('=== BÀI KIỂM THỬ GIÁO TRÌNH XÁC ĐỊNH LỊCH CHẠY THỜI GIAN ASIA/BANGKOK (UTC+7) ===\n');
 

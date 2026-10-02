@@ -1,6 +1,6 @@
 {
   "name": "ht_pagenew",
-  "version": "1.6.0",
+  "version": "1.0.1",
   "description": "Ứng dụng desktop quản lý lịch mở Facebook Feed và Reels",
   "type": "module",
   "main": "main.cjs",
@@ -10,7 +10,7 @@
     "preview": "vite preview",
     "electron": "electron main.cjs",
     "start": "concurrently \"npm run dev\" \"wait-on http://localhost:5173 && cross-env ELECTRON_START_URL=http://localhost:5173 electron main.cjs\"",
-    "dev:app": "concurrently --kill-others \"vite\" \"wait-on http://localhost:5173 && node scripts/electron-dev.cjs\"",
+    "dev:app": "concurrently --kill-others \"vite\" \"wait-on http://localhost:5173 && node scripts/dev-runner.cjs\"",
     "cleanup": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/cleanup-build.ps1 -KeepNewest 1",
     "dist": "npm run build && electron-builder --win nsis portable --config.electronDist=node_modules/electron/dist && npm run cleanup"
   },
@@ -24,6 +24,7 @@
       "dist/**/*",
       "main.cjs",
       "preload.js",
+      "assets/branding/**/*",
       "package.json",
       "!node_modules/playwright-core/.local-browsers/**/*"
     ],
@@ -33,7 +34,7 @@
         "to": "chromium"
       },
       {
-        "from": "vendor/atp-cookie",
+        "from": "extensions/atp-cookie",
         "to": "extensions/atp-cookie",
         "filter": [
           "**/*",
@@ -42,6 +43,7 @@
       }
     ],
     "win": {
+      "icon": "assets/branding/app-icon.ico",
       "target": [
         "nsis",
         "portable"
@@ -49,7 +51,9 @@
     },
     "nsis": {
       "oneClick": false,
-      "allowToChangeInstallationDirectory": true
+      "allowToChangeInstallationDirectory": true,
+      "installerIcon": "assets/branding/app-icon.ico",
+      "uninstallerIcon": "assets/branding/app-icon.ico"
     }
   },
   "keywords": [

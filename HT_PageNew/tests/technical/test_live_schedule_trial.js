@@ -1,4 +1,4 @@
-import { calculateNextRunTime, formatBangkokTime, createBangkokDate, getBangkokTimeParts } from '../src/services/scheduleCalculator.js';
+import { calculateNextRunTime, formatBangkokTime, createBangkokDate, getBangkokTimeParts } from '../../src/services/scheduleCalculator.js';
 
 console.log('=== THỰC HIỆN CHẠY THỬ BẰNG LỊCH HẸN CÁCH THỜI ĐIỂM HIỆN TẠI 2 PHÚT ===\n');
 

@@ -8,7 +8,7 @@ const __dirname = path.dirname(__filename);
 
 console.log('=== TEST 1: KIỂM TRA TÍNH CÁCH LY THƯ MỤC TRÌNH DUYỆT (2 HỒ SƠ MẪU) ===');
 
-const baseProfileDir = path.join(__dirname, '..', 'browser_profiles');
+const baseProfileDir = path.join(__dirname, '..', '.artifacts', 'browser_profiles');
 const profile1Dir = path.join(baseProfileDir, 'profile_prof-001');
 const profile2Dir = path.join(baseProfileDir, 'profile_prof-002');
 

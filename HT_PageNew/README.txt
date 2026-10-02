@@ -145,3 +145,15 @@ Reels không phát:
 - Nên sử dụng thời lượng và lịch hợp lý.
 - Tuân thủ điều khoản sử dụng và yêu cầu bảo mật của Facebook.
 
+
+11. CẤU TRÚC DỰ ÁN
+------------------
+- assets/branding: logo, icon Windows và tài liệu nhận diện.
+- docs: tài liệu nghiệm thu.
+- extensions/atp-cookie: extension Chromium được đóng gói cùng ứng dụng.
+- public: tài nguyên web công khai như favicon.
+- scripts: công cụ chạy phát triển và dọn build.
+- src: giao diện và dịch vụ phía renderer.
+- tests/technical: các bài kiểm thử kỹ thuật.
+- dist: giao diện production được tạo tự động.
+- release: bộ cài và bản portable được tạo tự động.

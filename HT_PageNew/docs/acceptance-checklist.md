@@ -1,6 +1,6 @@
 # Checklist nghiệm thu HT PageNew trên máy thật
 
-> Dùng bản `release/HT PageNew Setup 1.0.0.exe` hoặc bản portable. Không chạy `npm start`. Bộ lập lịch hoạt động khi tiến trình HT PageNew đang chạy; nếu thoát hẳn ứng dụng thì lịch không chạy bù.
+> Dùng bản `release/HT PageNew Setup 1.0.1.exe` hoặc bản portable. Không chạy `npm start`. Bộ lập lịch hoạt động khi tiến trình HT PageNew đang chạy; nếu thoát hẳn ứng dụng thì lịch không chạy bù.
 
 ## Chuẩn bị
 
@@ -94,4 +94,4 @@
 
 ## Biên bản kết quả
 
-Ghi cho từng mục: `Đạt / Không đạt / Chưa kiểm tra thực tế`, thời gian thử, tên hồ sơ thử, phiên bản `1.0.0`, sai lệch thời gian và ảnh chụp nếu có. Chỉ đánh dấu **Đạt** sau khi quan sát trên tài khoản/proxy thật.
+Ghi cho từng mục: `Đạt / Không đạt / Chưa kiểm tra thực tế`, thời gian thử, tên hồ sơ thử, phiên bản `1.0.1`, sai lệch thời gian và ảnh chụp nếu có. Chỉ đánh dấu **Đạt** sau khi quan sát trên tài khoản/proxy thật.

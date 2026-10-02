@@ -119,14 +119,14 @@ body {
 .brand-logo {
   width: 38px;
   height: 38px;
-  background: linear-gradient(135deg, var(--primary), var(--secondary));
-  border-radius: 10px;
+  flex: 0 0 38px;
+  background: transparent;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: white;
-  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+  filter: drop-shadow(0 4px 7px rgba(36, 120, 238, 0.28));
 }
+.brand-logo img { width: 100%; height: 100%; display: block; object-fit: contain; }
 
 .brand-title {
   font-family: var(--font-heading);

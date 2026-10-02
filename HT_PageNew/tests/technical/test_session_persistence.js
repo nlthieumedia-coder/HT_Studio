@@ -7,7 +7,7 @@ const __dirname = path.dirname(__filename);
 
 console.log('=== TEST KIỂM TRẢ LƯU TRỮ PHIÊN (COOKIE & SESSION PERSISTENCE) KHI ĐÓNG VÀ MỞ LẠI ỨNG DỤNG ===\n');
 
-const baseProfileDir = path.join(__dirname, '..', 'browser_profiles');
+const baseProfileDir = path.join(__dirname, '..', '.artifacts', 'browser_profiles');
 const profile1Dir = path.join(baseProfileDir, 'profile_prof-001');
 const profile2Dir = path.join(baseProfileDir, 'profile_prof-002');
 

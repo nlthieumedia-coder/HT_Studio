@@ -840,7 +840,7 @@ function getBrowserExecutablePath() {
 function getAtpCookieExtensionPath() {
   const extensionPath = app.isPackaged
     ? path.join(process.resourcesPath, 'extensions', 'atp-cookie')
-    : path.join(__dirname, 'vendor', 'atp-cookie');
+    : path.join(__dirname, 'extensions', 'atp-cookie');
   const manifestPath = path.join(extensionPath, 'manifest.json');
   if (!fs.existsSync(manifestPath)) {
     throw new Error(`Không tìm thấy ATP Cookie tại: ${manifestPath}`);
@@ -2082,6 +2082,7 @@ function createWindow() {
     minHeight: 700,
     center: true,
     title: 'HT Studio - Quản Lý Lịch Facebook Feed & Reels',
+    icon: path.join(__dirname, 'assets', 'branding', 'app-icon-256.png'),
     backgroundColor: '#f4f7fb',
     webPreferences: {
       nodeIntegration: false,
@@ -2242,6 +2243,7 @@ ipcMain.handle('get-app-paths', async () => {
 });
 
 app.whenReady().then(() => {
+  app.setAppUserModelId('vn.htstudio.pagenew');
   loadSchedulerProfiles();
   startScheduler();
   startTelegramCommandPolling();

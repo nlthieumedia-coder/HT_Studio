@@ -1,4 +1,4 @@
-import { ProfileStorage } from '../src/services/profileStorage.js';
+import { ProfileStorage } from '../../src/services/profileStorage.js';
 
 console.log('=== BÀI KIỂM THỬ MÔ PHỎNG 4 TÌNH HUỐNG LỖI & HOÀN THÀNH (AUDIT SANITIZED LOGS) ===\n');
 

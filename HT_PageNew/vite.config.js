@@ -13,7 +13,7 @@ export default defineConfig({
         '**/browser_profiles/**',
         '**/release*/**',
         '**/dist/**',
-        '**/scratch/**',
+        '**/tests/**',
       ],
     },
   },

@@ -38,9 +38,9 @@ $releaseDirs | Select-Object -First $KeepNewest | ForEach-Object {
 }
 
 # Remove smoke-test browser profiles and copied diagnostics, but retain test source files.
-$scratchRoot = Join-Path $projectRoot 'scratch'
-if (Test-Path -LiteralPath $scratchRoot) {
-  Get-ChildItem -LiteralPath $scratchRoot -Force | Where-Object {
+$testRoot = Join-Path $projectRoot 'tests\technical'
+if (Test-Path -LiteralPath $testRoot) {
+  Get-ChildItem -LiteralPath $testRoot -Force | Where-Object {
     $_.Name -match '^(atp-|cft-|release-.*-smoke|verify-|asar-check)' -or
     $_.Name -match '^chromium-.*\.zip$' -or
     $_.Name -match '^(history-|diag-|cookies-).*\.db$' -or
@@ -50,15 +50,13 @@ if (Test-Path -LiteralPath $scratchRoot) {
   }
 }
 
-# Obsolete codec-incomplete Chromium snapshot; current builds use Playwright Chrome for Testing.
-Remove-ProjectItem -LiteralPath (Join-Path $projectRoot 'vendor\chromium-snapshot')
-
 # Remove development/build residue that is never part of the runtime package.
 # Browser profiles used by the app live under Electron's userData directory,
 # not in this legacy project-local folder.
 Remove-ProjectItem -LiteralPath (Join-Path $projectRoot 'browser_profiles')
+Remove-ProjectItem -LiteralPath (Join-Path $projectRoot 'tests\.artifacts')
 Remove-ProjectItem -LiteralPath (Join-Path $projectRoot 'node_modules\.vite')
-Remove-ProjectItem -LiteralPath (Join-Path $projectRoot 'vendor\atp-cookie\.git')
+Remove-ProjectItem -LiteralPath (Join-Path $projectRoot 'extensions\atp-cookie\.git')
 Remove-ProjectItem -LiteralPath (Join-Path $projectRoot 'main.js')
 
 # Playwright downloads helper browsers that this desktop app does not use.
