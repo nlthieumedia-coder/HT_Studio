@@ -1204,6 +1204,66 @@ async function getFacebookActingProfileId(context) {
   return (await getFacebookIdentity(context)).actingId;
 }
 
+async function resolveFacebookPageId(page, pageUrl, pageName = '') {
+  try {
+    const parsed = new URL(pageUrl);
+    const explicitId = parsed.searchParams.get('id') || parsed.searchParams.get('profile_id');
+    if (explicitId && /^\d{6,}$/.test(explicitId)) return explicitId;
+    await page.goto(pageUrl, { waitUntil: 'domcontentloaded', timeout: 30000 });
+    await wait(1800);
+    return await page.evaluate(({ expectedName }) => {
+      const ids = [];
+      const add = (value, priority) => {
+        const id = String(value || '').match(/^\d{6,}$/)?.[0];
+        if (id) ids.push({ id, priority });
+      };
+      const urlPatterns = [
+        [/switchprofile\.php[^"'\s<>]*[?&]profile_id=(\d{6,})/i, 100],
+        [/[?&]asset_id=(\d{6,})/i, 90],
+        [/[?&](?:page_id|profile_id|id)=(\d{6,})/i, 70],
+      ];
+      for (const node of document.querySelectorAll('link[href], meta[content], a[href]')) {
+        const value = node.getAttribute('href') || node.getAttribute('content') || '';
+        for (const [pattern, priority] of urlPatterns) {
+          const match = value.match(pattern);
+          if (match) add(match[1], priority);
+        }
+      }
+      const html = document.documentElement.innerHTML;
+      const bodyPatterns = [
+        [/"pageID"\s*:\s*"(\d{6,})"/g, 95],
+        [/"page_id"\s*:\s*"(\d{6,})"/g, 95],
+        [/"profile_id"\s*:\s*"(\d{6,})"/g, 80],
+        [/"entity_id"\s*:\s*"(\d{6,})"/g, 75],
+        [/switchprofile\\?\.php[^"'<>]{0,300}?profile_id(?:=|%3D)(\d{6,})/gi, 100],
+      ];
+      for (const [pattern, priority] of bodyPatterns) {
+        let match;
+        while ((match = pattern.exec(html)) && ids.length < 300) add(match[1], priority);
+      }
+      const normalizedName = String(expectedName || '').replace(/\s+/g, ' ').trim().toLocaleLowerCase();
+      if (normalizedName) {
+        for (const script of document.querySelectorAll('script[type="application/ld+json"]')) {
+          const text = script.textContent || '';
+          if (!text.toLocaleLowerCase().includes(normalizedName)) continue;
+          for (const match of text.matchAll(/"(?:identifier|page_id|profile_id)"\s*:\s*"?(\d{6,})/g)) add(match[1], 110);
+        }
+      }
+      const counts = new Map();
+      for (const item of ids) {
+        const current = counts.get(item.id) || { id: item.id, score: 0, hits: 0 };
+        current.score = Math.max(current.score, item.priority);
+        current.hits += 1;
+        counts.set(item.id, current);
+      }
+      return Array.from(counts.values())
+        .sort((a, b) => b.score - a.score || b.hits - a.hits)[0]?.id || '';
+    }, { expectedName: pageName });
+  } catch (_) {
+    return '';
+  }
+}
+
 async function moveVirtualCursor(page, x, y, label = '') {
   try {
     await page.evaluate(({ cursorX, cursorY, cursorLabel }) => {
@@ -1522,6 +1582,9 @@ async function switchFacebookPageIdentity(page, context, profile) {
   // actually changing the acting identity.
   await page.goto('https://www.facebook.com/', { waitUntil: 'domcontentloaded', timeout: 30000 });
   const openedAccountMenu = await clickFirstVisible(page, [
+    '[aria-label*="Mở menu tài khoản" i]',
+    '[aria-label*="menu tài khoản" i]',
+    '[aria-label*="account menu" i]',
     '[aria-label="Your profile"]',
     '[aria-label="Tài khoản"]',
     '[aria-label="Account"]',
@@ -1762,6 +1825,17 @@ async function startSingleProfileSession(profile, durationMinutes = 30) {
     profile.personalId = personalResult.personalId;
   } else if (profile.pageSwitchUrl) {
     try {
+      if (!profile.expectedPageId) {
+        profile.expectedPageId = await resolveFacebookPageId(page, profile.pageSwitchUrl, profile.pageName);
+        if (profile.expectedPageId) {
+          profile.identitySwitchUrl = `https://www.facebook.com/switchprofile.php?profile_id=${encodeURIComponent(profile.expectedPageId)}&next=${encodeURIComponent('https://www.facebook.com/')}`;
+        }
+        writeAutomationDiagnostic(profile.id, 'page-switch-step', {
+          stage: profile.expectedPageId ? 'page-id-resolved' : 'page-id-unresolved',
+          pageName: profile.pageName,
+          expectedPageId: profile.expectedPageId,
+        });
+      }
       const switchResult = await switchFacebookPageIdentity(page, context, profile);
       if (!switchResult.success) {
         return {
