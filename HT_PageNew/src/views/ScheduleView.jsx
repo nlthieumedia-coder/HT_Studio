@@ -16,12 +16,14 @@ export default function ScheduleView({ profiles, onOpenScheduleModal }) {
         </header>
         {profiles.map((profile) => {
           const pages = (profile.managedPages || []).filter((page) => page && typeof page === 'object');
-          const activeSchedules = pages.filter((page) => page.scheduleEnabled);
+          const pageScheduleCount = pages.reduce((total, page) => total + (Array.isArray(page.schedules) ? page.schedules.filter((slot) => slot.enabled !== false).length : (page.scheduleEnabled ? 1 : 0)), 0);
+          const personalScheduleCount = (profile.scheduleConfig?.personalSchedules || []).filter((slot) => slot.enabled !== false).length;
+          const activeScheduleCount = pageScheduleCount + personalScheduleCount;
           return (
             <article key={profile.id} style={{ display: 'grid', gridTemplateColumns: '1.2fr .8fr .8fr auto', gap: '1rem', alignItems: 'center', padding: '1rem', borderBottom: '1px solid var(--border-color)' }}>
               <div><strong style={{ color: 'white', fontSize: '.95rem' }}>{profile.name}</strong><div style={{ color: 'var(--text-muted)', fontSize: '.75rem', marginTop: 4 }}>{profile.proxy ? 'Có proxy kết nối' : 'Dùng IP máy'}</div></div>
               <span className="badge badge-info"><FileText size={13} /> {pages.length} Fanpage</span>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}><strong style={{ color: activeSchedules.length ? '#087a53' : 'var(--text-muted)' }}>{activeSchedules.length} lịch bật</strong>{activeSchedules.length > 0 && <span style={{ color: 'var(--text-muted)', fontSize: '.74rem', lineHeight: 1.45 }}><Clock size={12} style={{ display: 'inline', marginRight: 4 }} />{activeSchedules.map((page) => `${page.name} ${page.startTime}`).join(', ')}</span>}</div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}><strong style={{ color: activeScheduleCount ? '#087a53' : 'var(--text-muted)' }}>{activeScheduleCount} ca đang bật</strong>{activeScheduleCount > 0 && <span style={{ color: 'var(--text-muted)', fontSize: '.74rem', lineHeight: 1.45 }}><Clock size={12} style={{ display: 'inline', marginRight: 4 }} />{personalScheduleCount ? `Trang cá nhân: ${personalScheduleCount} ca` : ''}{personalScheduleCount && pageScheduleCount ? ' · ' : ''}{pageScheduleCount ? `Fanpage: ${pageScheduleCount} ca` : ''}</span>}</div>
               <button className="btn btn-primary btn-sm" onClick={() => onOpenScheduleModal(profile)}>Cấu hình từng bước <ChevronRight size={15} /></button>
             </article>
           );

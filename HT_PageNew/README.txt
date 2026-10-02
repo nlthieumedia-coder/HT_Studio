@@ -18,7 +18,7 @@ Facebook và tự xử lý CAPTCHA, mã xác minh hoặc yêu cầu bảo mật 
 - Chạy bằng Trang cá nhân hoặc Fanpage do người dùng chọn.
 - Tự động xem Feed và Reels trong thời gian đã cấu hình.
 - Tự chuyển Reel khi video gần phát hết.
-- Tạo lịch IN/OUT riêng cho từng Fanpage.
+- Tạo nhiều ca IN/OUT cho Trang cá nhân và từng Fanpage.
 - Theo dõi trạng thái: Đang chờ, Đang chạy, Hoàn thành, Cần xác minh và Lỗi.
 - Tự đóng Chromium khi phiên kết thúc bình thường.
 - Gửi thông báo và điều khiển phiên qua Telegram.
@@ -67,12 +67,12 @@ Bấm "Dừng ngay" để kết thúc phiên trước thời hạn.
 ---------------------
 1. Mở tab "Lịch chạy".
 2. Chọn hồ sơ cần cấu hình.
-3. Chọn Fanpage.
-4. Đặt giờ IN và OUT.
+3. Chọn Trang cá nhân hoặc Fanpage.
+4. Thêm một hoặc nhiều ca IN và OUT cho từng danh tính.
 5. Xác nhận và lưu lịch.
 
-Các lịch trong cùng một hồ sơ không nên trùng thời gian vì một hồ sơ chỉ có
-thể chạy một danh tính Facebook tại một thời điểm.
+Ứng dụng tự chặn các ca trùng thời gian trong cùng một hồ sơ vì một hồ sơ chỉ
+có thể chạy một danh tính Facebook tại một thời điểm.
 
 Bộ lập lịch hoạt động khi ứng dụng đang mở. Không cần mở môi trường phát triển,
 nhưng không được thoát hoàn toàn ứng dụng nếu muốn lịch tiếp tục chạy.
@@ -98,8 +98,8 @@ Sau khi cấu hình Bot Token và Chat ID trong tab "Telegram & Thông báo", g�
     /menu
 
 Bot sẽ hiển thị các nút:
-- Chạy Fanpage
-- Thêm lịch
+- Chạy Trang cá nhân hoặc Fanpage
+- Thêm nhiều ca và xem "Lịch đã lên"
 - Thêm Fanpage
 - Dừng phiên
 - Danh sách Page

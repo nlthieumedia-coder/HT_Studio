@@ -23,12 +23,12 @@ function getEntryStatus(entry, selectedDate, logs, now) {
   const selected = dateKey(selectedDate);
   const today = dateKey(now);
   const relatedLogs = logs.filter((log) => String(log.timestamp || '').startsWith(selected)
-    && log.pageName === entry.page.name
+    && log.pageName === entry.target.name
     && /phiên chạy|phiên xem|bắt đầu phiên|kết thúc phiên|tạm dừng phiên/i.test(`${log.action || ''} ${log.details || ''}`));
   const latest = relatedLogs[0];
   const isRunning = selected === today
     && entry.profile.executionStatus === 'running'
-    && entry.profile.pageName === entry.page.name;
+    && (entry.target.type === 'personal' || entry.profile.pageName === entry.target.name);
   if (isRunning) return { key: 'running', label: 'Đang chạy' };
   if (latest?.type === 'error' || latest?.type === 'danger') return { key: 'error', label: 'Lỗi' };
   if (latest?.type === 'success' && /kết thúc|hoàn thành/i.test(`${latest.action} ${latest.details}`)) {
@@ -37,8 +37,8 @@ function getEntryStatus(entry, selectedDate, logs, now) {
   if (selected < today) return { key: 'past', label: 'Đã qua' };
   if (selected > today) return { key: 'scheduled', label: 'Đã lên lịch' };
   const currentMinute = now.getHours() * 60 + now.getMinutes();
-  const start = minutesOf(entry.page.startTime);
-  const end = start + durationOf(entry.page.startTime, entry.page.endTime);
+  const start = minutesOf(entry.slot.startTime);
+  const end = start + durationOf(entry.slot.startTime, entry.slot.endTime);
   if (currentMinute < start) return { key: 'upcoming', label: 'Sắp chạy' };
   if (currentMinute <= end) return { key: 'waiting', label: 'Đang chờ' };
   return { key: 'past', label: 'Đã qua' };
@@ -53,17 +53,23 @@ export default function ScheduledRunsView({ profiles, logs, onRunNow, onStop, on
     return () => clearInterval(timer);
   }, []);
 
-  const entries = useMemo(() => profiles.flatMap((profile) => (profile.managedPages || [])
-    .filter((page) => page && typeof page === 'object' && page.enabled !== false && page.scheduleEnabled)
-    .map((page) => ({ profile, page, duration: durationOf(page.startTime, page.endTime) })))
-    .sort((a, b) => minutesOf(a.page.startTime) - minutesOf(b.page.startTime)), [profiles]);
+  const entries = useMemo(() => profiles.flatMap((profile) => {
+    const personal = (profile.scheduleConfig?.personalSchedules || []).filter((slot) => slot.enabled !== false)
+      .map((slot) => ({ profile, target: { id: 'personal', name: 'Trang cá nhân', url: '', type: 'personal' }, slot, duration: durationOf(slot.startTime, slot.endTime) }));
+    const pages = (profile.managedPages || []).filter((page) => page && typeof page === 'object' && page.enabled !== false)
+      .flatMap((page) => {
+        const slots = Array.isArray(page.schedules) ? page.schedules : (page.scheduleEnabled ? [{ id: `legacy-${page.id}`, startTime: page.startTime, endTime: page.endTime }] : []);
+        return slots.filter((slot) => slot.enabled !== false).map((slot) => ({ profile, target: { ...page, type: 'page' }, slot, duration: durationOf(slot.startTime, slot.endTime) }));
+      });
+    return [...personal, ...pages];
+  }).sort((a, b) => minutesOf(a.slot.startTime) - minutesOf(b.slot.startTime)), [profiles]);
 
   const rows = useMemo(() => entries.map((entry) => ({
     ...entry,
     status: getEntryStatus(entry, selectedDate, logs, now),
   })), [entries, selectedDate, logs, now]);
 
-  const uniquePages = new Set(rows.map((row) => `${row.profile.id}:${row.page.id || row.page.name}`)).size;
+  const uniquePages = new Set(rows.map((row) => `${row.profile.id}:${row.target.id || row.target.name}`)).size;
   const totalMinutes = rows.reduce((total, row) => total + row.duration, 0);
   const runningCount = rows.filter((row) => row.status.key === 'running').length;
   const currentMinute = now.getHours() * 60 + now.getMinutes();
@@ -95,7 +101,7 @@ export default function ScheduledRunsView({ profiles, logs, onRunNow, onStop, on
 
       <section className="runs-metrics">
         <article><span className="blue"><ListChecks size={20} /></span><div><strong>{rows.length}</strong><b>Phiên trong ngày</b><small>Lịch đang được bật</small></div></article>
-        <article><span className="violet"><UsersRound size={20} /></span><div><strong>{uniquePages}</strong><b>Fanpage</b><small>Trong tất cả hồ sơ</small></div></article>
+        <article><span className="violet"><UsersRound size={20} /></span><div><strong>{uniquePages}</strong><b>Danh tính</b><small>Trang cá nhân và Fanpage</small></div></article>
         <article><span className="amber"><Timer size={20} /></span><div><strong>{totalMinutes} phút</strong><b>Thời lượng dự kiến</b><small>Tổng thời gian chạy</small></div></article>
         <article><span className="green"><Play size={20} /></span><div><strong>{runningCount}</strong><b>Đang chạy</b><small>Cập nhật theo thời gian thực</small></div></article>
       </section>
@@ -103,15 +109,15 @@ export default function ScheduledRunsView({ profiles, logs, onRunNow, onStop, on
       <section className="runs-table-card">
         <div className="runs-table-wrap">
           <table>
-            <thead><tr><th>Thời gian</th><th>Hồ sơ</th><th>Fanpage</th><th>IN</th><th>OUT</th><th>Thời lượng</th><th>Trạng thái</th><th>Thao tác</th></tr></thead>
+            <thead><tr><th>Thời gian</th><th>Hồ sơ</th><th>Danh tính chạy</th><th>IN</th><th>OUT</th><th>Thời lượng</th><th>Trạng thái</th><th>Thao tác</th></tr></thead>
             <tbody>
               {rows.map((row) => (
-                <tr key={`${row.profile.id}-${row.page.id || row.page.name}`} className={`run-row status-${row.status.key}`}>
-                  <td><span className="run-time-range"><i />{row.page.startTime}–{row.page.endTime}</span></td>
+                <tr key={`${row.profile.id}-${row.target.id || row.target.name}-${row.slot.id}`} className={`run-row status-${row.status.key}`}>
+                  <td><span className="run-time-range"><i />{row.slot.startTime}–{row.slot.endTime}</span></td>
                   <td><strong>{row.profile.name}</strong><small>{row.profile.status ? 'Hồ sơ đang bật' : 'Hồ sơ đang tắt'}</small></td>
-                  <td><b>{row.page.name}</b><small title={row.page.url}>{row.page.url || 'Chưa có liên kết'}</small></td>
-                  <td><span className="run-in"><Clock3 size={13} /> {row.page.startTime}</span></td>
-                  <td><span className="run-out"><Clock3 size={13} /> {row.page.endTime}</span></td>
+                  <td><b>{row.target.name}</b><small title={row.target.url}>{row.target.type === 'personal' ? 'Tài khoản Facebook chính' : (row.target.url || 'Chưa có liên kết')}</small></td>
+                  <td><span className="run-in"><Clock3 size={13} /> {row.slot.startTime}</span></td>
+                  <td><span className="run-out"><Clock3 size={13} /> {row.slot.endTime}</span></td>
                   <td>{row.duration} phút</td>
                   <td><span className={`run-status ${row.status.key}`}><i />{row.status.label}</span></td>
                   <td><div className="run-actions">
@@ -119,7 +125,7 @@ export default function ScheduledRunsView({ profiles, logs, onRunNow, onStop, on
                       ? <button className="danger" onClick={() => onStop(row.profile)}><Square size={13} fill="currentColor" /> Dừng ngay</button>
                       : row.status.key === 'completed' || row.status.key === 'error'
                         ? <button onClick={onOpenLogs}>Xem nhật ký</button>
-                        : <button className="primary" onClick={() => onRunNow(row.profile, row.page)}><Play size={13} fill="currentColor" /> Chạy ngay</button>}
+                        : <button className="primary" onClick={() => onRunNow(row.profile, { ...row.target, scheduleEnabled: true, startTime: row.slot.startTime, endTime: row.slot.endTime })}><Play size={13} fill="currentColor" /> Chạy ngay</button>}
                     <button className="quiet" onClick={() => onEdit(row.profile)}>Chỉnh sửa</button>
                   </div></td>
                 </tr>

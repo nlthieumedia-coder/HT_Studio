@@ -62,6 +62,12 @@ export default function App() {
       localById.delete(String(remoteProfile.id));
       return {
         ...localProfile,
+        scheduleConfig: {
+          ...(localProfile.scheduleConfig || {}),
+          personalSchedules: Array.isArray(remoteProfile.scheduleConfig?.personalSchedules)
+            ? remoteProfile.scheduleConfig.personalSchedules
+            : (localProfile.scheduleConfig?.personalSchedules || []),
+        },
         managedPages: Array.isArray(remoteProfile.managedPages)
           ? remoteProfile.managedPages
           : localProfile.managedPages,
@@ -287,18 +293,22 @@ export default function App() {
       durationMinutes = toMinutes(page.endTime) - toMinutes(page.startTime);
       if (durationMinutes <= 0) durationMinutes += 24 * 60;
     }
-    const exactProfile = {
-      ...profile,
-      pageName: page.name,
-      pageUrl: page.url,
-      managedPages: [{ ...page, enabled: true }],
-      pageRotationMode: 'fixed',
-      pageRotationIndex: 0,
-    };
+    const isPersonal = page.type === 'personal' || page.id === 'personal';
+    const exactProfile = isPersonal
+      ? { ...profile, runAsPersonal: true }
+      : {
+          ...profile,
+          runAsPersonal: false,
+          pageName: page.name,
+          pageUrl: page.url,
+          managedPages: [{ ...page, enabled: true }],
+          pageRotationMode: 'fixed',
+          pageRotationIndex: 0,
+        };
     const startTime = new Date().toLocaleTimeString('vi-VN');
     ProfileStorage.updateProfileExecutionStatus(profile.id, 'running');
     loadData();
-    addToast(`Đang bắt đầu phiên cho Fanpage "${page.name}" (${durationMinutes} phút)...`, 'info');
+    addToast(`Đang bắt đầu phiên cho ${page.name} (${durationMinutes} phút)...`, 'info');
     try {
       const result = await ElectronService.startSession({
         profile: exactProfile,
