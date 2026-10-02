@@ -157,3 +157,9 @@ Reels không phát:
 - tests/technical: các bài kiểm thử kỹ thuật.
 - dist: giao diện production được tạo tự động.
 - release: bộ cài và bản portable được tạo tự động.
+
+
+12. QUY ƯỚC PHIÊN BẢN
+----------------------
+- Các bản cập nhật tăng lần lượt: 1.0.1, 1.0.2, ... đến 1.0.9.
+- Sau 1.0.9, phiên bản tiếp theo là 2.0.1; sau 2.0.9 là 3.0.1 và tiếp tục tương tự.

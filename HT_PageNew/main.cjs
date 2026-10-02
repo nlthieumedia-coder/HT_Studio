@@ -1590,6 +1590,39 @@ async function clickTopRightProfileAvatar(page) {
   return true;
 }
 
+async function openFacebookAccountMenu(page) {
+  try {
+    await page.keyboard.press('Escape').catch(() => {});
+    await wait(250);
+    const selectors = [
+      '[aria-label="Trang cá nhân của bạn"]',
+      '[aria-label="Your profile"]',
+      '[aria-label*="Mở menu tài khoản" i]',
+      '[aria-label*="menu tài khoản" i]',
+      '[aria-label*="account menu" i]',
+    ];
+    const candidates = [];
+    for (const selector of selectors) {
+      const locator = page.locator(selector);
+      for (let index = 0; index < await locator.count(); index += 1) {
+        const item = locator.nth(index);
+        if (!(await item.isVisible().catch(() => false))) continue;
+        const box = await item.boundingBox().catch(() => null);
+        if (box && box.y < 140 && box.width >= 20 && box.height >= 20) candidates.push({ item, box });
+      }
+    }
+    candidates.sort((a, b) => b.box.x - a.box.x || a.box.y - b.box.y || (a.box.width * a.box.height) - (b.box.width * b.box.height));
+    if (!candidates.length) return clickTopRightProfileAvatar(page);
+    const target = candidates[0];
+    await pointVirtualCursorAt(page, target.item, 'Mở menu tài khoản');
+    await target.item.click({ timeout: 3500 });
+    await wait(1100);
+    return true;
+  } catch (_) {
+    return clickTopRightProfileAvatar(page);
+  }
+}
+
 async function switchFacebookPageIdentity(page, context, profile) {
   const beforeIdentity = await getFacebookIdentity(context);
   writeAutomationDiagnostic(profile.id, 'page-switch-start', {
@@ -1628,19 +1661,7 @@ async function switchFacebookPageIdentity(page, context, profile) {
   // menu. Navigating to a Page URL can show its management surface without
   // actually changing the acting identity.
   await page.goto('https://www.facebook.com/', { waitUntil: 'domcontentloaded', timeout: 30000 });
-  const openedAccountMenu = await clickFirstVisible(page, [
-    '[aria-label*="Mở menu tài khoản" i]',
-    '[aria-label*="menu tài khoản" i]',
-    '[aria-label*="account menu" i]',
-    '[aria-label="Your profile"]',
-    '[aria-label="Tài khoản"]',
-    '[aria-label="Account"]',
-    '[aria-label="Trang cá nhân của bạn"]',
-    '[aria-label="Tài khoản của bạn"]',
-    '[aria-label="Menu tài khoản"]',
-    '[aria-label="Your account"]',
-    '[aria-label="Account menu"]',
-  ], 'Mở menu tài khoản') || await clickTopRightProfileAvatar(page);
+  const openedAccountMenu = await openFacebookAccountMenu(page);
   if (!openedAccountMenu) {
     writeAutomationDiagnostic(profile.id, 'page-switch-failed', { stage: 'open-account-menu', pageName: profile.pageName });
     return { success: false, reason: 'Không tìm thấy menu tài khoản Facebook để chuyển Page.' };
