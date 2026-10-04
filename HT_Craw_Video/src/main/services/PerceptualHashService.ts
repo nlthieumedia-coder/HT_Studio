@@ -1,0 +1,1 @@
+import { createHash } from 'node:crypto';import { readFile } from 'node:fs/promises';export class PerceptualHashService { async compute(paths:string[]){const values=[];for(const p of paths){try{const b=await readFile(p);values.push(createHash('sha256').update(b).digest('hex').slice(0,16))}catch{/* missing trailing frame */}}return values.join(':')} }

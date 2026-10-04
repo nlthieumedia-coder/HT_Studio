@@ -7,18 +7,26 @@ import { YtDlpAnalyzer } from './ytdlp-analyzer';
 import { DirectScanner } from './direct-scanner';
 import { isRedditUrl, normalizeRedditUrl } from './reddit';
 import { RedditScanner } from './reddit-scanner';
+import { TikTokScanner, resolveTikTokProfileUsername } from './tiktok-scanner';
 
 export class ScanService {
   private readonly redditScanner: RedditScanner;
+  private readonly tiktokScanner = new TikTokScanner();
   constructor(private readonly analyzer: YtDlpAnalyzer, private readonly directScanner = new DirectScanner()) {
     this.redditScanner = new RedditScanner(directScanner);
   }
-  async scanUrl(input: string): Promise<ScanResult> {
+  async scanUrl(input: string, options?: { maxVideos?: number }): Promise<ScanResult> {
     const url = normalizeRedditUrl(validatePublicUrl(input)).toString();
-    logger.info('SCAN_STARTED', { url });
+    logger.info('SCAN_STARTED', { url, maxVideos: options?.maxVideos });
     let pageTitle: string | undefined; let pageUrl = url; let videos = [] as ScanResult['videos']; let ytDlpError: AppError | undefined;
     try {
-      const raw = await this.analyzer.analyze(url);
+      let targetUrl = url;
+      const tiktokUsername = resolveTikTokProfileUsername(url);
+      if (tiktokUsername) {
+        const secUid = await this.tiktokScanner.resolveSecUid(tiktokUsername);
+        if (secUid) targetUrl = `tiktokuser:${secUid}`;
+      }
+      const raw = await this.analyzer.analyze(targetUrl, { playlistEnd: options?.maxVideos });
       logger.info('YTDLP_SCAN_COMPLETE');
       videos = normalizeYtDlp(raw, url); pageTitle = raw.title; pageUrl = raw.webpage_url ?? url;
     } catch (error) {

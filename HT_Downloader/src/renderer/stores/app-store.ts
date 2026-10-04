@@ -5,15 +5,17 @@ import { parseUrlLines } from '../utils/url-list';
 
 interface AppState {
   url: string; scanStatus: 'idle' | 'scanning' | 'complete' | 'error'; result?: ScanResult; error?: string;
+  maxVideos: number;
   scanProgress?: { completed: number; total: number };
   selectedFormats: Record<string, string>; outputDirectory?: string; downloads: Record<string, DownloadProgress>;
-  setUrl(url: string): void; scan(): Promise<void>; selectFormat(videoId: string, formatId: string): void;
-  chooseDirectory(): Promise<void>; startDownload(video: VideoItem): Promise<void>; updateDownload(progress: DownloadProgress): void; cancel(id: string): Promise<void>;
+  setUrl(url: string): void; setMaxVideos(count: number): void; scan(): Promise<void>; selectFormat(videoId: string, formatId: string): void;
+  chooseDirectory(): Promise<void>; startDownload(video: VideoItem): Promise<void>; startDownloadAll(): Promise<void>; updateDownload(progress: DownloadProgress): void; cancel(id: string): Promise<void>;
 }
 
 export const useAppStore = create<AppState>((set, get) => ({
-  url: '', scanStatus: 'idle', selectedFormats: {}, downloads: {},
+  url: '', scanStatus: 'idle', maxVideos: 10, selectedFormats: {}, downloads: {},
   setUrl: url => set({ url }),
+  setMaxVideos: maxVideos => set({ maxVideos }),
   scan: async () => {
     const urls = parseUrlLines(get().url);
     if (!urls.length) return;
@@ -22,7 +24,7 @@ export const useAppStore = create<AppState>((set, get) => ({
     const results: ScanResult[] = [];
     const errors: string[] = [];
     for (const [index, url] of urls.entries()) {
-      const response = await window.htDownloader.scanUrl(url);
+      const response = await window.htDownloader.scanUrl(url, { maxVideos: get().maxVideos });
       if (response.ok) results.push(response.data);
       else errors.push(`Dòng ${index + 1}: ${friendlyError(response.error.code, response.error.message)}`);
       set({ scanProgress: { completed: index + 1, total: urls.length } });
@@ -54,6 +56,16 @@ export const useAppStore = create<AppState>((set, get) => ({
     const sourceUrl = video.sourceType === 'ytdlp' ? video.sourceUrl : (format?.sourceUrl ?? video.sourceUrl);
     const response = await window.htDownloader.download({ videoId: video.id, sourceUrl, selectedFormatId, selectedHasAudio: format?.hasAudio, outputDirectory, title: video.title });
     if (!response.ok && response.error.code !== 'DOWNLOAD_CANCELLED') set({ error: friendlyError(response.error.code, response.error.message) });
+  },
+  startDownloadAll: async () => {
+    const result = get().result;
+    if (!result || !result.videos.length) return;
+    let outputDirectory = get().outputDirectory;
+    if (!outputDirectory) { await get().chooseDirectory(); outputDirectory = get().outputDirectory; }
+    if (!outputDirectory) return;
+    for (const video of result.videos) {
+      void get().startDownload(video);
+    }
   },
   updateDownload: progress => set(state => ({ downloads: { ...state.downloads, [progress.downloadId]: progress } })),
   cancel: async id => { await window.htDownloader.cancelDownload(id); }

@@ -1,0 +1,11 @@
+node_modules/
+dist/
+release/
+.venv/
+storage/*
+!storage/.gitkeep
+*.db
+*.db-wal
+*.db-shm
+__pycache__/
+.env

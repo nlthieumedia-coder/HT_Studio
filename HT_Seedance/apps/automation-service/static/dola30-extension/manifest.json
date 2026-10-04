@@ -1,0 +1,10 @@
+{
+  "manifest_version": 3,
+  "name": "HT Seedance Native 30s",
+  "version": "1.0.0",
+  "description": "Adds the native 30-second duration capability to Dola's video controls.",
+  "permissions": ["debugger", "tabs"],
+  "host_permissions": ["*://*.dola.com/*"],
+  "background": { "service_worker": "service-worker.js" },
+  "action": { "default_title": "HT Seedance Native 30s" }
+}

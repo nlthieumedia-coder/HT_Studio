@@ -22,6 +22,8 @@ export interface VideoItem {
   title: string;
   thumbnail?: string;
   duration?: number;
+  timestamp?: number;
+  uploadDate?: string;
   sourceType: SourceType;
   formats: VideoFormat[];
   sourceUrl: string;

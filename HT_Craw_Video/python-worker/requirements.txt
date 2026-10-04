@@ -1,0 +1,8 @@
+# Install only the adapters you need. All processing remains local.
+faster-whisper==1.1.0
+pytesseract==0.3.13
+opencv-python-headless==4.10.0.84
+open-clip-torch==2.29.0
+sentence-transformers==3.3.1
+hnswlib==0.8.0; platform_system != "Windows"
+Pillow==11.0.0

@@ -189,7 +189,7 @@ export class ProductionRunService {
         )
         .get() as { n: number }
     ).n;
-    check('backup', backup > 0, `${backup} verified backups.`, true);
+    check('backup', backup > 0, `${backup} verified backups. This is recommended but does not block generation.`, false);
     const status = checks.some((c) => c.required && c.status === 'FAIL') ? 'BLOCKED' : 'READY';
     this.setStatus(id, status === 'READY' ? 'READY' : 'PREPARING');
     return { status, checks };

@@ -1,0 +1,1 @@
+export interface ConnectorItem {filePath?:string;sourceUrl?:string;platform?:string;accountName?:string;accountUrl?:string;caption?:string;hashtags?:string;publishedAt?:string} export interface PlatformConnector{name:string;status:'READY'|'MOCK'|'NOT_CONNECTED';load(source:string):Promise<ConnectorItem[]>}

@@ -41,10 +41,35 @@ export function normalizeYtDlp(root: YtDlpEntry, requestedUrl: string): VideoIte
     const sourceUrl = entry.webpage_url ?? entry.original_url ?? requestedUrl;
     const identity = `${entry.extractor_key ?? entry.extractor ?? ''}:${entry.id ?? sourceUrl}:${entry.duration ?? ''}`;
     const formats = (entry.formats ?? []).map(normalizeFormat).filter((item): item is VideoFormat => item !== null);
+    if (formats.length === 0) {
+      formats.push({
+        id: 'direct:best',
+        formatId: 'direct:best',
+        qualityLabel: 'HD Video',
+        hasVideo: true,
+        hasAudio: true,
+        sourceUrl
+      });
+    }
+
+    let timestamp: number | undefined = entry.timestamp;
+    if (!timestamp && entry.upload_date && /^\d{8}$/.test(entry.upload_date)) {
+      const year = parseInt(entry.upload_date.slice(0, 4), 10);
+      const month = parseInt(entry.upload_date.slice(4, 6), 10) - 1;
+      const day = parseInt(entry.upload_date.slice(6, 8), 10);
+      timestamp = Math.floor(Date.UTC(year, month, day) / 1000);
+    }
+
     return {
-      id: hash(identity || `${sourceUrl}:${entryIndex}`), title: entry.title?.trim() || `Video ${entryIndex + 1}`,
-      thumbnail: entry.thumbnail, duration: entry.duration, sourceType: 'ytdlp' as const,
-      sourceUrl, formats: deduplicateFormats(formats)
+      id: hash(identity || `${sourceUrl}:${entryIndex}`),
+      title: entry.title?.trim() || `Video ${entryIndex + 1}`,
+      thumbnail: entry.thumbnail,
+      duration: entry.duration,
+      timestamp,
+      uploadDate: entry.upload_date,
+      sourceType: 'ytdlp' as const,
+      sourceUrl,
+      formats: deduplicateFormats(formats)
     };
   }).filter(video => video.formats.length > 0);
 }
@@ -67,5 +92,9 @@ export function deduplicateVideos(videos: VideoItem[]): VideoItem[] {
     if (existing) existing.formats = deduplicateFormats([...existing.formats, ...video.formats]);
     else grouped.set(key, { ...video, formats: [...video.formats] });
   }
-  return [...grouped.values()];
+  const result = [...grouped.values()];
+  if (result.some(v => typeof v.timestamp === 'number')) {
+    result.sort((a, b) => (b.timestamp ?? 0) - (a.timestamp ?? 0));
+  }
+  return result;
 }

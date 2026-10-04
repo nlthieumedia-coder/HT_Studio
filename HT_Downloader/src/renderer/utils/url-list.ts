@@ -1,11 +1,15 @@
 export function parseUrlLines(input: string): string[] {
   const seen = new Set<string>();
   const urls: string[] = [];
-  for (const line of input.split(/\r?\n/)) {
-    const url = line.trim();
-    if (!url || seen.has(url)) continue;
-    seen.add(url);
-    urls.push(url);
+  const rawMatches = input.match(/(?:https?:\/\/[^\s"'<>\\]+|@[a-zA-Z0-9._]+)/gi) ?? [];
+  for (const match of rawMatches) {
+    const subUrls = match.split(/(?=https?:\/\/)/i);
+    for (let sub of subUrls) {
+      const url = sub.trim();
+      if (!url || seen.has(url)) continue;
+      seen.add(url);
+      urls.push(url);
+    }
   }
   return urls;
 }

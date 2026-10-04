@@ -2,7 +2,7 @@ import type { DownloadProgress, DownloadRequest } from '../shared/types';
 import type { DownloadResponse, ScanResponse } from './preload';
 declare global {
   interface Window { htDownloader: {
-    scanUrl(url: string): Promise<ScanResponse>;
+    scanUrl(url: string, options?: { maxVideos?: number }): Promise<ScanResponse>;
     chooseDirectory(): Promise<string | undefined>;
     download(request: DownloadRequest): Promise<DownloadResponse>;
     cancelDownload(id: string): Promise<boolean>;

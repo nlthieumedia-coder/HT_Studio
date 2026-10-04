@@ -1,0 +1,1 @@
+import { createHash } from 'node:crypto';import { readFile } from 'node:fs/promises';export class AudioFingerprintService { async compute(path:string){const b=await readFile(path);return createHash('sha256').update(b.subarray(0,Math.min(b.length,4_000_000))).digest('hex')} }

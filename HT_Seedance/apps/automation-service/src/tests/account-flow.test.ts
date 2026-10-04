@@ -86,4 +86,17 @@ describe('account and browser profile flow', () => {
     assert.doesNotThrow(() => second.acquire('profile'));
     second.release('profile');
   });
+  it('cleans a stale lock before reporting profile state', () => {
+    const root = fs.mkdtempSync(path.join(os.tmpdir(), 'profile-stale-lock-'));
+    dirs.push(root);
+    const profileDirectory = path.join(root, 'profile');
+    fs.mkdirSync(profileDirectory, { recursive: true });
+    fs.writeFileSync(
+      path.join(profileDirectory, '.ht-dola.lock'),
+      JSON.stringify({ pid: 2_147_483_647, token: 'stale' }),
+    );
+    const lock = new ProfileLock(root);
+    assert.equal(lock.isLocked('profile'), false);
+    assert.equal(fs.existsSync(path.join(profileDirectory, '.ht-dola.lock')), false);
+  });
 });

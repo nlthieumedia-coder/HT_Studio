@@ -31,6 +31,7 @@ export const AccountsPage: React.FC = () => {
     [displayName, setDisplayName] = useState(''),
     [provider, setProvider] = useState('dola'),
     [enabled, setEnabled] = useState(true),
+    [adding, setAdding] = useState(false),
     [deleting, setDeleting] = useState<AccountListItem | null>(null);
   const rows = useMemo(
     () =>
@@ -132,14 +133,40 @@ export const AccountsPage: React.FC = () => {
   const submit = async (event: React.FormEvent) => {
     event.preventDefault();
     if (!displayName.trim()) return;
+    setAdding(true);
     try {
-      await accountService.create({ displayName: displayName.trim(), provider, enabled });
-      notify(t('created'));
+      const account = await accountService.create({ displayName: displayName.trim(), provider, enabled });
+      if (provider === 'dola') {
+        await accountService.openProfile(account.id);
+        notify(t('loginOpened'));
+      } else {
+        notify(t('created'));
+      }
       setModalOpen(false);
       setDisplayName('');
       await reload();
+      if (provider === 'dola') void waitForLogin(account.id);
     } catch (e) {
       notify(message(e));
+    } finally {
+      setAdding(false);
+    }
+  };
+  const waitForLogin = async (accountId: string) => {
+    const deadline = Date.now() + 10 * 60_000;
+    while (Date.now() < deadline) {
+      await new Promise((resolve) => window.setTimeout(resolve, 2000));
+      try {
+        const account = await accountService.get(accountId);
+        await reload();
+        if (account.sessionStatus === 'AUTHENTICATED') {
+          notify(t('loginSucceeded'));
+          return;
+        }
+        if (account.sessionStatus === 'ERROR') return;
+      } catch {
+        return;
+      }
     }
   };
   return (
@@ -218,8 +245,8 @@ export const AccountsPage: React.FC = () => {
             <button type="button" className="button secondary" onClick={() => setModalOpen(false)}>
               {t('common:actions.cancel')}
             </button>
-            <button className="button primary" disabled={!displayName.trim()}>
-              {t('add')}
+            <button className="button primary" disabled={!displayName.trim() || adding}>
+              {adding ? t('openingBrowser') : t('add')}
             </button>
           </div>
         </form>

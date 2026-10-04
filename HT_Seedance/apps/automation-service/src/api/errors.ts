@@ -57,6 +57,14 @@ export const apiErrorHandler = (
       .send({
         error: { code: 'DATABASE_CONFLICT', message: 'The operation conflicts with existing data.' },
       });
+  const statusCode = (error as FastifyError).statusCode;
+  if (statusCode && statusCode >= 400 && statusCode < 500)
+    return reply.code(statusCode).send({
+      error: {
+        code: 'VALIDATION_FAILED',
+        message: 'Request validation failed.',
+      },
+    });
   logger.error({ error }, 'Unhandled API error');
   return reply
     .code(500)

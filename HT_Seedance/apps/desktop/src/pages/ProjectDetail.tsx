@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import {
   ArrowDown,
   ArrowLeft,
@@ -72,6 +72,7 @@ export const ProjectDetailPage: React.FC = () => {
     [selected, setSelected] = useState<string[]>([]),
     [deleteIds, setDeleteIds] = useState<string[] | null>(null),
     [busy, setBusy] = useState(false),
+    [monitoring, setMonitoring] = useState(false),
     [form, setForm] = useState<JobForm | null>(null);
   const load = useCallback(
     async () => ({
@@ -81,6 +82,16 @@ export const ProjectDetailPage: React.FC = () => {
     [projectId],
   );
   const { data, loading, error, reload } = useAsyncData(load);
+  useEffect(() => {
+    if (!monitoring) return;
+    const timer = window.setInterval(() => void reload(), 3000);
+    return () => window.clearInterval(timer);
+  }, [monitoring, reload]);
+  useEffect(() => {
+    if (!monitoring || !data?.jobs.length) return;
+    const watched = data.jobs.filter((job) => selected.includes(job.id));
+    if (watched.length && watched.every((job) => [JobState.COMPLETED, JobState.FAILED, JobState.INTERRUPTED, JobState.CANCELLED].includes(job.status))) setMonitoring(false);
+  }, [data, monitoring, selected]);
   const run = async (action: () => Promise<unknown>, message: string) => {
     setBusy(true);
     try {
@@ -154,6 +165,31 @@ export const ProjectDetailPage: React.FC = () => {
   );
   const toggle = (id: string) =>
     setSelected((ids) => (ids.includes(id) ? ids.filter((item) => item !== id) : [...ids, id]));
+  const runSelected = async () => {
+    const eligible = jobs.filter((job) => selected.includes(job.id) && [JobState.DRAFT, JobState.QUEUED, JobState.FAILED, JobState.CANCELLED, JobState.INTERRUPTED].includes(job.status));
+    if (!eligible.length) return notify('Không có scene hợp lệ để chạy.');
+    setBusy(true);
+    try {
+      const toQueue = eligible.filter((job) => job.status !== JobState.QUEUED);
+      if (toQueue.length) await jobService.bulkQueue(toQueue.map((job) => job.id));
+      const production = await productionRunService.create({ projectId: project.id, provider: project.defaultProvider, jobIds: eligible.map((job) => job.id), workerCount: 1, pilot: { enabled: true, maxBatchSize: 10, maxWorkers: 1, maxActiveJobs: 1 } });
+      const preflight = await productionRunService.preflight(production.id);
+      if (preflight.status === 'BLOCKED') {
+        const reasons = preflight.checks.filter((check) => check.required && check.status === 'FAIL').map((check) => check.message).join(' · ');
+        notify(`Chưa thể chạy: ${reasons}`);
+        await reload();
+        return;
+      }
+      await productionRunService.action(production.id, 'start');
+      setMonitoring(true);
+      notify('Đã bắt đầu tạo video. Trạng thái sẽ tự cập nhật tại đây.');
+      await reload();
+    } catch {
+      notify('Không thể bắt đầu tạo video. Hãy kiểm tra tài khoản đăng nhập và Chromium.');
+    } finally {
+      setBusy(false);
+    }
+  };
   return (
     <div className="page-stack">
       <Link to="/projects" className="back-link">
@@ -225,7 +261,7 @@ export const ProjectDetailPage: React.FC = () => {
           {selected.length > 0 && (
             <>
               <strong className="muted">Đã chọn {selected.length}</strong>
-              <button className="button primary" disabled={busy} onClick={()=>void run(async()=>{const eligible=jobs.filter(j=>selected.includes(j.id)&&[JobState.QUEUED,JobState.FAILED].includes(j.status));await productionRunService.create({projectId:project.id,provider:project.defaultProvider,jobIds:eligible.map(j=>j.id),workerCount:1,pilot:{enabled:true,maxBatchSize:10,maxWorkers:1,maxActiveJobs:1}});},'Production Run đã tạo. Mở Production Runs để chạy preflight.')}>Start Production</button>
+              <button className="button primary" disabled={busy} onClick={() => void runSelected()}><Play size={14} /> Chạy đã chọn</button>
               <button
                 className="button secondary"
                 disabled={busy}

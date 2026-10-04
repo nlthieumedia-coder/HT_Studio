@@ -22,5 +22,8 @@
   "removed": "Đã xóa metadata tài khoản. Dữ liệu hồ sơ trình duyệt được giữ lại.",
   "never": "Chưa bao giờ",
   "allStatuses": "Tất cả trạng thái",
-  "search": "Tìm kiếm tài khoản…"
+  "search": "Tìm kiếm tài khoản…",
+  "loginOpened": "Chromium đã mở. Hãy đăng nhập; trình duyệt sẽ tự đóng khi phiên sẵn sàng.",
+  "loginSucceeded": "Đăng nhập thành công và đã lưu phiên trình duyệt.",
+  "openingBrowser": "Đang mở Chromium..."
 }

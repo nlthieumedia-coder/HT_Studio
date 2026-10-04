@@ -277,12 +277,21 @@ export const accountService = {
       accountFixtures,
     ),
   create: (input: { displayName: string; provider: string; enabled: boolean }) =>
-    apiClient.post('/api/accounts', input),
+    apiClient
+      .post<{ data: { id: string } }>('/api/accounts', input)
+      .then((response) => response.data),
   setEnabled: (id: string, enabled: boolean) =>
     apiClient.post(`/api/accounts/${id}/${enabled ? 'enable' : 'disable'}`),
   delete: (id: string) => apiClient.delete(`/api/accounts/${id}`),
   openProfile:(id:string)=>apiClient.post(`/api/accounts/${id}/open-profile`),
   checkSession:(id:string)=>apiClient.post(`/api/accounts/${id}/check-session`),
+  get: (id: string) =>
+    apiClient.get<{
+      data: {
+        id: string;
+        sessionStatus: 'UNKNOWN' | 'AUTHENTICATED' | 'LOGIN_REQUIRED' | 'ERROR';
+      };
+    }>(`/api/accounts/${id}`).then((response) => response.data),
 };
 export const outputService = {
   list: () =>

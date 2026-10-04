@@ -1,0 +1,32 @@
+import { app, BrowserWindow } from 'electron';
+import { mkdir } from 'node:fs/promises';
+import { join } from 'node:path';
+import { Database } from './database';
+import { Repositories } from './database/repositories';
+import { createMainWindow } from './windows/MainWindow';
+import { FFmpegService } from './services/FFmpegService';
+import { PythonWorkerBridge } from './services/PythonWorkerBridge';
+import { MediaAnalysisEngine } from './services/MediaAnalysisEngine';
+import { LocalDatasetConnector } from './connectors/LocalDatasetConnector';
+import { DatasetService } from './services/DatasetService';
+import { SearchJobService } from './services/SearchJobService';
+import { SettingsService } from './services/SettingsService';
+import { ExportService } from './services/ExportService';
+import { registerHandlers } from './ipc/registerHandlers';
+
+let db: Database | undefined;
+let worker: PythonWorkerBridge | undefined;
+app.whenReady().then(async () => {
+  const root = app.getPath('userData'), storage = join(root, 'storage'), cache = join(root, 'cache');
+  await mkdir(storage, { recursive: true }); await mkdir(cache, { recursive: true });
+  db = new Database(join(storage, 'ht-craw-video.db')); await db.init();
+  const repo = new Repositories(db), settings = new SettingsService(join(root, 'settings.json')), config = await settings.get();
+  const ffmpeg = new FFmpegService(config.ffmpegPath, config.ffprobePath);
+  const script = app.isPackaged ? join(process.resourcesPath, 'python-worker', 'app', 'main.py') : join(app.getAppPath(), 'python-worker', 'app', 'main.py');
+  worker = new PythonWorkerBridge(script);
+  const engine = new MediaAnalysisEngine(repo, ffmpeg, worker, cache), datasets = new DatasetService(repo, new LocalDatasetConnector(), engine), search = new SearchJobService(repo, engine), win = createMainWindow();
+  registerHandlers({ window: win, repo, datasets, search, settings, exports: new ExportService(repo), ffmpeg, worker, storageRoot: storage });
+  app.on('activate', () => { if (BrowserWindow.getAllWindows().length === 0) createMainWindow(); });
+});
+app.on('window-all-closed', () => { if (process.platform !== 'darwin') app.quit(); });
+app.on('before-quit', () => { worker?.stop(); void db?.close(); });

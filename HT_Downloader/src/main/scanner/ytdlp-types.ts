@@ -6,5 +6,6 @@ export interface YtDlpFormat {
 export interface YtDlpEntry {
   id?: string; title?: string; webpage_url?: string; original_url?: string; url?: string;
   extractor?: string; extractor_key?: string; thumbnail?: string; duration?: number;
+  upload_date?: string; timestamp?: number;
   formats?: YtDlpFormat[]; entries?: Array<YtDlpEntry | null>; _type?: string;
 }

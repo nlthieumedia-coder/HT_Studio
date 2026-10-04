@@ -1,10 +1,11 @@
 import type { FastifyPluginAsync } from 'fastify';
 import type { SqliteDatabase } from '../../db/database.js';
 import { ProductionRunService } from '../../services/ProductionRunService.js';
+import { ProductionExecutorService } from '../../services/ProductionExecutorService.js';
 export const createProductionRunRoutes =
   (db: SqliteDatabase): FastifyPluginAsync =>
   async (app) => {
-    const service = new ProductionRunService(db);
+    const service = new ProductionRunService(db), executor = new ProductionExecutorService(db);
     app.get('/api/production-runs', async () => ({ data: service.list() }));
     app.post('/api/production-runs', async (req) => ({
       data: service.create(req.body as Parameters<typeof service.create>[0]),
@@ -20,10 +21,13 @@ export const createProductionRunRoutes =
     app.post<{ Params: { id: string } }>('/api/production-runs/:id/preflight', async (req) => ({
       data: service.preflight(req.params.id),
     }));
-    for (const action of ['start', 'resume', 'stop', 'complete'] as const)
-      app.post<{ Params: { id: string } }>(`/api/production-runs/:id/${action}`, async (req) => ({
-        data: service[action](req.params.id),
-      }));
+    app.post<{ Params: { id: string } }>('/api/production-runs/:id/start', async (req) => {
+      const run = service.start(req.params.id);
+      executor.start(req.params.id);
+      return { data: run };
+    });
+    for (const action of ['resume', 'stop', 'complete'] as const)
+      app.post<{ Params: { id: string } }>(`/api/production-runs/:id/${action}`, async (req) => ({ data: service[action](req.params.id) }));
     app.post<{ Params: { id: string } }>('/api/production-runs/:id/pause', async (req) => ({
       data: service.pause(req.params.id),
     }));

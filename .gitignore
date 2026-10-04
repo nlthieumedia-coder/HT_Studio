@@ -9,3 +9,11 @@ Thumbs.db
 .vscode/
 .idea/
 *.log
+
+# Local test/debug output
+**/integration-temp/
+**/scratch/
+**/builder-debug.yml
+
+# Generated desktop bundle copied from HT_Seedance builds
+/desktop/

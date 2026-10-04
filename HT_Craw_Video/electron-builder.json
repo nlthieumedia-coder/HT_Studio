@@ -1,0 +1,5 @@
+{
+  "appId":"com.htstudio.crawvideo","productName":"HT Craw Video","directories":{"output":"release"},
+  "files":["dist/**/*","python-worker/**/*","package.json"],"extraResources":[{"from":"python-worker","to":"python-worker"}],
+  "win":{"target":"dir","artifactName":"HT-Craw-Video-${version}-${arch}.${ext}","signAndEditExecutable":false}
+}

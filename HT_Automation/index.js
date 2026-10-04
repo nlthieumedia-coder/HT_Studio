@@ -68,30 +68,11 @@ function listen(id, eventName, callback) {
 }
 
 const MAX_LOG_LINES = 300;
-const UI_PREFERENCE_IDS = [
-  "selectSubtitleLanguage",
-  "selectSubtitleQuality",
-  "inputSubtitleLineLength",
-  "selectSubtitleMaxLines",
-  "checkSubtitleImport",
-  "selectSubtitleTrack",
-  "selectAudioOnlySpacing",
-  "inputAudioOnlyGapFrames",
-  "inputMusicLufs",
-  "inputMusicTrack",
-  "checkMusicLoop",
-  "checkMusicNormalize"
-];
-const TAB_NAMES = ["home", "build", "subtitle", "post", "settings"];
 
 function scrollLogToLatest() {
   const logEl = getEl("log");
   if (!logEl) return;
   logEl.scrollTop = Math.max(0, logEl.scrollHeight - logEl.clientHeight);
-}
-
-function capitalize(value) {
-  return value.charAt(0).toUpperCase() + value.slice(1);
 }
 
 function log(msg) {
@@ -129,7 +110,7 @@ function setBtnDisabled(btnId, disabled) {
 }
 
 function setSystemState(kind, label, stateClass) {
-  const capitalized = capitalize(kind);
+  const capitalized = kind.charAt(0).toUpperCase() + kind.slice(1);
   const home = getEl(`home${capitalized}State`);
   const settings = getEl(`settings${capitalized}State`);
   if (home) home.textContent = label;
@@ -286,7 +267,7 @@ function restoreUiPreferences() {
   } catch (e) {}
 }
 restoreUiPreferences();
-for (const preferenceId of UI_PREFERENCE_IDS) {
+for (const preferenceId of ["selectSubtitleLanguage", "selectSubtitleQuality", "inputSubtitleLineLength", "selectSubtitleMaxLines", "checkSubtitleImport", "selectSubtitleTrack", "selectAudioOnlySpacing", "inputAudioOnlyGapFrames", "inputMusicLufs", "inputMusicTrack", "checkMusicLoop", "checkMusicNormalize"]) {
   listen(preferenceId, "change", saveUiPreferences);
   listen(preferenceId, "input", saveUiPreferences);
 }
@@ -318,15 +299,19 @@ let bundledFfmpegPath = "ffmpeg";
 
 // ---- Tab Switcher ----
 function activateTab(tab) {
-  for (const name of TAB_NAMES) {
-    const capitalized = capitalize(name);
-    const button = getEl(`tabBtn${capitalized}`);
-    const panel = getEl(`tabPanel${capitalized}`);
-    const active = tab === name;
+  const names = ["home", "build", "subtitle", "post", "settings"];
+  const pairs = [
+    [getEl("tabBtnHome"), getEl("tabPanelHome"), tab === "home"],
+    [getEl("tabBtnBuild"), getEl("tabPanelBuild"), tab === "build"],
+    [getEl("tabBtnSubtitle"), getEl("tabPanelSubtitle"), tab === "subtitle"],
+    [getEl("tabBtnPost"), getEl("tabPanelPost"), tab === "post"],
+    [getEl("tabBtnSettings"), getEl("tabPanelSettings"), tab === "settings"]
+  ];
+  for (const [button, panel, active] of pairs) {
     if (button) button.classList.toggle("active", active);
     if (panel) { panel.classList.toggle("active", active); panel.style.display = active ? "block" : "none"; }
   }
-  if (!TAB_NAMES.includes(tab)) return;
+  if (!names.includes(tab)) return;
   if ((tab === "build" || tab === "post" || tab === "subtitle" || tab === "settings") && typeof autoCheckFfmpeg === "function") autoCheckFfmpeg(true);
   if (tab === "subtitle" && typeof discoverSubtitleAudioTracks === "function") discoverSubtitleAudioTracks();
 }
@@ -356,25 +341,22 @@ function activatePostMode(mode) {
   getEl("postOverlayPanel").classList.toggle("active", !musicActive);
 }
 
-for (const tab of TAB_NAMES) {
-  const capitalized = capitalize(tab);
-  listen(`tabBtn${capitalized}`, "click", () => activateTab(tab));
-}
-for (const mode of ["image", "video", "audio"]) {
-  const capitalized = capitalize(mode);
-  listen(`modeBtn${capitalized}`, "click", () => activateBuildMode(mode));
-}
-for (const mode of ["music", "overlay"]) {
-  const capitalized = capitalize(mode);
-  listen(`modeBtn${capitalized}`, "click", () => activatePostMode(mode));
-}
+listen("tabBtnHome", "click", () => activateTab("home"));
+listen("tabBtnBuild", "click", () => activateTab("build"));
+listen("tabBtnPost", "click", () => activateTab("post"));
+listen("tabBtnSubtitle", "click", () => activateTab("subtitle"));
+listen("tabBtnSettings", "click", () => activateTab("settings"));
+listen("modeBtnImage", "click", () => activateBuildMode("image"));
+listen("modeBtnVideo", "click", () => activateBuildMode("video"));
+listen("modeBtnAudio", "click", () => activateBuildMode("audio"));
+listen("modeBtnMusic", "click", () => activatePostMode("music"));
+listen("modeBtnOverlay", "click", () => activatePostMode("overlay"));
 listen("quickBuildImage", "click", () => { activateTab("build"); activateBuildMode("image"); });
 listen("quickBuildVideo", "click", () => { activateTab("build"); activateBuildMode("video"); });
 listen("quickSubtitle", "click", () => activateTab("subtitle"));
 listen("quickPost", "click", () => activateTab("post"));
 
-for (const tab of TAB_NAMES) {
-  const tabButton = `tabBtn${capitalize(tab)}`;
+for (const tabButton of ["tabBtnHome", "tabBtnBuild", "tabBtnSubtitle", "tabBtnPost", "tabBtnSettings"]) {
   listen(tabButton, "keydown", (event) => {
     if (event.key === "Enter" || event.key === " ") {
       event.preventDefault();

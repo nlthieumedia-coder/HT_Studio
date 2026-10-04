@@ -15,4 +15,11 @@ describe('parseUrlLines', () => {
       'https://b.example'
     ]);
   });
+
+  it('splits concatenated URLs pasted on a single line', () => {
+    expect(parseUrlLines('https://vt.tiktok.com/ABC/https://vt.tiktok.com/DEF')).toEqual([
+      'https://vt.tiktok.com/ABC/',
+      'https://vt.tiktok.com/DEF'
+    ]);
+  });
 });

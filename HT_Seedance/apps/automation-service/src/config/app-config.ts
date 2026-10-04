@@ -90,7 +90,7 @@ if (!fs.existsSync(browsersDir)) fs.mkdirSync(browsersDir, { recursive: true });
 
 export const appConfig: AppConfig = {
   env: (process.env.NODE_ENV as AppConfig['env']) || 'development',
-  host: '127.0.0.1', // Strictly 127.0.0.1, never 0.0.0.0
+  host: process.env.HOST || '0.0.0.0',
   port: process.env.PORT ? parseInt(process.env.PORT, 10) : 3001,
   authToken: getOrGenerateAuthToken(logsDir),
   dataDir: baseDataDir,

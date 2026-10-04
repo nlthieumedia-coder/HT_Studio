@@ -40,4 +40,7 @@ export const createOutputsRoutes =
     fastify.post('/api/outputs/:id/normalize/faststart', async (request) => ({
       data: manager.normalizeFaststart(params.parse(request.params).id),
     }));
+    fastify.post('/api/outputs/:id/normalize/universal', async (request) => ({
+      data: manager.normalizeUniversalMp4(params.parse(request.params).id),
+    }));
   };

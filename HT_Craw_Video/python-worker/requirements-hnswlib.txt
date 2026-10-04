@@ -1,0 +1,2 @@
+# Tùy chọn trên Windows: yêu cầu Microsoft Visual C++ Build Tools 14+.
+hnswlib==0.8.0

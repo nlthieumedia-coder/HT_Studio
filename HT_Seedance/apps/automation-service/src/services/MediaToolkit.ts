@@ -18,6 +18,35 @@ export interface MediaToolDiagnostics {
   ffprobe: { path: string; available: boolean; version: string | null; error: string | null };
 }
 
+const resolveFfmpegBinary = (): string => {
+  if (process.env.HT_DOLA_FFMPEG_PATH && fs.existsSync(process.env.HT_DOLA_FFMPEG_PATH)) {
+    return process.env.HT_DOLA_FFMPEG_PATH;
+  }
+  const knownPaths = [
+    'C:\\Program Files\\G-Labs Studio\\bin\\ffmpeg\\win\\ffmpeg.exe',
+    'C:\\Program Files\\Common Files\\Adobe\\UXP\\Plugins\\External\\com.hieuyt.htautomation\\bin\\ffmpeg.exe',
+    `${process.env.LOCALAPPDATA ?? ''}\\Programs\\3 BIG Studio\\ffmpeg.exe`,
+  ];
+  for (const p of knownPaths) {
+    if (fs.existsSync(p)) return p;
+  }
+  return 'ffmpeg';
+};
+
+const resolveFfprobeBinary = (): string => {
+  if (process.env.HT_DOLA_FFPROBE_PATH && fs.existsSync(process.env.HT_DOLA_FFPROBE_PATH)) {
+    return process.env.HT_DOLA_FFPROBE_PATH;
+  }
+  const knownPaths = [
+    'C:\\Program Files\\G-Labs Studio\\bin\\ffmpeg\\win\\ffprobe.exe',
+    `${process.env.LOCALAPPDATA ?? ''}\\Programs\\3 BIG Studio\\ffprobe.exe`,
+  ];
+  for (const p of knownPaths) {
+    if (fs.existsSync(p)) return p;
+  }
+  return 'ffprobe';
+};
+
 const runVersion = (binary: string) => {
   const result = spawnSync(binary, ['-version'], { encoding: 'utf8' });
   if (result.error)
@@ -33,8 +62,8 @@ const runVersion = (binary: string) => {
 };
 
 export const mediaToolDiagnostics = (): MediaToolDiagnostics => ({
-  ffmpeg: runVersion(process.env.HT_DOLA_FFMPEG_PATH || 'ffmpeg'),
-  ffprobe: runVersion(process.env.HT_DOLA_FFPROBE_PATH || 'ffprobe'),
+  ffmpeg: runVersion(resolveFfmpegBinary()),
+  ffprobe: runVersion(resolveFfprobeBinary()),
 });
 
 export const sha256File = (filePath: string): string => {
@@ -66,7 +95,7 @@ export const probeMediaFile = (filePath: string): MediaProbe => {
     fileSize,
     checksumSha256,
   };
-  const ffprobe = process.env.HT_DOLA_FFPROBE_PATH || 'ffprobe';
+  const ffprobe = resolveFfprobeBinary();
   const result = spawnSync(
     ffprobe,
     [
@@ -111,11 +140,68 @@ export const probeMediaFile = (filePath: string): MediaProbe => {
 };
 
 export const faststartMp4 = (source: string, target: string): boolean => {
-  const ffmpeg = process.env.HT_DOLA_FFMPEG_PATH || 'ffmpeg';
+  const ffmpeg = resolveFfmpegBinary();
   const result = spawnSync(
     ffmpeg,
     ['-y', '-i', source, '-c', 'copy', '-movflags', '+faststart', target],
     { encoding: 'utf8' },
   );
   return !result.error && result.status === 0;
+};
+
+export const transcodeUniversalMp4 = (source: string, target: string): boolean => {
+  const ffmpeg = resolveFfmpegBinary();
+  const result = spawnSync(
+    ffmpeg,
+    [
+      '-y',
+      '-i', source,
+      '-c:v', 'libx264',
+      '-preset', 'medium',
+      '-crf', '20',
+      '-pix_fmt', 'yuv420p',
+      '-c:a', 'aac',
+      '-b:a', '192k',
+      '-movflags', '+faststart',
+      target,
+    ],
+    { encoding: 'utf8' },
+  );
+  return !result.error && result.status === 0;
+};
+
+export const concatenateVideos = (sources: string[], target: string): boolean => {
+  if (!sources.length || sources.some((source) => !fs.existsSync(source))) return false;
+  const ffmpeg = resolveFfmpegBinary();
+  const result = spawnSync(
+    ffmpeg,
+    [
+      '-y',
+      ...sources.flatMap((source) => ['-i', source]),
+      '-filter_complex',
+      `${sources.map((_, index) => `[${index}:v:0]`).join('')}concat=n=${sources.length}:v=1:a=0[v]`,
+      '-map',
+      '[v]',
+      '-c:v',
+      'libx264',
+      '-preset',
+      'medium',
+      '-crf',
+      '20',
+      '-pix_fmt',
+      'yuv420p',
+      '-movflags',
+      '+faststart',
+      target,
+    ],
+    { encoding: 'utf8' },
+  );
+  return !result.error && result.status === 0 && fs.existsSync(target) && fs.statSync(target).size > 0;
+};
+
+export const extractLastFrame = (source: string, target: string): boolean => {
+  if (!fs.existsSync(source)) return false;
+  const ffmpeg = resolveFfmpegBinary();
+  const result = spawnSync(ffmpeg, ['-y', '-sseof', '-0.15', '-i', source, '-frames:v', '1', '-q:v', '2', target], { encoding: 'utf8' });
+  return !result.error && result.status === 0 && fs.existsSync(target) && fs.statSync(target).size > 0;
 };

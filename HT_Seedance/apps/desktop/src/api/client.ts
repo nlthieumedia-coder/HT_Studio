@@ -24,10 +24,13 @@ class ApiClient {
     body?: unknown,
     signal?: AbortSignal,
   ): Promise<T> {
-    const headers = new Headers({ Accept: 'application/json', 'Content-Type': 'application/json' });
+    const headers = new Headers({ Accept: 'application/json' });
     if (this.token) headers.set('x-auth-token', this.token);
     const options: RequestInit = { headers, method };
-    if (body !== undefined) options.body = JSON.stringify(body);
+    if (body !== undefined) {
+      headers.set('Content-Type', 'application/json');
+      options.body = JSON.stringify(body);
+    }
     if (signal) options.signal = signal;
     const response = await fetch(`${SERVICE_BASE_URL}${endpoint}`, options);
     if (!response.ok) {

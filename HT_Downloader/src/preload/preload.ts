@@ -11,7 +11,7 @@ const IPC_CHANNELS = {
 export type ScanResponse = { ok: true; data: ScanResult } | { ok: false; error: SerializedAppError };
 export type DownloadResponse = { ok: true; data: DownloadResult } | { ok: false; error: SerializedAppError };
 contextBridge.exposeInMainWorld('htDownloader', {
-  scanUrl: (url: string): Promise<ScanResponse> => ipcRenderer.invoke(IPC_CHANNELS.scanUrl, url) as Promise<ScanResponse>,
+  scanUrl: (url: string, options?: { maxVideos?: number }): Promise<ScanResponse> => ipcRenderer.invoke(IPC_CHANNELS.scanUrl, url, options) as Promise<ScanResponse>,
   chooseDirectory: (): Promise<string | undefined> => ipcRenderer.invoke(IPC_CHANNELS.chooseDirectory) as Promise<string | undefined>,
   download: (request: DownloadRequest): Promise<DownloadResponse> => ipcRenderer.invoke(IPC_CHANNELS.download, request) as Promise<DownloadResponse>,
   cancelDownload: (id: string): Promise<boolean> => ipcRenderer.invoke(IPC_CHANNELS.cancelDownload, id) as Promise<boolean>,

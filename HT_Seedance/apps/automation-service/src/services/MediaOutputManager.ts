@@ -8,7 +8,7 @@ import { JobRepository } from '../db/repositories/JobRepository.js';
 import { OutputRepository } from '../db/repositories/OutputRepository.js';
 import { ProjectRepository } from '../db/repositories/ProjectRepository.js';
 import { ConflictError, NotFoundError, ValidationError } from '../api/errors.js';
-import { faststartMp4, mediaToolDiagnostics, probeMediaFile } from './MediaToolkit.js';
+import { faststartMp4, mediaToolDiagnostics, probeMediaFile, transcodeUniversalMp4 } from './MediaToolkit.js';
 
 const safeName = (name: string) => {
   const clean = path.basename(name.trim());
@@ -113,6 +113,25 @@ export class MediaOutputManager {
     }
     fs.renameSync(temp, output.filePath);
     return this.probe(output.id);
+  }
+
+  normalizeUniversalMp4(outputId: string): OutputRecord {
+    const output = this.require(outputId);
+    const temp = `${output.filePath}.universal.mp4`;
+    ensureNoOverwrite(temp);
+    if (!transcodeUniversalMp4(output.filePath, temp)) {
+      if (fs.existsSync(temp)) fs.rmSync(temp, { force: true });
+      throw new Error('FFmpeg universal MP4 transcoding failed.');
+    }
+    const finalMp4Path = output.filePath.endsWith('.mp4') ? output.filePath : output.filePath.replace(/\.[^/.]+$/, '') + '.mp4';
+    if (finalMp4Path !== output.filePath && fs.existsSync(finalMp4Path)) {
+      fs.rmSync(finalMp4Path, { force: true });
+    }
+    fs.renameSync(temp, finalMp4Path);
+    if (finalMp4Path !== output.filePath) {
+      fs.rmSync(output.filePath, { force: true });
+    }
+    return this.refreshPath(output, finalMp4Path);
   }
 
   exportProjectManifest(projectId: string): { path: string; scenes: number } {
