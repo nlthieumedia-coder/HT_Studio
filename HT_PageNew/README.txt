@@ -77,6 +77,16 @@ có thể chạy một danh tính Facebook tại một thời điểm.
 Bộ lập lịch hoạt động khi ứng dụng đang mở. Không cần mở môi trường phát triển,
 nhưng không được thoát hoàn toàn ứng dụng nếu muốn lịch tiếp tục chạy.
 
+SỬA VÀ XÓA TỪNG LỊCH:
+1. Mở tab "Lịch đã lên".
+2. Tìm đúng hồ sơ, Trang cá nhân/Fanpage và khung giờ.
+3. Bấm "Sửa lịch" để đổi giờ IN/OUT rồi lưu.
+4. Bấm "Xóa lịch" và xác nhận để xóa đúng khung giờ đã chọn.
+
+Một Trang cá nhân hoặc Fanpage có thể có nhiều ca trong ngày. Xóa một ca không làm
+mất các ca còn lại. Hệ thống từ chối ca trùng thời gian với danh tính khác trong cùng
+một hồ sơ.
+
 
 7. TRẠNG THÁI VÀ NHẬT KÝ
 ------------------------
@@ -104,6 +114,8 @@ Bot sẽ hiển thị các nút:
 - Dừng phiên
 - Danh sách Page
 - Đang chạy
+- Sửa từng lịch bằng nút hình bút chì
+- Xóa từng lịch bằng nút thùng rác và bước xác nhận
 
 Khi chạy Page, người dùng chỉ cần chọn hồ sơ, tick Page, chọn thời lượng và
 xác nhận. Khi tạo lịch, chọn Page, giờ IN, phút và thời lượng để tính giờ OUT.
@@ -113,6 +125,9 @@ Với một Fanpage hoàn toàn mới, cần nhập một lần theo định d�
     Tên Fanpage | Link Facebook
 
 Bot chỉ phản hồi đúng Chat ID đã lưu trong ứng dụng.
+
+Lịch thêm, sửa hoặc xóa từ Telegram dùng chung dữ liệu với ứng dụng. Sau khi thao tác
+từ bot, mở tab "Lịch đã lên" hoặc bấm "Làm mới" để kiểm tra kết quả.
 
 
 9. XỬ LÝ SỰ CỐ
