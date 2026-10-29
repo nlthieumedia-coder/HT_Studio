@@ -17,6 +17,7 @@ HT Studio là monorepo tập hợp các công cụ Windows phục vụ dựng ph
 | [HT_Craw_Video](./HT_Craw_Video/) | 2.0.0 | Electron/Windows | Tìm video trùng, gần trùng, cùng chủ đề hoặc cùng định dạng trong dữ liệu cục bộ. |
 | [HT_PageNew](./HT_PageNew/) | 2.0.2 | Electron/Windows | Quản lý hồ sơ Chromium, Fanpage, Feed/Reels, lịch chạy và thông báo Telegram. |
 | [HT_Seedance](./HT_Seedance/) | 1.0.0 | Tauri/Windows | Quản lý quy trình tạo video qua phiên trình duyệt được người dùng cấp quyền. |
+| [HT_VidsGG](./HT_VidsGG/) | 0.1.2 | Electron/Windows | Quản lý nhiều tài khoản, hàng đợi và quy trình tạo video tự động với Google Vids. |
 
 ## Nhóm công cụ Premiere Pro
 
@@ -136,6 +137,14 @@ Build ứng dụng Windows:
 pnpm prepare:windows-sidecar
 pnpm build:windows
 ```
+
+### HT Vids Studio
+
+Ứng dụng desktop quản lý nhiều profile Google, prompt, ảnh tham chiếu, hàng đợi task và kho video cho quy trình Google Vids. Hỗ trợ phân phối task theo tài khoản rảnh, lưu MP4 về thư mục người dùng và kích hoạt bản quyền theo thiết bị.
+
+- Tài liệu: [HT_VidsGG/README.md](./HT_VidsGG/README.md)
+- Nền tảng: Windows 10/11 x64.
+- Bộ cài: `HT_VidsGG/dist/HT-Vids-Studio-Setup-0.1.2-Windows-x64.exe`.
 
 ## Bắt đầu phát triển
 
