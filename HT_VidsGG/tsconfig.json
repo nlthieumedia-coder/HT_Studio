@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "strict": true,
+    "outDir": "build",
+    "rootDir": ".",
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "noUncheckedIndexedAccess": true
+  },
+  "include": ["src/**/*.ts", "desktop/**/*.ts"],
+  "exclude": ["src/diagnose-*.ts", "src/dry-run-desktop.ts", "src/download-project.ts", "src/fit-and-download.ts", "src/live-pilot.ts", "src/recover-current.ts", "src/resize-and-download.ts", "test/**/*.ts"]
+}

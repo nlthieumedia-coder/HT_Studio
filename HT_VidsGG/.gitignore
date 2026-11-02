@@ -1,0 +1,31 @@
+node_modules/
+dist/
+build/
+data/
+downloads/
+inputs/
+release/
+distribution/
+distribution-*/
+final-package/
+package-output/
+*.log
+
+# Local license administration and production endpoint
+DANH_SACH_KEY_BAN_QUYEN.md
+src/license-config.json
+license-server/
+scripts/keygen.ts
+scripts/test-license-server.ts
+
+# Local/temporary development notes
+GOOGLE_VIDS_CODEX_HANDOFF.md
+IMPLEMENTATION_PLAN.md
+SURVEY_NOTES.md
+
+# Browser profiles, credentials and generated media
+**/profiles/
+**/chrome-profile/
+**/*.secure.json
+*.mp4
+*.webm

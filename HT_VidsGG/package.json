@@ -1,0 +1,70 @@
+{
+  "name": "google-vids-automation",
+  "version": "2.0.0",
+  "description": "HT Studio desktop automation for Google Vids video creation workflows",
+  "author": "HT Studio",
+  "private": true,
+  "type": "module",
+  "main": "build/desktop/main.js",
+  "scripts": {
+    "clean": "node -e \"require('fs').rmSync('build',{recursive:true,force:true})\"",
+    "clean:package": "node -e \"require('fs').rmSync('dist',{recursive:true,force:true,maxRetries:20,retryDelay:500})\"",
+    "build": "npm run clean && tsc -p tsconfig.json && node -e \"require('fs').copyFileSync('src/license-config.json','build/src/license-config.json')\"",
+    "desktop": "npm run build && set ELECTRON_RUN_AS_NODE=&& electron .",
+    "desktop:pack": "npm run clean:package && npm run build && node scripts/prepare-package.mjs && electron-builder --win portable --config.directories.output=%TEMP%\\ht-vids-studio-pack && node scripts/finalize-package.mjs",
+    "desktop:setup": "npm run clean:package && npm run build && node scripts/prepare-package.mjs && electron-builder --win nsis --config.directories.output=%TEMP%\\ht-vids-studio-pack --config.artifactName=HT-Vids-Studio-Setup-${version}-Windows-x64.${ext} && node scripts/finalize-package.mjs",
+    "test": "node --test --import tsx test/*.test.ts",
+    "preview": "tsx src/cli.ts preview",
+    "run:mock": "tsx src/cli.ts run --adapter mock",
+    "survey": "tsx src/cli.ts survey",
+    "keygen": "tsx scripts/keygen.ts"
+  },
+  "build": {
+    "appId": "vn.htstudio.googlevidsautomation",
+    "productName": "HT Vids Studio",
+    "artifactName": "HT-Vids-Studio-${version}-Windows-x64.${ext}",
+    "electronDist": "node_modules/electron/dist",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "build/**/*",
+      "desktop/renderer/**/*",
+      "desktop/assets/ht-vids-studio.ico",
+      "desktop/assets/ht-vids-studio-icon.png",
+      "desktop/assets/qr_telegram.png",
+      "desktop/assets/qr_zalo.png",
+      "desktop/preload.cjs",
+      "package.json",
+      "bin/**/*"
+    ],
+    "asarUnpack": [
+      "node_modules/ffprobe-static/bin/**/*",
+      "bin/**/*"
+    ],
+    "win": {
+      "icon": "desktop/assets/ht-vids-studio.ico",
+      "target": "portable"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": "always",
+      "createStartMenuShortcut": true,
+      "shortcutName": "HT Vids Studio",
+      "deleteAppDataOnUninstall": false
+    }
+  },
+  "dependencies": {
+    "ffprobe-static": "^3.1.0",
+    "playwright": "^1.56.1"
+  },
+  "devDependencies": {
+    "@types/node": "^24.10.0",
+    "electron": "^45.0.0",
+    "electron-builder": "^26.18.0",
+    "tsx": "^4.20.6",
+    "typescript": "^5.9.3"
+  }
+}

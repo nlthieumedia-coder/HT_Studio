@@ -1,0 +1,1043 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Vids Studio - AI Video Creation</title>
+  <link rel="icon" type="image/png" href="../assets/ht-vids-studio-icon.png">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="create.css">
+</head>
+<body>
+  <!-- ACTIVATION / LOGIN SCREEN -->
+  <div class="activation-screen" id="activationScreen" style="display: none;">
+    <div class="activation-backdrop">
+      <div class="glow-orb glow-1"></div>
+      <div class="glow-orb glow-2"></div>
+      <div class="glow-orb glow-3"></div>
+    </div>
+
+    <div class="activation-card">
+      <div class="activation-header">
+        <div class="activation-badge-pro">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
+          <span>BẢN QUYỀN THƯƠNG MẠI</span>
+        </div>
+        <div class="activation-logo">
+          <img src="../assets/ht-vids-studio-icon.png" alt="HT Vids Studio" width="68" height="68">
+        </div>
+        <h1 class="activation-title">Vids Studio Pro</h1>
+        <p class="activation-subtitle">Vui lòng nhập Key bản quyền để kích hoạt và sử dụng phần mềm trên thiết bị này</p>
+      </div>
+
+      <div class="activation-body">
+        <!-- Machine ID Box -->
+        <div class="hwid-box">
+          <div class="hwid-header">
+            <span class="hwid-label">MÃ PHẦN CỨNG MÁY TÍNH (HWID)</span>
+            <span class="hwid-tag">1 Máy = 1 Bản quyền</span>
+          </div>
+          <div class="hwid-field">
+            <code class="hwid-code" id="activationHwid">Đang kiểm tra...</code>
+            <button type="button" class="btn-copy-hwid" id="btnCopyHwid" title="Sao chép mã máy">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+              <span id="copyHwidLabel">Sao chép mã</span>
+            </button>
+          </div>
+          <p class="hwid-desc">Gửi mã này cho chúng tôi nếu bạn cần cấp key khóa cứng riêng cho máy tính này.</p>
+        </div>
+
+        <!-- License Key Input Box -->
+        <div class="license-input-box">
+          <label for="inputLicenseKey" class="input-label">MÃ KEY BẢN QUYỀN (LICENSE KEY)</label>
+          <div class="key-input-wrapper">
+            <div class="key-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="7.5" cy="15.5" r="5.5"></circle><path d="m11.5 11.5 4 4"></path><path d="m15.5 15.5 2-2"></path><path d="m18 13 2-2"></path></svg>
+            </div>
+            <input type="text" id="inputLicenseKey" class="input-key" placeholder="HTVIDS-XXXX-XXXX-XXXX-XXXX" spellcheck="false" autocomplete="off" maxlength="32">
+            <button type="button" class="btn-paste-key" id="btnPasteKey" title="Dán mã từ bộ nhớ tạm">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg>
+              <span>Dán</span>
+            </button>
+          </div>
+          <div class="activation-alert" id="activationAlert" style="display: none;"></div>
+        </div>
+
+        <!-- Activation Submit Button -->
+        <button type="button" class="btn-activate-submit" id="btnActivateSubmit">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 2l-2 2m-1-1l-3 3m-1-1l-2 2 4 4 2-2m-1-1l3-3m-1-1l2-2"></path><circle cx="7.5" cy="15.5" r="5.5"></circle></svg>
+          <span id="btnActivateText">KÍCH HOẠT VÀO ỨNG DỤNG</span>
+        </button>
+      </div>
+
+      <div class="activation-footer">
+        <div class="activation-help-text">
+          <span>Chưa có Key bản quyền hoặc cần gia hạn?</span>
+        </div>
+        <div class="activation-support-actions">
+          <button type="button" class="btn-activation-support" id="btnActivationContact">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+            <span>Liên hệ Mua Key qua Zalo / Telegram</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="app-container" id="mainAppContainer">
+    <!-- LEFT SIDEBAR -->
+    <aside class="sidebar">
+      <div class="logo-section">
+        <div class="logo-box">
+          <img src="../assets/ht-vids-studio-icon.png" alt="HT Vids Studio" width="42" height="42">
+        </div>
+        <div class="logo-text">
+          <strong>Vids Studio</strong>
+          <small>AI Video Creation</small>
+        </div>
+      </div>
+
+      <!-- Navigation Menu -->
+      <nav class="nav-menu">
+        <button class="nav-item" data-view="dashboard">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+          <span>Tổng quan</span>
+        </button>
+        <button class="nav-item active" data-view="create">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="21" x2="4" y2="14"></line><line x1="4" y1="10" x2="4" y2="3"></line><line x1="12" y1="21" x2="12" y2="12"></line><line x1="12" y1="8" x2="12" y2="3"></line><line x1="20" y1="21" x2="20" y2="16"></line><line x1="20" y1="12" x2="20" y2="3"></line><line x1="1" y1="14" x2="7" y2="14"></line><line x1="9" y1="8" x2="15" y2="8"></line><line x1="17" y1="16" x2="23" y2="16"></line></svg>
+          <span>Tạo video</span>
+        </button>
+        <button class="nav-item" data-view="queue">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg>
+          <span>Hàng đợi</span>
+          <span class="nav-badge" id="queueCount">3</span>
+        </button>
+        <button class="nav-item" data-view="library">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"></rect><polyline points="11 3 11 11 14 8 17 11 17 3"></polyline></svg>
+          <span>Kho video</span>
+        </button>
+        <button class="nav-item" data-view="accounts">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+          <span>Tài khoản</span>
+        </button>
+        <button class="nav-item" data-view="logs">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"></polyline><line x1="12" y1="19" x2="20" y2="19"></line></svg>
+          <span>Nhật ký</span>
+        </button>
+      </nav>
+
+      <!-- Footer Actions -->
+      <div class="sidebar-footer">
+        <button class="footer-btn" id="btnSupport" title="Kết nối Zalo & Telegram hỗ trợ">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+          <span>Hỗ trợ</span>
+        </button>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+      <!-- TOPBAR -->
+      <header class="topbar">
+        <div>
+          <h1 class="page-title" id="pageTitle">Tạo video</h1>
+          <p class="page-subtitle" id="pageSubtitle">Biến ý tưởng của bạn thành những thước phim ấn tượng với AI</p>
+        </div>
+
+        <div class="topbar-actions">
+          <button class="btn-guide" id="btnGuide" title="Hướng dẫn & Hỗ trợ">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+            <span>Hướng dẫn</span>
+          </button>
+
+          <div class="notif-wrapper">
+            <button class="btn-icon" id="btnNotifications" title="Thông báo nhiệm vụ">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
+              <span class="badge-dot" id="notifCountBadge" style="display: none;">0</span>
+            </button>
+
+            <!-- NOTIFICATIONS PANEL DROPDOWN -->
+            <div class="notifications-panel" id="notificationsPanel">
+              <div class="notif-head">
+                <div class="notif-title-row">
+                  <div class="notif-title">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
+                    <strong>Thông báo nhiệm vụ</strong>
+                  </div>
+                  <button type="button" class="notif-close-btn" id="closeNotifPanel" aria-label="Đóng thông báo">×</button>
+                </div>
+
+                <div class="notif-filter-tabs">
+                  <button type="button" class="notif-tab active" data-filter="all">Tất cả (<span id="countNotifAll">0</span>)</button>
+                  <button type="button" class="notif-tab" data-filter="failed">Lỗi cần sửa (<span id="countNotifFailed" style="color:#f87171;">0</span>)</button>
+                  <button type="button" class="notif-tab" data-filter="completed">Hoàn thành (<span id="countNotifCompleted" style="color:#4ade80;">0</span>)</button>
+                </div>
+              </div>
+
+              <div class="notif-list" id="notifList">
+                <!-- Dynamically rendered -->
+              </div>
+
+              <div class="notif-foot">
+                <button type="button" class="btn-retry-all-failed" id="btnRetryAllFailed" style="display: none;">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"></polyline><polyline points="1 20 1 14 7 14"></polyline><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg>
+                  <span>Chạy lại tất cả lỗi</span>
+                </button>
+                <button type="button" class="btn-notif-to-queue" id="btnNotifToQueue">
+                  <span>Xem trong Hàng đợi &rarr;</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="license-status-badge" id="topbarLicenseBadge" title="Bản quyền phần mềm đã kích hoạt">
+            <span class="badge-icon">👑</span>
+            <span class="badge-text" id="topbarLicenseText">PRO LICENSE</span>
+          </div>
+
+          <div class="user-profile-badge render-wish" title="Chúc bạn Render được nhiều video!!!">
+            <span class="render-wish-icon">✨</span>
+            <span class="render-wish-text">Chúc bạn Render được nhiều video!!!</span>
+          </div>
+        </div>
+      </header>
+
+      <!-- VIEW 1: CREATE VIDEO (Matching Screenshot) -->
+      <section class="view active" id="view-create">
+        <div class="create-grid">
+          <!-- LEFT COLUMN -->
+          <div class="create-left-col">
+            <!-- Tài khoản được quản lý riêng trong tab Tài khoản -->
+            <div class="card-section" style="display:none" aria-hidden="true">
+              <div class="section-head">
+                <div class="badge-num">01</div>
+                <div class="section-info">
+                  <h3>Nhóm tài khoản thực thi</h3>
+                  <p>Chọn tài khoản AI để tạo video (có thể chọn nhiều tài khoản cùng lúc)</p>
+                </div>
+                <button class="btn-secondary" id="btnManageAccounts" data-go="accounts">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                  <span>Quản lý tài khoản</span>
+                </button>
+              </div>
+
+              <div class="accounts-row" id="accountPicker">
+                <!-- Dynamically populated, or sample cards -->
+              </div>
+            </div>
+
+            <!-- 01: Nội dung kịch bản video -->
+            <div class="card-section">
+              <div class="section-head">
+                <div class="badge-num">01</div>
+                <div class="section-info">
+                  <h3>Nội dung kịch bản video</h3>
+                  <p>Nhập ý tưởng hoặc mô tả chi tiết nội dung video của bạn</p>
+                </div>
+                <button class="btn-secondary" id="btnSamplePrompt">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                  <span>Prompt mẫu ▾</span>
+                </button>
+              </div>
+
+              <!-- Main Prompt Textarea -->
+              <div class="prompt-box-wrap">
+                <textarea id="firstPrompt" class="prompt-textarea" placeholder="Mô tả chi tiết cảnh, nhân vật, hành động, bối cảnh, cảm xúc, âm thanh..."></textarea>
+                <div class="char-count" id="charCount">0/5000</div>
+              </div>
+
+              <!-- Quick Suggestions -->
+              <div class="quick-suggestions">
+                <span class="quick-title">⚡ Gợi ý nhanh:</span>
+                <div class="tag-list">
+                  <button type="button" class="tag-btn" data-tag="Cảnh đời thường">Cảnh đời thường</button>
+                  <button type="button" class="tag-btn" data-tag="Hoạt hình 3D">Hoạt hình 3D</button>
+                  <button type="button" class="tag-btn" data-tag="Gia đình">Gia đình</button>
+                  <button type="button" class="tag-btn" data-tag="Động vật">Động vật</button>
+                  <button type="button" class="tag-btn" data-tag="Phiêu lưu">Phiêu lưu</button>
+                  <button type="button" class="tag-btn" data-tag="Drama kịch tính">Drama kịch tính</button>
+                </div>
+              </div>
+
+              <!-- Reference Images Section -->
+              <div class="reference-images-section">
+                <div class="ref-header">
+                  <div class="ref-title">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"></rect><circle cx="9" cy="9" r="2"></circle><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"></path></svg>
+                    <strong>Ảnh tham chiếu (tùy chọn)</strong>
+                    <span class="sparkle">✨</span>
+                  </div>
+                  <p class="ref-desc">Tải lên hình ảnh nhân vật, bối cảnh, trang phục để giữ tính nhất quán</p>
+                </div>
+
+                <div class="upload-gallery-row">
+                  <!-- Dropzone Click/Drop -->
+                  <div class="dropzone-card" id="pickImages">
+                    <div class="dropzone-icon">
+                      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"></rect><circle cx="9" cy="9" r="2"></circle><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"></path></svg>
+                    </div>
+                    <div class="dropzone-text">
+                      <strong>Kéo thả ảnh vào đây hoặc click để tải lên</strong>
+                      <small>Hỗ trợ: JPG, PNG, WEBP (Tối đa 3 ảnh, mỗi ảnh 10MB)</small>
+                    </div>
+                    <span class="dropzone-counter" id="imgCountBadge">0/3</span>
+                  </div>
+
+                  <!-- Thumbnails Preview Strip -->
+                  <div class="thumbnail-strip" id="thumbnailStrip">
+                    <button type="button" class="btn-add-thumb" id="btnAddThumb">
+                      <span>+</span>
+                      <small>Thêm ảnh</small>
+                    </button>
+                  </div>
+                </div>
+
+                <input type="text" id="images" readonly style="display: none;">
+              </div>
+
+              <!-- Advanced Options Collapsible -->
+              <div class="advanced-options-card">
+                <button type="button" class="advanced-toggle" id="btnAdvancedToggle">
+                  <div class="advanced-title">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                    <span>Tùy chọn nâng cao (Không bắt buộc)</span>
+                  </div>
+                  <svg id="chevronIcon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                </button>
+
+                <div class="advanced-content" id="advancedContent" style="display: none;">
+                  <label>Prompt Extend (Đoạn tiếp nối 10 giây sau):</label>
+                  <textarea id="secondPrompt" rows="3" placeholder="Mô tả hành động hoặc diễn biến tiếp theo ngay sau đoạn đầu..."></textarea>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- RIGHT ASIDE COLUMN: 02 CẤU HÌNH & XUẤT -->
+          <aside class="create-right-col">
+            <div class="card-section sticky-sidebar">
+              <div class="section-head">
+                <div class="badge-num">02</div>
+                <div class="section-info">
+                  <h3>Cấu hình & Xuất</h3>
+                  <p>Thiết lập thông số và bắt đầu tạo video</p>
+                </div>
+              </div>
+
+              <!-- Tỷ lệ khung hình -->
+              <div class="form-group">
+                <label class="group-label">Tỷ lệ khung hình</label>
+                <select id="videoRatio" class="duration-select" aria-label="Tỷ lệ khung hình">
+                  <option value="9:16" selected>Dọc 9:16 — 1080 × 1920</option>
+                  <option value="16:9">Ngang 16:9 — 1920 × 1080</option>
+                </select>
+              </div>
+
+              <div class="config-fields-grid">
+
+              <!-- Tên task & video tự động -->
+              <div class="form-group">
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+                  <label class="group-label" style="margin-bottom:0;">Tên task & video (Tự động)</label>
+                  <button type="button" id="btnRefreshTaskName" style="background:transparent;border:none;color:#60a5fa;cursor:pointer;font-size:11px;display:flex;align-items:center;gap:4px;" title="Tạo mã random mới">
+                    <span>↻ Tạo mã mới</span>
+                  </button>
+                </div>
+                <div class="input-icon-wrap input-btn-wrap">
+                  <input type="text" id="filename" value="" placeholder="task-1-YYYYMMDD_random.mp4" spellcheck="false" title="Tên task và video hoàn thiện theo định dạng task-X-ngàytạo_mãrandom.mp4">
+                </div>
+                <small style="display:block;color:var(--text-dim);margin-top:6px;line-height:1.4;">
+                  Tự động đặt tên theo cấu trúc <code style="color:#93c5fd;background:#0f172a;padding:2px 5px;border-radius:4px;">task-X-ngàytạo_mãrandom.mp4</code> tránh trùng tên video trong thư mục.
+                </small>
+              </div>
+
+              <div class="form-group">
+                <label class="group-label">Thư mục lưu video</label>
+                <div class="input-icon-wrap input-btn-wrap">
+                  <input type="text" id="output" value="" placeholder="Đang lấy thư mục Video của Windows..." readonly title="Thư mục lưu video sau khi hoàn tất">
+                  <button type="button" class="btn-browse-folder" id="pickOutput" title="Chọn thư mục lưu">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+                  </button>
+                </div>
+                <small style="display:block;color:var(--text-dim);margin-top:7px;">MP4 hoàn tất sẽ được lưu trực tiếp vào thư mục này.</small>
+              </div>
+
+              <!-- Thời lượng video -->
+              <div class="form-group">
+                <label class="group-label">Độ phân giải AI</label>
+                <select id="videoResolution" class="duration-select" aria-label="Độ phân giải AI">
+                  <option value="720" selected>720p (mặc định)</option>
+                  <option value="1080">1080p</option>
+                </select>
+                <small style="display:block;color:var(--text-dim);margin-top:7px;line-height:1.4;">Chất lượng clip AI nguồn; kích thước MP4 cuối vẫn theo tỷ lệ canvas.</small>
+              </div>
+
+              <div class="form-group">
+                <label class="group-label">Thời lượng video</label>
+                <select id="videoDuration" class="duration-select" aria-label="Thời lượng video">
+                  <option value="5">5 giây</option>
+                  <option value="10" selected>10 giây (mặc định)</option>
+                  <option value="15">15 giây</option>
+                  <option value="20">20 giây</option>
+                  <option value="30" disabled>30 giây (đang phát triển)</option>
+                </select>
+              </div>
+
+              <!-- Tự động xóa watermark AI (Delogo Inpainting) -->
+              <div class="form-group" style="grid-column: 1 / -1; margin-top: 4px;">
+                <label style="display:flex;align-items:center;gap:12px;cursor:pointer;user-select:none;background:rgba(99,102,241,0.06);padding:10px 14px;border-radius:8px;border:1px solid rgba(99,102,241,0.22);transition:all 0.2s ease;">
+                  <input type="checkbox" id="removeWatermark" checked style="width:18px;height:18px;accent-color:var(--primary, #6366f1);cursor:pointer;flex-shrink:0;">
+                  <div>
+                    <div style="font-weight:600;color:var(--text, #fff);font-size:13px;display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
+                      <span>✨ Tự động xóa watermark Google AI (Khuyên dùng)</span>
+                      <span style="font-size:10px;padding:2px 6px;border-radius:4px;background:rgba(34,197,94,0.15);color:#4ade80;font-weight:700;">NỘI SUY DELOGO • KHÔNG CẮT XÉN</span>
+                    </div>
+                    <small style="display:block;color:var(--text-dim, #94a3b8);font-size:11.5px;margin-top:3px;line-height:1.4;">
+                      Tự động hòa tan logo ngôi sao AI ở góc phải vào nền xung quanh bằng thuật toán nội suy điểm ảnh, giữ nguyên 100% kích thước khung hình, độ sắc nét và âm thanh gốc.
+                    </small>
+                  </div>
+                </label>
+              </div>
+              </div>
+
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:9px;">
+                <button id="addToQueue" class="btn-secondary" style="min-height:50px;font-weight:700;">
+                  <span>＋ Thêm hàng chờ</span>
+                </button>
+                <button id="runJobs" class="btn-cta-submit" style="margin:0;">
+                  <span>▶</span><span>Chạy ngay</span>
+                </button>
+              </div>
+
+              <!-- Sidebar Notice -->
+              <div class="sidebar-notice">
+                <span class="info-circle">ℹ</span>
+                <span>Thêm hàng chờ để kiểm tra lại prompt/ảnh trước khi chạy, hoặc chọn Chạy ngay để tự dùng tài khoản đang rảnh.</span>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <!-- VIEW 2: DASHBOARD -->
+      <section class="view" id="view-dashboard">
+        <div class="dashboard-v2">
+          <div class="dashboard-heading">
+            <div><h3>Hiệu suất hôm nay</h3><p id="dashboardDate">Đang tải dữ liệu...</p></div>
+            <button class="btn-secondary" id="refreshDashboard">Làm mới</button>
+          </div>
+          <div class="dashboard-kpis">
+            <article class="dashboard-kpi"><span>Nội dung đã thêm</span><strong id="todayTotal">0</strong><small>Task tạo trong hôm nay</small></article>
+            <article class="dashboard-kpi success"><span>Video hoàn tất</span><strong id="todayCompleted">0</strong><small id="todayDuration">Tổng thời lượng 0 giây</small></article>
+            <article class="dashboard-kpi active"><span>Đang chờ / xử lý</span><strong id="todayActive">0</strong><small>Gồm bản nháp, chờ và đang chạy</small></article>
+            <article class="dashboard-kpi danger"><span>Không thành công</span><strong id="todayFailed">0</strong><small>Có thể kiểm tra và chạy lại</small></article>
+          </div>
+          <div class="dashboard-grid">
+            <section class="dashboard-panel"><div class="dashboard-panel-title"><div><h3>Trạng thái hôm nay</h3><p>Phân bổ toàn bộ nội dung đã thêm</p></div></div><div id="statusChart" class="dashboard-chart-empty">Chưa có dữ liệu hôm nay.</div></section>
+            <section class="dashboard-panel weekly-panel"><div class="dashboard-panel-title"><div><h3>Video hoàn tất trong 7 ngày</h3><p>Số video được tải thành công mỗi ngày</p></div></div><div id="weeklyChart" class="weekly-chart"></div></section>
+          </div>
+          <div class="dashboard-grid bottom-grid">
+            <section class="dashboard-panel"><div class="dashboard-panel-title"><div><h3>Hoạt động gần đây</h3><p>Cập nhật mới nhất từ hàng đợi</p></div><button class="dashboard-link" data-go="queue">Xem hàng đợi →</button></div><div id="recentActivity" class="activity-list"></div></section>
+            <section class="dashboard-panel"><div class="dashboard-panel-title"><div><h3>Năng lực hệ thống</h3><p>Tình trạng tài khoản thực thi</p></div><button class="dashboard-link" data-go="accounts">Quản lý →</button></div><div id="accountSummary" class="account-summary"></div></section>
+          </div>
+        </div>
+        <div class="card-section">
+          <div class="section-head">
+            <div class="section-info">
+              <h3>Thống kê tài nguyên</h3>
+              <p>Tổng quan hệ thống tài khoản và video đã hoàn tất</p>
+            </div>
+          </div>
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;">
+            <div style="background: #151e32; padding: 18px; border-radius: 12px; border: 1px solid var(--border-color);">
+              <span style="font-size: 12px; color: var(--text-muted); text-transform: uppercase;">Tài khoản Google</span>
+              <strong id="statAccounts" style="display: block; font-size: 32px; margin-top: 6px; color: #fff;">2</strong>
+            </div>
+            <div style="background: #151e32; padding: 18px; border-radius: 12px; border: 1px solid var(--border-color);">
+              <span style="font-size: 12px; color: var(--text-muted); text-transform: uppercase;">Video hoàn tất</span>
+              <strong id="statVideos" style="display: block; font-size: 32px; margin-top: 6px; color: #fff;">1</strong>
+            </div>
+            <div style="background: #151e32; padding: 18px; border-radius: 12px; border: 1px solid var(--border-color);">
+              <span style="font-size: 12px; color: var(--text-muted); text-transform: uppercase;">Tác vụ đang chạy</span>
+              <strong id="statRunning" style="display: block; font-size: 32px; margin-top: 6px; color: #60a5fa;">1</strong>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-section">
+          <div class="section-head">
+            <div class="section-info">
+              <h3>Hoạt động gần đây</h3>
+            </div>
+          </div>
+          <div id="recentVideos" class="empty">Chưa có video.</div>
+        </div>
+      </section>
+
+      <!-- VIEW 3: QUEUE (SPLIT 2-COLUMN LAYOUT) -->
+      <section class="view" id="view-queue">
+        <div class="queue-split-container">
+          <!-- Cột trái: Danh sách các task -->
+          <div class="queue-left-col">
+            <div class="queue-panel-header">
+              <div>
+                <h3 class="queue-panel-title">Danh sách tác vụ</h3>
+                <p class="queue-panel-subtitle">Hệ thống tự động phân phối cho tài khoản đang rảnh</p>
+              </div>
+              <button id="refreshQueue" class="btn-secondary btn-sm" title="Làm mới hàng đợi">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
+                <span>Làm mới</span>
+              </button>
+            </div>
+            <div id="queueList" class="queue-cards-list"></div>
+          </div>
+
+          <!-- Cột phải: Bảng kiểm tra chi tiết nội dung task -->
+          <div class="queue-right-col" id="queueDetailPanel">
+            <div id="queueDetailContent" class="queue-inspector-wrap">
+              <!-- Nội dung chi tiết task được render tự động -->
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- VIEW 4: LIBRARY (SPLIT 2-COLUMN LAYOUT) -->
+      <section class="view" id="view-library">
+        <div class="library-split-container">
+          <!-- Cột trái: Danh sách các video đã tạo -->
+          <div class="library-left-col">
+            <div class="library-panel-header">
+              <div>
+                <h3 class="library-panel-title">Danh sách video đã tạo</h3>
+                <p class="library-panel-subtitle">Quản lý và xem lại các video MP4 đã kết xuất thành công</p>
+              </div>
+              <button id="refreshLibrary" class="btn-secondary btn-sm" title="Làm mới kho video">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
+                <span>Làm mới</span>
+              </button>
+            </div>
+            <div id="libraryList" class="library-cards-list"></div>
+          </div>
+
+          <!-- Cột phải: Bảng quan sát và phát video chi tiết -->
+          <div class="library-right-col" id="libraryDetailPanel">
+            <div id="libraryDetailContent" class="library-inspector-wrap">
+              <!-- Nội dung player & chi tiết video được render tự động -->
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- VIEW 5: ACCOUNTS -->
+      <section class="view" id="view-accounts">
+        <!-- Quản lý tài khoản Google -->
+        <div class="card-section">
+          <div class="section-head">
+            <div class="section-info">
+              <h3>Quản lý tài khoản Google</h3>
+              <p>Gmail, loại gói và trạng thái của từng profile đăng nhập độc lập</p>
+            </div>
+          </div>
+          <div style="display: flex; gap: 10px; margin-bottom: 18px; flex-wrap: wrap;">
+            <input id="accountName" placeholder="Tên gợi nhớ (tùy chọn)..." style="flex: 1; min-width: 180px; background: var(--bg-input); border: 1px solid var(--border-color); border-radius: 8px; padding: 10px 14px; color: #fff;">
+            <button id="addAccount" class="btn-primary">Thêm tài khoản</button>
+            <button id="openBulkAccounts" class="btn-secondary">Thêm hàng loạt</button>
+            <button id="bulkLoginAccountsBtn" class="btn-secondary" style="border-color: #3b82f6; color: #93c5fd;" title="Tự động đăng nhập ngầm cho các tài khoản có sẵn mật khẩu/2FA">Tự đăng nhập tất cả</button>
+          </div>
+          <div class="account-summary-grid" id="accountSummaryGrid">
+            <div class="account-summary-card total"><span>Tổng tài khoản</span><strong id="accountTotalCount">0</strong></div>
+            <div class="account-summary-card standard"><span>Tài khoản thường</span><strong id="accountStandardCount">0</strong></div>
+            <div class="account-summary-card pro"><span>Tài khoản Pro</span><strong id="accountProCount">0</strong></div>
+            <div class="account-summary-card ultra"><span>Tài khoản Ultra</span><strong id="accountUltraCount">0</strong></div>
+          </div>
+          <div class="account-bulk-toolbar">
+            <label class="account-select-all"><input type="checkbox" id="selectAllAccounts"> <span>Chọn tất cả</span></label>
+            <span class="account-selected-count" id="selectedAccountCount">Đã chọn: 0</span>
+            <div class="account-bulk-actions">
+              <button type="button" id="bulkCheckSelected" class="btn-secondary" disabled>Kiểm tra hàng loạt</button>
+              <button type="button" id="bulkDisableSelected" class="btn-secondary bulk-disable" disabled>Tắt hàng loạt</button>
+              <button type="button" id="bulkDeleteSelected" class="btn-secondary bulk-delete" disabled>Xóa hàng loạt</button>
+            </div>
+          </div>
+          <div id="accountsList"></div>
+          <dialog id="bulkAccountsDialog" class="bulk-account-dialog">
+            <form method="dialog">
+              <div class="bulk-dialog-head">
+                <div>
+                  <div style="display: flex; align-items: center; gap: 10px;">
+                    <h3 style="margin: 0;">Thêm hàng loạt tài khoản Google</h3>
+                    <span style="font-size: 11px; padding: 2px 9px; border-radius: 999px; background: rgba(59, 130, 246, 0.15); color: #60a5fa; font-weight: 700;">Tự động đăng nhập &amp; 2FA</span>
+                  </div>
+                  <p style="margin-top: 6px;">Mỗi tài khoản một dòng: <code>email | mật_khẩu | khóa_2fa | mail_khôi_phục</code>. Hỗ trợ phân cách bằng <code>|</code>, <code>:</code>, <code>tab</code> hoặc dấu phẩy.</p>
+                </div>
+                <button value="cancel" class="dialog-close" aria-label="Đóng">×</button>
+              </div>
+
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                <label class="bulk-label" for="bulkAccountsInput" style="margin-bottom: 0;">Danh sách tài khoản (Email · Mật khẩu · Khóa 2FA TOTP · Email khôi phục)</label>
+                <div style="display: flex; gap: 8px;">
+                  <button type="button" id="btnQuickSample" class="btn-secondary" style="font-size: 11px; padding: 4px 10px;">Ví dụ mẫu</button>
+                  <button type="button" id="btnBulkClear" class="btn-secondary" style="font-size: 11px; padding: 4px 10px;">Xóa trắng</button>
+                </div>
+              </div>
+
+              <textarea id="bulkAccountsInput" rows="10" spellcheck="false" placeholder="email1@gmail.com | matkhau1 | JBSWY3DPEHPK3PXP&#10;email2@gmail.com:matkhau2:4S654S654S654S65&#10;email3@gmail.com&#9;matkhau3&#9;JBSWY3DPEHPK3PXP&#9;recovery@gmail.com"></textarea>
+
+              <div class="bulk-security-note">
+                🔒 Mật khẩu &amp; khóa 2FA được mã hóa an toàn bằng Windows DPAPI. Toàn bộ tài khoản và phiên đăng nhập được lưu trữ vĩnh viễn trên máy của bạn (không tự ý xóa). Nếu tài khoản cần xác minh thêm, bạn có thể bấm <strong>"Mở Chrome"</strong> để xác nhận mà không cần nhập lại.
+              </div>
+
+              <div id="bulkParseResult" class="bulk-parse-result" style="margin-top: 12px;">Chưa có dữ liệu.</div>
+
+              <div class="bulk-dialog-actions">
+                <button value="cancel" class="btn-secondary">Hủy</button>
+                <button type="button" id="confirmBulkAccounts" class="btn-primary" style="display: inline-flex; align-items: center; gap: 8px;">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                  <span>Thêm &amp; Tự động đăng nhập</span>
+                </button>
+              </div>
+            </form>
+          </dialog>
+        </div>
+      </section>
+
+      <!-- VIEW 6: LOGS -->
+      <section class="view" id="view-logs">
+        <div class="card-section">
+          <div class="section-head">
+            <div class="section-info">
+              <h3>Nhật ký tiến trình thời gian thực</h3>
+            </div>
+            <button id="clearLogs" class="btn-secondary">Xóa log</button>
+          </div>
+          <pre id="log" style="background: #060910; color: #93c5fd; padding: 18px; border-radius: 10px; border: 1px solid var(--border-color); font-family: monospace; font-size: 13px; line-height: 1.6;"></pre>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- USER GUIDE MODAL (Bộ Hướng Dẫn Sử Dụng) -->
+  <dialog id="guideModal" class="guide-modal-dialog">
+    <div class="guide-modal-wrapper">
+      <!-- Header -->
+      <div class="guide-modal-header">
+        <div class="guide-header-title-wrap">
+          <div class="guide-icon-badge">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+          </div>
+          <div>
+            <div class="guide-header-tags">
+              <span class="guide-tag">Tài liệu hướng dẫn</span>
+              <span class="guide-version-tag">HT Vids Studio</span>
+            </div>
+            <h2 class="guide-main-title">Cẩm Nang Hướng Dẫn Sử Dụng</h2>
+          </div>
+        </div>
+        <button type="button" class="guide-close-btn" id="closeGuideModal" aria-label="Đóng hướng dẫn">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+      </div>
+
+      <!-- Main Layout: Sidebar Nav + Content Pane -->
+      <div class="guide-body-layout">
+        <!-- Sidebar Navigation -->
+        <aside class="guide-sidebar-nav">
+          <button type="button" class="guide-nav-tab active" data-guide-tab="quickstart">
+            <span class="guide-tab-icon">🚀</span>
+            <div class="guide-tab-info">
+              <strong>Bắt đầu nhanh</strong>
+              <small>Quy trình 4 bước tạo video</small>
+            </div>
+          </button>
+
+          <button type="button" class="guide-nav-tab" data-guide-tab="accounts">
+            <span class="guide-tab-icon">👤</span>
+            <div class="guide-tab-info">
+              <strong>Quản lý tài khoản</strong>
+              <small>Thêm hàng loạt &amp; 2FA TOTP</small>
+            </div>
+          </button>
+
+          <button type="button" class="guide-nav-tab" data-guide-tab="prompts">
+            <span class="guide-tab-icon">🎬</span>
+            <div class="guide-tab-info">
+              <strong>Tạo video &amp; Prompt</strong>
+              <small>Kỹ thuật @Image &amp; Extend 20s</small>
+            </div>
+          </button>
+
+          <button type="button" class="guide-nav-tab" data-guide-tab="queue">
+            <span class="guide-tab-icon">⚡</span>
+            <div class="guide-tab-info">
+              <strong>Hàng đợi &amp; Đa luồng</strong>
+              <small>Tự phân tài khoản rảnh</small>
+            </div>
+          </button>
+
+          <button type="button" class="guide-nav-tab" data-guide-tab="faq">
+            <span class="guide-tab-icon">❓</span>
+            <div class="guide-tab-info">
+              <strong>Xử lý sự cố &amp; Mẹo</strong>
+              <small>Quota, lỗi mạng &amp; xuất file</small>
+            </div>
+          </button>
+
+          <div class="guide-sidebar-help-card">
+            <span class="help-card-dot"></span>
+            <strong>Cần hỗ trợ 1-1?</strong>
+            <p>Liên hệ tác giả qua Zalo &amp; Telegram bất cứ lúc nào.</p>
+            <button type="button" class="btn-guide-help" id="guideBtnToSupport">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+              <span>Mở kênh Hỗ trợ</span>
+            </button>
+          </div>
+        </aside>
+
+        <!-- Right Content Section -->
+        <div class="guide-content-area" id="guideContentArea">
+          <!-- SECTION 1: QUICKSTART -->
+          <article class="guide-pane active" id="guide-pane-quickstart">
+            <div class="guide-pane-head">
+              <span class="guide-pane-badge">Quy trình chuẩn</span>
+              <h3>4 Bước Tạo Video AI Đầu Tiên</h3>
+              <p>Chỉ mất 2 phút để thiết lập và nhận video hoàn chỉnh dài 20 giây với chất lượng cao nhất.</p>
+            </div>
+
+            <div class="guide-steps-list">
+              <div class="guide-step-card">
+                <div class="step-number">1</div>
+                <div class="step-detail">
+                  <h4>Thêm tài khoản Google AI</h4>
+                  <p>Truy cập tab <strong>Tài khoản</strong>. Thêm tài khoản Google đã có gói Google Vids / Gemini Advanced. Bấm <strong>Mở Chrome</strong> đăng nhập lần đầu tiên để ứng dụng ghi nhớ phiên.</p>
+                  <div class="guide-inline-tip">💡 Tài khoản được lưu vĩnh viễn và độc lập trên máy của bạn, không ảnh hưởng Chrome cá nhân.</div>
+                </div>
+              </div>
+
+              <div class="guide-step-card">
+                <div class="step-number">2</div>
+                <div class="step-detail">
+                  <h4>Tải ảnh tham chiếu (Tùy chọn)</h4>
+                  <p>Tại tab <strong>Tạo video</strong>, kéo thả hoặc chọn tối đa 3 ảnh nhân vật, sản phẩm (JPG/PNG). Hệ thống tự gán thẻ <code>@Image1</code>, <code>@Image2</code>, <code>@Image3</code>.</p>
+                </div>
+              </div>
+
+              <div class="guide-step-card">
+                <div class="step-number">3</div>
+                <div class="step-detail">
+                  <h4>Soạn kịch bản &amp; Cấu hình khung hình</h4>
+                  <p>Nhập mô tả cho <strong>10 giây đầu</strong> và <strong>10 giây Extend</strong>. Chọn tỉ lệ <strong>9:16 (Dọc TikTok/Reels)</strong> hoặc <strong>16:9 (Ngang YouTube)</strong>, độ phân giải 1080p và bật tính năng xóa Watermark.</p>
+                </div>
+              </div>
+
+              <div class="guide-step-card">
+                <div class="step-number">4</div>
+                <div class="step-detail">
+                  <h4>Bấm Tạo video hoặc Thêm hàng đợi</h4>
+                  <p>Bấm <strong>Tạo video 20 giây &amp; tải xuống</strong> để chạy ngay lập tức, hoặc bấm <strong>Thêm vào hàng đợi</strong> để chạy ngầm liên tục nhiều video.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="guide-pane-footer-callout">
+              <div>
+                <strong>Sẵn sàng trải nghiệm ngay?</strong>
+                <p>Mở giao diện tạo video để bắt đầu biến ý tưởng thành thước phim.</p>
+              </div>
+              <button type="button" class="btn-primary" id="guideBtnToCreate">Đi tới Tạo video &rarr;</button>
+            </div>
+          </article>
+
+          <!-- SECTION 2: ACCOUNTS & 2FA -->
+          <article class="guide-pane" id="guide-pane-accounts">
+            <div class="guide-pane-head">
+              <span class="guide-pane-badge">Quản trị &amp; Bảo mật</span>
+              <h3>Quản Lý Tài Khoản &amp; Tự Động Đăng Nhập 2FA</h3>
+              <p>Tối ưu cho việc nuôi và vận hành nhiều tài khoản Google AI đồng thời mà không bị checkpoint.</p>
+            </div>
+
+            <div class="guide-text-block">
+              <h4>1. Cơ chế Profile Chrome độc lập &amp; Mã hóa DPAPI</h4>
+              <p>Mỗi tài khoản Google được gán một thư mục dữ liệu trình duyệt riêng biệt trong thư mục máy tính của bạn. Mật khẩu và Secret Key 2FA được mã hóa bằng chuẩn <strong>Windows DPAPI</strong> (chỉ giải mã được trên chính máy của bạn), an toàn tuyệt đối 100%.</p>
+            </div>
+
+            <div class="guide-text-block">
+              <h4>2. Thêm hàng loạt tài khoản Google (Bulk Add)</h4>
+              <p>Tại tab <strong>Tài khoản</strong>, bấm nút <strong>Thêm hàng loạt</strong> và dán danh sách theo cú pháp:</p>
+              <div class="guide-code-box">
+                <code>email1@gmail.com | matkhau1 | JBSWY3DPEHPK3PXP | recovery1@gmail.com<br>email2@gmail.com:matkhau2:4S654S654S654S65:recovery2@gmail.com</code>
+              </div>
+              <p class="guide-note-text">Phân cách hỗ trợ dấu gạch đứng <code>|</code>, hai chấm <code>:</code>, phím <code>Tab</code> hoặc dấu phẩy.</p>
+            </div>
+
+            <div class="guide-alert-box alert-info">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+              <div>
+                <strong>Tự động sinh mã 2FA TOTP:</strong>
+                <p>Nếu bạn cung cấp Khóa 2FA (Secret Key dạng Base32), ứng dụng sẽ tự động tính toán mã xác thực 6 số thời gian thực và tự động điền vào màn hình đăng nhập Google mà bạn không cần mở điện thoại!</p>
+              </div>
+            </div>
+
+            <div class="guide-text-block">
+              <h4>3. Xử lý khi Google yêu cầu xác thực bảo mật bổ sung</h4>
+              <p>Nếu Google yêu cầu nhập Captcha hoặc xác nhận điện thoại, hãy bấm nút <strong>Mở Chrome</strong> tương ứng với tài khoản đó. Trình duyệt Chrome riêng sẽ hiển thị, bạn thao tác xác minh trực tiếp một lần rồi đóng lại. Phiên đăng nhập sẽ được lưu vĩnh viễn.</p>
+            </div>
+          </article>
+
+          <!-- SECTION 3: PROMPTS & INGREDIENTS -->
+          <article class="guide-pane" id="guide-pane-prompts">
+            <div class="guide-pane-head">
+              <span class="guide-pane-badge">Sáng tạo nội dung</span>
+              <h3>Nghệ Thuật Viết Prompt &amp; Dùng Ảnh Tham Chiếu</h3>
+              <p>Bí quyết để AI Google Vids (Veo) hiểu đúng ý đồ và dựng video chuẩn điện ảnh.</p>
+            </div>
+
+            <div class="guide-text-block">
+              <h4>1. Cấu trúc Prompt chuẩn 4 phần</h4>
+              <div class="guide-structure-grid">
+                <div class="struct-item">
+                  <span class="struct-tag">Chủ thể</span>
+                  <p>Mô tả chi tiết nhân vật, trang phục, diện mạo hoặc sản phẩm.</p>
+                </div>
+                <div class="struct-item">
+                  <span class="struct-tag">Hành động</span>
+                  <p>Chuyển động mượt mà, cử chỉ, bước đi, tương tác cụ thể.</p>
+                </div>
+                <div class="struct-item">
+                  <span class="struct-tag">Bối cảnh</span>
+                  <p>Địa điểm, thời gian trong ngày, hiệu ứng thời tiết, ánh sáng.</p>
+                </div>
+                <div class="struct-item">
+                  <span class="struct-tag">Góc quay</span>
+                  <p>Close-up, cinematic wide shot, drone tracking, 4k ultra-detailed.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="guide-text-block">
+              <h4>2. Giữ đồng nhất nhân vật bằng @Image1, @Image2, @Image3</h4>
+              <p>Khi bạn tải ảnh lên hệ thống, bạn có thể gọi tên ảnh ngay trong prompt để AI tham chiếu:</p>
+              <div class="guide-sample-prompt">
+                <span class="sample-label">Ví dụ Prompt mẫu:</span>
+                <p>"Cận cảnh nhân vật giống <strong>@Image1</strong> đang mỉm cười tự tin, gió thổi nhẹ tà áo, phía sau là phố đêm Tokyo rực rỡ ánh đèn neon lung linh, cinematic lighting, 8k resolution."</p>
+              </div>
+            </div>
+
+            <div class="guide-text-block">
+              <h4>3. Kỹ thuật Extend mở rộng video 20 giây liền mạch</h4>
+              <p>Google Vids tạo mỗi lượt 10 giây. Khi chọn <strong>Thời lượng: 20 giây</strong>:</p>
+              <ul class="guide-list">
+                <li><strong>Ô Prompt ban đầu (0s - 10s):</strong> Mô tả bối cảnh và hành động mở đầu câu chuyện.</li>
+                <li><strong>Ô Prompt Extend (10s - 20s):</strong> Mô tả hành động tiếp diễn tự nhiên từ kết thúc của đoạn 10s trước.</li>
+              </ul>
+              <div class="guide-alert-box alert-tip">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M12 8v4M12 16h.01"></path></svg>
+                <div>
+                  <strong>Mẹo nối cảnh:</strong> Ở ô Extend, tránh đổi đột ngột toàn bộ bối cảnh để AI tạo ra chuyển động liên tục và không bị giật cảnh.
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- SECTION 4: QUEUE SYSTEM -->
+          <article class="guide-pane" id="guide-pane-queue">
+            <div class="guide-pane-head">
+              <span class="guide-pane-badge">Tự động hóa nâng cao</span>
+              <h3>Hàng Đợi Thông Minh &amp; Đa Luồng Tài Khoản</h3>
+              <p>Treo máy tạo hàng loạt video xuyên đêm với cơ chế tự động phân tài khoản.</p>
+            </div>
+
+            <div class="guide-text-block">
+              <h4>1. Cơ chế tự động tìm tài khoản đang rảnh</h4>
+              <p>Khi bạn xếp nhiều tác vụ vào tab <strong>Hàng đợi</strong>, hệ thống sẽ liên tục kiểm tra các tài khoản đã sẵn sàng. Tài khoản nào rảnh sẽ lập tức nhận tác vụ mới nhất, giúp tối đa hóa công suất tạo video mà không bao giờ bị trùng lặp hay xung đột profile.</p>
+            </div>
+
+            <div class="guide-text-block">
+              <h4>2. Các trạng thái trong Hàng đợi</h4>
+              <div class="guide-status-legend">
+                <div class="legend-item"><span class="badge-status waiting">waiting</span><span>Đang chờ phân tài khoản rảnh</span></div>
+                <div class="legend-item"><span class="badge-status running">running</span><span>Đang điều khiển Chrome tạo video</span></div>
+                <div class="legend-item"><span class="badge-status completed">completed</span><span>Tạo xong, đã tải về máy</span></div>
+                <div class="legend-item"><span class="badge-status failed">failed</span><span>Gặp sự cố hoặc chạm quota Google</span></div>
+              </div>
+            </div>
+
+            <div class="guide-text-block">
+              <h4>3. Tính năng Tự động xóa Watermark AI (Delogo)</h4>
+              <p>Khi tùy chọn <strong>Xóa watermark Veo</strong> được bật, ngay sau khi tải video MP4 từ Google Vids về, hệ thống sẽ tự động kích hoạt thuật toán xóa mờ logo ở góc video với độ phân giải gốc, cho ra video thành phẩm sạch đẹp sẵn sàng đăng lên mạng xã hội.</p>
+            </div>
+          </article>
+
+          <!-- SECTION 5: FAQ & TROUBLESHOOTING -->
+          <article class="guide-pane" id="guide-pane-faq">
+            <div class="guide-pane-head">
+              <span class="guide-pane-badge">Giải đáp &amp; Khắc phục</span>
+              <h3>Câu Hỏi Thường Gặp &amp; Xử Lý Lỗi</h3>
+              <p>Các vấn đề phổ biến và cách giải quyết nhanh nhất trong thực tế.</p>
+            </div>
+
+            <div class="guide-faq-accordion">
+              <div class="faq-item">
+                <div class="faq-q">❓ Google báo "Generating failed" hoặc tạm hết Quota thì làm sao?</div>
+                <div class="faq-a">Google áp dụng quota tạo video theo giờ hoặc theo ngày đối với mỗi tài khoản. Khi gặp tình trạng này, bạn chỉ cần bấm <strong>Chạy lại (Retry)</strong> sau 10 - 20 phút, hoặc thêm nhiều tài khoản Google vào hệ thống để tự động luân phiên.</div>
+              </div>
+
+              <div class="faq-item">
+                <div class="faq-q">❓ Video đã tải về nằm ở đâu trên máy tính?</div>
+                <div class="faq-a">Video được lưu tại đường dẫn cấu hình ở ô <strong>Thư mục lưu video</strong> (mặc định là thư mục <code>Videos</code> của Windows). Bạn có thể vào tab <strong>Kho video</strong>, bấm nút <strong>"Xem trong thư mục"</strong> để mở ngay vị trí lưu file.</div>
+              </div>
+
+              <div class="faq-item">
+                <div class="faq-q">❓ Tại sao tài khoản báo trạng thái "NOT_LOGGED_IN"?</div>
+                <div class="faq-a">Nghĩa là tài khoản chưa có phiên đăng nhập trên Chrome riêng. Bạn chỉ cần bấm nút <strong>"Mở Chrome"</strong> trên dòng tài khoản đó, đăng nhập Google một lần rồi đóng trình duyệt lại.</div>
+              </div>
+
+              <div class="faq-item">
+                <div class="faq-q">❓ Tôi muốn báo lỗi cho tác giả thì cần gửi thông tin gì?</div>
+                <div class="faq-a">Bạn chỉ cần vào tab <strong>Nhật ký</strong>, sao chép các dòng báo lỗi (hoặc chụp ảnh màn hình) rồi bấm nút <strong>Hỗ trợ</strong> ở thanh menu để gửi trực tiếp qua Zalo hoặc Telegram cho tác giả!</div>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <div class="guide-modal-footer">
+        <div class="guide-footer-left">
+          <span>💡 <strong>HT Vids Studio</strong> · Thiết kế &amp; phát triển bởi <strong>Nguyễn Lê Trung Hiếu</strong></span>
+        </div>
+        <div class="guide-footer-actions">
+          <button type="button" class="btn-secondary" id="btnGuideSupportModal">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+            <span>Hỗ trợ trực tiếp</span>
+          </button>
+          <button type="button" class="btn-secondary guide-btn-close-bottom" id="btnCloseGuideBottom">Đóng</button>
+        </div>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- SUPPORT & CONNECT MODAL (QR Zalo & Telegram) -->
+  <dialog id="supportModal" class="support-modal-dialog">
+    <div class="support-modal-content">
+      <div class="support-modal-head">
+        <div class="support-badge-row">
+          <span class="support-live-badge"><span class="live-pulse"></span> Sẵn sàng kết nối</span>
+          <span class="support-author-tag">HT Studio · Nguyễn Lê Trung Hiếu</span>
+        </div>
+        <div class="support-head-flex">
+          <div>
+            <h2 class="support-title">Trung Tâm Kết Nối &amp; Hỗ Trợ</h2>
+            <p class="support-desc">Quét mã QR bằng ứng dụng Zalo hoặc Telegram trên điện thoại để được hỗ trợ kỹ thuật, giải đáp thắc mắc và kết nối trực tiếp.</p>
+          </div>
+          <button type="button" class="support-close-btn" id="closeSupportModal" aria-label="Đóng cửa sổ">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="support-channels-grid">
+        <!-- Zalo Card -->
+        <div class="support-channel-card support-card-zalo">
+          <div class="channel-card-head">
+            <div class="channel-brand">
+              <div class="channel-icon-wrap zalo-bg">
+                <span class="brand-text-icon">Zalo</span>
+              </div>
+              <div>
+                <h3 class="channel-name">Zalo Cá Nhân</h3>
+                <span class="channel-status online">Hiếu đây rồi</span>
+              </div>
+            </div>
+            <span class="channel-pill zalo-pill">Quét mã Zalo</span>
+          </div>
+
+          <div class="support-qr-box">
+            <div class="support-qr-card-inner">
+              <img src="../assets/qr_zalo.png" alt="Mã QR Zalo - Hiếu đây rồi" class="support-qr-img" onerror="this.src='assets/qr_zalo.png'">
+            </div>
+            <div class="support-qr-tip">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 18h.01M8 21h8a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2z"></path></svg>
+              <span>Mở app <strong>Zalo</strong> trên điện thoại &rarr; chọn <strong>Quét mã QR</strong></span>
+            </div>
+          </div>
+
+          <div class="channel-actions">
+            <button type="button" class="btn-channel-action zalo-btn" id="btnActionZalo">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+              <span>Mở Zalo Chat</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Telegram Card -->
+        <div class="support-channel-card support-card-telegram">
+          <div class="channel-card-head">
+            <div class="channel-brand">
+              <div class="channel-icon-wrap telegram-bg">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 0 0-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.52 2.77-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .39z"/>
+                </svg>
+              </div>
+              <div>
+                <h3 class="channel-name">Telegram</h3>
+                <span class="channel-status online">@NLTH_MEDIA</span>
+              </div>
+            </div>
+            <span class="channel-pill telegram-pill">Kênh hỗ trợ 24/7</span>
+          </div>
+
+          <div class="support-qr-box">
+            <div class="support-qr-card-inner">
+              <img src="../assets/qr_telegram.png" alt="Mã QR Telegram - @NLTH_MEDIA" class="support-qr-img" onerror="this.src='assets/qr_telegram.png'">
+            </div>
+            <div class="support-qr-tip">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 18h.01M8 21h8a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2z"></path></svg>
+              <span>Quét mã bằng camera điện thoại hoặc app <strong>Telegram</strong></span>
+            </div>
+          </div>
+
+          <div class="channel-actions">
+            <button type="button" class="btn-channel-action telegram-btn" id="btnActionTelegram">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+              <span>Nhắn tin Telegram</span>
+            </button>
+            <button type="button" class="btn-channel-action-sub" id="btnCopyTelegramId" title="Sao chép tên người dùng">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+              <span id="copyTelegramLabel">Sao chép ID</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="support-modal-foot">
+        <div class="support-foot-note">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+          <span>Gặp lỗi khi tạo video? Bạn có thể gửi ảnh màn hình hoặc nội dung trong tab <strong>Nhật ký</strong> để được giải quyết nhanh nhất.</span>
+        </div>
+        <button type="button" class="btn-secondary support-btn-dismiss" id="btnDismissSupport">Đóng</button>
+      </div>
+    </div>
+  </dialog>
+
+  <dialog id="appMessageDialog" class="app-message-dialog" aria-labelledby="appMessageTitle">
+    <div class="app-message-card">
+      <div class="app-message-accent"></div>
+      <div class="app-message-body">
+        <div id="appMessageIcon" class="app-message-icon" aria-hidden="true"></div>
+        <div class="app-message-copy">
+          <h3 id="appMessageTitle">Thông báo</h3>
+          <p id="appMessageText"></p>
+          <input id="appMessageInput" class="app-message-input" type="text" autocomplete="off">
+        </div>
+        <button id="appMessageCloseX" class="app-message-close" type="button" aria-label="Đóng">×</button>
+      </div>
+      <div class="app-message-actions">
+        <button id="appMessageCancel" class="btn-secondary app-message-cancel" type="button">Hủy</button>
+        <button id="appMessageOk" class="btn-primary app-message-ok" type="button">Đã hiểu</button>
+      </div>
+    </div>
+  </dialog>
+
+  <script src="app.js"></script>
+</body>
+</html>
