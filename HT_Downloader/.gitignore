@@ -1,9 +1,15 @@
 node_modules/
 dist/
 build/
-Setup/
+Setup/*
+!Setup/install.exe
 scratch/
 outputs/
+
+# Local license administration and production endpoint (never push real keys or server)
+DANH_SACH_KEY_BAN_QUYEN.md
+license-server/
+resources/license-config.json
 release/
 release-*/
 dashboard-installer/
