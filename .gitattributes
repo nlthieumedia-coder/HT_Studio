@@ -1,2 +1,2 @@
-/HT_BinBuilder/dist/*.zip filter=lfs diff=lfs merge=lfs -text
-/HT_BinBuilder/dist/*.ccx filter=lfs diff=lfs merge=lfs -text
+﻿HT_Downloader/Setup/*.exe filter=lfs diff=lfs merge=lfs -text
+HT_VidsGG/dist/*.exe filter=lfs diff=lfs merge=lfs -text

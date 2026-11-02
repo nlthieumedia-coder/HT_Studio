@@ -1,9 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" role="img" aria-label="HT Studio">
-  <defs><linearGradient id="g" x1="5" y1="8" x2="43" y2="40" gradientUnits="userSpaceOnUse"><stop stop-color="#6d28ff"/><stop offset=".48" stop-color="#3f6df6"/><stop offset="1" stop-color="#08cee5"/></linearGradient></defs>
-  <rect x="1" y="1" width="46" height="46" rx="10" fill="#17171b"/>
-  <path d="M7 13V8h6M35 8h6v5M7 35v5h6M35 40h6v-5" fill="none" stroke="url(#g)" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>
-  <path d="M7 24l7-7v5h4v-7h4v18h-4v-7h-4v5L7 24Z" fill="url(#g)"/>
-  <path d="M25 15h16v5h-5.5v13H30V20h-5Z" fill="url(#g)"/>
-  <path d="m22.5 20.2 7 4.1-7 4.1Z" fill="#fff" opacity=".96"/>
-  <path d="m41 17 6 7-6 7" fill="none" stroke="url(#g)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-</svg>

@@ -1,4 +1,4 @@
-# Generated build caches and temporary inspection folders
+﻿# Generated build caches and temporary inspection folders
 **/.build-tools/
 **/.tmp_*/
 **/node_modules/
@@ -17,3 +17,17 @@ Thumbs.db
 
 # Generated desktop bundle copied from HT_Seedance builds
 /desktop/
+
+# Other local tools excluded from this repository (only HT_Downloader & HT_VidsGG are tracked)
+/HT_Automation/
+/HT_BinBuilder/
+/HT_Craw_Video/
+/HT_Finder/
+/HT_PageNew/
+/HT_Seedance/
+/HT_SeedanceVideo/
+/HT_AutoPost/
+/HT PostCheck/
+/HT_Muse/
+/template-vibecode-main/
+/template-vibecode-main.zip
