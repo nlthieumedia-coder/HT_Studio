@@ -1238,6 +1238,21 @@ function renderVideoDetail(video) {
           <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 3 20 12 6 21 6 3"></polygon></svg>
         </div>
       </div>
+      <div class="video-controls" id="libraryVideoControls">
+        <button type="button" class="video-control-button" id="libraryPlayPause" aria-label="Phát video" title="Phát / Tạm dừng">
+          <svg class="control-icon-play" width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 3 20 12 6 21 6 3"></polygon></svg>
+          <svg class="control-icon-pause" width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16" rx="1"></rect><rect x="14" y="4" width="4" height="16" rx="1"></rect></svg>
+        </button>
+        <span class="video-time" id="libraryCurrentTime">0:00</span>
+        <input id="librarySeekBar" class="video-seek" type="range" min="0" max="1000" value="0" step="1" aria-label="Thanh thời gian video">
+        <span class="video-time" id="libraryDuration">0:00</span>
+        <button type="button" class="video-control-button" id="libraryMute" aria-label="Tắt âm thanh" title="Bật / Tắt âm thanh">
+          <svg class="control-icon-volume" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M15.5 8.5a5 5 0 0 1 0 7"></path><path d="M18.5 5.5a9 9 0 0 1 0 13"></path></svg>
+          <svg class="control-icon-muted" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><line x1="23" y1="9" x2="17" y2="15"></line><line x1="17" y1="9" x2="23" y2="15"></line></svg>
+        </button>
+        <input id="libraryVolume" class="video-volume" type="range" min="0" max="1" value="1" step="0.05" aria-label="Âm lượng">
+        <span class="video-volume-value" id="libraryVolumeValue">100%</span>
+      </div>
     </div>
 
     <!-- 3. Bảng thông số & Kịch bản (Ẩn mặc định, nhấn nút bên dưới để mở rộng) -->
@@ -1323,24 +1338,73 @@ function renderVideoDetail(video) {
   const vPlayer = $('libraryMainVideoPlayer');
   const vOverlay = $('videoPlayOverlay');
   const pContainer = $('libraryPlayerContainer');
+  const playPauseButton = $('libraryPlayPause');
+  const seekBar = $('librarySeekBar');
+  const currentTimeLabel = $('libraryCurrentTime');
+  const durationLabel = $('libraryDuration');
+  const muteButton = $('libraryMute');
+  const volumeControl = $('libraryVolume');
+  const volumeValue = $('libraryVolumeValue');
+
+  const formatPlayerTime = value => {
+    const seconds = Number.isFinite(value) && value > 0 ? Math.floor(value) : 0;
+    return `${Math.floor(seconds / 60)}:${String(seconds % 60).padStart(2, '0')}`;
+  };
+
+  const updatePlayerState = () => {
+    if (!vPlayer) return;
+    pContainer?.classList.toggle('is-playing', !vPlayer.paused && !vPlayer.ended);
+    pContainer?.classList.toggle('is-muted', vPlayer.muted || vPlayer.volume === 0);
+    if (currentTimeLabel) currentTimeLabel.textContent = formatPlayerTime(vPlayer.currentTime);
+    if (durationLabel) durationLabel.textContent = formatPlayerTime(vPlayer.duration);
+    if (seekBar) {
+      const progress = Number.isFinite(vPlayer.duration) && vPlayer.duration > 0 ? vPlayer.currentTime / vPlayer.duration : 0;
+      seekBar.value = String(Math.round(progress * 1000));
+      seekBar.style.setProperty('--seek-progress', `${progress * 100}%`);
+    }
+    if (volumeControl) {
+      volumeControl.value = String(vPlayer.muted ? 0 : vPlayer.volume);
+      volumeControl.style.setProperty('--volume-progress', `${(vPlayer.muted ? 0 : vPlayer.volume) * 100}%`);
+    }
+    if (volumeValue) volumeValue.textContent = `${Math.round((vPlayer.muted ? 0 : vPlayer.volume) * 100)}%`;
+    if (playPauseButton) playPauseButton.setAttribute('aria-label', vPlayer.paused ? 'Phát video' : 'Tạm dừng video');
+  };
 
   if (vPlayer && pContainer) {
-    pContainer.onclick = () => {
+    pContainer.onclick = event => {
+      if (event.target.closest('.video-controls')) return;
       if (vPlayer.paused) {
-        vPlayer.play();
+        void vPlayer.play();
       } else {
         vPlayer.pause();
       }
     };
     vPlayer.onplay = () => {
       if (vOverlay) vOverlay.classList.add('hidden');
+      updatePlayerState();
     };
     vPlayer.onpause = () => {
       if (vOverlay) vOverlay.classList.remove('hidden');
+      updatePlayerState();
     };
     vPlayer.onended = () => {
       if (vOverlay) vOverlay.classList.remove('hidden');
+      updatePlayerState();
     };
+    vPlayer.onloadedmetadata = updatePlayerState;
+    vPlayer.ontimeupdate = updatePlayerState;
+    vPlayer.onvolumechange = updatePlayerState;
+    playPauseButton.onclick = () => vPlayer.paused ? void vPlayer.play() : vPlayer.pause();
+    seekBar.oninput = () => {
+      if (Number.isFinite(vPlayer.duration)) vPlayer.currentTime = (Number(seekBar.value) / 1000) * vPlayer.duration;
+      updatePlayerState();
+    };
+    muteButton.onclick = () => { vPlayer.muted = !vPlayer.muted; };
+    volumeControl.oninput = () => {
+      vPlayer.volume = Number(volumeControl.value);
+      vPlayer.muted = vPlayer.volume === 0;
+    };
+    updatePlayerState();
   }
 
   // Gắn sự kiện nút Mở rộng / Thu gọn thông số & kịch bản
