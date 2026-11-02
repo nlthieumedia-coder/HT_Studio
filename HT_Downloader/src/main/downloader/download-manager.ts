@@ -24,12 +24,22 @@ export class DownloadManager {
     const ytDlp = await this.binaries.resolve('yt-dlp'); const ffmpeg = await this.binaries.resolve('ffmpeg').catch(() => { throw new AppError('FFMPEG_MISSING', 'FFmpeg is not installed.'); });
     const dashHeight = request.selectedFormatId.match(/^dash:.*:(\d+)$/)?.[1];
     const format = dashHeight ? `bestvideo[height=${dashHeight}]+bestaudio/best[height=${dashHeight}]`
-      : /^(direct|hls):/.test(request.selectedFormatId) ? 'bestvideo+bestaudio/best'
-      : request.selectedHasAudio ? request.selectedFormatId : `${request.selectedFormatId}+bestaudio/best`;
+      : /^(direct|hls|sniffed):/.test(request.selectedFormatId) ? 'bestvideo+bestaudio/best'
+      : request.selectedHasAudio ? `${request.selectedFormatId}/best` : `${request.selectedFormatId}+bestaudio/best`;
     // Keep the temporary path ASCII-only. yt-dlp console encoding on Windows can
     // differ from UTF-8 and corrupt a printed path containing Vietnamese text.
     const output = path.join(temporaryDirectory, 'media.%(ext)s');
-    const args = ['--newline', '--no-playlist', '--no-overwrites', '--no-part', '--ffmpeg-location', path.dirname(ffmpeg), ...redditYtDlpArgs(request.sourceUrl), '-f', format, '--merge-output-format', 'mp4', '--progress-template', 'download:%(progress.downloaded_bytes)s|%(progress.total_bytes,progress.total_bytes_estimate)s|%(progress.speed)s|%(progress.eta)s|%(progress._percent_str)s', '-o', output, '--', request.sourceUrl];
+    const refererArgs = request.referer ? ['--referer', request.referer] : [];
+    const customHeaderArgs: string[] = [];
+    if (request.httpHeaders) {
+      for (const [key, val] of Object.entries(request.httpHeaders)) {
+        if (key.toLowerCase() !== 'referer' && val) {
+          customHeaderArgs.push('--add-header', `${key}: ${val}`);
+        }
+      }
+    }
+    const cookieArgs = request.cookieFile ? ['--cookies', request.cookieFile] : [];
+    const args = ['--newline', '--no-playlist', '--no-overwrites', '--no-part', '--ffmpeg-location', path.dirname(ffmpeg), ...cookieArgs, ...refererArgs, ...customHeaderArgs, ...redditYtDlpArgs(request.sourceUrl), '-f', format, '--merge-output-format', 'mp4', '--progress-template', 'download:%(progress.downloaded_bytes)s|%(progress.total_bytes,progress.total_bytes_estimate)s|%(progress.speed)s|%(progress.eta)s|%(progress._percent_str)s', '-o', output, '--', request.sourceUrl];
     logger.info('DOWNLOAD_STARTED', { downloadId, videoId: request.videoId });
     onProgress({ downloadId, videoId: request.videoId, percent: 0, status: 'starting' });
 
@@ -73,6 +83,7 @@ function validateRequest(request: DownloadRequest): void {
   if (!request.videoId || !request.selectedFormatId || !request.title || !path.isAbsolute(request.outputDirectory)) throw new AppError('INVALID_OUTPUT', 'Choose a valid output folder.');
   let url: URL; try { url = new URL(request.sourceUrl); } catch { throw new AppError('INVALID_URL', 'The media URL is invalid.'); }
   if (!['http:', 'https:'].includes(url.protocol)) throw new AppError('INVALID_URL', 'Only HTTP and HTTPS media URLs are supported.');
+  if (request.referer) { try { const referer = new URL(request.referer); if (!['http:', 'https:'].includes(referer.protocol)) throw new Error(); } catch { throw new AppError('INVALID_URL', 'The media referrer is invalid.'); } }
 }
 function lineReader(onLine: (line: string) => void): (chunk: string) => void { let buffer = ''; return chunk => { buffer += chunk; const lines = buffer.split(/\r?\n/); buffer = lines.pop() ?? ''; lines.forEach(onLine); }; }
 function parseNumber(value: string): number | undefined { const number = Number(value.trim()); return Number.isFinite(number) ? number : undefined; }

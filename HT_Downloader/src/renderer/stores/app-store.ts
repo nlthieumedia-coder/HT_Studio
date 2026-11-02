@@ -5,33 +5,69 @@ import { parseUrlLines } from '../utils/url-list';
 
 interface AppState {
   url: string; scanStatus: 'idle' | 'scanning' | 'complete' | 'error'; result?: ScanResult; error?: string;
+  errorCode?: string;
+  tiktokLoggedIn: boolean;
   maxVideos: number;
   scanProgress?: { completed: number; total: number };
   selectedFormats: Record<string, string>; outputDirectory?: string; downloads: Record<string, DownloadProgress>;
   setUrl(url: string): void; setMaxVideos(count: number): void; scan(): Promise<void>; selectFormat(videoId: string, formatId: string): void;
   chooseDirectory(): Promise<void>; startDownload(video: VideoItem): Promise<void>; startDownloadAll(): Promise<void>; updateDownload(progress: DownloadProgress): void; cancel(id: string): Promise<void>;
+  checkTikTokStatus(): Promise<void>; loginTikTok(): Promise<void>; logoutTikTok(): Promise<void>;
 }
 
 export const useAppStore = create<AppState>((set, get) => ({
-  url: '', scanStatus: 'idle', maxVideos: 10, selectedFormats: {}, downloads: {},
+  url: '', scanStatus: 'idle', maxVideos: 10, selectedFormats: {}, downloads: {}, tiktokLoggedIn: false,
   setUrl: url => set({ url }),
   setMaxVideos: maxVideos => set({ maxVideos }),
+  checkTikTokStatus: async () => {
+    try {
+      const res = await window.htDownloader.tiktokStatus();
+      set({ tiktokLoggedIn: res.loggedIn });
+    } catch {
+      set({ tiktokLoggedIn: false });
+    }
+  },
+  loginTikTok: async () => {
+    try {
+      const res = await window.htDownloader.tiktokLogin();
+      if (res.success) {
+        set({ tiktokLoggedIn: true });
+        if (get().errorCode === 'LOGIN_REQUIRED' && get().url.trim()) {
+          void get().scan();
+        }
+      }
+    } catch {
+      // Login window closed or error
+    }
+  },
+  logoutTikTok: async () => {
+    try {
+      await window.htDownloader.tiktokLogout();
+      set({ tiktokLoggedIn: false });
+    } catch {
+      // Logout error
+    }
+  },
   scan: async () => {
     const urls = parseUrlLines(get().url);
     if (!urls.length) return;
-    set({ scanStatus: 'scanning', scanProgress: { completed: 0, total: urls.length }, error: undefined, result: undefined });
+    set({ scanStatus: 'scanning', scanProgress: { completed: 0, total: urls.length }, error: undefined, errorCode: undefined, result: undefined });
 
     const results: ScanResult[] = [];
     const errors: string[] = [];
+    let lastErrorCode: string | undefined;
     for (const [index, url] of urls.entries()) {
       const response = await window.htDownloader.scanUrl(url, { maxVideos: get().maxVideos });
       if (response.ok) results.push(response.data);
-      else errors.push(`Dòng ${index + 1}: ${friendlyError(response.error.code, response.error.message)}`);
+      else {
+        lastErrorCode = response.error.code;
+        errors.push(`Dòng ${index + 1}: ${friendlyError(response.error.code, response.error.message)}`);
+      }
       set({ scanProgress: { completed: index + 1, total: urls.length } });
     }
 
     if (!results.length) {
-      return set({ scanStatus: 'error', error: errors.join('\n') || 'Không tìm thấy video.', scanProgress: undefined });
+      return set({ scanStatus: 'error', error: errors.join('\n') || 'Không tìm thấy video.', errorCode: lastErrorCode, scanProgress: undefined });
     }
 
     const videos = Array.from(new Map(results.flatMap(result => result.videos).map(video => [video.id, video])).values());
@@ -42,7 +78,7 @@ export const useAppStore = create<AppState>((set, get) => ({
     };
     const selectedFormats = Object.fromEntries(videos.map(video => [video.id, video.formats[0]?.id ?? '']));
     const partialError = errors.length ? `Đã quét ${results.length}/${urls.length} liên kết.\n${errors.join('\n')}` : undefined;
-    set({ result, selectedFormats, scanStatus: 'complete', error: partialError, scanProgress: undefined });
+    set({ result, selectedFormats, scanStatus: 'complete', error: partialError, errorCode: lastErrorCode, scanProgress: undefined });
   },
   selectFormat: (videoId, formatId) => set(state => ({ selectedFormats: { ...state.selectedFormats, [videoId]: formatId } })),
   chooseDirectory: async () => { const directory = await window.htDownloader.chooseDirectory(); if (directory) set({ outputDirectory: directory }); },
@@ -54,7 +90,16 @@ export const useAppStore = create<AppState>((set, get) => ({
     // yt-dlp format IDs only have meaning against the original webpage URL.
     // Direct/HLS/DASH fallback formats instead need their detected stream URL.
     const sourceUrl = video.sourceType === 'ytdlp' ? video.sourceUrl : (format?.sourceUrl ?? video.sourceUrl);
-    const response = await window.htDownloader.download({ videoId: video.id, sourceUrl, selectedFormatId, selectedHasAudio: format?.hasAudio, outputDirectory, title: video.title });
+    const response = await window.htDownloader.download({
+      videoId: video.id,
+      sourceUrl,
+      selectedFormatId,
+      selectedHasAudio: format?.hasAudio,
+      outputDirectory,
+      title: video.title,
+      referer: format?.referer,
+      httpHeaders: format?.httpHeaders
+    });
     if (!response.ok && response.error.code !== 'DOWNLOAD_CANCELLED') set({ error: friendlyError(response.error.code, response.error.message) });
   },
   startDownloadAll: async () => {

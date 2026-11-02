@@ -19,4 +19,23 @@ describe('yt-dlp normalizer', () => {
     ] }, 'https://example.com/list');
     expect(videos.map(item => item.title)).toEqual(['One', 'Two']);
   });
+
+  it('handles TikTok formats with height/width and constructs valid HTTPS sourceUrl', () => {
+    const videos = normalizeYtDlp({
+      title: 'Channel',
+      entries: [
+        {
+          id: '7701740523291233557',
+          title: 'HoneyReels Episode 1',
+          webpage_url: 'tiktokuser:MS4wLjABAAAA...',
+          formats: [
+            { format_id: 'download_addr-0', height: 1080, width: 720, ext: 'mp4' }
+          ]
+        }
+      ]
+    }, 'https://www.tiktok.com/@honeyreels_vn?_r=1');
+    expect(videos).toHaveLength(1);
+    expect(videos[0].sourceUrl).toBe('https://www.tiktok.com/@honeyreels_vn/video/7701740523291233557');
+    expect(videos[0].formats[0].qualityLabel).toBe('1080p');
+  });
 });

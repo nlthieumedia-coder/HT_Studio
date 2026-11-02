@@ -15,11 +15,14 @@ export interface VideoFormat {
   formatId?: string;
   sourceUrl?: string;
   protocol?: string;
+  referer?: string;
+  httpHeaders?: Record<string, string>;
 }
 
 export interface VideoItem {
   id: string;
   title: string;
+  referer?: string;
   thumbnail?: string;
   duration?: number;
   timestamp?: number;
@@ -42,6 +45,9 @@ export interface DownloadRequest {
   selectedHasAudio?: boolean;
   outputDirectory: string;
   title: string;
+  referer?: string;
+  httpHeaders?: Record<string, string>;
+  cookieFile?: string;
 }
 
 export interface DownloadProgress {
@@ -59,9 +65,21 @@ export interface DownloadProgress {
 
 export interface DownloadResult { downloadId: string; filePath: string }
 
+export interface LicenseStatus {
+  licensed: boolean;
+  hwid: string;
+  key?: string;
+  activatedAt?: string;
+  type?: string;
+  online?: boolean;
+  error?: string;
+}
+
+export interface LicenseActivationResult { ok: boolean; hwid: string; type?: string; error?: string }
+
 export type AppErrorCode =
   | 'INVALID_URL' | 'YTDLP_MISSING' | 'YTDLP_UNSUPPORTED' | 'PAGE_INACCESSIBLE'
   | 'NETWORK_ERROR' | 'NO_VIDEO' | 'LOGIN_REQUIRED' | 'DRM_PROTECTED' | 'SCAN_FAILED'
-  | 'FFMPEG_MISSING' | 'DOWNLOAD_FAILED' | 'DOWNLOAD_CANCELLED' | 'MERGE_FAILED' | 'INVALID_OUTPUT' | 'NOT_FOUND';
+  | 'FACEBOOK_EXTRACTOR' | 'FFMPEG_MISSING' | 'DOWNLOAD_FAILED' | 'DOWNLOAD_CANCELLED' | 'MERGE_FAILED' | 'INVALID_OUTPUT' | 'NOT_FOUND';
 
 export interface SerializedAppError { code: AppErrorCode; message: string; details?: string }

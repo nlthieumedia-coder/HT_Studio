@@ -1,6 +1,9 @@
 node_modules/
 dist/
 build/
+Setup/
+scratch/
+outputs/
 release/
 release-*/
 dashboard-installer/
@@ -8,6 +11,7 @@ installer-final/
 installer-output/
 *.log
 resources/binaries/win/*.exe
+resources/binaries/win/*.old
 .download-diagnostic/
 *-probe.html
 *-scan-output.json

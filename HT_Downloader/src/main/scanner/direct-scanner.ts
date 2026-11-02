@@ -4,7 +4,7 @@ import { XMLParser } from 'fast-xml-parser';
 import type { SourceType, VideoFormat, VideoItem } from '../../shared/types';
 import { AppError } from '../utils/app-error';
 
-interface Candidate { url: string; title: string; thumbnail?: string }
+interface Candidate { url: string; title: string; thumbnail?: string; referer?: string }
 const mediaExtension = /\.(?:mp4|webm|mov|m3u8|mpd)(?:$|[?#])/i;
 const idFor = (value: string): string => createHash('sha256').update(value).digest('hex').slice(0, 16);
 
@@ -29,17 +29,18 @@ export class DirectScanner {
     return { title: pageTitle, videos: await Promise.all([...candidates.values()].map(candidate => this.normalize(candidate))) };
   }
 
-  async scanMediaUrl(url: string, title: string, thumbnail?: string): Promise<VideoItem> {
-    return this.normalize({ url, title, thumbnail });
+  async scanMediaUrl(url: string, title: string, thumbnail?: string, referer?: string): Promise<VideoItem> {
+    return this.normalize({ url, title, thumbnail, referer });
   }
 
   private async normalize(candidate: Candidate): Promise<VideoItem> {
     const pathname = new URL(candidate.url).pathname.toLowerCase();
     const sourceType: SourceType = pathname.endsWith('.m3u8') ? 'hls' : pathname.endsWith('.mpd') ? 'dash' : 'direct';
     let formats: VideoFormat[];
-    if (sourceType === 'hls') formats = await parseHls(candidate.url);
-    else if (sourceType === 'dash') formats = await parseDash(candidate.url);
-    else formats = [{ id: `direct:${idFor(candidate.url)}`, qualityLabel: 'Original', extension: extension(candidate.url), hasVideo: true, hasAudio: true, sourceUrl: candidate.url, protocol: 'https' }];
+    if (sourceType === 'hls') formats = await parseHls(candidate.url, candidate.referer);
+    else if (sourceType === 'dash') formats = await parseDash(candidate.url, candidate.referer);
+    else formats = [{ id: `direct:${idFor(candidate.url)}`, qualityLabel: 'Original', extension: extension(candidate.url), hasVideo: true, hasAudio: true, sourceUrl: candidate.url, protocol: 'https', referer: candidate.referer }];
+    formats = formats.map(format => ({ ...format, referer: candidate.referer }));
     return { id: idFor(candidate.url), title: candidate.title, thumbnail: candidate.thumbnail, sourceType, sourceUrl: candidate.url, formats };
   }
 }
@@ -55,16 +56,17 @@ function visitJson(value: unknown, add: (url: string) => void): void {
 }
 function extension(url: string): string | undefined { return new URL(url).pathname.split('.').pop()?.toLowerCase(); }
 
-async function fetchWithLimit(url: string, maximum: number): Promise<Response> {
-  const response = await fetch(url, { redirect: 'follow', signal: AbortSignal.timeout(15_000), headers: { 'User-Agent': 'HT-Downloader/1.0' } });
+async function fetchWithLimit(url: string, maximum: number, referer?: string): Promise<Response> {
+  const headers: Record<string, string> = { 'User-Agent': 'HT-Downloader/1.0' }; if (referer) headers.referer = referer;
+  const response = await fetch(url, { redirect: 'follow', signal: AbortSignal.timeout(15_000), headers });
   if (!response.ok) throw new AppError('PAGE_INACCESSIBLE', `Could not access page (HTTP ${response.status}).`);
   const length = Number(response.headers.get('content-length') ?? 0);
   if (length > maximum) throw new AppError('PAGE_INACCESSIBLE', 'The page response is too large to scan safely.');
   return response;
 }
 
-async function parseHls(url: string): Promise<VideoFormat[]> {
-  const text = await (await fetchWithLimit(url, 2_000_000)).text();
+async function parseHls(url: string, referer?: string): Promise<VideoFormat[]> {
+  const text = await (await fetchWithLimit(url, 2_000_000, referer)).text();
   if (/EXT-X-KEY:.*KEYFORMAT=(?:"?com\.apple\.streamingkeydelivery|"?urn:uuid)/i.test(text)) throw new AppError('DRM_PROTECTED', 'DRM protected content is not supported.');
   const lines = text.split(/\r?\n/); const formats: VideoFormat[] = [];
   for (let index = 0; index < lines.length; index++) {
@@ -79,8 +81,8 @@ async function parseHls(url: string): Promise<VideoFormat[]> {
   return formats.length ? formats.sort((a, b) => (b.height ?? 0) - (a.height ?? 0)) : [{ id: `hls:${idFor(url)}`, qualityLabel: 'Adaptive', extension: 'mp4', hasVideo: true, hasAudio: true, sourceUrl: url, protocol: 'm3u8' }];
 }
 
-async function parseDash(url: string): Promise<VideoFormat[]> {
-  const text = await (await fetchWithLimit(url, 3_000_000)).text();
+async function parseDash(url: string, referer?: string): Promise<VideoFormat[]> {
+  const text = await (await fetchWithLimit(url, 3_000_000, referer)).text();
   if (/ContentProtection/i.test(text)) throw new AppError('DRM_PROTECTED', 'DRM protected content is not supported.');
   const data = new XMLParser({ ignoreAttributes: false, attributeNamePrefix: '@_' }).parse(text) as Record<string, unknown>;
   const representations: Record<string, unknown>[] = [];

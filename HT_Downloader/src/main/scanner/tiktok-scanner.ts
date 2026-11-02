@@ -1,7 +1,9 @@
 import { logger } from '../utils/logger';
 
 export function resolveTikTokProfileUsername(inputUrl: string): string | null {
-  const match = inputUrl.match(/tiktok\.com\/@([a-zA-Z0-9._]+)/i);
+  // If the URL contains /video/, /photo/, /live/, etc., it is a specific post, not a profile!
+  if (/\/video\/|\/photo\/|\/live\//i.test(inputUrl)) return null;
+  const match = inputUrl.match(/tiktok\.com\/@([a-zA-Z0-9._]+)(?:\/|\?|$)/i);
   return match ? match[1] : null;
 }
 

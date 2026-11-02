@@ -1,6 +1,6 @@
 {
   "name": "ht-downloader",
-  "version": "2.0.3",
+  "version": "2.0.2",
   "private": true,
   "description": "Secure Windows desktop media scanner and downloader",
   "author": "HT Studio",
@@ -49,6 +49,7 @@
     "files": ["build/**/*", "package.json"],
     "extraResources": [
       { "from": "resources/binaries", "to": "binaries", "filter": ["**/*"] },
+      { "from": "resources/license-config.json", "to": "license-config.json" },
       { "from": "../Logo/logo_icon.png", "to": "branding/logo_icon.png" }
     ],
     "win": { "target": "nsis", "icon": "../Logo/logo_icon.png" },

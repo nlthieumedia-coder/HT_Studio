@@ -18,13 +18,13 @@ export function qualityLabel(format: YtDlpFormat): string {
 }
 
 function normalizeFormat(format: YtDlpFormat, index: number): VideoFormat | null {
-  const hasVideo = isPresent(format.vcodec);
-  const hasAudio = isPresent(format.acodec);
+  const hasVideo = isPresent(format.vcodec) || (format.vcodec !== 'none' && Boolean(format.height || format.width));
+  const hasAudio = isPresent(format.acodec) || format.vcodec === undefined;
   if (!hasVideo) return null;
   const formatId = format.format_id ?? String(index);
   return {
     id: formatId, formatId, qualityLabel: qualityLabel(format), width: format.width,
-    height: inferredHeight(format), fps: format.fps, extension: format.ext,
+    height: inferredHeight(format), fps: format.fps, extension: format.ext ?? 'mp4',
     videoCodec: format.vcodec, audioCodec: format.acodec, sourceUrl: format.url,
     protocol: format.protocol,
     fileSize: format.filesize ?? format.filesize_approx, hasVideo, hasAudio
@@ -38,7 +38,16 @@ function flatten(entry: YtDlpEntry): YtDlpEntry[] {
 
 export function normalizeYtDlp(root: YtDlpEntry, requestedUrl: string): VideoItem[] {
   return flatten(root).map((entry, entryIndex) => {
-    const sourceUrl = entry.webpage_url ?? entry.original_url ?? requestedUrl;
+    let sourceUrl = entry.webpage_url ?? entry.original_url ?? entry.url;
+    if (!sourceUrl || !/^https?:\/\//i.test(sourceUrl)) {
+      if (entry.id && /^\d+$/.test(entry.id)) {
+        const usernameMatch = requestedUrl.match(/@([a-zA-Z0-9._]+)/);
+        const username = usernameMatch ? usernameMatch[1] : (entry.uploader_id ?? entry.uploader ?? 'tiktok');
+        sourceUrl = `https://www.tiktok.com/@${username}/video/${entry.id}`;
+      } else {
+        sourceUrl = requestedUrl;
+      }
+    }
     const identity = `${entry.extractor_key ?? entry.extractor ?? ''}:${entry.id ?? sourceUrl}:${entry.duration ?? ''}`;
     const formats = (entry.formats ?? []).map(normalizeFormat).filter((item): item is VideoFormat => item !== null);
     if (formats.length === 0) {
@@ -60,10 +69,13 @@ export function normalizeYtDlp(root: YtDlpEntry, requestedUrl: string): VideoIte
       timestamp = Math.floor(Date.UTC(year, month, day) / 1000);
     }
 
+    const title = entry.title?.trim() || entry.description?.trim()?.slice(0, 100) || `Video ${entryIndex + 1}`;
+    const thumbnail = entry.thumbnail ?? entry.thumbnails?.at(-1)?.url;
+
     return {
       id: hash(identity || `${sourceUrl}:${entryIndex}`),
-      title: entry.title?.trim() || `Video ${entryIndex + 1}`,
-      thumbnail: entry.thumbnail,
+      title,
+      thumbnail,
       duration: entry.duration,
       timestamp,
       uploadDate: entry.upload_date,

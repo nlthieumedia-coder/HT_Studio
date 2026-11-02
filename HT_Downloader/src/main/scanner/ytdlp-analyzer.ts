@@ -7,11 +7,12 @@ import { redditYtDlpArgs } from './reddit';
 export class YtDlpAnalyzer {
   constructor(private readonly binaries: BinaryManager) {}
 
-  async analyze(url: string, options?: { playlistEnd?: number }): Promise<YtDlpEntry> {
+  async analyze(url: string, options?: { playlistEnd?: number; cookieFile?: string }): Promise<YtDlpEntry> {
     const executable = await this.binaries.resolve('yt-dlp');
     const playlistEnd = options?.playlistEnd ?? 10;
+    const cookieArgs = options?.cookieFile ? ['--cookies', options.cookieFile] : [];
     return new Promise((resolve, reject) => {
-      const child = spawn(executable, ['--dump-single-json', '--no-download', '--no-warnings', '--playlist-end', String(playlistEnd), ...redditYtDlpArgs(url), '--', url], { windowsHide: true, shell: false });
+      const child = spawn(executable, ['--dump-single-json', '--no-download', '--no-warnings', '--playlist-end', String(playlistEnd), ...cookieArgs, ...redditYtDlpArgs(url), '--', url], { windowsHide: true, shell: false });
       const stdout: Buffer[] = []; const stderr: Buffer[] = [];
       const timer = setTimeout(() => {
         child.kill();
@@ -32,10 +33,11 @@ export class YtDlpAnalyzer {
   }
 }
 
-function classifyYtDlpError(message: string): AppError {
+export function classifyYtDlpError(message: string): AppError {
   const value = message.toLowerCase();
   if (/drm|widevine|fairplay|playready/.test(value)) return new AppError('DRM_PROTECTED', 'DRM protected content is not supported.');
   if (/login|sign in|cookies/.test(value)) return new AppError('LOGIN_REQUIRED', 'Login may be required.');
+  if (/\[facebook\].*cannot parse data/.test(value)) return new AppError('FACEBOOK_EXTRACTOR', 'Facebook changed this Reel response and yt-dlp could not parse it.', message);
   if (/unsupported url/.test(value)) return new AppError('YTDLP_UNSUPPORTED', 'yt-dlp does not support this URL.');
   if (/unable to download|http error|connection|timed out/.test(value)) return new AppError('NETWORK_ERROR', 'Could not access the page.', message);
   return new AppError('SCAN_FAILED', 'The video could not be analyzed.', message);
