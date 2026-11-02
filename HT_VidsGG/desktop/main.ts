@@ -4,7 +4,7 @@ import { existsSync } from "node:fs";
 import { readFile, writeFile, mkdir, rm } from "node:fs/promises";
 import { dirname, extname, join, basename } from "node:path";
 import { fileURLToPath } from "node:url";
-import { GoogleVidsDesktopService, type DesktopJobConfig, type DesktopJobResult, type GoogleLoginCredentials } from "../src/desktop-service.js";
+import { GoogleVidsDesktopService, isGoogleVidsGenerationLimit, type DesktopJobConfig, type DesktopJobResult, type GoogleLoginCredentials } from "../src/desktop-service.js";
 import { formatDate, generateRandomCode, buildTaskFilename, getNextTaskIndex, ensureUniqueOutputFilename } from "../src/task-naming.js";
 import { getMachineId, verifyLicenseKey, checkLicenseOnline, activateLicenseOnline, type LicenseRecord } from "../src/license.js";
 
@@ -231,11 +231,12 @@ async function executeQueuedTask(account: Account, task: QueueTask): Promise<voi
     emit("QUEUE_DONE", `Task ${task.id.slice(0,8)} hoàn tất`, account);
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error);
+    const generationLimited = isGoogleVidsGenerationLimit(message);
     const willRetry = await mutateState(state => {
       const video = state.videos.find(v => v.id === record.id);
       const liveTask = state.tasks.find(t => t.id === task.id);
       if (video) Object.assign(video, { status: "failed", error: message, updatedAt: new Date().toISOString() });
-      if (/Chưa có phiên đăng nhập|hết hạn/i.test(message)) {
+      if (!generationLimited && /Chưa có phiên đăng nhập|Phiên đăng nhập.*hết hạn/i.test(message)) {
         const liveAccount = state.accounts.find(a => a.id === account.id);
         if (liveAccount) {
           liveAccount.status = "NOT_LOGGED_IN";
@@ -245,12 +246,14 @@ async function executeQueuedTask(account: Account, task: QueueTask): Promise<voi
       }
       if (!liveTask) return false;
       const attempted = [...new Set([...(liveTask.attemptedAccountIds ?? []), account.id])];
-      const generationMayHaveConsumedCredits = ["CREATE", "EXTEND", "FIT", "DOWNLOAD", "DELOGO", "COMPLETED"].includes(liveTask.progressStage ?? "");
+      const generationMayHaveConsumedCredits = !generationLimited && ["CREATE", "EXTEND", "FIT", "DOWNLOAD", "DELOGO", "COMPLETED"].includes(liveTask.progressStage ?? "");
       const failedAccount = state.accounts.find(a => a.id === account.id);
       if (failedAccount) Object.assign(failedAccount, {
         enabled: false,
         failureCount: (failedAccount.failureCount ?? 0) + 1,
-        disabledReason: message,
+        disabledReason: generationLimited
+          ? "Đã tự động tắt: tài khoản đã chạm hạn mức tạo video trong tháng."
+          : message,
         lastFailureAt: new Date().toISOString(),
         updatedAt: new Date().toISOString(),
       });

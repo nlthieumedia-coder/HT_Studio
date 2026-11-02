@@ -9,6 +9,16 @@ import ffprobeStatic from "ffprobe-static";
 import { spawn } from "node:child_process";
 import { removeGoogleWatermark } from "./video-delogo.js";
 
+export const GOOGLE_VIDS_GENERATION_LIMIT_CODE = "GOOGLE_VIDS_GENERATION_LIMIT";
+
+export function isGoogleVidsGenerationLimit(message: string): boolean {
+  return new RegExp(GOOGLE_VIDS_GENERATION_LIMIT_CODE, "i").test(message)
+    || /you have\s+\d+\s+seconds?\s+of video generation left this month/i.test(message)
+    || /(?:reached|exceeded|used)\s+(?:your\s+)?(?:monthly\s+)?video generation limit/i.test(message)
+    || /no\s+(?:video generation\s+)?(?:seconds?|credits?)\s+left/i.test(message)
+    || /(?:hạn mức|giới hạn).*(?:tạo|sản xuất).*video|(?:tạo|sản xuất).*video.*(?:hạn mức|giới hạn)/i.test(message);
+}
+
 const execFileAsync = promisify(execFile);
 const DEFAULT_PROJECT_URL = "https://docs.google.com/videos/create";
 
@@ -1018,13 +1028,24 @@ export class GoogleVidsDesktopService {
     throw new Error(`Video đã xuất hiện nhưng nút ${name} chưa sẵn sàng sau 10 phút.`);
   }
 
+  private async throwIfGenerationLimited(page: Page): Promise<void> {
+    const bodyText = await page.locator("body").innerText({ timeout: 3_000 }).catch(() => "");
+    if (!isGoogleVidsGenerationLimit(bodyText)) return;
+    const detail = bodyText.match(/you have\s+\d+\s+seconds?\s+of video generation left this month[^\r\n]*/i)?.[0]
+      ?? bodyText.match(/[^\r\n]*(?:video generation limit|hạn mức[^\r\n]*video|giới hạn[^\r\n]*video)[^\r\n]*/i)?.[0]
+      ?? "Google Vids báo tài khoản đã chạm hạn mức tạo video.";
+    throw new Error(`${GOOGLE_VIDS_GENERATION_LIMIT_CODE}: ${detail.trim()}`);
+  }
+
   private async waitForNewCard(page: Page, previousCount: number): Promise<Locator> {
-    await page.waitForFunction(
-      count => document.querySelectorAll('[aria-label^="Generated video:"], [aria-label^="Video đã tạo:"]').length > count,
-      previousCount,
-      { timeout: 10 * 60_000 }
-    );
-    return page.getByRole("button", { name: /^(Generated video:|Video đã tạo:)/i }).last();
+    const deadline = Date.now() + 10 * 60_000;
+    while (Date.now() < deadline) {
+      await this.throwIfGenerationLimited(page);
+      const cards = page.getByRole("button", { name: /^(Generated video:|Video đã tạo:)/i });
+      if (await cards.count() > previousCount) return cards.last();
+      await page.waitForTimeout(2_000);
+    }
+    throw new Error("Google Vids chưa trả về video sau 10 phút.");
   }
 
   private async fillScene(page: Page): Promise<void> {
@@ -1123,6 +1144,7 @@ export class GoogleVidsDesktopService {
       if (config.imagePaths.length) await this.addImages(page, config.imagePaths);
       await this.fillPrompt(page, "create", config.firstPrompt);
       await this.configureGeneration(page, ratio, firstDuration, resolution);
+      await this.throwIfGenerationLimited(page);
       const beforeFirst = await page.getByRole("button", { name: /Generated video:|Video đã tạo:/i }).count();
       await this.checkpoint("FIRST_SUBMITTING", { projectUrl, outputPath });
       this.progress("CREATE", `Đang tạo ${firstDuration} giây đầu...`);
@@ -1136,6 +1158,7 @@ export class GoogleVidsDesktopService {
         await extend.click({ timeout: 10 * 60_000 });
         await this.fillPrompt(page, "extend", config.secondPrompt);
         await this.configureGeneration(page, ratio, extendDuration, resolution);
+        await this.throwIfGenerationLimited(page);
         const beforeSecond = await page.getByRole("button", { name: /Generated video:|Video đã tạo:/i }).count();
         await this.checkpoint("SECOND_SUBMITTING", { projectUrl, outputPath });
         this.progress("EXTEND", `Đang Extend thêm ${extendDuration} giây...`);

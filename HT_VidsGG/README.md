@@ -25,7 +25,7 @@
 
 ## Cài đặt
 
-1. Tải bộ cài `HT-Vids-Studio-Setup-2.0.1-Windows-x64.exe` trong thư mục `dist`.
+1. Tải bộ cài `HT-Vids-Studio-Setup-2.0.2-Windows-x64.exe` trong thư mục `dist`.
 2. Chạy bộ cài và chọn thư mục cài đặt.
 3. Mở **HT Vids Studio** từ Desktop hoặc Start Menu.
 4. Nhập key bản quyền được HT Studio cung cấp.
@@ -46,7 +46,7 @@ Mỗi key được liên kết với một mã máy. Ứng dụng xác minh tr�
 
 ## Phiên bản
 
-Phiên bản hiện tại: **2.0.1**
+Phiên bản hiện tại: **2.0.2**
 
 - Windows x64 Setup.
 - Shortcut Desktop và Start Menu.
