@@ -1,24 +1,31 @@
+# Ignore all source code and development files (public distribution only)
 node_modules/
-dist/
 build/
-Setup/*
-!Setup/install.exe
+dist/
+src/
+tests/
+scripts/
+resources/
+license-server/
 scratch/
 outputs/
-
-# Local license administration and production endpoint (never push real keys or server)
-DANH_SACH_KEY_BAN_QUYEN.md
-license-server/
-resources/license-config.json
-release/
-release-*/
-dashboard-installer/
-installer-final/
-installer-output/
-*.log
-resources/binaries/win/*.exe
-resources/binaries/win/*.old
 .download-diagnostic/
+
+# Config files
+package.json
+package-lock.json
+tsconfig*.json
+vite.config.ts
+vitest.config.ts
+tailwind.config.cjs
+postcss.config.cjs
+
+# Setup folder: only allow install.exe, ignore internal builds & temporary files
+Setup/*
+!Setup/install.exe
+
+# Logs & temp files
+*.log
 *-probe.html
 *-scan-output.json
 *-scan-error.txt
@@ -26,3 +33,4 @@ reddit-*.json
 reddit-*.html
 embed-*.json
 embed-*.txt
+DANH_SACH_KEY_BAN_QUYEN.md

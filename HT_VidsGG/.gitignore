@@ -1,6 +1,19 @@
+﻿# Ignore all source code and dev files (public distribution only)
 node_modules/
-dist/
 build/
+bin/
+desktop/
+src/
+test/
+scripts/
+package.json
+package-lock.json
+tsconfig.json
+
+# Dist folder: only allow setup exe
+dist/*
+!dist/*.exe
+
 data/
 downloads/
 inputs/
@@ -13,10 +26,8 @@ package-output/
 
 # Local license administration and production endpoint
 DANH_SACH_KEY_BAN_QUYEN.md
-src/license-config.json
+license-config*.json
 license-server/
-scripts/keygen.ts
-scripts/test-license-server.ts
 
 # Local/temporary development notes
 GOOGLE_VIDS_CODEX_HANDOFF.md
