@@ -1,4 +1,4 @@
-# CẨM NANG HƯỚNG DẪN SỬ DỤNG - HT DOWNLOADER v2.0.2
+# CẨM NANG HƯỚNG DẪN SỬ DỤNG - HT DOWNLOADER v2.0.3
 
 Chào mừng bạn đến với **HT Downloader** – Phần mềm tải và quản lý video đa luồng chất lượng cao từ **HT Studio**.
 

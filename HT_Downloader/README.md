@@ -40,4 +40,4 @@
 
 ## Phiên bản
 
-Phiên bản phát hành hiện tại: **v2.0.2**
+Phiên bản phát hành hiện tại: **v2.0.3**
