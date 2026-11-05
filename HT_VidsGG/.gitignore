@@ -29,11 +29,6 @@ DANH_SACH_KEY_BAN_QUYEN.md
 license-config*.json
 license-server/
 
-# Local/temporary development notes
-GOOGLE_VIDS_CODEX_HANDOFF.md
-IMPLEMENTATION_PLAN.md
-SURVEY_NOTES.md
-
 # Browser profiles, credentials and generated media
 **/profiles/
 **/chrome-profile/
