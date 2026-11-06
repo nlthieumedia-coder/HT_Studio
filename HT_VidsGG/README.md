@@ -4,15 +4,17 @@
 
 > Đây là sản phẩm độc lập của HT Studio, không phải sản phẩm chính thức và không được Google tài trợ hoặc xác nhận.
 
-## Tải và cài đặt
+## ⬇️ Tải và cài đặt
 
-Phiên bản hiện tại: **2.0.5**
+Phiên bản hiện tại: **2.0.6**
 
-[Tải HT Vids Studio 2.0.5 Portable cho Windows x64](dist/HT-Vids-Studio-2.0.5-Windows-x64.exe)
+### [BẤM VÀO ĐÂY ĐỂ TẢI HT VIDS STUDIO 2.0.6 CHO WINDOWS x64](https://github.com/nlthieumedia-coder/HT_Studio/raw/refs/heads/main/HT_VidsGG/dist/HT-Vids-Studio-2.0.6-Windows-x64.exe)
 
-Mã SHA-256: `AC34C1416E909A8BB3362864C5EB66EA3D38B425CF76DCB401E3AFE62AD8B5A7`
+Nếu nút trên không hoạt động, dùng [đường dẫn tải trực tiếp dự phòng](dist/HT-Vids-Studio-2.0.6-Windows-x64.exe).
 
-1. Tải và chạy file `HT-Vids-Studio-2.0.5-Windows-x64.exe`.
+Mã SHA-256: `42442ED05FDB4A5E76C3C16C7F3E6B495DF8D8212C2A2C2BAE8704D3AB54A737`
+
+1. Tải và chạy file `HT-Vids-Studio-2.0.6-Windows-x64.exe`.
 2. Chờ ứng dụng portable giải nén và khởi động.
 3. Mở **HT Vids Studio** từ file đã tải khi cần sử dụng.
 4. Nhập key bản quyền do HT Studio cung cấp.
@@ -38,6 +40,7 @@ Windows SmartScreen có thể cảnh báo khi bản phát hành chưa được k
 - Tự tải video MP4 và hỗ trợ xóa watermark AI.
 - Kho video, trình xem video và bảng thống kê theo ngày.
 - Kích hoạt bản quyền theo mã máy và kiểm tra trạng thái bản quyền từ xa.
+- Tự kiểm tra phiên bản mới từ kho phát hành chính thức và hiển thị popup có nút tải trực tiếp; ứng dụng không tự cài đặt hoặc làm gián đoạn task đang chạy.
 
 ## Quy trình sử dụng nhanh
 
@@ -89,6 +92,22 @@ Mỗi key được liên kết với một mã máy. Ứng dụng xác minh tr�
 - **Không thấy video đầu ra:** kiểm tra Kho video và thư mục tải xuống đã chọn trong ứng dụng.
 
 Hướng dẫn chi tiết nằm trong [HUONG_DAN_SU_DUNG.md](HUONG_DAN_SU_DUNG.md) và được tích hợp trực tiếp trong ứng dụng.
+
+## Cập nhật phiên bản
+
+- Từ phiên bản **2.0.6**, ứng dụng kiểm tra bản mới khi khởi động, khi người dùng quay lại cửa sổ và định kỳ trong lúc sử dụng.
+- Khi có bản mới, popup sẽ hiển thị phiên bản hiện tại, phiên bản mới, nội dung thay đổi và nút **Tải phiên bản mới**.
+- Chọn **Để sau** sẽ tạm ẩn thông báo trong 12 giờ rồi nhắc lại.
+- Ứng dụng chỉ mở đường dẫn tải chính thức trên GitHub; không tự tải, tự cài hoặc tự đóng task đang chạy.
+
+> Người đang sử dụng 2.0.5 trở xuống cần tải 2.0.6 thủ công một lần. Từ 2.0.6 trở đi, ứng dụng mới có khả năng tự thông báo các phiên bản tiếp theo.
+
+## Phiên bản 2.0.6
+
+- Bổ sung kiểm tra cập nhật tự động qua tệp thông tin phiên bản công khai trên GitHub.
+- Thêm popup tiếng Việt với ghi chú phát hành, nút tải trực tiếp và lựa chọn nhắc lại sau.
+- Giới hạn tần suất kiểm tra để không làm phiền hoặc ảnh hưởng hiệu năng.
+- Chỉ chấp nhận đường dẫn cập nhật thuộc repository HT Studio trên GitHub.
 
 ## Phiên bản 2.0.5
 

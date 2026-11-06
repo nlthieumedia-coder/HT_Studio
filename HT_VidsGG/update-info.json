@@ -1,0 +1,12 @@
+{
+  "latestVersion": "2.0.6",
+  "downloadUrl": "https://github.com/nlthieumedia-coder/HT_Studio/raw/refs/heads/main/HT_VidsGG/dist/HT-Vids-Studio-2.0.6-Windows-x64.exe",
+  "releaseNotes": [
+    "Tự động kiểm tra phiên bản mới khi khởi động và trong quá trình sử dụng.",
+    "Hiển thị popup tiếng Việt với nội dung thay đổi và nút tải trực tiếp.",
+    "Cho phép chọn Để sau và tự nhắc lại sau 12 giờ.",
+    "Xác thực đường dẫn tải phải thuộc kho phát hành HT Studio trên GitHub."
+  ],
+  "publishedAt": "2026-11-06",
+  "sha256": "42442ED05FDB4A5E76C3C16C7F3E6B495DF8D8212C2A2C2BAE8704D3AB54A737"
+}

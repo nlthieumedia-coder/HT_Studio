@@ -155,6 +155,9 @@ Nghĩa là tài khoản chưa được đăng nhập trên profile riêng của 
 ### ❓ Video tải về lưu ở đâu?
 Video được lưu tại đường dẫn hiển thị ở ô **Thư mục lưu video** tại tab Tạo video. Bạn có thể thay đổi đường dẫn này bằng nút chọn thư mục bất kỳ lúc nào.
 
+### ❓ Làm sao biết ứng dụng đã có phiên bản mới?
+Từ phiên bản 2.0.6, ứng dụng tự kiểm tra kho phát hành chính thức khi khởi động, khi bạn quay lại cửa sổ và định kỳ trong lúc sử dụng. Nếu có bản mới, popup tiếng Việt sẽ hiển thị nội dung thay đổi cùng nút **Tải phiên bản mới**. Chọn **Để sau** để được nhắc lại sau 12 giờ; ứng dụng không tự cài đặt và không dừng task đang chạy.
+
 ### ❓ Làm sao để gửi lỗi cho tác giả xử lý nhanh nhất?
 Bạn hãy mở tab **Nhật ký**, sao chép đoạn log báo lỗi hoặc chụp ảnh màn hình, sau đó bấm nút **Hỗ trợ** ở thanh menu để gửi trực tiếp qua Zalo hoặc Telegram.
 
