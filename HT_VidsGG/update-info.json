@@ -1,12 +1,13 @@
 {
-  "latestVersion": "2.0.7",
-  "downloadUrl": "https://github.com/nlthieumedia-coder/HT_Studio/raw/refs/heads/main/HT_VidsGG/dist/HT-Vids-Studio-2.0.7-Windows-x64.exe",
+  "latestVersion": "2.0.8",
+  "minimumSupportedVersion": "2.0.8",
+  "downloadUrl": "https://github.com/nlthieumedia-coder/HT_Studio/raw/refs/heads/main/HT_VidsGG/dist/HT-Vids-Studio-2.0.8-Windows-x64.exe",
   "releaseNotes": [
-    "Thêm menu chọn nhanh tài khoản theo trạng thái: đang bật, đang tắt, sẵn sàng, đang chạy, cần đăng nhập, còn lượt hoặc hết lượt.",
-    "Bổ sung nút bật hàng loạt cho các tài khoản đang tắt.",
-    "Tự động bỏ qua tài khoản đang chạy, đang đăng nhập hoặc đang kiểm tra để không làm gián đoạn tác vụ.",
-    "Giữ nguyên lựa chọn thủ công và chức năng tắt tài khoản hàng loạt."
+    "Bổ sung cơ chế yêu cầu cập nhật bắt buộc khi phiên bản đang dùng thấp hơn mức hỗ trợ tối thiểu.",
+    "Popup bắt buộc không thể đóng, trì hoãn hoặc bỏ qua; người dùng phải mở trang tải bản mới.",
+    "Ghi nhớ yêu cầu cập nhật sau lần kiểm tra thành công để tiếp tục khóa phiên bản cũ khi mở lại ứng dụng.",
+    "Vẫn giữ cơ chế cập nhật tùy chọn cho các bản không nằm dưới mức hỗ trợ tối thiểu."
   ],
   "publishedAt": "2026-11-06",
-  "sha256": "DDCA1A2ABEB3889DBF369A321A3A2B907B2C1136469F8CAE110AD4231153DDB1"
+  "sha256": "63DF0F865C01A5D6013A25678C785E6B7C1B027EDCC7CD482B1EEB46EA3129F7"
 }

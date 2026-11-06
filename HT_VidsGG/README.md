@@ -6,15 +6,15 @@
 
 ## ⬇️ Tải và cài đặt
 
-Phiên bản hiện tại: **2.0.7**
+Phiên bản hiện tại: **2.0.8**
 
-### [BẤM VÀO ĐÂY ĐỂ TẢI HT VIDS STUDIO 2.0.7 CHO WINDOWS x64](https://github.com/nlthieumedia-coder/HT_Studio/raw/refs/heads/main/HT_VidsGG/dist/HT-Vids-Studio-2.0.7-Windows-x64.exe)
+### [BẤM VÀO ĐÂY ĐỂ TẢI HT VIDS STUDIO 2.0.8 CHO WINDOWS x64](https://github.com/nlthieumedia-coder/HT_Studio/raw/refs/heads/main/HT_VidsGG/dist/HT-Vids-Studio-2.0.8-Windows-x64.exe)
 
-Nếu nút trên không hoạt động, dùng [đường dẫn tải trực tiếp dự phòng](dist/HT-Vids-Studio-2.0.7-Windows-x64.exe).
+Nếu nút trên không hoạt động, dùng [đường dẫn tải trực tiếp dự phòng](dist/HT-Vids-Studio-2.0.8-Windows-x64.exe).
 
-Mã SHA-256: `DDCA1A2ABEB3889DBF369A321A3A2B907B2C1136469F8CAE110AD4231153DDB1`
+Mã SHA-256: `63DF0F865C01A5D6013A25678C785E6B7C1B027EDCC7CD482B1EEB46EA3129F7`
 
-1. Tải và chạy file `HT-Vids-Studio-2.0.7-Windows-x64.exe`.
+1. Tải và chạy file `HT-Vids-Studio-2.0.8-Windows-x64.exe`.
 2. Chờ ứng dụng portable giải nén và khởi động.
 3. Mở **HT Vids Studio** từ file đã tải khi cần sử dụng.
 4. Nhập key bản quyền do HT Studio cung cấp.
@@ -42,6 +42,7 @@ Windows SmartScreen có thể cảnh báo khi bản phát hành chưa được k
 - Kho video, trình xem video và bảng thống kê theo ngày.
 - Kích hoạt bản quyền theo mã máy và kiểm tra trạng thái bản quyền từ xa.
 - Tự kiểm tra phiên bản mới từ kho phát hành chính thức và hiển thị popup có nút tải trực tiếp; ứng dụng không tự cài đặt hoặc làm gián đoạn task đang chạy.
+- Hỗ trợ đặt phiên bản tối thiểu bắt buộc; bản thấp hơn mức này bị khóa giao diện cho tới khi người dùng tải bản mới.
 
 ## Quy trình sử dụng nhanh
 
@@ -100,10 +101,20 @@ Hướng dẫn chi tiết nằm trong [HUONG_DAN_SU_DUNG.md](HUONG_DAN_SU_DUNG.m
 
 - Từ phiên bản **2.0.6**, ứng dụng kiểm tra bản mới khi khởi động, khi người dùng quay lại cửa sổ và định kỳ trong lúc sử dụng.
 - Khi có bản mới, popup sẽ hiển thị phiên bản hiện tại, phiên bản mới, nội dung thay đổi và nút **Tải phiên bản mới**.
-- Chọn **Để sau** sẽ tạm ẩn thông báo trong 12 giờ rồi nhắc lại.
+- Với cập nhật thông thường, chọn **Để sau** sẽ tạm ẩn thông báo trong 12 giờ rồi nhắc lại.
+- Với cập nhật bắt buộc, popup không có nút đóng hoặc **Để sau** và người dùng không thể tiếp tục thao tác trên phiên bản cũ.
 - Ứng dụng chỉ mở đường dẫn tải chính thức trên GitHub; không tự tải, tự cài hoặc tự đóng task đang chạy.
 
 > Người đang sử dụng 2.0.5 trở xuống cần tải 2.0.6 thủ công một lần. Từ 2.0.6 trở đi, ứng dụng mới có khả năng tự thông báo các phiên bản tiếp theo.
+
+> Lưu ý chuyển tiếp: 2.0.6 và 2.0.7 chưa có mã khóa cập nhật bắt buộc, nên vẫn có thể chọn **Để sau** khi được mời lên 2.0.8. Sau khi đã cài 2.0.8, mọi bản thấp hơn mức hỗ trợ tối thiểu do HT Studio công bố sẽ bị khóa bắt buộc cập nhật.
+
+## Phiên bản 2.0.8
+
+- Thêm trường `minimumSupportedVersion` vào thông tin phát hành.
+- Khóa toàn bộ giao diện khi phiên bản hiện tại thấp hơn mức hỗ trợ tối thiểu.
+- Không cho đóng popup bằng nút X, phím Esc, bấm ra ngoài hoặc lựa chọn nhắc lại sau.
+- Giữ popup sau khi mở trang tải và ghi nhớ yêu cầu bắt buộc cho các lần khởi động sau.
 
 ## Phiên bản 2.0.7
 
