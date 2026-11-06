@@ -1,1 +1,2 @@
-dist/*.exe filter=lfs diff=lfs merge=lfs -text
+dist/old/*.exe filter=lfs diff=lfs merge=lfs -text
+dist/latest/*.exe filter=lfs diff=lfs merge=lfs -text

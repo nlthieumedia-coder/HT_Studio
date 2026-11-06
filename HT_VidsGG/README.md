@@ -8,15 +8,15 @@
 
 Phiên bản hiện tại: **2.0.9**
 
-### [BẤM VÀO ĐÂY ĐỂ TẢI HT VIDS STUDIO 2.0.9 CHO WINDOWS x64](https://github.com/nlthieumedia-coder/HT_Studio/raw/refs/heads/main/HT_VidsGG/dist/HT-Vids-Studio-2.0.9-Windows-x64.exe)
+### [BẤM VÀO ĐÂY ĐỂ TẢI BỘ CÀI HT VIDS STUDIO 2.0.9 CHO WINDOWS x64](https://github.com/nlthieumedia-coder/HT_Studio/raw/refs/heads/main/HT_VidsGG/dist/latest/HT-Vids-Studio-Setup-2.0.9-Windows-x64.exe)
 
-Nếu nút trên không hoạt động, dùng [đường dẫn tải trực tiếp dự phòng](dist/HT-Vids-Studio-2.0.9-Windows-x64.exe).
+Nếu nút trên không hoạt động, dùng [đường dẫn tải trực tiếp dự phòng](dist/latest/HT-Vids-Studio-Setup-2.0.9-Windows-x64.exe). Các bản trước được lưu riêng trong [`dist/old`](dist/old) để đối chiếu khi cần.
 
-Mã SHA-256: `BD866B80BE9270ED74CB6E1A40E9483E841CF6FD0F1B56F29B6A0796A2950CB5`
+Mã SHA-256: `1BAAFE6ECE02BD190AC2D3E493809F2D6B99BA2204AD43A6E4556805331B2DF4`
 
-1. Tải và chạy file `HT-Vids-Studio-2.0.9-Windows-x64.exe`.
-2. Chờ ứng dụng portable giải nén và khởi động.
-3. Mở **HT Vids Studio** từ file đã tải khi cần sử dụng.
+1. Tải và chạy file `HT-Vids-Studio-Setup-2.0.9-Windows-x64.exe`.
+2. Chọn thư mục cài đặt và hoàn tất các bước trong trình cài đặt.
+3. Mở **HT Vids Studio** từ shortcut Desktop hoặc menu Start.
 4. Nhập key bản quyền do HT Studio cung cấp.
 5. Thêm tài khoản Google, đăng nhập và bắt đầu tạo video.
 
@@ -115,6 +115,7 @@ Hướng dẫn chi tiết nằm trong [HUONG_DAN_SU_DUNG.md](HUONG_DAN_SU_DUNG.m
 - Thay huy hiệu **PRO TRỌN ĐỜI** trên thanh tiêu đề bằng nút **Donate**.
 - Cho phép mở ngay popup ủng hộ với mã QR và thông tin chuyển khoản khi bấm nút.
 - Giữ nguyên đầy đủ chức năng và quyền lợi bản quyền; việc ủng hộ hoàn toàn tự nguyện.
+- Chuyển bản phát hành chính sang bộ cài Windows Setup và bắt buộc các bản 2.0.8 trở xuống cập nhật lên 2.0.9.
 
 ## Phiên bản 2.0.8
 

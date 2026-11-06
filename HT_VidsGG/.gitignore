@@ -10,9 +10,14 @@ package.json
 package-lock.json
 tsconfig.json
 
-# Dist folder: only allow setup exe
+# Dist folder: archive old releases and expose only the latest release
 dist/*
-!dist/*.exe
+!dist/old/
+!dist/latest/
+dist/old/*
+dist/latest/*
+!dist/old/*.exe
+!dist/latest/*.exe
 
 data/
 downloads/

@@ -1,12 +1,13 @@
 {
   "latestVersion": "2.0.9",
-  "minimumSupportedVersion": "2.0.8",
-  "downloadUrl": "https://github.com/nlthieumedia-coder/HT_Studio/raw/refs/heads/main/HT_VidsGG/dist/HT-Vids-Studio-2.0.9-Windows-x64.exe",
+  "minimumSupportedVersion": "2.0.9",
+  "downloadUrl": "https://github.com/nlthieumedia-coder/HT_Studio/raw/refs/heads/main/HT_VidsGG/dist/latest/HT-Vids-Studio-Setup-2.0.9-Windows-x64.exe",
   "releaseNotes": [
     "Thay huy hiệu PRO TRỌN ĐỜI trên thanh tiêu đề bằng nút Donate.",
     "Bấm Donate để mở ngay popup ủng hộ với mã QR và thông tin chuyển khoản.",
-    "Việc ủng hộ hoàn toàn tự nguyện và không ảnh hưởng đến chức năng hoặc quyền lợi bản quyền."
+    "Việc ủng hộ hoàn toàn tự nguyện và không ảnh hưởng đến chức năng hoặc quyền lợi bản quyền.",
+    "Phiên bản 2.0.8 trở xuống phải cài bản 2.0.9 mới nhất để tiếp tục sử dụng."
   ],
   "publishedAt": "2026-11-06",
-  "sha256": "BD866B80BE9270ED74CB6E1A40E9483E841CF6FD0F1B56F29B6A0796A2950CB5"
+  "sha256": "1BAAFE6ECE02BD190AC2D3E493809F2D6B99BA2204AD43A6E4556805331B2DF4"
 }
