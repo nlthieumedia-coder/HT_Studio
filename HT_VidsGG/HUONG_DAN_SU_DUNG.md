@@ -110,6 +110,7 @@ Google Vids mặc định sinh ra clip 10 giây. Để tạo video 20 giây li�
   - **Chạy lại (Retry):** Thử lại ngay tác vụ bị gián đoạn hoặc lỗi quota.
   - **Chỉnh sửa:** Cập nhật lại prompt, tên file hoặc cấu hình trước khi chạy.
   - **Xóa:** Hủy bỏ tác vụ khỏi danh sách.
+- Khi kiểm tra hàng loạt, ngưỡng quota tối thiểu được lấy theo thời lượng video đang chọn. Nếu tài khoản trước đó bị tự tắt vì ngưỡng này nhưng quota còn đủ cho video mới, ứng dụng sẽ bật lại tài khoản đó khi thêm task; tài khoản bị bạn tắt thủ công không bị bật lại.
 
 ---
 

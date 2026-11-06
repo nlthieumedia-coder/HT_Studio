@@ -1,57 +1,110 @@
 # HT Vids Studio
 
-Ứng dụng desktop Windows của **HT Studio** giúp quản lý và tự động hóa quy trình tạo video với Google Vids.
+**HT Vids Studio** là ứng dụng desktop dành cho Windows, hỗ trợ quản lý nhiều tài khoản và tự động hóa quy trình tạo video bằng Google Vids.
 
-> HT Vids Studio là sản phẩm độc lập, không phải sản phẩm chính thức và không được Google tài trợ hoặc xác nhận.
+> Đây là sản phẩm độc lập của HT Studio, không phải sản phẩm chính thức và không được Google tài trợ hoặc xác nhận.
 
-## Điểm nổi bật
+## Tải và cài đặt
 
-- Quản lý nhiều tài khoản Google bằng các profile Chrome độc lập.
-- Nhập prompt, ảnh tham chiếu, tỷ lệ khung hình, thời lượng và độ phân giải trên cùng màn hình.
-- Tạo task chờ hoặc chạy ngay trên tài khoản đang rảnh.
+Phiên bản hiện tại: **2.0.5**
+
+[Tải HT Vids Studio 2.0.5 Portable cho Windows x64](dist/HT-Vids-Studio-2.0.5-Windows-x64.exe)
+
+Mã SHA-256: `AC34C1416E909A8BB3362864C5EB66EA3D38B425CF76DCB401E3AFE62AD8B5A7`
+
+1. Tải và chạy file `HT-Vids-Studio-2.0.5-Windows-x64.exe`.
+2. Chờ ứng dụng portable giải nén và khởi động.
+3. Mở **HT Vids Studio** từ file đã tải khi cần sử dụng.
+4. Nhập key bản quyền do HT Studio cung cấp.
+5. Thêm tài khoản Google, đăng nhập và bắt đầu tạo video.
+
+Windows SmartScreen có thể cảnh báo khi bản phát hành chưa được ký Code Signing. Chỉ chọn **More info → Run anyway** khi file được tải từ repository chính thức của HT Studio.
+
+## Chức năng chính
+
+- Quản lý nhiều tài khoản Google bằng các profile trình duyệt độc lập.
+- Thêm và thao tác hàng loạt nhiều tài khoản.
+- Kiểm tra gói Google AI của từng tài khoản hoặc kiểm tra hàng loạt.
+- Kiểm tra riêng hạn mức tạo video còn lại, không phụ thuộc chức năng kiểm tra gói.
+- Chạy các tác vụ kiểm tra bằng Chromium ẩn; đăng nhập và xác minh bảo mật vẫn sử dụng cửa sổ Chrome thông thường.
+- So sánh hạn mức của từng tài khoản với **thời lượng video đang yêu cầu**; tài khoản chỉ bị tạm tắt khi số giây còn lại không đủ.
+- Ưu tiên tài khoản có hạn mức khớp chính xác với thời lượng task và vẫn tiếp tục tạo khi Google hiển thị cảnh báo nhưng số dư còn đủ.
+- Nhập thời lượng video linh hoạt từ **5 đến 20 giây**, không bị khóa tại một mốc cố định.
+- Hỗ trợ video dọc `9:16` và video ngang `16:9`; Canvas chỉ được đổi khi bắt đầu tạo video.
+- Nhập prompt, prompt Extend, ảnh tham chiếu và độ phân giải trên cùng màn hình.
+- Tạo task chờ, chạy ngay hoặc chạy hàng loạt trên các tài khoản đang khả dụng.
 - Tự phân phối hàng đợi; mỗi tài khoản chỉ xử lý một task tại một thời điểm.
-- Theo dõi tiến độ, xem lỗi, chạy lại task và mở thư mục video đầu ra.
-- Kho video, trình xem video và bảng tổng quan thống kê theo ngày.
-- Xuất video MP4 về thư mục do người dùng lựa chọn.
-- Kích hoạt bản quyền theo mã máy và hỗ trợ khóa trạng thái từ xa.
-- Giao diện desktop tiếng Việt, có hướng dẫn và kênh hỗ trợ tích hợp.
+- Theo dõi tiến độ, xem lỗi, sửa và chạy lại task.
+- Tự tải video MP4 và hỗ trợ xóa watermark AI.
+- Kho video, trình xem video và bảng thống kê theo ngày.
+- Kích hoạt bản quyền theo mã máy và kiểm tra trạng thái bản quyền từ xa.
 
-## Yêu cầu
+## Quy trình sử dụng nhanh
 
-- Windows 10/11 x64.
+1. Vào tab **Tài khoản** và thêm một hoặc nhiều tài khoản Google.
+2. Mở Chrome để đăng nhập nếu tài khoản chưa có phiên đăng nhập hợp lệ.
+3. Dùng biểu tượng **Kiểm tra gói** để đọc loại tài khoản Standard, Pro hoặc Ultra.
+4. Dùng biểu tượng **Kiểm tra lượt** để đọc khả năng và số giây tạo video còn lại.
+5. Vào màn hình tạo video, nhập prompt, thời lượng, tỷ lệ khung hình và ảnh tham chiếu nếu cần.
+6. Chọn chạy ngay hoặc đưa task vào hàng đợi.
+7. Theo dõi kết quả trong **Hàng đợi**, **Kho video** hoặc thư mục đầu ra.
+
+Các nút thao tác trong box tài khoản sử dụng biểu tượng để giao diện gọn hơn. Di chuột lên biểu tượng để xem tên chức năng; nút tắt tài khoản được đặt ở vị trí cuối nhằm hạn chế thao tác nhầm.
+
+## Kiểm tra tài khoản hàng loạt
+
+- Chọn các tài khoản cần xử lý trong tab **Tài khoản**.
+- Chọn **Kiểm tra gói hàng loạt** để cập nhật loại gói.
+- Chọn **Kiểm tra lượt hàng loạt** để cập nhật hạn mức tạo video.
+- Nếu hệ thống xác định tài khoản đã hết lượt hoặc không đủ số giây cho thời lượng đang chọn, tài khoản đó sẽ tự chuyển sang trạng thái tắt.
+- Tài khoản từng bị tự tắt vì ngưỡng quota sẽ được bật lại khi nhận task ngắn hơn mà số dư vẫn đủ; tài khoản do người dùng tắt thủ công không bị tự bật.
+- Lỗi tạm thời do mạng, timeout hoặc giao diện Google thay đổi không được coi là bằng chứng tài khoản đã hết lượt.
+
+## Yêu cầu hệ thống
+
+- Windows 10 hoặc Windows 11 x64.
 - Google Chrome.
-- Kết nối Internet.
-- Tài khoản Google có quyền sử dụng Google Vids và các tính năng AI tương ứng.
-
-## Cài đặt
-
-1. Tải bộ cài `HT-Vids-Studio-Setup-2.0.4-Windows-x64.exe` trong thư mục `dist`.
-2. Chạy bộ cài và chọn thư mục cài đặt.
-3. Mở **HT Vids Studio** từ Desktop hoặc Start Menu.
-4. Nhập key bản quyền được HT Studio cung cấp.
-5. Thêm tài khoản Google và bắt đầu tạo task video.
-
-Windows SmartScreen có thể hiển thị cảnh báo nếu bản phát hành chưa được ký Code Signing. Chọn **More info → Run anyway** khi tải đúng bộ cài từ repository HT Studio.
-
-## Bản quyền
-
-Mỗi key được liên kết với một mã máy. Ứng dụng xác minh trạng thái khi khởi động, khi cửa sổ được focus và định kỳ trong quá trình sử dụng. Khách hàng cần liên hệ HT Studio khi đổi máy hoặc cần cấp lại bản quyền.
+- Kết nối Internet ổn định.
+- Tài khoản Google có quyền truy cập Google Vids và tính năng AI tương ứng.
 
 ## Dữ liệu và quyền riêng tư
 
-- Profile đăng nhập và dữ liệu ứng dụng được lưu trong AppData trên máy người dùng.
-- Thông tin nhạy cảm không được đóng kèm trong repository công khai.
+- Profile đăng nhập và trạng thái ứng dụng được lưu cục bộ trong AppData trên máy người dùng.
+- Mỗi tài khoản sử dụng một profile trình duyệt riêng.
+- Thông tin nhạy cảm được bảo vệ bằng cơ chế bảo mật của Windows và không được đóng kèm trong repository công khai.
 - Bộ cài không chứa tài khoản, mật khẩu, ảnh đầu vào hoặc video của máy phát triển.
-- Người dùng tự chịu trách nhiệm về tài khoản Google, nội dung tạo ra và việc tuân thủ điều khoản của Google.
+- Người dùng chịu trách nhiệm về tài khoản Google, nội dung tạo ra và việc tuân thủ điều khoản của Google.
 
-## Phiên bản
+## Bản quyền
 
-Phiên bản hiện tại: **2.0.4**
+Mỗi key được liên kết với một mã máy. Ứng dụng xác minh trạng thái khi khởi động, khi cửa sổ được focus và định kỳ trong quá trình sử dụng. Hãy liên hệ HT Studio khi đổi máy hoặc cần cấp lại bản quyền.
 
-- Windows x64 Setup.
-- Shortcut Desktop và Start Menu.
-- Có trình gỡ cài đặt.
-- Giữ dữ liệu ứng dụng khi nâng cấp trên cùng máy.
+## Xử lý sự cố nhanh
+
+- **Chưa đăng nhập:** mở Chrome từ nút tương ứng, hoàn tất đăng nhập/2FA rồi đóng cửa sổ Chrome để lưu profile.
+- **Kiểm tra bị timeout:** kiểm tra mạng và thử lại; Google Vids có thể tải chậm hoặc thay đổi giao diện.
+- **Không còn đủ lượt:** xem số giây còn lại trong box tài khoản; hệ thống đối chiếu trực tiếp với thời lượng video đang chọn.
+- **Task đứng sau khi tải ảnh:** phiên bản 2.0.5 hỗ trợ giao diện `Image1/Image2` và luồng `Add → Upload`; hãy bấm Chạy lại nếu task được tạo từ phiên bản cũ.
+- **Task tạo video lỗi:** mở thông báo hoặc hàng đợi để xem chi tiết, sau đó sửa và chạy lại task.
+- **Không thấy video đầu ra:** kiểm tra Kho video và thư mục tải xuống đã chọn trong ứng dụng.
+
+Hướng dẫn chi tiết nằm trong [HUONG_DAN_SU_DUNG.md](HUONG_DAN_SU_DUNG.md) và được tích hợp trực tiếp trong ứng dụng.
+
+## Phiên bản 2.0.5
+
+- Ưu tiên tài khoản có số giây hạn mức khớp chính xác với thời lượng video và tiếp tục tạo khi hạn mức vẫn đủ.
+- Thích nghi giao diện tải ảnh mới của Google Vids, nhận diện `Image1/Image2` và luồng `Add → Upload` để tránh đứng task.
+- Chuyển lỗi kỹ thuật dài thành thông báo tiếng Việt ngắn gọn, có mã nhận biết và hướng xử lý phù hợp.
+- Tự chuyển đổi các lỗi cũ đã lưu từ phiên bản trước sang định dạng dễ hiểu.
+
+## Phiên bản 2.0.4
+
+- Bổ sung kiểm tra gói và kiểm tra lượt tạo video hàng loạt.
+- Chuyển các luồng kiểm tra tài khoản sang Chromium ẩn.
+- Cho phép nhập thời lượng video từ 5 đến 20 giây.
+- Tự tắt tài khoản không đủ tối thiểu 10 giây tạo video sau kiểm tra hàng loạt.
+- Tối giản nút thao tác tài khoản bằng biểu tượng và tooltip.
+- Dọn dẹp mã chết và các bản đóng gói cũ; giữ nguyên luồng sử dụng ổn định.
 
 ## Hỗ trợ
 
