@@ -66,6 +66,12 @@ Chỉ mất chưa đầy 2 phút để thiết lập và nhận video hoàn ch�
 ### 2.3. Xử lý khi Google yêu cầu xác minh bảo mật (Captcha/Điện thoại)
 Nếu Google yêu cầu nhập Captcha hoặc bấm số trên điện thoại, bạn chỉ cần bấm nút **Mở Chrome** ở dòng tài khoản đó. Trình duyệt Chrome sẽ xuất hiện trên màn hình, bạn xác minh thủ công một lần rồi đóng cửa sổ lại.
 
+### 2.4. Chọn và bật/tắt tài khoản hàng loạt
+1. Mở tab **Tài khoản**, sau đó dùng menu **Chọn nhanh**.
+2. Chọn nhóm cần xử lý: đang bật, đang tắt, sẵn sàng, đang chạy, cần đăng nhập, còn lượt hoặc hết lượt.
+3. Bấm **Bật hàng loạt** hoặc **Tắt hàng loạt**. Bạn vẫn có thể tích chọn từng tài khoản thủ công.
+4. Tài khoản đang chạy task, đang đăng nhập hoặc đang kiểm tra sẽ được bỏ qua để tránh gián đoạn tiến trình.
+
 ---
 
 ## 3. NGHỆ THUẬT VIẾT PROMPT & DÙNG ẢNH THAM CHIẾU (@IMAGE)

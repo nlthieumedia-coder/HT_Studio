@@ -6,15 +6,15 @@
 
 ## ⬇️ Tải và cài đặt
 
-Phiên bản hiện tại: **2.0.6**
+Phiên bản hiện tại: **2.0.7**
 
-### [BẤM VÀO ĐÂY ĐỂ TẢI HT VIDS STUDIO 2.0.6 CHO WINDOWS x64](https://github.com/nlthieumedia-coder/HT_Studio/raw/refs/heads/main/HT_VidsGG/dist/HT-Vids-Studio-2.0.6-Windows-x64.exe)
+### [BẤM VÀO ĐÂY ĐỂ TẢI HT VIDS STUDIO 2.0.7 CHO WINDOWS x64](https://github.com/nlthieumedia-coder/HT_Studio/raw/refs/heads/main/HT_VidsGG/dist/HT-Vids-Studio-2.0.7-Windows-x64.exe)
 
-Nếu nút trên không hoạt động, dùng [đường dẫn tải trực tiếp dự phòng](dist/HT-Vids-Studio-2.0.6-Windows-x64.exe).
+Nếu nút trên không hoạt động, dùng [đường dẫn tải trực tiếp dự phòng](dist/HT-Vids-Studio-2.0.7-Windows-x64.exe).
 
-Mã SHA-256: `42442ED05FDB4A5E76C3C16C7F3E6B495DF8D8212C2A2C2BAE8704D3AB54A737`
+Mã SHA-256: `DDCA1A2ABEB3889DBF369A321A3A2B907B2C1136469F8CAE110AD4231153DDB1`
 
-1. Tải và chạy file `HT-Vids-Studio-2.0.6-Windows-x64.exe`.
+1. Tải và chạy file `HT-Vids-Studio-2.0.7-Windows-x64.exe`.
 2. Chờ ứng dụng portable giải nén và khởi động.
 3. Mở **HT Vids Studio** từ file đã tải khi cần sử dụng.
 4. Nhập key bản quyền do HT Studio cung cấp.
@@ -26,6 +26,7 @@ Windows SmartScreen có thể cảnh báo khi bản phát hành chưa được k
 
 - Quản lý nhiều tài khoản Google bằng các profile trình duyệt độc lập.
 - Thêm và thao tác hàng loạt nhiều tài khoản.
+- Chọn nhanh tài khoản theo trạng thái và bật hoặc tắt hàng loạt ngay trong tab **Tài khoản**.
 - Kiểm tra gói Google AI của từng tài khoản hoặc kiểm tra hàng loạt.
 - Kiểm tra riêng hạn mức tạo video còn lại, không phụ thuộc chức năng kiểm tra gói.
 - Chạy các tác vụ kiểm tra bằng Chromium ẩn; đăng nhập và xác minh bảo mật vẫn sử dụng cửa sổ Chrome thông thường.
@@ -57,6 +58,8 @@ Các nút thao tác trong box tài khoản sử dụng biểu tượng để gia
 ## Kiểm tra tài khoản hàng loạt
 
 - Chọn các tài khoản cần xử lý trong tab **Tài khoản**.
+- Dùng menu **Chọn nhanh** để chọn toàn bộ tài khoản đang bật, đang tắt, sẵn sàng, đang chạy, cần đăng nhập, còn lượt hoặc hết lượt.
+- Chọn **Bật hàng loạt** hoặc **Tắt hàng loạt**; hệ thống tự bỏ qua tài khoản đang bận để không làm gián đoạn task.
 - Chọn **Kiểm tra gói hàng loạt** để cập nhật loại gói.
 - Chọn **Kiểm tra lượt hàng loạt** để cập nhật hạn mức tạo video.
 - Nếu hệ thống xác định tài khoản đã hết lượt hoặc không đủ số giây cho thời lượng đang chọn, tài khoản đó sẽ tự chuyển sang trạng thái tắt.
@@ -101,6 +104,13 @@ Hướng dẫn chi tiết nằm trong [HUONG_DAN_SU_DUNG.md](HUONG_DAN_SU_DUNG.m
 - Ứng dụng chỉ mở đường dẫn tải chính thức trên GitHub; không tự tải, tự cài hoặc tự đóng task đang chạy.
 
 > Người đang sử dụng 2.0.5 trở xuống cần tải 2.0.6 thủ công một lần. Từ 2.0.6 trở đi, ứng dụng mới có khả năng tự thông báo các phiên bản tiếp theo.
+
+## Phiên bản 2.0.7
+
+- Thêm menu chọn nhanh tài khoản theo nhiều trạng thái vận hành và hạn mức.
+- Bổ sung nút bật lại hàng loạt cho các tài khoản đang tắt.
+- Không gửi lệnh bật/tắt tới tài khoản đang chạy, đang đăng nhập hoặc đang kiểm tra.
+- Đồng bộ lại lựa chọn sau khi thao tác hàng loạt để giao diện luôn phản ánh đúng trạng thái.
 
 ## Phiên bản 2.0.6
 
