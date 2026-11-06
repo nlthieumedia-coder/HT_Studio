@@ -6,15 +6,15 @@
 
 ## ⬇️ Tải và cài đặt
 
-Phiên bản hiện tại: **2.0.8**
+Phiên bản hiện tại: **2.0.9**
 
-### [BẤM VÀO ĐÂY ĐỂ TẢI HT VIDS STUDIO 2.0.8 CHO WINDOWS x64](https://github.com/nlthieumedia-coder/HT_Studio/raw/refs/heads/main/HT_VidsGG/dist/HT-Vids-Studio-2.0.8-Windows-x64.exe)
+### [BẤM VÀO ĐÂY ĐỂ TẢI HT VIDS STUDIO 2.0.9 CHO WINDOWS x64](https://github.com/nlthieumedia-coder/HT_Studio/raw/refs/heads/main/HT_VidsGG/dist/HT-Vids-Studio-2.0.9-Windows-x64.exe)
 
-Nếu nút trên không hoạt động, dùng [đường dẫn tải trực tiếp dự phòng](dist/HT-Vids-Studio-2.0.8-Windows-x64.exe).
+Nếu nút trên không hoạt động, dùng [đường dẫn tải trực tiếp dự phòng](dist/HT-Vids-Studio-2.0.9-Windows-x64.exe).
 
-Mã SHA-256: `63DF0F865C01A5D6013A25678C785E6B7C1B027EDCC7CD482B1EEB46EA3129F7`
+Mã SHA-256: `BD866B80BE9270ED74CB6E1A40E9483E841CF6FD0F1B56F29B6A0796A2950CB5`
 
-1. Tải và chạy file `HT-Vids-Studio-2.0.8-Windows-x64.exe`.
+1. Tải và chạy file `HT-Vids-Studio-2.0.9-Windows-x64.exe`.
 2. Chờ ứng dụng portable giải nén và khởi động.
 3. Mở **HT Vids Studio** từ file đã tải khi cần sử dụng.
 4. Nhập key bản quyền do HT Studio cung cấp.
@@ -43,6 +43,7 @@ Windows SmartScreen có thể cảnh báo khi bản phát hành chưa được k
 - Kích hoạt bản quyền theo mã máy và kiểm tra trạng thái bản quyền từ xa.
 - Tự kiểm tra phiên bản mới từ kho phát hành chính thức và hiển thị popup có nút tải trực tiếp; ứng dụng không tự cài đặt hoặc làm gián đoạn task đang chạy.
 - Hỗ trợ đặt phiên bản tối thiểu bắt buộc; bản thấp hơn mức này bị khóa giao diện cho tới khi người dùng tải bản mới.
+- Nút **Donate** trên thanh tiêu đề mở nhanh popup ủng hộ HT Studio; việc ủng hộ hoàn toàn tự nguyện và không ảnh hưởng quyền lợi bản quyền.
 
 ## Quy trình sử dụng nhanh
 
@@ -108,6 +109,12 @@ Hướng dẫn chi tiết nằm trong [HUONG_DAN_SU_DUNG.md](HUONG_DAN_SU_DUNG.m
 > Người đang sử dụng 2.0.5 trở xuống cần tải 2.0.6 thủ công một lần. Từ 2.0.6 trở đi, ứng dụng mới có khả năng tự thông báo các phiên bản tiếp theo.
 
 > Lưu ý chuyển tiếp: 2.0.6 và 2.0.7 chưa có mã khóa cập nhật bắt buộc, nên vẫn có thể chọn **Để sau** khi được mời lên 2.0.8. Sau khi đã cài 2.0.8, mọi bản thấp hơn mức hỗ trợ tối thiểu do HT Studio công bố sẽ bị khóa bắt buộc cập nhật.
+
+## Phiên bản 2.0.9
+
+- Thay huy hiệu **PRO TRỌN ĐỜI** trên thanh tiêu đề bằng nút **Donate**.
+- Cho phép mở ngay popup ủng hộ với mã QR và thông tin chuyển khoản khi bấm nút.
+- Giữ nguyên đầy đủ chức năng và quyền lợi bản quyền; việc ủng hộ hoàn toàn tự nguyện.
 
 ## Phiên bản 2.0.8
 

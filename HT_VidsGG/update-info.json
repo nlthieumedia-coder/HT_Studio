@@ -1,13 +1,12 @@
 {
-  "latestVersion": "2.0.8",
+  "latestVersion": "2.0.9",
   "minimumSupportedVersion": "2.0.8",
-  "downloadUrl": "https://github.com/nlthieumedia-coder/HT_Studio/raw/refs/heads/main/HT_VidsGG/dist/HT-Vids-Studio-2.0.8-Windows-x64.exe",
+  "downloadUrl": "https://github.com/nlthieumedia-coder/HT_Studio/raw/refs/heads/main/HT_VidsGG/dist/HT-Vids-Studio-2.0.9-Windows-x64.exe",
   "releaseNotes": [
-    "Bổ sung cơ chế yêu cầu cập nhật bắt buộc khi phiên bản đang dùng thấp hơn mức hỗ trợ tối thiểu.",
-    "Popup bắt buộc không thể đóng, trì hoãn hoặc bỏ qua; người dùng phải mở trang tải bản mới.",
-    "Ghi nhớ yêu cầu cập nhật sau lần kiểm tra thành công để tiếp tục khóa phiên bản cũ khi mở lại ứng dụng.",
-    "Vẫn giữ cơ chế cập nhật tùy chọn cho các bản không nằm dưới mức hỗ trợ tối thiểu."
+    "Thay huy hiệu PRO TRỌN ĐỜI trên thanh tiêu đề bằng nút Donate.",
+    "Bấm Donate để mở ngay popup ủng hộ với mã QR và thông tin chuyển khoản.",
+    "Việc ủng hộ hoàn toàn tự nguyện và không ảnh hưởng đến chức năng hoặc quyền lợi bản quyền."
   ],
   "publishedAt": "2026-11-06",
-  "sha256": "63DF0F865C01A5D6013A25678C785E6B7C1B027EDCC7CD482B1EEB46EA3129F7"
+  "sha256": "BD866B80BE9270ED74CB6E1A40E9483E841CF6FD0F1B56F29B6A0796A2950CB5"
 }
