@@ -8,9 +8,9 @@
 
 Phiên bản hiện tại: **3.0.0**
 
-### [BẤM VÀO ĐÂY ĐỂ TẢI BỘ CÀI HT VIDS STUDIO 3.0.0 CHO WINDOWS x64](https://github.com/nlthieumedia-coder/HT_Studio/raw/refs/heads/main/HT_VidsGG/dist/latest/HT-Vids-Studio-Setup-3.0.0-Windows-x64.exe)
+### [BẤM VÀO ĐÂY ĐỂ TẢI BỘ CÀI HT VIDS STUDIO 3.0.0 CHO WINDOWS x64](https://github.com/nlthieumedia-coder/HT_Studio/releases/download/v3.0.0/HT-Vids-Studio-Setup-3.0.0-Windows-x64.exe)
 
-Nếu nút trên không hoạt động, dùng [đường dẫn tải trực tiếp dự phòng](dist/latest/HT-Vids-Studio-Setup-3.0.0-Windows-x64.exe). Các bản trước được lưu riêng trong [`dist/old`](dist/old) để đối chiếu khi cần.
+Nếu nút trên không hoạt động, dùng [máy chủ media dự phòng](https://media.githubusercontent.com/media/nlthieumedia-coder/HT_Studio/main/HT_VidsGG/dist/latest/HT-Vids-Studio-Setup-3.0.0-Windows-x64.exe). Xem đầy đủ nội dung phát hành tại [GitHub Release v3.0.0](https://github.com/nlthieumedia-coder/HT_Studio/releases/tag/v3.0.0). Các bản trước được lưu riêng trong [`dist/old`](dist/old) để đối chiếu khi cần.
 
 Mã SHA-256: `3F3B10A6742C24FA621F8933D6D5C8E9DAE7F01A9009F3749C03A80D5E3E32CE`
 
@@ -108,7 +108,7 @@ Hướng dẫn chi tiết nằm trong [HUONG_DAN_SU_DUNG.md](HUONG_DAN_SU_DUNG.m
 - Từ phiên bản **2.0.6**, ứng dụng kiểm tra bản mới khi khởi động, khi người dùng quay lại cửa sổ và định kỳ trong lúc sử dụng.
 - Khi có bản mới, popup sẽ hiển thị phiên bản hiện tại, phiên bản mới, nội dung thay đổi và nút **Tải phiên bản mới**.
 - Mọi phiên bản mới đều là cập nhật bắt buộc. Popup không có nút đóng hoặc **Để sau** và người dùng không thể tiếp tục thao tác trên phiên bản cũ.
-- Ứng dụng chỉ mở đường dẫn tải chính thức trên GitHub; không tự tải, tự cài hoặc tự đóng task đang chạy.
+- Ứng dụng mở bộ cài từ GitHub Releases; không tự tải, tự cài hoặc tự đóng task đang chạy.
 
 > Người đang sử dụng 2.0.5 trở xuống cần tải 2.0.6 thủ công một lần. Từ 2.0.6 trở đi, ứng dụng mới có khả năng tự thông báo các phiên bản tiếp theo.
 

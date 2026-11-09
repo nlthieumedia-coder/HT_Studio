@@ -1,7 +1,7 @@
 {
   "latestVersion": "3.0.0",
   "minimumSupportedVersion": "3.0.0",
-  "downloadUrl": "https://github.com/nlthieumedia-coder/HT_Studio/raw/refs/heads/main/HT_VidsGG/dist/latest/HT-Vids-Studio-Setup-3.0.0-Windows-x64.exe",
+  "downloadUrl": "https://github.com/nlthieumedia-coder/HT_Studio/releases/download/v3.0.0/HT-Vids-Studio-Setup-3.0.0-Windows-x64.exe",
   "releaseNotes": [
     "Thêm tab Tạo video hàng loạt với giao diện dạng bảng và cấu hình riêng cho từng video.",
     "Bổ sung quản lý chiến dịch; mỗi chiến dịch sử dụng thư mục riêng cho cấu hình, ảnh và video đầu ra.",
