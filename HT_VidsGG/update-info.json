@@ -1,14 +1,15 @@
 {
-  "latestVersion": "3.0.4",
-  "minimumSupportedVersion": "3.0.4",
-  "downloadUrl": "https://github.com/nlthieumedia-coder/HT_Studio/releases/download/v3.0.4/HT-Vids-Studio-Setup-3.0.4-Windows-x64.exe",
+  "latestVersion": "3.0.5",
+  "minimumSupportedVersion": "3.0.5",
+  "downloadUrl": "https://github.com/nlthieumedia-coder/HT_Studio/releases/download/v3.0.5/HT-Vids-Studio-Setup-3.0.5-Windows-x64.exe",
   "releaseNotes": [
-    "Sửa thao tác Thêm ảnh trong tab Tạo video hàng loạt và hiển thị trạng thái xử lý ngay trên ô ảnh.",
-    "Nhập tối đa 3 ảnh song song, tạo thumbnail nhẹ và chỉ cập nhật ô vừa thao tác để bảng phản hồi nhanh hơn.",
-    "Tuần tự hóa tự lưu chiến dịch, tự dọn ảnh cũ và file nhập dở khi có lỗi.",
-    "Tăng tốc thao tác tài khoản hàng loạt và sửa nhận diện gói Pro hoặc Ultra khi Google One hiển thị tên gói tách dòng.",
-    "Dọn mã không sử dụng và bổ sung kiểm thử cho luồng ảnh chiến dịch."
+    "Khi chọn 15 giây, ứng dụng đặt thanh Video duration của Google Vids lên 15s và chỉ tạo một video duy nhất.",
+    "Video 5–15 giây dùng một lần Create; chỉ 16–20 giây mới dùng bước Extend.",
+    "Thêm nút Kiểm tra phiên bản ở góc dưới bên phải để chủ động kiểm tra cập nhật ngay.",
+    "Hiển thị trạng thái đang kiểm tra và phản hồi rõ khi đã là bản mới nhất, có bản mới hoặc mất kết nối.",
+    "Tự điều chỉnh vị trí nút trong tab Tạo video hàng loạt để không che thanh thao tác.",
+    "Giữ kiểm tra tự động mỗi 5 phút và loại bỏ bộ hẹn giờ trùng ở giao diện."
   ],
   "publishedAt": "2026-11-09",
-  "sha256": "97EFC581452282F4A2E1AFA7F5FDC750C3D4BD9466D7AE54171F544EEFEBA6D5"
+  "sha256": "911E3DC5AC273AA4338597F075B5C1DAF314548E8E9C9DC2C1810120F9280B10"
 }

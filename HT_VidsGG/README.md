@@ -6,15 +6,15 @@
 
 ## ⬇️ Tải và cài đặt
 
-Phiên bản hiện tại: **3.0.4**
+Phiên bản hiện tại: **3.0.5**
 
-### [BẤM VÀO ĐÂY ĐỂ TẢI BỘ CÀI HT VIDS STUDIO 3.0.4 CHO WINDOWS x64](https://github.com/nlthieumedia-coder/HT_Studio/releases/download/v3.0.4/HT-Vids-Studio-Setup-3.0.4-Windows-x64.exe)
+### [BẤM VÀO ĐÂY ĐỂ TẢI BỘ CÀI HT VIDS STUDIO 3.0.5 CHO WINDOWS x64](https://github.com/nlthieumedia-coder/HT_Studio/releases/download/v3.0.5/HT-Vids-Studio-Setup-3.0.5-Windows-x64.exe)
 
-Nếu nút trên không hoạt động, dùng [máy chủ media dự phòng](https://media.githubusercontent.com/media/nlthieumedia-coder/HT_Studio/main/HT_VidsGG/dist/latest/HT-Vids-Studio-Setup-3.0.4-Windows-x64.exe). Xem đầy đủ nội dung phát hành tại [GitHub Release v3.0.4](https://github.com/nlthieumedia-coder/HT_Studio/releases/tag/v3.0.4). Các bản trước được lưu riêng trong [`dist/old`](dist/old) để đối chiếu khi cần.
+Nếu nút trên không hoạt động, dùng [máy chủ media dự phòng](https://media.githubusercontent.com/media/nlthieumedia-coder/HT_Studio/main/HT_VidsGG/dist/latest/HT-Vids-Studio-Setup-3.0.5-Windows-x64.exe). Xem đầy đủ nội dung phát hành tại [GitHub Release v3.0.5](https://github.com/nlthieumedia-coder/HT_Studio/releases/tag/v3.0.5). Các bản trước được lưu riêng trong [`dist/old`](dist/old) để đối chiếu khi cần.
 
-Mã SHA-256: `97EFC581452282F4A2E1AFA7F5FDC750C3D4BD9466D7AE54171F544EEFEBA6D5`
+Mã SHA-256: `911E3DC5AC273AA4338597F075B5C1DAF314548E8E9C9DC2C1810120F9280B10`
 
-1. Tải và chạy file `HT-Vids-Studio-Setup-3.0.4-Windows-x64.exe`.
+1. Tải và chạy file `HT-Vids-Studio-Setup-3.0.5-Windows-x64.exe`.
 2. Chọn thư mục cài đặt và hoàn tất các bước trong trình cài đặt.
 3. Mở **HT Vids Studio** từ shortcut Desktop hoặc menu Start.
 4. Nhập key bản quyền do HT Studio cung cấp.
@@ -32,7 +32,7 @@ Windows SmartScreen có thể cảnh báo khi bản phát hành chưa được k
 - Chạy các tác vụ kiểm tra bằng Chromium ẩn; đăng nhập và xác minh bảo mật vẫn sử dụng cửa sổ Chrome thông thường.
 - So sánh hạn mức của từng tài khoản với **thời lượng video đang yêu cầu**; tài khoản chỉ bị tạm tắt khi số giây còn lại không đủ.
 - Ưu tiên tài khoản có hạn mức khớp chính xác với thời lượng task và vẫn tiếp tục tạo khi Google hiển thị cảnh báo nhưng số dư còn đủ.
-- Nhập thời lượng video linh hoạt từ **5 đến 20 giây**, không bị khóa tại một mốc cố định.
+- Nhập thời lượng video linh hoạt từ **5 đến 20 giây**; video 5–15 giây được tạo trực tiếp bằng một lượt, chỉ 16–20 giây mới cần Extend.
 - Hỗ trợ video dọc `9:16` và video ngang `16:9`; Canvas chỉ được đổi khi bắt đầu tạo video.
 - Nhập prompt, prompt Extend, ảnh tham chiếu và độ phân giải trên cùng màn hình.
 - Tạo nhiều video theo dạng bảng tại tab **Tạo video hàng loạt**; mỗi dòng có prompt, ảnh tham chiếu, tỷ lệ, độ phân giải và thời lượng riêng. Ảnh được nhập song song, hiển thị bằng thumbnail nhẹ và không tải lại toàn bộ bảng.
@@ -45,7 +45,7 @@ Windows SmartScreen có thể cảnh báo khi bản phát hành chưa được k
 - Tự tải video MP4 và hỗ trợ xóa watermark AI.
 - Kho video, trình xem video và bảng thống kê theo ngày.
 - Kích hoạt bản quyền theo mã máy và kiểm tra trạng thái bản quyền từ xa.
-- Tự kiểm tra phiên bản mới từ kho phát hành chính thức khi khởi động, mỗi 5 phút, khi cửa sổ được focus và khi mạng kết nối lại; popup cập nhật xuất hiện ngay trong phiên đang chạy.
+- Có nút **Kiểm tra phiên bản** ở góc dưới bên phải để kiểm tra ngay; nếu không thao tác, ứng dụng vẫn tự kiểm tra khi khởi động, mỗi 5 phút, khi cửa sổ được focus và khi mạng kết nối lại.
 - Hỗ trợ đặt phiên bản tối thiểu bắt buộc; bản thấp hơn mức này bị khóa giao diện cho tới khi người dùng tải bản mới.
 - Nút **Donate** trên thanh tiêu đề mở nhanh popup ủng hộ HT Studio; việc ủng hộ hoàn toàn tự nguyện và không ảnh hưởng quyền lợi bản quyền.
 
@@ -106,6 +106,7 @@ Hướng dẫn chi tiết nằm trong [HUONG_DAN_SU_DUNG.md](HUONG_DAN_SU_DUNG.m
 ## Cập nhật phiên bản
 
 - Từ phiên bản **2.0.6**, ứng dụng kiểm tra bản mới khi khởi động, khi người dùng quay lại cửa sổ và định kỳ trong lúc sử dụng.
+- Có thể bấm **Kiểm tra phiên bản** ở góc dưới bên phải bất cứ lúc nào. Nút hiển thị trạng thái kiểm tra và thông báo rõ khi ứng dụng đã là bản mới nhất, có bản mới hoặc không thể kết nối.
 - Khi có bản mới, popup sẽ hiển thị phiên bản hiện tại, phiên bản mới, nội dung thay đổi và nút **Tải phiên bản mới**.
 - Mọi phiên bản mới đều là cập nhật bắt buộc. Popup không có nút đóng hoặc **Để sau** và người dùng không thể tiếp tục thao tác trên phiên bản cũ.
 - Từ phiên bản **3.0.1**, ứng dụng tải bộ cài trong nền mà không mở trình duyệt, hiển thị phần trăm/dung lượng/tốc độ và xác minh SHA-256.
@@ -114,6 +115,16 @@ Hướng dẫn chi tiết nằm trong [HUONG_DAN_SU_DUNG.md](HUONG_DAN_SU_DUNG.m
 > Người đang sử dụng 2.0.5 trở xuống cần tải 2.0.6 thủ công một lần. Từ 2.0.6 trở đi, ứng dụng mới có khả năng tự thông báo các phiên bản tiếp theo.
 
 > Các bản trước 3.0.1 chưa có bộ tải nền nên cần thực hiện luồng tải cũ một lần để chuyển tiếp. Từ 3.0.1 trở đi, toàn bộ quá trình tải và cài cập nhật diễn ra trong ứng dụng.
+
+## Phiên bản 3.0.5
+
+- Đồng bộ giới hạn mới của Google Vids: khi chọn 15 giây, ứng dụng kéo thanh **Video duration** lên 15s và chỉ tạo một video duy nhất.
+- Video 5–15 giây dùng một lần Create; chỉ video 16–20 giây mới chạy thêm bước Extend.
+- Thêm nút **Kiểm tra phiên bản** ở góc dưới bên phải để người dùng chủ động kiểm tra cập nhật ngay.
+- Hiển thị spinner và phản hồi rõ khi đang kiểm tra, đang dùng bản mới nhất, có bản mới hoặc không thể kết nối máy chủ.
+- Tự điều chỉnh vị trí nút trong tab **Tạo video hàng loạt** để không che thanh thao tác phía dưới.
+- Giữ nguyên kiểm tra tự động khi khởi động, khi focus, khi mạng kết nối lại và mỗi 5 phút.
+- Loại bỏ timer kiểm tra trùng ở renderer; chỉ tiến trình chính duy trì một bộ hẹn giờ nền 5 phút.
 
 ## Phiên bản 3.0.4
 

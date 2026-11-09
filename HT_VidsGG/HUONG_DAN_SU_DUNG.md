@@ -33,8 +33,8 @@ Chỉ mất chưa đầy 2 phút để thiết lập và nhận video hoàn ch�
   - Chuyển sang tab **Tạo video**.
   - Kéo thả hoặc chọn tối đa 3 ảnh nhân vật/sản phẩm (JPG/PNG). Hệ thống sẽ tự gán nhãn: `@Image1`, `@Image2`, `@Image3`.
 - **Bước 3: Soạn kịch bản & Cấu hình video**
-  - Nhập kịch bản cho **10 giây đầu** vào ô Prompt ban đầu.
-  - Nhập kịch bản nối cảnh cho **10 giây tiếp theo** vào ô Prompt Extend.
+  - Với video **5–15 giây**, chỉ cần nhập kịch bản vào ô Prompt ban đầu. Khi chọn 15 giây, ứng dụng tự kéo thanh thời lượng của Google Vids lên 15s và tạo một video duy nhất.
+  - Với video **16–20 giây**, nhập thêm kịch bản nối cảnh vào ô Prompt Extend.
   - Chọn tỉ lệ khung hình: **9:16 (Dọc TikTok/Reels/Shorts)** hoặc **16:9 (Ngang YouTube)**.
   - Chọn độ phân giải (720p hoặc 1080p) và tích chọn **Tự động xóa watermark Veo**.
 - **Bước 4: Bắt đầu tạo video**
@@ -99,7 +99,7 @@ Khi tải ảnh lên khung Ảnh tham chiếu:
 
 ## 4. KỸ THUẬT NỐI CẢNH EXTEND MỞ RỘNG 20 GIÂY
 
-Google Vids mặc định sinh ra clip 10 giây. Để tạo video 20 giây liền mạch:
+Google Vids hiện hỗ trợ tạo trực tiếp tối đa 15 giây. Video 5–15 giây chỉ dùng một lượt Create và không cần Prompt Extend. Để tạo video 20 giây liền mạch:
 1. **Ô Prompt 0s - 10s:** Mô tả bối cảnh và hành động mở đầu.
 2. **Ô Prompt Extend 10s - 20s:** Mô tả hành động tiếp diễn từ tư thế hoặc góc máy kết thúc của đoạn 10s trước.
 3. Hệ thống sẽ tự động:
@@ -185,7 +185,9 @@ Nghĩa là tài khoản chưa được đăng nhập trên profile riêng của 
 Video được lưu tại đường dẫn hiển thị ở ô **Thư mục lưu video** tại tab Tạo video. Bạn có thể thay đổi đường dẫn này bằng nút chọn thư mục bất kỳ lúc nào.
 
 ### ❓ Làm sao biết ứng dụng đã có phiên bản mới?
-Ứng dụng tự kiểm tra kho phát hành chính thức khi khởi động, mỗi 5 phút trong tiến trình nền, khi bạn quay lại cửa sổ và khi mạng kết nối lại. Nếu có bản mới, popup tiếng Việt sẽ xuất hiện ngay trong phiên đang chạy mà không cần tải lại hoặc tắt mở phần mềm.
+Bạn có thể bấm **Kiểm tra phiên bản** ở góc dưới bên phải để chủ động kiểm tra ngay. Trong lúc kiểm tra, nút hiển thị trạng thái xử lý; sau đó ứng dụng sẽ báo đang dùng bản mới nhất, đã tìm thấy bản mới hoặc chưa thể kết nối máy chủ.
+
+Nếu không bấm nút, ứng dụng vẫn tự kiểm tra kho phát hành chính thức khi khởi động, mỗi 5 phút trong tiến trình nền, khi bạn quay lại cửa sổ và khi mạng kết nối lại. Nếu có bản mới, popup tiếng Việt sẽ xuất hiện ngay trong phiên đang chạy mà không cần tải lại hoặc tắt mở phần mềm.
 
 Mọi phiên bản mới đều là cập nhật bắt buộc. Popup cập nhật khóa giao diện, không có nút đóng hoặc **Để sau**. Từ phiên bản 3.0.1, bấm **Tải & cập nhật ngay** để tải bộ cài trong nền mà không mở trình duyệt. Thanh tiến độ hiển thị phần trăm, dung lượng và tốc độ tải. Sau khi ứng dụng xác minh SHA-256 thành công, bấm **Đóng bản cũ & mở bản mới** để cài đặt im lặng và tự khởi động phiên bản mới.
 
