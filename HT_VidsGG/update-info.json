@@ -1,14 +1,14 @@
 {
-  "latestVersion": "3.0.1",
-  "minimumSupportedVersion": "3.0.1",
-  "downloadUrl": "https://github.com/nlthieumedia-coder/HT_Studio/releases/download/v3.0.1/HT-Vids-Studio-Setup-3.0.1-Windows-x64.exe",
+  "latestVersion": "3.0.2",
+  "minimumSupportedVersion": "3.0.2",
+  "downloadUrl": "https://github.com/nlthieumedia-coder/HT_Studio/releases/download/v3.0.2/HT-Vids-Studio-Setup-3.0.2-Windows-x64.exe",
   "releaseNotes": [
-    "Tải bản cập nhật trực tiếp trong ứng dụng, không mở trình duyệt.",
-    "Hiển thị phần trăm, dung lượng và tốc độ tải trên thanh tiến độ.",
-    "Xác minh dung lượng và SHA-256 trước khi cho phép cài đặt.",
-    "Sau khi tải xong, cho phép đóng phiên bản hiện tại, cài đặt im lặng và tự mở phiên bản mới.",
-    "Tiếp tục áp dụng cập nhật bắt buộc và không có tùy chọn Để sau."
+    "Đồng bộ trạng thái từng dòng của chiến dịch với hàng đợi theo thời gian thực.",
+    "Hiển thị Bản nháp, Đang chờ, Đang tạo theo phần trăm, Hoàn thành và Lỗi.",
+    "Thanh bước 2 đến bước 3 phản ánh tiến độ trung bình của đúng các task trong chiến dịch.",
+    "Bước 3 chuyển dấu hoàn thành khi toàn bộ video xong và hiển thị số lỗi khi có sự cố.",
+    "Giữ nguyên cập nhật nền, xác minh SHA-256 và cài đặt im lặng."
   ],
   "publishedAt": "2026-11-09",
-  "sha256": "894E26E49F8C00F2BD9E1BDAB0BDFC8066EC3F08B82B0522E53E64ACBFE522F0"
+  "sha256": "49FA59443EA5A0E5D8CBB43D8ECE1CB7C9073442192016CFB2061AD2103C1343"
 }

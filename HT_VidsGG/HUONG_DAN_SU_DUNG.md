@@ -121,6 +121,8 @@ Tab **Tạo video hàng loạt** dùng để chuẩn bị nhiều video trên c�
 6. Khi bắt đầu chạy, ứng dụng không chuyển sang tab **Hàng đợi**. Nút tạo đổi thành nút **Dừng** màu đỏ để thể hiện trạng thái đang xử lý.
 7. Bấm **Dừng** nếu muốn hủy toàn bộ task đang chờ và đang chạy. Các tiến trình trình duyệt liên quan sẽ được đóng và chiến dịch được mở khóa để chỉnh sửa tiếp.
 
+Trong lúc xử lý, cột **Trạng thái** của mỗi dòng cập nhật trực tiếp từ hàng đợi, gồm bản nháp, đang chờ, đang tạo theo phần trăm, hoàn thành hoặc lỗi. Thanh bước phía trên hiển thị tiến độ trung bình của chiến dịch; bước **3. Kiểm tra & tạo** sáng khi đang chạy và chuyển dấu hoàn thành khi tất cả video đã xong.
+
 Mỗi chiến dịch nên dùng một tên dễ nhận biết. Không tự ý di chuyển hoặc đổi tên các thư mục con khi chiến dịch đang chạy vì ứng dụng cần đúng đường dẫn để lưu ảnh và video.
 
 ---

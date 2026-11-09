@@ -6,15 +6,15 @@
 
 ## ⬇️ Tải và cài đặt
 
-Phiên bản hiện tại: **3.0.1**
+Phiên bản hiện tại: **3.0.2**
 
-### [BẤM VÀO ĐÂY ĐỂ TẢI BỘ CÀI HT VIDS STUDIO 3.0.1 CHO WINDOWS x64](https://github.com/nlthieumedia-coder/HT_Studio/releases/download/v3.0.1/HT-Vids-Studio-Setup-3.0.1-Windows-x64.exe)
+### [BẤM VÀO ĐÂY ĐỂ TẢI BỘ CÀI HT VIDS STUDIO 3.0.2 CHO WINDOWS x64](https://github.com/nlthieumedia-coder/HT_Studio/releases/download/v3.0.2/HT-Vids-Studio-Setup-3.0.2-Windows-x64.exe)
 
-Nếu nút trên không hoạt động, dùng [máy chủ media dự phòng](https://media.githubusercontent.com/media/nlthieumedia-coder/HT_Studio/main/HT_VidsGG/dist/latest/HT-Vids-Studio-Setup-3.0.1-Windows-x64.exe). Xem đầy đủ nội dung phát hành tại [GitHub Release v3.0.1](https://github.com/nlthieumedia-coder/HT_Studio/releases/tag/v3.0.1). Các bản trước được lưu riêng trong [`dist/old`](dist/old) để đối chiếu khi cần.
+Nếu nút trên không hoạt động, dùng [máy chủ media dự phòng](https://media.githubusercontent.com/media/nlthieumedia-coder/HT_Studio/main/HT_VidsGG/dist/latest/HT-Vids-Studio-Setup-3.0.2-Windows-x64.exe). Xem đầy đủ nội dung phát hành tại [GitHub Release v3.0.2](https://github.com/nlthieumedia-coder/HT_Studio/releases/tag/v3.0.2). Các bản trước được lưu riêng trong [`dist/old`](dist/old) để đối chiếu khi cần.
 
-Mã SHA-256: `894E26E49F8C00F2BD9E1BDAB0BDFC8066EC3F08B82B0522E53E64ACBFE522F0`
+Mã SHA-256: `49FA59443EA5A0E5D8CBB43D8ECE1CB7C9073442192016CFB2061AD2103C1343`
 
-1. Tải và chạy file `HT-Vids-Studio-Setup-3.0.1-Windows-x64.exe`.
+1. Tải và chạy file `HT-Vids-Studio-Setup-3.0.2-Windows-x64.exe`.
 2. Chọn thư mục cài đặt và hoàn tất các bước trong trình cài đặt.
 3. Mở **HT Vids Studio** từ shortcut Desktop hoặc menu Start.
 4. Nhập key bản quyền do HT Studio cung cấp.
@@ -114,6 +114,15 @@ Hướng dẫn chi tiết nằm trong [HUONG_DAN_SU_DUNG.md](HUONG_DAN_SU_DUNG.m
 > Người đang sử dụng 2.0.5 trở xuống cần tải 2.0.6 thủ công một lần. Từ 2.0.6 trở đi, ứng dụng mới có khả năng tự thông báo các phiên bản tiếp theo.
 
 > Các bản trước 3.0.1 chưa có bộ tải nền nên cần thực hiện luồng tải cũ một lần để chuyển tiếp. Từ 3.0.1 trở đi, toàn bộ quá trình tải và cài cập nhật diễn ra trong ứng dụng.
+
+## Phiên bản 3.0.2
+
+- Cập nhật cột trạng thái của từng dòng chiến dịch theo hàng đợi trong thời gian thực.
+- Hiển thị rõ `Bản nháp`, `Đang chờ`, `Đang tạo %`, `Hoàn thành`, `Lỗi` và `Đã hủy`.
+- Thêm thanh tiến độ nhỏ cho từng video đang chờ hoặc đang chạy.
+- Thanh nối bước 2 → bước 3 phản ánh tiến độ trung bình của các task thuộc chiến dịch.
+- Bước **3. Kiểm tra & tạo** sáng khi đang xử lý, chuyển dấu `✓` khi hoàn tất toàn bộ hoặc hiển thị số task lỗi.
+- Giữ trạng thái đồng nhất khi nhiều video chạy song song và tránh kết quả cũ ghi đè kết quả realtime mới.
 
 ## Phiên bản 3.0.1
 
