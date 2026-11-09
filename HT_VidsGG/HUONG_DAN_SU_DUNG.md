@@ -115,7 +115,7 @@ Google Vids mặc định sinh ra clip 10 giây. Để tạo video 20 giây li�
 Tab **Tạo video hàng loạt** dùng để chuẩn bị nhiều video trên cùng một màn hình theo dạng bảng.
 
 1. Bấm **Tạo mới**, nhập tên chiến dịch và chọn thư mục gốc. Ứng dụng tạo một thư mục riêng cho chiến dịch, bên trong có cấu hình chiến dịch, ảnh tham chiếu và video đầu ra.
-2. Bấm **Thêm video** để tạo dòng mới. Mỗi dòng tương ứng với một video và có prompt, ảnh tham chiếu, tỷ lệ khung hình, độ phân giải, thời lượng cùng trạng thái riêng.
+2. Bấm **Thêm video** để tạo dòng mới. Mỗi dòng tương ứng với một video và có prompt, ảnh tham chiếu, tỷ lệ khung hình, độ phân giải, thời lượng cùng trạng thái riêng. Có thể chọn tối đa 3 ảnh JPG, PNG hoặc WEBP, mỗi ảnh không quá 10 MB. Khi thêm ảnh, ô này hiển thị **Đang thêm ảnh…** rồi cập nhật thumbnail mà không tải lại toàn bộ bảng.
 3. Có thể dán một prompt dài gồm nhiều đoạn hoặc nhiều dòng trực tiếp vào ô prompt. Toàn bộ nội dung vẫn nằm trong dòng hiện tại và không tự sinh task mới.
 4. Dùng phần **Cài đặt mặc định** để áp dụng nhanh tỷ lệ, độ phân giải, thời lượng, tùy chọn xóa watermark và thư mục xuất cho các video được chọn. Sau đó vẫn có thể sửa riêng từng dòng.
 5. Bấm **Thêm vào hàng đợi** để lưu các video sẵn sàng vào hàng chờ, hoặc bấm **Tạo video** để chạy ngay.
@@ -123,6 +123,8 @@ Tab **Tạo video hàng loạt** dùng để chuẩn bị nhiều video trên c�
 7. Bấm **Dừng** nếu muốn hủy toàn bộ task đang chờ và đang chạy. Các tiến trình trình duyệt liên quan sẽ được đóng và chiến dịch được mở khóa để chỉnh sửa tiếp.
 
 Trong lúc xử lý, cột **Trạng thái** của mỗi dòng cập nhật trực tiếp từ hàng đợi, gồm bản nháp, đang chờ, đang tạo theo phần trăm, hoàn thành hoặc lỗi. Thanh bước phía trên hiển thị tiến độ trung bình của chiến dịch; bước **3. Kiểm tra & tạo** sáng khi đang chạy và chuyển dấu hoàn thành khi tất cả video đã xong.
+
+Ảnh tham chiếu được sao chép vào đúng thư mục của dòng video trong chiến dịch. Khi thay ảnh, ứng dụng tự dọn ảnh và thumbnail cũ do ứng dụng quản lý; nếu quá trình nhập lỗi, các file chép dở cũng được xóa để không tích lũy dữ liệu rác.
 
 Mỗi chiến dịch nên dùng một tên dễ nhận biết. Không tự ý di chuyển hoặc đổi tên các thư mục con khi chiến dịch đang chạy vì ứng dụng cần đúng đường dẫn để lưu ảnh và video.
 

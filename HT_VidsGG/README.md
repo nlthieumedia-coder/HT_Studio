@@ -6,15 +6,15 @@
 
 ## ⬇️ Tải và cài đặt
 
-Phiên bản hiện tại: **3.0.3**
+Phiên bản hiện tại: **3.0.4**
 
-### [BẤM VÀO ĐÂY ĐỂ TẢI BỘ CÀI HT VIDS STUDIO 3.0.3 CHO WINDOWS x64](https://github.com/nlthieumedia-coder/HT_Studio/releases/download/v3.0.3/HT-Vids-Studio-Setup-3.0.3-Windows-x64.exe)
+### [BẤM VÀO ĐÂY ĐỂ TẢI BỘ CÀI HT VIDS STUDIO 3.0.4 CHO WINDOWS x64](https://github.com/nlthieumedia-coder/HT_Studio/releases/download/v3.0.4/HT-Vids-Studio-Setup-3.0.4-Windows-x64.exe)
 
-Nếu nút trên không hoạt động, dùng [máy chủ media dự phòng](https://media.githubusercontent.com/media/nlthieumedia-coder/HT_Studio/main/HT_VidsGG/dist/latest/HT-Vids-Studio-Setup-3.0.3-Windows-x64.exe). Xem đầy đủ nội dung phát hành tại [GitHub Release v3.0.3](https://github.com/nlthieumedia-coder/HT_Studio/releases/tag/v3.0.3). Các bản trước được lưu riêng trong [`dist/old`](dist/old) để đối chiếu khi cần.
+Nếu nút trên không hoạt động, dùng [máy chủ media dự phòng](https://media.githubusercontent.com/media/nlthieumedia-coder/HT_Studio/main/HT_VidsGG/dist/latest/HT-Vids-Studio-Setup-3.0.4-Windows-x64.exe). Xem đầy đủ nội dung phát hành tại [GitHub Release v3.0.4](https://github.com/nlthieumedia-coder/HT_Studio/releases/tag/v3.0.4). Các bản trước được lưu riêng trong [`dist/old`](dist/old) để đối chiếu khi cần.
 
-Mã SHA-256: `7134695E4B654FFE31430A04D7835A26A701015B09D3CA81725ADF9893B6E5B8`
+Mã SHA-256: `97EFC581452282F4A2E1AFA7F5FDC750C3D4BD9466D7AE54171F544EEFEBA6D5`
 
-1. Tải và chạy file `HT-Vids-Studio-Setup-3.0.3-Windows-x64.exe`.
+1. Tải và chạy file `HT-Vids-Studio-Setup-3.0.4-Windows-x64.exe`.
 2. Chọn thư mục cài đặt và hoàn tất các bước trong trình cài đặt.
 3. Mở **HT Vids Studio** từ shortcut Desktop hoặc menu Start.
 4. Nhập key bản quyền do HT Studio cung cấp.
@@ -35,7 +35,7 @@ Windows SmartScreen có thể cảnh báo khi bản phát hành chưa được k
 - Nhập thời lượng video linh hoạt từ **5 đến 20 giây**, không bị khóa tại một mốc cố định.
 - Hỗ trợ video dọc `9:16` và video ngang `16:9`; Canvas chỉ được đổi khi bắt đầu tạo video.
 - Nhập prompt, prompt Extend, ảnh tham chiếu và độ phân giải trên cùng màn hình.
-- Tạo nhiều video theo dạng bảng tại tab **Tạo video hàng loạt**; mỗi dòng có prompt, ảnh tham chiếu, tỷ lệ, độ phân giải và thời lượng riêng.
+- Tạo nhiều video theo dạng bảng tại tab **Tạo video hàng loạt**; mỗi dòng có prompt, ảnh tham chiếu, tỷ lệ, độ phân giải và thời lượng riêng. Ảnh được nhập song song, hiển thị bằng thumbnail nhẹ và không tải lại toàn bộ bảng.
 - Quản lý nội dung theo **chiến dịch**; mỗi chiến dịch có thư mục độc lập để lưu cấu hình, ảnh và video đầu ra.
 - Dán prompt nhiều dòng vào đúng một ô mà không tự sinh thêm task.
 - Tạo task chờ, chạy ngay hoặc chạy hàng loạt trên các tài khoản đang khả dụng.
@@ -114,6 +114,16 @@ Hướng dẫn chi tiết nằm trong [HUONG_DAN_SU_DUNG.md](HUONG_DAN_SU_DUNG.m
 > Người đang sử dụng 2.0.5 trở xuống cần tải 2.0.6 thủ công một lần. Từ 2.0.6 trở đi, ứng dụng mới có khả năng tự thông báo các phiên bản tiếp theo.
 
 > Các bản trước 3.0.1 chưa có bộ tải nền nên cần thực hiện luồng tải cũ một lần để chuyển tiếp. Từ 3.0.1 trở đi, toàn bộ quá trình tải và cài cập nhật diễn ra trong ứng dụng.
+
+## Phiên bản 3.0.4
+
+- Sửa nút **Thêm ảnh** ở tab **Tạo video hàng loạt** để bấm được ở mọi vị trí trong nút, kể cả phần chữ bên trong.
+- Nhập tối đa 3 ảnh song song, tạo thumbnail nhẹ 320 px và chỉ cập nhật ô ảnh vừa thao tác nên bảng không còn đứng đơ.
+- Hiển thị trạng thái **Đang thêm ảnh…**, giới hạn 10 MB mỗi ảnh và tự dọn file nhập dở hoặc ảnh cũ đã được thay thế.
+- Tuần tự hóa việc tự lưu chiến dịch để dữ liệu mới không bị một lượt lưu cũ ghi đè khi thao tác nhanh.
+- Tăng tốc thao tác tài khoản hàng loạt bằng cách gom các lượt làm mới giao diện và cập nhật bật/tắt trong một lần ghi dữ liệu.
+- Sửa nhận diện gói Google AI khi tên gói Pro hoặc Ultra hiển thị tách dòng trên Google One; việc kiểm tra gói không còn chờ các bước kiểm tra quota không liên quan.
+- Dọn import và mã không sử dụng, đồng thời bổ sung kiểm thử cho luồng nhập và dọn ảnh chiến dịch.
 
 ## Phiên bản 3.0.3
 
