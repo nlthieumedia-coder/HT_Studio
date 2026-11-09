@@ -12,7 +12,7 @@ Phiên bản hiện tại: **3.0.0**
 
 Nếu nút trên không hoạt động, dùng [đường dẫn tải trực tiếp dự phòng](dist/latest/HT-Vids-Studio-Setup-3.0.0-Windows-x64.exe). Các bản trước được lưu riêng trong [`dist/old`](dist/old) để đối chiếu khi cần.
 
-Mã SHA-256: `24D65F4BD599BB413D4D19ECEFC08D356EA5C1C4EC1ED7481B0FAEBB53315CEC`
+Mã SHA-256: `3F3B10A6742C24FA621F8933D6D5C8E9DAE7F01A9009F3749C03A80D5E3E32CE`
 
 1. Tải và chạy file `HT-Vids-Studio-Setup-3.0.0-Windows-x64.exe`.
 2. Chọn thư mục cài đặt và hoàn tất các bước trong trình cài đặt.
@@ -107,13 +107,12 @@ Hướng dẫn chi tiết nằm trong [HUONG_DAN_SU_DUNG.md](HUONG_DAN_SU_DUNG.m
 
 - Từ phiên bản **2.0.6**, ứng dụng kiểm tra bản mới khi khởi động, khi người dùng quay lại cửa sổ và định kỳ trong lúc sử dụng.
 - Khi có bản mới, popup sẽ hiển thị phiên bản hiện tại, phiên bản mới, nội dung thay đổi và nút **Tải phiên bản mới**.
-- Với cập nhật thông thường, chọn **Để sau** sẽ tạm ẩn thông báo trong 12 giờ rồi nhắc lại.
-- Với cập nhật bắt buộc, popup không có nút đóng hoặc **Để sau** và người dùng không thể tiếp tục thao tác trên phiên bản cũ.
+- Mọi phiên bản mới đều là cập nhật bắt buộc. Popup không có nút đóng hoặc **Để sau** và người dùng không thể tiếp tục thao tác trên phiên bản cũ.
 - Ứng dụng chỉ mở đường dẫn tải chính thức trên GitHub; không tự tải, tự cài hoặc tự đóng task đang chạy.
 
 > Người đang sử dụng 2.0.5 trở xuống cần tải 2.0.6 thủ công một lần. Từ 2.0.6 trở đi, ứng dụng mới có khả năng tự thông báo các phiên bản tiếp theo.
 
-> Lưu ý chuyển tiếp: 2.0.6 và 2.0.7 chưa có mã khóa cập nhật bắt buộc, nên vẫn có thể chọn **Để sau** khi được mời lên 2.0.8. Sau khi đã cài 2.0.8, mọi bản thấp hơn mức hỗ trợ tối thiểu do HT Studio công bố sẽ bị khóa bắt buộc cập nhật.
+> Cơ chế bắt buộc áp dụng cho các máy đang dùng phiên bản có hỗ trợ kiểm tra cập nhật. Khi có bản mới, người dùng phải tải và cài đặt trước khi tiếp tục sử dụng.
 
 ## Phiên bản 3.0.0
 
@@ -123,6 +122,7 @@ Hướng dẫn chi tiết nằm trong [HUONG_DAN_SU_DUNG.md](HUONG_DAN_SU_DUNG.m
 - Giữ người dùng tại tab hiện tại khi bắt đầu tạo video; nút tạo chuyển thành nút **Dừng** trong suốt quá trình chạy.
 - Nút **Dừng** hủy toàn bộ task đang chờ hoặc đang chạy và giải phóng trạng thái bận của chiến dịch.
 - Sửa popup tạo chiến dịch hiển thị lặp, đồng thời tinh chỉnh giao diện và thanh thao tác dưới theo thiết kế mới.
+- Bắt buộc cập nhật mỗi khi có phiên bản mới và loại bỏ hoàn toàn tùy chọn **Để sau** khỏi popup cập nhật.
 
 ## Phiên bản 2.0.9
 

@@ -180,9 +180,9 @@ Nghĩa là tài khoản chưa được đăng nhập trên profile riêng của 
 Video được lưu tại đường dẫn hiển thị ở ô **Thư mục lưu video** tại tab Tạo video. Bạn có thể thay đổi đường dẫn này bằng nút chọn thư mục bất kỳ lúc nào.
 
 ### ❓ Làm sao biết ứng dụng đã có phiên bản mới?
-Từ phiên bản 2.0.6, ứng dụng tự kiểm tra kho phát hành chính thức khi khởi động, khi bạn quay lại cửa sổ và định kỳ trong lúc sử dụng. Nếu có bản mới, popup tiếng Việt sẽ hiển thị nội dung thay đổi cùng nút **Tải phiên bản mới**. Chọn **Để sau** để được nhắc lại sau 12 giờ; ứng dụng không tự cài đặt và không dừng task đang chạy.
+Từ phiên bản 2.0.6, ứng dụng tự kiểm tra kho phát hành chính thức khi khởi động, khi bạn quay lại cửa sổ và định kỳ trong lúc sử dụng. Nếu có bản mới, popup tiếng Việt sẽ hiển thị nội dung thay đổi cùng nút tải.
 
-Từ phiên bản 2.0.8, HT Studio có thể công bố một **phiên bản hỗ trợ tối thiểu**. Nếu bản bạn đang dùng thấp hơn mức này, popup cập nhật bắt buộc sẽ khóa giao diện và không có nút đóng hoặc **Để sau**. Hãy bấm nút tải, cài bản mới rồi mở lại ứng dụng. Cơ chế bắt buộc chỉ áp dụng cho máy đã cài 2.0.8 trở lên; các bản cũ hơn chưa có khả năng tự khóa.
+Mọi phiên bản mới đều là cập nhật bắt buộc. Popup cập nhật khóa giao diện, không có nút đóng hoặc **Để sau**. Hãy bấm nút tải, cài bản mới rồi mở lại ứng dụng. Ứng dụng không tự cài đặt và không tự đóng task đang chạy.
 
 ### ❓ Nút Donate dùng để làm gì?
 Nút **Donate** trên thanh tiêu đề mở popup chứa mã QR và thông tin chuyển khoản để bạn có thể tự nguyện ủng hộ quá trình phát triển HT Studio. Việc ủng hộ không bắt buộc và không ảnh hưởng đến chức năng hoặc quyền lợi của key bản quyền đã kích hoạt.

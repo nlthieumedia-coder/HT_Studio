@@ -1,14 +1,15 @@
 {
   "latestVersion": "3.0.0",
-  "minimumSupportedVersion": "2.0.9",
+  "minimumSupportedVersion": "3.0.0",
   "downloadUrl": "https://github.com/nlthieumedia-coder/HT_Studio/raw/refs/heads/main/HT_VidsGG/dist/latest/HT-Vids-Studio-Setup-3.0.0-Windows-x64.exe",
   "releaseNotes": [
     "Thêm tab Tạo video hàng loạt với giao diện dạng bảng và cấu hình riêng cho từng video.",
     "Bổ sung quản lý chiến dịch; mỗi chiến dịch sử dụng thư mục riêng cho cấu hình, ảnh và video đầu ra.",
     "Cho phép dán prompt nhiều dòng vào một ô mà không tự sinh task mới.",
     "Giữ nguyên màn hình khi bắt đầu tạo video; nút Tạo video chuyển thành Dừng để hủy toàn bộ task.",
-    "Tinh gọn giao diện, sửa popup tạo chiến dịch bị hiển thị lặp và cải thiện độ ổn định."
+    "Tinh gọn giao diện, sửa popup tạo chiến dịch bị hiển thị lặp và cải thiện độ ổn định.",
+    "Bản 3.0.0 là cập nhật bắt buộc; ứng dụng không còn tùy chọn Để sau."
   ],
   "publishedAt": "2026-11-09",
-  "sha256": "24D65F4BD599BB413D4D19ECEFC08D356EA5C1C4EC1ED7481B0FAEBB53315CEC"
+  "sha256": "3F3B10A6742C24FA621F8933D6D5C8E9DAE7F01A9009F3749C03A80D5E3E32CE"
 }
