@@ -64,6 +64,7 @@ Chỉ mất chưa đầy 2 phút để thiết lập và nhận video hoàn ch�
    - Điền Email & Mật khẩu.
    - Tự động sinh mã 2FA 6 số thời gian thực từ khóa TOTP Secret Key và điền vào bước xác minh.
    - Kiểm tra gói Google Vids và lưu phiên đăng nhập vĩnh viễn.
+5. Tài khoản trùng email sẽ tự động được bỏ qua, không ghi đè mật khẩu và không mở lại profile Chrome. Gmail có khác biệt chữ hoa/thường, dấu chấm, hậu tố `+tag` hoặc miền `googlemail.com` vẫn được nhận diện là cùng một tài khoản.
 
 ### 2.3. Xử lý khi Google yêu cầu xác minh bảo mật (Captcha/Điện thoại)
 Nếu Google yêu cầu nhập Captcha hoặc bấm số trên điện thoại, bạn chỉ cần bấm nút **Mở Chrome** ở dòng tài khoản đó. Trình duyệt Chrome sẽ xuất hiện trên màn hình, bạn xác minh thủ công một lần rồi đóng cửa sổ lại.
@@ -182,7 +183,7 @@ Nghĩa là tài khoản chưa được đăng nhập trên profile riêng của 
 Video được lưu tại đường dẫn hiển thị ở ô **Thư mục lưu video** tại tab Tạo video. Bạn có thể thay đổi đường dẫn này bằng nút chọn thư mục bất kỳ lúc nào.
 
 ### ❓ Làm sao biết ứng dụng đã có phiên bản mới?
-Từ phiên bản 2.0.6, ứng dụng tự kiểm tra kho phát hành chính thức khi khởi động, khi bạn quay lại cửa sổ và định kỳ trong lúc sử dụng. Nếu có bản mới, popup tiếng Việt sẽ hiển thị nội dung thay đổi cùng nút tải.
+Ứng dụng tự kiểm tra kho phát hành chính thức khi khởi động, mỗi 5 phút trong tiến trình nền, khi bạn quay lại cửa sổ và khi mạng kết nối lại. Nếu có bản mới, popup tiếng Việt sẽ xuất hiện ngay trong phiên đang chạy mà không cần tải lại hoặc tắt mở phần mềm.
 
 Mọi phiên bản mới đều là cập nhật bắt buộc. Popup cập nhật khóa giao diện, không có nút đóng hoặc **Để sau**. Từ phiên bản 3.0.1, bấm **Tải & cập nhật ngay** để tải bộ cài trong nền mà không mở trình duyệt. Thanh tiến độ hiển thị phần trăm, dung lượng và tốc độ tải. Sau khi ứng dụng xác minh SHA-256 thành công, bấm **Đóng bản cũ & mở bản mới** để cài đặt im lặng và tự khởi động phiên bản mới.
 

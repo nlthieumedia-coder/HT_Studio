@@ -6,15 +6,15 @@
 
 ## ⬇️ Tải và cài đặt
 
-Phiên bản hiện tại: **3.0.2**
+Phiên bản hiện tại: **3.0.3**
 
-### [BẤM VÀO ĐÂY ĐỂ TẢI BỘ CÀI HT VIDS STUDIO 3.0.2 CHO WINDOWS x64](https://github.com/nlthieumedia-coder/HT_Studio/releases/download/v3.0.2/HT-Vids-Studio-Setup-3.0.2-Windows-x64.exe)
+### [BẤM VÀO ĐÂY ĐỂ TẢI BỘ CÀI HT VIDS STUDIO 3.0.3 CHO WINDOWS x64](https://github.com/nlthieumedia-coder/HT_Studio/releases/download/v3.0.3/HT-Vids-Studio-Setup-3.0.3-Windows-x64.exe)
 
-Nếu nút trên không hoạt động, dùng [máy chủ media dự phòng](https://media.githubusercontent.com/media/nlthieumedia-coder/HT_Studio/main/HT_VidsGG/dist/latest/HT-Vids-Studio-Setup-3.0.2-Windows-x64.exe). Xem đầy đủ nội dung phát hành tại [GitHub Release v3.0.2](https://github.com/nlthieumedia-coder/HT_Studio/releases/tag/v3.0.2). Các bản trước được lưu riêng trong [`dist/old`](dist/old) để đối chiếu khi cần.
+Nếu nút trên không hoạt động, dùng [máy chủ media dự phòng](https://media.githubusercontent.com/media/nlthieumedia-coder/HT_Studio/main/HT_VidsGG/dist/latest/HT-Vids-Studio-Setup-3.0.3-Windows-x64.exe). Xem đầy đủ nội dung phát hành tại [GitHub Release v3.0.3](https://github.com/nlthieumedia-coder/HT_Studio/releases/tag/v3.0.3). Các bản trước được lưu riêng trong [`dist/old`](dist/old) để đối chiếu khi cần.
 
-Mã SHA-256: `49FA59443EA5A0E5D8CBB43D8ECE1CB7C9073442192016CFB2061AD2103C1343`
+Mã SHA-256: `7134695E4B654FFE31430A04D7835A26A701015B09D3CA81725ADF9893B6E5B8`
 
-1. Tải và chạy file `HT-Vids-Studio-Setup-3.0.2-Windows-x64.exe`.
+1. Tải và chạy file `HT-Vids-Studio-Setup-3.0.3-Windows-x64.exe`.
 2. Chọn thư mục cài đặt và hoàn tất các bước trong trình cài đặt.
 3. Mở **HT Vids Studio** từ shortcut Desktop hoặc menu Start.
 4. Nhập key bản quyền do HT Studio cung cấp.
@@ -45,7 +45,7 @@ Windows SmartScreen có thể cảnh báo khi bản phát hành chưa được k
 - Tự tải video MP4 và hỗ trợ xóa watermark AI.
 - Kho video, trình xem video và bảng thống kê theo ngày.
 - Kích hoạt bản quyền theo mã máy và kiểm tra trạng thái bản quyền từ xa.
-- Tự kiểm tra phiên bản mới từ kho phát hành chính thức và hiển thị popup có nút tải trực tiếp; ứng dụng không tự cài đặt hoặc làm gián đoạn task đang chạy.
+- Tự kiểm tra phiên bản mới từ kho phát hành chính thức khi khởi động, mỗi 5 phút, khi cửa sổ được focus và khi mạng kết nối lại; popup cập nhật xuất hiện ngay trong phiên đang chạy.
 - Hỗ trợ đặt phiên bản tối thiểu bắt buộc; bản thấp hơn mức này bị khóa giao diện cho tới khi người dùng tải bản mới.
 - Nút **Donate** trên thanh tiêu đề mở nhanh popup ủng hộ HT Studio; việc ủng hộ hoàn toàn tự nguyện và không ảnh hưởng quyền lợi bản quyền.
 
@@ -114,6 +114,15 @@ Hướng dẫn chi tiết nằm trong [HUONG_DAN_SU_DUNG.md](HUONG_DAN_SU_DUNG.m
 > Người đang sử dụng 2.0.5 trở xuống cần tải 2.0.6 thủ công một lần. Từ 2.0.6 trở đi, ứng dụng mới có khả năng tự thông báo các phiên bản tiếp theo.
 
 > Các bản trước 3.0.1 chưa có bộ tải nền nên cần thực hiện luồng tải cũ một lần để chuyển tiếp. Từ 3.0.1 trở đi, toàn bộ quá trình tải và cài cập nhật diễn ra trong ứng dụng.
+
+## Phiên bản 3.0.3
+
+- Tự động nhận diện và bỏ qua tài khoản trùng; không ghi đè thông tin đăng nhập hoặc mở lại Chrome cho tài khoản đã tồn tại.
+- Chuẩn hóa Gmail theo chữ hoa/thường, dấu chấm, hậu tố `+tag` và miền `googlemail.com` để nhận diện đúng cùng một tài khoản.
+- Kiểm tra gói Thường, Google AI Pro hoặc Google AI Ultra trực tiếp tại trang Google One Home của đúng profile đang đăng nhập.
+- Không còn gán nhầm gói Thường khi trang Google timeout; chỉ cập nhật loại gói khi có bằng chứng rõ ràng.
+- Thêm tiến trình kiểm tra cập nhật nền mỗi 5 phút, khi focus cửa sổ và khi mạng kết nối lại; không cần tải lại hoặc khởi động lại ứng dụng để thấy popup.
+- Dọn các import, biến và mã không còn được sử dụng trước khi đóng gói.
 
 ## Phiên bản 3.0.2
 

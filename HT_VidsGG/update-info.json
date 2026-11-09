@@ -1,14 +1,14 @@
 {
-  "latestVersion": "3.0.2",
-  "minimumSupportedVersion": "3.0.2",
-  "downloadUrl": "https://github.com/nlthieumedia-coder/HT_Studio/releases/download/v3.0.2/HT-Vids-Studio-Setup-3.0.2-Windows-x64.exe",
+  "latestVersion": "3.0.3",
+  "minimumSupportedVersion": "3.0.3",
+  "downloadUrl": "https://github.com/nlthieumedia-coder/HT_Studio/releases/download/v3.0.3/HT-Vids-Studio-Setup-3.0.3-Windows-x64.exe",
   "releaseNotes": [
-    "Đồng bộ trạng thái từng dòng của chiến dịch với hàng đợi theo thời gian thực.",
-    "Hiển thị Bản nháp, Đang chờ, Đang tạo theo phần trăm, Hoàn thành và Lỗi.",
-    "Thanh bước 2 đến bước 3 phản ánh tiến độ trung bình của đúng các task trong chiến dịch.",
-    "Bước 3 chuyển dấu hoàn thành khi toàn bộ video xong và hiển thị số lỗi khi có sự cố.",
-    "Giữ nguyên cập nhật nền, xác minh SHA-256 và cài đặt im lặng."
+    "Tự động nhận diện và bỏ qua tài khoản trùng, kể cả alias Gmail dùng dấu chấm, +tag hoặc googlemail.com.",
+    "Kiểm tra gói Thường, Google AI Pro và Google AI Ultra trực tiếp tại Google One Home của đúng profile.",
+    "Không còn gán nhầm gói Thường khi trang Google timeout hoặc chưa cung cấp bằng chứng gói.",
+    "Kiểm tra phiên bản mới trong nền mỗi 5 phút, khi focus cửa sổ và khi mạng kết nối lại.",
+    "Dọn mã không sử dụng, giữ nguyên tải nền, xác minh SHA-256 và cài đặt im lặng."
   ],
   "publishedAt": "2026-11-09",
-  "sha256": "49FA59443EA5A0E5D8CBB43D8ECE1CB7C9073442192016CFB2061AD2103C1343"
+  "sha256": "7134695E4B654FFE31430A04D7835A26A701015B09D3CA81725ADF9893B6E5B8"
 }
