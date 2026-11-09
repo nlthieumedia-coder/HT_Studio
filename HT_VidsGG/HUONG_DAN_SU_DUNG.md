@@ -182,7 +182,7 @@ Video được lưu tại đường dẫn hiển thị ở ô **Thư mục lưu 
 ### ❓ Làm sao biết ứng dụng đã có phiên bản mới?
 Từ phiên bản 2.0.6, ứng dụng tự kiểm tra kho phát hành chính thức khi khởi động, khi bạn quay lại cửa sổ và định kỳ trong lúc sử dụng. Nếu có bản mới, popup tiếng Việt sẽ hiển thị nội dung thay đổi cùng nút tải.
 
-Mọi phiên bản mới đều là cập nhật bắt buộc. Popup cập nhật khóa giao diện, không có nút đóng hoặc **Để sau**. Hãy bấm nút tải, cài bản mới rồi mở lại ứng dụng. Ứng dụng không tự cài đặt và không tự đóng task đang chạy.
+Mọi phiên bản mới đều là cập nhật bắt buộc. Popup cập nhật khóa giao diện, không có nút đóng hoặc **Để sau**. Từ phiên bản 3.0.1, bấm **Tải & cập nhật ngay** để tải bộ cài trong nền mà không mở trình duyệt. Thanh tiến độ hiển thị phần trăm, dung lượng và tốc độ tải. Sau khi ứng dụng xác minh SHA-256 thành công, bấm **Đóng bản cũ & mở bản mới** để cài đặt im lặng và tự khởi động phiên bản mới.
 
 ### ❓ Nút Donate dùng để làm gì?
 Nút **Donate** trên thanh tiêu đề mở popup chứa mã QR và thông tin chuyển khoản để bạn có thể tự nguyện ủng hộ quá trình phát triển HT Studio. Việc ủng hộ không bắt buộc và không ảnh hưởng đến chức năng hoặc quyền lợi của key bản quyền đã kích hoạt.

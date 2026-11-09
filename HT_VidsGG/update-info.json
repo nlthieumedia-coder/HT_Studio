@@ -1,15 +1,14 @@
 {
-  "latestVersion": "3.0.0",
-  "minimumSupportedVersion": "3.0.0",
-  "downloadUrl": "https://github.com/nlthieumedia-coder/HT_Studio/releases/download/v3.0.0/HT-Vids-Studio-Setup-3.0.0-Windows-x64.exe",
+  "latestVersion": "3.0.1",
+  "minimumSupportedVersion": "3.0.1",
+  "downloadUrl": "https://github.com/nlthieumedia-coder/HT_Studio/releases/download/v3.0.1/HT-Vids-Studio-Setup-3.0.1-Windows-x64.exe",
   "releaseNotes": [
-    "Thêm tab Tạo video hàng loạt với giao diện dạng bảng và cấu hình riêng cho từng video.",
-    "Bổ sung quản lý chiến dịch; mỗi chiến dịch sử dụng thư mục riêng cho cấu hình, ảnh và video đầu ra.",
-    "Cho phép dán prompt nhiều dòng vào một ô mà không tự sinh task mới.",
-    "Giữ nguyên màn hình khi bắt đầu tạo video; nút Tạo video chuyển thành Dừng để hủy toàn bộ task.",
-    "Tinh gọn giao diện, sửa popup tạo chiến dịch bị hiển thị lặp và cải thiện độ ổn định.",
-    "Bản 3.0.0 là cập nhật bắt buộc; ứng dụng không còn tùy chọn Để sau."
+    "Tải bản cập nhật trực tiếp trong ứng dụng, không mở trình duyệt.",
+    "Hiển thị phần trăm, dung lượng và tốc độ tải trên thanh tiến độ.",
+    "Xác minh dung lượng và SHA-256 trước khi cho phép cài đặt.",
+    "Sau khi tải xong, cho phép đóng phiên bản hiện tại, cài đặt im lặng và tự mở phiên bản mới.",
+    "Tiếp tục áp dụng cập nhật bắt buộc và không có tùy chọn Để sau."
   ],
   "publishedAt": "2026-11-09",
-  "sha256": "3F3B10A6742C24FA621F8933D6D5C8E9DAE7F01A9009F3749C03A80D5E3E32CE"
+  "sha256": "894E26E49F8C00F2BD9E1BDAB0BDFC8066EC3F08B82B0522E53E64ACBFE522F0"
 }

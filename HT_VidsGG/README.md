@@ -6,15 +6,15 @@
 
 ## ⬇️ Tải và cài đặt
 
-Phiên bản hiện tại: **3.0.0**
+Phiên bản hiện tại: **3.0.1**
 
-### [BẤM VÀO ĐÂY ĐỂ TẢI BỘ CÀI HT VIDS STUDIO 3.0.0 CHO WINDOWS x64](https://github.com/nlthieumedia-coder/HT_Studio/releases/download/v3.0.0/HT-Vids-Studio-Setup-3.0.0-Windows-x64.exe)
+### [BẤM VÀO ĐÂY ĐỂ TẢI BỘ CÀI HT VIDS STUDIO 3.0.1 CHO WINDOWS x64](https://github.com/nlthieumedia-coder/HT_Studio/releases/download/v3.0.1/HT-Vids-Studio-Setup-3.0.1-Windows-x64.exe)
 
-Nếu nút trên không hoạt động, dùng [máy chủ media dự phòng](https://media.githubusercontent.com/media/nlthieumedia-coder/HT_Studio/main/HT_VidsGG/dist/latest/HT-Vids-Studio-Setup-3.0.0-Windows-x64.exe). Xem đầy đủ nội dung phát hành tại [GitHub Release v3.0.0](https://github.com/nlthieumedia-coder/HT_Studio/releases/tag/v3.0.0). Các bản trước được lưu riêng trong [`dist/old`](dist/old) để đối chiếu khi cần.
+Nếu nút trên không hoạt động, dùng [máy chủ media dự phòng](https://media.githubusercontent.com/media/nlthieumedia-coder/HT_Studio/main/HT_VidsGG/dist/latest/HT-Vids-Studio-Setup-3.0.1-Windows-x64.exe). Xem đầy đủ nội dung phát hành tại [GitHub Release v3.0.1](https://github.com/nlthieumedia-coder/HT_Studio/releases/tag/v3.0.1). Các bản trước được lưu riêng trong [`dist/old`](dist/old) để đối chiếu khi cần.
 
-Mã SHA-256: `3F3B10A6742C24FA621F8933D6D5C8E9DAE7F01A9009F3749C03A80D5E3E32CE`
+Mã SHA-256: `894E26E49F8C00F2BD9E1BDAB0BDFC8066EC3F08B82B0522E53E64ACBFE522F0`
 
-1. Tải và chạy file `HT-Vids-Studio-Setup-3.0.0-Windows-x64.exe`.
+1. Tải và chạy file `HT-Vids-Studio-Setup-3.0.1-Windows-x64.exe`.
 2. Chọn thư mục cài đặt và hoàn tất các bước trong trình cài đặt.
 3. Mở **HT Vids Studio** từ shortcut Desktop hoặc menu Start.
 4. Nhập key bản quyền do HT Studio cung cấp.
@@ -108,11 +108,21 @@ Hướng dẫn chi tiết nằm trong [HUONG_DAN_SU_DUNG.md](HUONG_DAN_SU_DUNG.m
 - Từ phiên bản **2.0.6**, ứng dụng kiểm tra bản mới khi khởi động, khi người dùng quay lại cửa sổ và định kỳ trong lúc sử dụng.
 - Khi có bản mới, popup sẽ hiển thị phiên bản hiện tại, phiên bản mới, nội dung thay đổi và nút **Tải phiên bản mới**.
 - Mọi phiên bản mới đều là cập nhật bắt buộc. Popup không có nút đóng hoặc **Để sau** và người dùng không thể tiếp tục thao tác trên phiên bản cũ.
-- Ứng dụng mở bộ cài từ GitHub Releases; không tự tải, tự cài hoặc tự đóng task đang chạy.
+- Từ phiên bản **3.0.1**, ứng dụng tải bộ cài trong nền mà không mở trình duyệt, hiển thị phần trăm/dung lượng/tốc độ và xác minh SHA-256.
+- Khi tải xong, bấm **Đóng bản cũ & mở bản mới** để ứng dụng cài đặt im lặng rồi tự khởi động phiên bản mới.
 
 > Người đang sử dụng 2.0.5 trở xuống cần tải 2.0.6 thủ công một lần. Từ 2.0.6 trở đi, ứng dụng mới có khả năng tự thông báo các phiên bản tiếp theo.
 
-> Cơ chế bắt buộc áp dụng cho các máy đang dùng phiên bản có hỗ trợ kiểm tra cập nhật. Khi có bản mới, người dùng phải tải và cài đặt trước khi tiếp tục sử dụng.
+> Các bản trước 3.0.1 chưa có bộ tải nền nên cần thực hiện luồng tải cũ một lần để chuyển tiếp. Từ 3.0.1 trở đi, toàn bộ quá trình tải và cài cập nhật diễn ra trong ứng dụng.
+
+## Phiên bản 3.0.1
+
+- Tải installer trực tiếp trong ứng dụng, không mở Chrome hoặc trình duyệt mặc định.
+- Hiển thị thanh tiến độ cùng phần trăm, dung lượng đã tải, tổng dung lượng và tốc độ tải.
+- Kiểm tra dung lượng và SHA-256; tự hủy file không đầy đủ hoặc sai mã xác minh.
+- Sau khi tải xong, popup chuyển thành **Đóng bản cũ & mở bản mới**.
+- Chạy bộ cài NSIS ở chế độ im lặng, đóng phiên bản hiện tại và tự mở phiên bản mới.
+- Giữ nguyên cơ chế cập nhật bắt buộc, không có nút đóng hoặc **Để sau**.
 
 ## Phiên bản 3.0.0
 
