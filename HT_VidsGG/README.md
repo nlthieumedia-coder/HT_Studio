@@ -6,15 +6,15 @@
 
 ## ⬇️ Tải và cài đặt
 
-Phiên bản hiện tại: **2.0.9**
+Phiên bản hiện tại: **3.0.0**
 
-### [BẤM VÀO ĐÂY ĐỂ TẢI BỘ CÀI HT VIDS STUDIO 2.0.9 CHO WINDOWS x64](https://github.com/nlthieumedia-coder/HT_Studio/raw/refs/heads/main/HT_VidsGG/dist/latest/HT-Vids-Studio-Setup-2.0.9-Windows-x64.exe)
+### [BẤM VÀO ĐÂY ĐỂ TẢI BỘ CÀI HT VIDS STUDIO 3.0.0 CHO WINDOWS x64](https://github.com/nlthieumedia-coder/HT_Studio/raw/refs/heads/main/HT_VidsGG/dist/latest/HT-Vids-Studio-Setup-3.0.0-Windows-x64.exe)
 
-Nếu nút trên không hoạt động, dùng [đường dẫn tải trực tiếp dự phòng](dist/latest/HT-Vids-Studio-Setup-2.0.9-Windows-x64.exe). Các bản trước được lưu riêng trong [`dist/old`](dist/old) để đối chiếu khi cần.
+Nếu nút trên không hoạt động, dùng [đường dẫn tải trực tiếp dự phòng](dist/latest/HT-Vids-Studio-Setup-3.0.0-Windows-x64.exe). Các bản trước được lưu riêng trong [`dist/old`](dist/old) để đối chiếu khi cần.
 
-Mã SHA-256: `1BAAFE6ECE02BD190AC2D3E493809F2D6B99BA2204AD43A6E4556805331B2DF4`
+Mã SHA-256: `24D65F4BD599BB413D4D19ECEFC08D356EA5C1C4EC1ED7481B0FAEBB53315CEC`
 
-1. Tải và chạy file `HT-Vids-Studio-Setup-2.0.9-Windows-x64.exe`.
+1. Tải và chạy file `HT-Vids-Studio-Setup-3.0.0-Windows-x64.exe`.
 2. Chọn thư mục cài đặt và hoàn tất các bước trong trình cài đặt.
 3. Mở **HT Vids Studio** từ shortcut Desktop hoặc menu Start.
 4. Nhập key bản quyền do HT Studio cung cấp.
@@ -35,7 +35,11 @@ Windows SmartScreen có thể cảnh báo khi bản phát hành chưa được k
 - Nhập thời lượng video linh hoạt từ **5 đến 20 giây**, không bị khóa tại một mốc cố định.
 - Hỗ trợ video dọc `9:16` và video ngang `16:9`; Canvas chỉ được đổi khi bắt đầu tạo video.
 - Nhập prompt, prompt Extend, ảnh tham chiếu và độ phân giải trên cùng màn hình.
+- Tạo nhiều video theo dạng bảng tại tab **Tạo video hàng loạt**; mỗi dòng có prompt, ảnh tham chiếu, tỷ lệ, độ phân giải và thời lượng riêng.
+- Quản lý nội dung theo **chiến dịch**; mỗi chiến dịch có thư mục độc lập để lưu cấu hình, ảnh và video đầu ra.
+- Dán prompt nhiều dòng vào đúng một ô mà không tự sinh thêm task.
 - Tạo task chờ, chạy ngay hoặc chạy hàng loạt trên các tài khoản đang khả dụng.
+- Khi chạy, ứng dụng giữ nguyên tab hiện tại và đổi nút **Tạo video** thành **Dừng**; nút Dừng hủy toàn bộ task đang chờ hoặc đang chạy.
 - Tự phân phối hàng đợi; mỗi tài khoản chỉ xử lý một task tại một thời điểm.
 - Theo dõi tiến độ, xem lỗi, sửa và chạy lại task.
 - Tự tải video MP4 và hỗ trợ xóa watermark AI.
@@ -51,9 +55,10 @@ Windows SmartScreen có thể cảnh báo khi bản phát hành chưa được k
 2. Mở Chrome để đăng nhập nếu tài khoản chưa có phiên đăng nhập hợp lệ.
 3. Dùng biểu tượng **Kiểm tra gói** để đọc loại tài khoản Standard, Pro hoặc Ultra.
 4. Dùng biểu tượng **Kiểm tra lượt** để đọc khả năng và số giây tạo video còn lại.
-5. Vào màn hình tạo video, nhập prompt, thời lượng, tỷ lệ khung hình và ảnh tham chiếu nếu cần.
-6. Chọn chạy ngay hoặc đưa task vào hàng đợi.
-7. Theo dõi kết quả trong **Hàng đợi**, **Kho video** hoặc thư mục đầu ra.
+5. Vào **Tạo video** để tạo một video hoặc **Tạo video hàng loạt** để làm việc theo chiến dịch và danh sách nhiều dòng.
+6. Nhập prompt, thời lượng, tỷ lệ khung hình, độ phân giải và ảnh tham chiếu nếu cần.
+7. Chọn chạy ngay hoặc đưa task vào hàng đợi. Khi chạy ngay, bạn vẫn ở nguyên màn hình hiện tại và có thể bấm **Dừng** để hủy toàn bộ tiến trình.
+8. Theo dõi kết quả trong **Hàng đợi**, **Kho video** hoặc thư mục đầu ra của chiến dịch.
 
 Các nút thao tác trong box tài khoản sử dụng biểu tượng để giao diện gọn hơn. Di chuột lên biểu tượng để xem tên chức năng; nút tắt tài khoản được đặt ở vị trí cuối nhằm hạn chế thao tác nhầm.
 
@@ -109,6 +114,15 @@ Hướng dẫn chi tiết nằm trong [HUONG_DAN_SU_DUNG.md](HUONG_DAN_SU_DUNG.m
 > Người đang sử dụng 2.0.5 trở xuống cần tải 2.0.6 thủ công một lần. Từ 2.0.6 trở đi, ứng dụng mới có khả năng tự thông báo các phiên bản tiếp theo.
 
 > Lưu ý chuyển tiếp: 2.0.6 và 2.0.7 chưa có mã khóa cập nhật bắt buộc, nên vẫn có thể chọn **Để sau** khi được mời lên 2.0.8. Sau khi đã cài 2.0.8, mọi bản thấp hơn mức hỗ trợ tối thiểu do HT Studio công bố sẽ bị khóa bắt buộc cập nhật.
+
+## Phiên bản 3.0.0
+
+- Thêm tab **Tạo video hàng loạt** với danh sách dạng bảng, hỗ trợ cấu hình riêng cho từng video.
+- Thêm cơ chế **chiến dịch**; mỗi chiến dịch có thư mục độc lập chứa cấu hình, ảnh tham chiếu và video đầu ra.
+- Cho phép dán prompt có nhiều dòng vào đúng một ô prompt mà không tự tạo thêm task.
+- Giữ người dùng tại tab hiện tại khi bắt đầu tạo video; nút tạo chuyển thành nút **Dừng** trong suốt quá trình chạy.
+- Nút **Dừng** hủy toàn bộ task đang chờ hoặc đang chạy và giải phóng trạng thái bận của chiến dịch.
+- Sửa popup tạo chiến dịch hiển thị lặp, đồng thời tinh chỉnh giao diện và thanh thao tác dưới theo thiết kế mới.
 
 ## Phiên bản 2.0.9
 

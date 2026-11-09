@@ -11,11 +11,13 @@ Tài liệu này được tích hợp trực tiếp vào nút **Hướng dẫn**
 2. [Quản Lý Tài Khoản Google & Tự Động Đăng Nhập 2FA](#2-quản-lý-tài-khoản-google--tự-động-đăng-nhập-2fa)
 3. [Nghệ Thuật Viết Prompt & Dùng Ảnh Tham Chiếu (@Image)](#3-nghệ-thuật-viết-prompt--dùng-ảnh-tham-chiếu-image)
 4. [Kỹ Thuật Nối Cảnh Extend Mở Rộng 20 Giây](#4-kỹ-thuật-nối-cảnh-extend-mở-rộng-20-giây)
-5. [Quản Lý Hàng Đợi Đa Luồng (Queue Automation)](#5-quản-lý-hàng-đợi-đa-luồng-queue-automation)
-6. [Tự Động Xóa Watermark AI (Delogo)](#6-tự-động-xóa-watermark-ai-delogo)
-7. [Kho Video & Quản Lý File Đầu Ra](#7-kho-video--quản-lý-file-đầu-ra)
-8. [Câu Hỏi Thường Gặp & Xử Lý Sự Cố (FAQ)](#8-câu-hỏi-thường-gặp--xử-lý-sự-cố-faq)
-9. [Kênh Kết Nối & Hỗ Trợ Kỹ Thuật Trực Tiếp](#9-kênh-kết-nối--hỗ-trợ-kỹ-thuật-trực-tiếp)
+5. [Tạo Video Hàng Loạt Theo Chiến Dịch](#5-tạo-video-hàng-loạt-theo-chiến-dịch)
+6. [Quản Lý Hàng Đợi Đa Luồng (Queue Automation)](#6-quản-lý-hàng-đợi-đa-luồng-queue-automation)
+7. [Tự Động Xóa Watermark AI (Delogo)](#7-tự-động-xóa-watermark-ai-delogo)
+8. [Kho Video & Quản Lý File Đầu Ra](#8-kho-video--quản-lý-file-đầu-ra)
+9. [Nút Chuông Thông Báo & Xử Lý Nhanh Task Lỗi](#9-nút-chuông-thông-báo--xử-lý-nhanh-task-lỗi)
+10. [Câu Hỏi Thường Gặp & Xử Lý Sự Cố (FAQ)](#10-câu-hỏi-thường-gặp--xử-lý-sự-cố-faq)
+11. [Kênh Kết Nối & Hỗ Trợ Kỹ Thuật Trực Tiếp](#11-kênh-kết-nối--hỗ-trợ-kỹ-thuật-trực-tiếp)
 
 ---
 
@@ -107,7 +109,23 @@ Google Vids mặc định sinh ra clip 10 giây. Để tạo video 20 giây li�
 
 ---
 
-## 5. QUẢN LÝ HÀNG ĐỢI ĐA LUỒNG (QUEUE AUTOMATION)
+## 5. TẠO VIDEO HÀNG LOẠT THEO CHIẾN DỊCH
+
+Tab **Tạo video hàng loạt** dùng để chuẩn bị nhiều video trên cùng một màn hình theo dạng bảng.
+
+1. Bấm **Tạo mới**, nhập tên chiến dịch và chọn thư mục gốc. Ứng dụng tạo một thư mục riêng cho chiến dịch, bên trong có cấu hình chiến dịch, ảnh tham chiếu và video đầu ra.
+2. Bấm **Thêm video** để tạo dòng mới. Mỗi dòng tương ứng với một video và có prompt, ảnh tham chiếu, tỷ lệ khung hình, độ phân giải, thời lượng cùng trạng thái riêng.
+3. Có thể dán một prompt dài gồm nhiều đoạn hoặc nhiều dòng trực tiếp vào ô prompt. Toàn bộ nội dung vẫn nằm trong dòng hiện tại và không tự sinh task mới.
+4. Dùng phần **Cài đặt mặc định** để áp dụng nhanh tỷ lệ, độ phân giải, thời lượng, tùy chọn xóa watermark và thư mục xuất cho các video được chọn. Sau đó vẫn có thể sửa riêng từng dòng.
+5. Bấm **Thêm vào hàng đợi** để lưu các video sẵn sàng vào hàng chờ, hoặc bấm **Tạo video** để chạy ngay.
+6. Khi bắt đầu chạy, ứng dụng không chuyển sang tab **Hàng đợi**. Nút tạo đổi thành nút **Dừng** màu đỏ để thể hiện trạng thái đang xử lý.
+7. Bấm **Dừng** nếu muốn hủy toàn bộ task đang chờ và đang chạy. Các tiến trình trình duyệt liên quan sẽ được đóng và chiến dịch được mở khóa để chỉnh sửa tiếp.
+
+Mỗi chiến dịch nên dùng một tên dễ nhận biết. Không tự ý di chuyển hoặc đổi tên các thư mục con khi chiến dịch đang chạy vì ứng dụng cần đúng đường dẫn để lưu ảnh và video.
+
+---
+
+## 6. QUẢN LÝ HÀNG ĐỢI ĐA LUỒNG (QUEUE AUTOMATION)
 
 - **Cơ chế tự phân tài khoản rảnh:** Khi bạn xếp hàng chục video vào tab **Hàng đợi**, hệ thống sẽ tự động tìm kiếm các tài khoản Google đang rảnh để chạy tác vụ.
 - **Không xung đột:** Mỗi tài khoản chạy trong môi trường trình duyệt tách biệt, đảm bảo tiến trình render độc lập.
@@ -120,7 +138,7 @@ Google Vids mặc định sinh ra clip 10 giây. Để tạo video 20 giây li�
 
 ---
 
-## 6. TỰ ĐỘNG XÓA WATERMARK AI (DELOGO)
+## 7. TỰ ĐỘNG XÓA WATERMARK AI (DELOGO)
 
 - Khi tích chọn **Tự động xóa watermark Veo**, ngay sau khi tải video từ Google Vids về máy:
 - Bộ lọc tích hợp (FFmpeg delogo) sẽ tự động nhận diện tọa độ logo ở góc dưới (cả tỉ lệ 9:16 và 16:9).
@@ -128,7 +146,7 @@ Google Vids mặc định sinh ra clip 10 giây. Để tạo video 20 giây li�
 
 ---
 
-## 7. KHO VIDEO & QUẢN LÝ FILE ĐẦU RA
+## 8. KHO VIDEO & QUẢN LÝ FILE ĐẦU RA
 
 - Toàn bộ video thành phẩm được lưu trong thư mục cấu hình (mặc định là `Videos` của máy tính).
 - Tên file được tự động đánh số thứ tự và sinh mã ngẫu nhiên duy nhất: `task-X-YYYYMMDD_random.mp4`.
@@ -139,7 +157,7 @@ Google Vids mặc định sinh ra clip 10 giây. Để tạo video 20 giây li�
 
 ---
 
-## 8. NÚT CHUÔNG THÔNG BÁO & XỬ LÝ NHANH TASK LỖI
+## 9. NÚT CHUÔNG THÔNG BÁO & XỬ LÝ NHANH TASK LỖI
 
 Nút hình **Chiếc chuông 🔔** ở góc trên bên phải thanh tiêu đề tích hợp trung tâm thông báo thời gian thực:
 - **Chấm đỏ kèm số lượng**: Báo hiệu số lượng task gặp sự cố cần sửa (hoặc video đã tạo xong).
@@ -150,7 +168,7 @@ Nút hình **Chiếc chuông 🔔** ở góc trên bên phải thanh tiêu đề
 
 ---
 
-## 9. CÂU HỎI THƯỜNG GẶP & XỬ LÝ SỰ CỐ (FAQ)
+## 10. CÂU HỎI THƯỜNG GẶP & XỬ LÝ SỰ CỐ (FAQ)
 
 ### ❓ Google báo lỗi "Generating video failed" hoặc quota tạm thời đạt giới hạn?
 Google Vids áp dụng định mức quota theo giờ hoặc theo ngày cho từng tài khoản. Bạn chỉ cần bấm **Chạy lại (Retry)** sau 10 - 20 phút, hoặc thêm nhiều tài khoản Google vào tab Tài khoản để hệ thống tự động luân phiên.
@@ -174,7 +192,7 @@ Bạn hãy mở tab **Nhật ký**, sao chép đoạn log báo lỗi hoặc ch�
 
 ---
 
-## 10. KÊNH KẾT NỐI & HỖ TRỢ KỸ THUẬT TRỰC TIẾP
+## 11. KÊNH KẾT NỐI & HỖ TRỢ KỸ THUẬT TRỰC TIẾP
 
 Khi cần giải đáp thắc mắc, yêu cầu nâng cấp tính năng hoặc hỗ trợ kỹ thuật, bạn có thể kết nối trực tiếp với tác giả qua hai kênh chính thức:
 

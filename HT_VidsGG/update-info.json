@@ -1,13 +1,14 @@
 {
-  "latestVersion": "2.0.9",
+  "latestVersion": "3.0.0",
   "minimumSupportedVersion": "2.0.9",
-  "downloadUrl": "https://github.com/nlthieumedia-coder/HT_Studio/raw/refs/heads/main/HT_VidsGG/dist/latest/HT-Vids-Studio-Setup-2.0.9-Windows-x64.exe",
+  "downloadUrl": "https://github.com/nlthieumedia-coder/HT_Studio/raw/refs/heads/main/HT_VidsGG/dist/latest/HT-Vids-Studio-Setup-3.0.0-Windows-x64.exe",
   "releaseNotes": [
-    "Thay huy hiệu PRO TRỌN ĐỜI trên thanh tiêu đề bằng nút Donate.",
-    "Bấm Donate để mở ngay popup ủng hộ với mã QR và thông tin chuyển khoản.",
-    "Việc ủng hộ hoàn toàn tự nguyện và không ảnh hưởng đến chức năng hoặc quyền lợi bản quyền.",
-    "Phiên bản 2.0.8 trở xuống phải cài bản 2.0.9 mới nhất để tiếp tục sử dụng."
+    "Thêm tab Tạo video hàng loạt với giao diện dạng bảng và cấu hình riêng cho từng video.",
+    "Bổ sung quản lý chiến dịch; mỗi chiến dịch sử dụng thư mục riêng cho cấu hình, ảnh và video đầu ra.",
+    "Cho phép dán prompt nhiều dòng vào một ô mà không tự sinh task mới.",
+    "Giữ nguyên màn hình khi bắt đầu tạo video; nút Tạo video chuyển thành Dừng để hủy toàn bộ task.",
+    "Tinh gọn giao diện, sửa popup tạo chiến dịch bị hiển thị lặp và cải thiện độ ổn định."
   ],
-  "publishedAt": "2026-11-06",
-  "sha256": "1BAAFE6ECE02BD190AC2D3E493809F2D6B99BA2204AD43A6E4556805331B2DF4"
+  "publishedAt": "2026-11-09",
+  "sha256": "24D65F4BD599BB413D4D19ECEFC08D356EA5C1C4EC1ED7481B0FAEBB53315CEC"
 }
