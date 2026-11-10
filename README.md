@@ -6,16 +6,16 @@ Bộ ứng dụng desktop Windows chính thức của **HT Studio**.
 
 ## ⬇️ Tải ứng dụng
 
-### HT Vids Studio 3.0.6
+### HT Vids Studio 3.0.7
 
 Tự động hóa quy trình tạo video AI trên Google Vids, quản lý nhiều tài khoản, hàng đợi và tải video thành phẩm.
 
-**[BẤM VÀO ĐÂY ĐỂ TẢI HT VIDS STUDIO 3.0.6 CHO WINDOWS x64](https://github.com/nlthieumedia-coder/HT_Studio/releases/download/v3.0.6/HT-Vids-Studio-Setup-3.0.6-Windows-x64.exe)**
+**[BẤM VÀO ĐÂY ĐỂ TẢI HT VIDS STUDIO 3.0.7 CHO WINDOWS x64](https://github.com/nlthieumedia-coder/HT_Studio/releases/download/v3.0.7/HT-Vids-Studio-Setup-3.0.7-Windows-x64.exe)**
 
 - [Thông tin chi tiết](./HT_VidsGG/README.md)
 - [Hướng dẫn sử dụng](./HT_VidsGG/HUONG_DAN_SU_DUNG.md)
-- SHA-256: `11F9673D24D0A7697759D7B4B1452DEE968EA14FC881EC3A0BA8CC167DB99998`
-- Phiên bản 3.0.6 tích hợp AlphaJudge ML, reverse alpha và AI cleanup để xóa logo Gemini/Veo mượt hơn.
+- SHA-256: `BD5BD3A5B04F008BED79BAD1C8EC7B0C8B883C03294057EB1C04EE17050F5AAA`
+- Phiên bản 3.0.7 bổ sung meme Donate gọn trong sidebar, mở mã QR cùng lời cảm ơn và sắp xếp lại nút kiểm tra phiên bản để không đè giao diện.
 - Ứng dụng tải và cài đặt cập nhật trong nền, đồng thời bắt buộc nâng cấp khi có bản mới.
 
 ### HT Downloader 2.0.3

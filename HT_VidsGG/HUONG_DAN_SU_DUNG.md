@@ -186,14 +186,14 @@ Nghĩa là tài khoản chưa được đăng nhập trên profile riêng của 
 Video được lưu tại đường dẫn hiển thị ở ô **Thư mục lưu video** tại tab Tạo video. Bạn có thể thay đổi đường dẫn này bằng nút chọn thư mục bất kỳ lúc nào.
 
 ### ❓ Làm sao biết ứng dụng đã có phiên bản mới?
-Bạn có thể bấm **Kiểm tra phiên bản** ở góc dưới bên phải để chủ động kiểm tra ngay. Trong lúc kiểm tra, nút hiển thị trạng thái xử lý; sau đó ứng dụng sẽ báo đang dùng bản mới nhất, đã tìm thấy bản mới hoặc chưa thể kết nối máy chủ.
+Bạn có thể bấm **Kiểm tra phiên bản** bên dưới thông tin phiên bản ở cuối sidebar để chủ động kiểm tra ngay. Trong lúc kiểm tra, nút hiển thị trạng thái xử lý; sau đó ứng dụng sẽ báo đang dùng bản mới nhất, đã tìm thấy bản mới hoặc chưa thể kết nối máy chủ.
 
 Nếu không bấm nút, ứng dụng vẫn tự kiểm tra kho phát hành chính thức khi khởi động, mỗi 5 phút trong tiến trình nền, khi bạn quay lại cửa sổ và khi mạng kết nối lại. Nếu có bản mới, popup tiếng Việt sẽ xuất hiện ngay trong phiên đang chạy mà không cần tải lại hoặc tắt mở phần mềm.
 
 Mọi phiên bản mới đều là cập nhật bắt buộc. Popup cập nhật khóa giao diện, không có nút đóng hoặc **Để sau**. Từ phiên bản 3.0.1, bấm **Tải & cập nhật ngay** để tải bộ cài trong nền mà không mở trình duyệt. Thanh tiến độ hiển thị phần trăm, dung lượng và tốc độ tải. Sau khi ứng dụng xác minh SHA-256 thành công, bấm **Đóng bản cũ & mở bản mới** để cài đặt im lặng và tự khởi động phiên bản mới.
 
 ### ❓ Nút Donate dùng để làm gì?
-Nút **Donate** trên thanh tiêu đề mở popup chứa mã QR và thông tin chuyển khoản để bạn có thể tự nguyện ủng hộ quá trình phát triển HT Studio. Việc ủng hộ không bắt buộc và không ảnh hưởng đến chức năng hoặc quyền lợi của key bản quyền đã kích hoạt.
+Nút **Donate** trên thanh tiêu đề mở popup chứa mã QR và thông tin chuyển khoản để bạn có thể tự nguyện ủng hộ quá trình phát triển HT Studio. Ngoài ra, một meme robot cà phê nhỏ sẽ xuất hiện ngẫu nhiên mỗi 10–20 phút trong khoảng trống sidebar; bấm vào meme để xem mã QR và lời cảm ơn, hoặc bấm `×` để đóng. Việc ủng hộ không bắt buộc và không ảnh hưởng đến chức năng hoặc quyền lợi của key bản quyền đã kích hoạt.
 
 ### ❓ Làm sao để gửi lỗi cho tác giả xử lý nhanh nhất?
 Bạn hãy mở tab **Nhật ký**, sao chép đoạn log báo lỗi hoặc chụp ảnh màn hình, sau đó bấm nút **Hỗ trợ** ở thanh menu để gửi trực tiếp qua Zalo hoặc Telegram.

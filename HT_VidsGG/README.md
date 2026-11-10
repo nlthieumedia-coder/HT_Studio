@@ -6,15 +6,15 @@
 
 ## ⬇️ Tải và cài đặt
 
-Phiên bản hiện tại: **3.0.6**
+Phiên bản hiện tại: **3.0.7**
 
-### [BẤM VÀO ĐÂY ĐỂ TẢI BỘ CÀI HT VIDS STUDIO 3.0.6 CHO WINDOWS x64](https://github.com/nlthieumedia-coder/HT_Studio/releases/download/v3.0.6/HT-Vids-Studio-Setup-3.0.6-Windows-x64.exe)
+### [BẤM VÀO ĐÂY ĐỂ TẢI BỘ CÀI HT VIDS STUDIO 3.0.7 CHO WINDOWS x64](https://github.com/nlthieumedia-coder/HT_Studio/releases/download/v3.0.7/HT-Vids-Studio-Setup-3.0.7-Windows-x64.exe)
 
-Nếu nút trên không hoạt động, dùng [máy chủ media dự phòng](https://media.githubusercontent.com/media/nlthieumedia-coder/HT_Studio/main/HT_VidsGG/dist/latest/HT-Vids-Studio-Setup-3.0.6-Windows-x64.exe). Xem đầy đủ nội dung phát hành tại [GitHub Release v3.0.6](https://github.com/nlthieumedia-coder/HT_Studio/releases/tag/v3.0.6). Các bản trước được lưu riêng trong [`dist/old`](dist/old) để đối chiếu khi cần.
+Nếu nút trên không hoạt động, dùng [máy chủ media dự phòng](https://media.githubusercontent.com/media/nlthieumedia-coder/HT_Studio/main/HT_VidsGG/dist/latest/HT-Vids-Studio-Setup-3.0.7-Windows-x64.exe). Xem đầy đủ nội dung phát hành tại [GitHub Release v3.0.7](https://github.com/nlthieumedia-coder/HT_Studio/releases/tag/v3.0.7). Các bản trước được lưu riêng trong [`dist/old`](dist/old) để đối chiếu khi cần.
 
-Mã SHA-256: `11F9673D24D0A7697759D7B4B1452DEE968EA14FC881EC3A0BA8CC167DB99998`
+Mã SHA-256: `BD5BD3A5B04F008BED79BAD1C8EC7B0C8B883C03294057EB1C04EE17050F5AAA`
 
-1. Tải và chạy file `HT-Vids-Studio-Setup-3.0.6-Windows-x64.exe`.
+1. Tải và chạy file `HT-Vids-Studio-Setup-3.0.7-Windows-x64.exe`.
 2. Chọn thư mục cài đặt và hoàn tất các bước trong trình cài đặt.
 3. Mở **HT Vids Studio** từ shortcut Desktop hoặc menu Start.
 4. Nhập key bản quyền do HT Studio cung cấp.
@@ -45,9 +45,9 @@ Windows SmartScreen có thể cảnh báo khi bản phát hành chưa được k
 - Tự tải video MP4; ưu tiên xóa watermark Gemini/Veo bằng AlphaJudge ML, reverse alpha và AI cleanup để hạn chế nhòe, đồng thời tự dùng chế độ tương thích khi cần.
 - Kho video, trình xem video và bảng thống kê theo ngày.
 - Kích hoạt bản quyền theo mã máy và kiểm tra trạng thái bản quyền từ xa.
-- Có nút **Kiểm tra phiên bản** ở góc dưới bên phải để kiểm tra ngay; nếu không thao tác, ứng dụng vẫn tự kiểm tra khi khởi động, mỗi 5 phút, khi cửa sổ được focus và khi mạng kết nối lại.
+- Có nút **Kiểm tra phiên bản** nhỏ gọn bên dưới thông tin phiên bản ở cuối sidebar; nếu không thao tác, ứng dụng vẫn tự kiểm tra khi khởi động, mỗi 5 phút, khi cửa sổ được focus và khi mạng kết nối lại.
 - Hỗ trợ đặt phiên bản tối thiểu bắt buộc; bản thấp hơn mức này bị khóa giao diện cho tới khi người dùng tải bản mới.
-- Nút **Donate** trên thanh tiêu đề mở nhanh popup ủng hộ HT Studio; việc ủng hộ hoàn toàn tự nguyện và không ảnh hưởng quyền lợi bản quyền.
+- Nút **Donate** trên thanh tiêu đề và meme cà phê xuất hiện định kỳ trong sidebar mở nhanh mã QR ủng hộ HT Studio; việc ủng hộ hoàn toàn tự nguyện và không ảnh hưởng quyền lợi bản quyền.
 
 ## Quy trình sử dụng nhanh
 
@@ -106,7 +106,7 @@ Hướng dẫn chi tiết nằm trong [HUONG_DAN_SU_DUNG.md](HUONG_DAN_SU_DUNG.m
 ## Cập nhật phiên bản
 
 - Từ phiên bản **2.0.6**, ứng dụng kiểm tra bản mới khi khởi động, khi người dùng quay lại cửa sổ và định kỳ trong lúc sử dụng.
-- Có thể bấm **Kiểm tra phiên bản** ở góc dưới bên phải bất cứ lúc nào. Nút hiển thị trạng thái kiểm tra và thông báo rõ khi ứng dụng đã là bản mới nhất, có bản mới hoặc không thể kết nối.
+- Có thể bấm **Kiểm tra phiên bản** bên dưới thông tin phiên bản ở cuối sidebar bất cứ lúc nào. Nút hiển thị trạng thái kiểm tra và thông báo rõ khi ứng dụng đã là bản mới nhất, có bản mới hoặc không thể kết nối.
 - Khi có bản mới, popup sẽ hiển thị phiên bản hiện tại, phiên bản mới, nội dung thay đổi và nút **Tải phiên bản mới**.
 - Mọi phiên bản mới đều là cập nhật bắt buộc. Popup không có nút đóng hoặc **Để sau** và người dùng không thể tiếp tục thao tác trên phiên bản cũ.
 - Từ phiên bản **3.0.1**, ứng dụng tải bộ cài trong nền mà không mở trình duyệt, hiển thị phần trăm/dung lượng/tốc độ và xác minh SHA-256.
@@ -115,6 +115,13 @@ Hướng dẫn chi tiết nằm trong [HUONG_DAN_SU_DUNG.md](HUONG_DAN_SU_DUNG.m
 > Người đang sử dụng 2.0.5 trở xuống cần tải 2.0.6 thủ công một lần. Từ 2.0.6 trở đi, ứng dụng mới có khả năng tự thông báo các phiên bản tiếp theo.
 
 > Các bản trước 3.0.1 chưa có bộ tải nền nên cần thực hiện luồng tải cũ một lần để chuyển tiếp. Từ 3.0.1 trở đi, toàn bộ quá trình tải và cài cập nhật diễn ra trong ứng dụng.
+
+## Phiên bản 3.0.7
+
+- Chuyển nút **Kiểm tra phiên bản** thành điều khiển nhỏ gọn bên dưới thông tin phiên bản ở cuối sidebar để không đè lên các box hoặc thanh thao tác.
+- Thêm meme robot cà phê xuất hiện ngẫu nhiên mỗi 10–20 phút trong khoảng trống sidebar, không khóa và không che nội dung đang làm việc.
+- Cho phép bấm trực tiếp vào meme để mở mã QR cùng lời cảm ơn đóng góp; hỗ trợ đóng lời nhắc, tự hẹn lần sau và tạm ẩn trong 8 giờ.
+- Dọn event handler và CSS của popup nổi cũ, đồng thời tự làm sạch thư mục build và staging sau khi đóng gói.
 
 ## Phiên bản 3.0.6
 

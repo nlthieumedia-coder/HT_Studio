@@ -1,14 +1,13 @@
 {
-  "latestVersion": "3.0.6",
-  "minimumSupportedVersion": "3.0.6",
-  "downloadUrl": "https://github.com/nlthieumedia-coder/HT_Studio/releases/download/v3.0.6/HT-Vids-Studio-Setup-3.0.6-Windows-x64.exe",
+  "latestVersion": "3.0.7",
+  "minimumSupportedVersion": "3.0.7",
+  "downloadUrl": "https://github.com/nlthieumedia-coder/HT_Studio/releases/download/v3.0.7/HT-Vids-Studio-Setup-3.0.7-Windows-x64.exe",
   "releaseNotes": [
-    "Tích hợp engine xóa logo Gemini/Veo mới với AlphaJudge ML, reverse alpha và AI cleanup 120% để hạn chế vết nhòe.",
-    "Tự nhận diện cả profile logo hiện tại và profile Google Vids/Veo thế hệ trước.",
-    "Tự chuyển sang reverse alpha ổn định hoặc FFmpeg delogo nếu máy không chạy được AI hay chưa nhận diện được mẫu logo.",
-    "Giữ nguyên âm thanh gốc, kích thước và thời lượng; chỉ thay video sau khi đầu ra đã được kiểm tra hợp lệ.",
-    "Bổ sung backup và rollback để bảo vệ video gốc nếu bước thay tệp gặp lỗi."
+    "Chuyển nút Kiểm tra phiên bản xuống dưới thông tin phiên bản ở cuối sidebar và thu gọn để không đè lên giao diện.",
+    "Thêm meme robot cà phê xuất hiện ngẫu nhiên mỗi 10–20 phút trong khoảng trống sidebar mà không khóa thao tác.",
+    "Bấm meme để mở mã QR cùng lời cảm ơn đóng góp; có thể đóng lời nhắc hoặc tạm ẩn trong 8 giờ.",
+    "Dọn event handler, CSS cũ và các tệp build tạm không còn cần thiết."
   ],
   "publishedAt": "2026-11-10",
-  "sha256": "11F9673D24D0A7697759D7B4B1452DEE968EA14FC881EC3A0BA8CC167DB99998"
+  "sha256": "BD5BD3A5B04F008BED79BAD1C8EC7B0C8B883C03294057EB1C04EE17050F5AAA"
 }
