@@ -1,15 +1,14 @@
 {
-  "latestVersion": "3.0.5",
-  "minimumSupportedVersion": "3.0.5",
-  "downloadUrl": "https://github.com/nlthieumedia-coder/HT_Studio/releases/download/v3.0.5/HT-Vids-Studio-Setup-3.0.5-Windows-x64.exe",
+  "latestVersion": "3.0.6",
+  "minimumSupportedVersion": "3.0.6",
+  "downloadUrl": "https://github.com/nlthieumedia-coder/HT_Studio/releases/download/v3.0.6/HT-Vids-Studio-Setup-3.0.6-Windows-x64.exe",
   "releaseNotes": [
-    "Khi chọn 15 giây, ứng dụng đặt thanh Video duration của Google Vids lên 15s và chỉ tạo một video duy nhất.",
-    "Video 5–15 giây dùng một lần Create; chỉ 16–20 giây mới dùng bước Extend.",
-    "Thêm nút Kiểm tra phiên bản ở góc dưới bên phải để chủ động kiểm tra cập nhật ngay.",
-    "Hiển thị trạng thái đang kiểm tra và phản hồi rõ khi đã là bản mới nhất, có bản mới hoặc mất kết nối.",
-    "Tự điều chỉnh vị trí nút trong tab Tạo video hàng loạt để không che thanh thao tác.",
-    "Giữ kiểm tra tự động mỗi 5 phút và loại bỏ bộ hẹn giờ trùng ở giao diện."
+    "Tích hợp engine xóa logo Gemini/Veo mới với AlphaJudge ML, reverse alpha và AI cleanup 120% để hạn chế vết nhòe.",
+    "Tự nhận diện cả profile logo hiện tại và profile Google Vids/Veo thế hệ trước.",
+    "Tự chuyển sang reverse alpha ổn định hoặc FFmpeg delogo nếu máy không chạy được AI hay chưa nhận diện được mẫu logo.",
+    "Giữ nguyên âm thanh gốc, kích thước và thời lượng; chỉ thay video sau khi đầu ra đã được kiểm tra hợp lệ.",
+    "Bổ sung backup và rollback để bảo vệ video gốc nếu bước thay tệp gặp lỗi."
   ],
-  "publishedAt": "2026-11-09",
-  "sha256": "911E3DC5AC273AA4338597F075B5C1DAF314548E8E9C9DC2C1810120F9280B10"
+  "publishedAt": "2026-11-10",
+  "sha256": "11F9673D24D0A7697759D7B4B1452DEE968EA14FC881EC3A0BA8CC167DB99998"
 }

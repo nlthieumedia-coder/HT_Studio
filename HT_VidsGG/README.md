@@ -6,15 +6,15 @@
 
 ## ⬇️ Tải và cài đặt
 
-Phiên bản hiện tại: **3.0.5**
+Phiên bản hiện tại: **3.0.6**
 
-### [BẤM VÀO ĐÂY ĐỂ TẢI BỘ CÀI HT VIDS STUDIO 3.0.5 CHO WINDOWS x64](https://github.com/nlthieumedia-coder/HT_Studio/releases/download/v3.0.5/HT-Vids-Studio-Setup-3.0.5-Windows-x64.exe)
+### [BẤM VÀO ĐÂY ĐỂ TẢI BỘ CÀI HT VIDS STUDIO 3.0.6 CHO WINDOWS x64](https://github.com/nlthieumedia-coder/HT_Studio/releases/download/v3.0.6/HT-Vids-Studio-Setup-3.0.6-Windows-x64.exe)
 
-Nếu nút trên không hoạt động, dùng [máy chủ media dự phòng](https://media.githubusercontent.com/media/nlthieumedia-coder/HT_Studio/main/HT_VidsGG/dist/latest/HT-Vids-Studio-Setup-3.0.5-Windows-x64.exe). Xem đầy đủ nội dung phát hành tại [GitHub Release v3.0.5](https://github.com/nlthieumedia-coder/HT_Studio/releases/tag/v3.0.5). Các bản trước được lưu riêng trong [`dist/old`](dist/old) để đối chiếu khi cần.
+Nếu nút trên không hoạt động, dùng [máy chủ media dự phòng](https://media.githubusercontent.com/media/nlthieumedia-coder/HT_Studio/main/HT_VidsGG/dist/latest/HT-Vids-Studio-Setup-3.0.6-Windows-x64.exe). Xem đầy đủ nội dung phát hành tại [GitHub Release v3.0.6](https://github.com/nlthieumedia-coder/HT_Studio/releases/tag/v3.0.6). Các bản trước được lưu riêng trong [`dist/old`](dist/old) để đối chiếu khi cần.
 
-Mã SHA-256: `911E3DC5AC273AA4338597F075B5C1DAF314548E8E9C9DC2C1810120F9280B10`
+Mã SHA-256: `11F9673D24D0A7697759D7B4B1452DEE968EA14FC881EC3A0BA8CC167DB99998`
 
-1. Tải và chạy file `HT-Vids-Studio-Setup-3.0.5-Windows-x64.exe`.
+1. Tải và chạy file `HT-Vids-Studio-Setup-3.0.6-Windows-x64.exe`.
 2. Chọn thư mục cài đặt và hoàn tất các bước trong trình cài đặt.
 3. Mở **HT Vids Studio** từ shortcut Desktop hoặc menu Start.
 4. Nhập key bản quyền do HT Studio cung cấp.
@@ -42,7 +42,7 @@ Windows SmartScreen có thể cảnh báo khi bản phát hành chưa được k
 - Khi chạy, ứng dụng giữ nguyên tab hiện tại và đổi nút **Tạo video** thành **Dừng**; nút Dừng hủy toàn bộ task đang chờ hoặc đang chạy.
 - Tự phân phối hàng đợi; mỗi tài khoản chỉ xử lý một task tại một thời điểm.
 - Theo dõi tiến độ, xem lỗi, sửa và chạy lại task.
-- Tự tải video MP4 và hỗ trợ xóa watermark AI.
+- Tự tải video MP4; ưu tiên xóa watermark Gemini/Veo bằng AlphaJudge ML, reverse alpha và AI cleanup để hạn chế nhòe, đồng thời tự dùng chế độ tương thích khi cần.
 - Kho video, trình xem video và bảng thống kê theo ngày.
 - Kích hoạt bản quyền theo mã máy và kiểm tra trạng thái bản quyền từ xa.
 - Có nút **Kiểm tra phiên bản** ở góc dưới bên phải để kiểm tra ngay; nếu không thao tác, ứng dụng vẫn tự kiểm tra khi khởi động, mỗi 5 phút, khi cửa sổ được focus và khi mạng kết nối lại.
@@ -115,6 +115,13 @@ Hướng dẫn chi tiết nằm trong [HUONG_DAN_SU_DUNG.md](HUONG_DAN_SU_DUNG.m
 > Người đang sử dụng 2.0.5 trở xuống cần tải 2.0.6 thủ công một lần. Từ 2.0.6 trở đi, ứng dụng mới có khả năng tự thông báo các phiên bản tiếp theo.
 
 > Các bản trước 3.0.1 chưa có bộ tải nền nên cần thực hiện luồng tải cũ một lần để chuyển tiếp. Từ 3.0.1 trở đi, toàn bộ quá trình tải và cài cập nhật diễn ra trong ứng dụng.
+
+## Phiên bản 3.0.6
+
+- Tích hợp GeminiWatermarkTool-Video để tự nhận diện logo, ước lượng cường độ bằng AlphaJudge ML, khôi phục bằng reverse alpha và làm sạch phần dư bằng AI denoise 120%; giữ chế độ ổn định và FFmpeg delogo làm các phương án dự phòng.
+- Kiểm tra kích thước, thời lượng và tính hợp lệ của video trước khi thay tệp gốc; có cơ chế khôi phục nếu bước thay tệp gặp lỗi.
+- Giữ nguyên âm thanh gốc bằng bước remux riêng và tự thử cả profile logo Gemini/Veo hiện tại lẫn profile Google Vids thế hệ trước.
+- Cập nhật giao diện và hướng dẫn để hiển thị đúng chế độ xóa logo ML + AI mới.
 
 ## Phiên bản 3.0.5
 
@@ -224,3 +231,5 @@ Kênh Zalo và Telegram hỗ trợ được hiển thị trực tiếp trong ứ
 ## Giấy phép
 
 Phần mềm thương mại, bảo lưu mọi quyền. Không được sao chép, bán lại, dịch ngược hoặc phân phối lại khi chưa có sự cho phép bằng văn bản của HT Studio.
+
+Ứng dụng đóng gói `GeminiWatermarkTool-Video`, một thành phần bên thứ ba được tài liệu phát hành xác định theo giấy phép MIT. Thông báo bản quyền, phiên bản và mã SHA-256 được lưu cùng thành phần trong thư mục `bin` của bộ cài.

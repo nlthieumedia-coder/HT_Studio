@@ -13,7 +13,7 @@ Tài liệu này được tích hợp trực tiếp vào nút **Hướng dẫn**
 4. [Kỹ Thuật Nối Cảnh Extend Mở Rộng 20 Giây](#4-kỹ-thuật-nối-cảnh-extend-mở-rộng-20-giây)
 5. [Tạo Video Hàng Loạt Theo Chiến Dịch](#5-tạo-video-hàng-loạt-theo-chiến-dịch)
 6. [Quản Lý Hàng Đợi Đa Luồng (Queue Automation)](#6-quản-lý-hàng-đợi-đa-luồng-queue-automation)
-7. [Tự Động Xóa Watermark AI (Delogo)](#7-tự-động-xóa-watermark-ai-delogo)
+7. [Tự Động Xóa Watermark AI](#7-tự-động-xóa-watermark-ai)
 8. [Kho Video & Quản Lý File Đầu Ra](#8-kho-video--quản-lý-file-đầu-ra)
 9. [Nút Chuông Thông Báo & Xử Lý Nhanh Task Lỗi](#9-nút-chuông-thông-báo--xử-lý-nhanh-task-lỗi)
 10. [Câu Hỏi Thường Gặp & Xử Lý Sự Cố (FAQ)](#10-câu-hỏi-thường-gặp--xử-lý-sự-cố-faq)
@@ -143,11 +143,12 @@ Mỗi chiến dịch nên dùng một tên dễ nhận biết. Không tự ý di
 
 ---
 
-## 7. TỰ ĐỘNG XÓA WATERMARK AI (DELOGO)
+## 7. TỰ ĐỘNG XÓA WATERMARK AI
 
 - Khi tích chọn **Tự động xóa watermark Veo**, ngay sau khi tải video từ Google Vids về máy:
-- Bộ lọc tích hợp (FFmpeg delogo) sẽ tự động nhận diện tọa độ logo ở góc dưới (cả tỉ lệ 9:16 và 16:9).
-- Làm mờ và hòa trộn hoàn toàn logo thương hiệu vào khung cảnh xung quanh mà không làm giảm độ phân giải hay biến dạng khung hình.
+- AlphaJudge ML xác định cường độ logo theo video, sau đó reverse alpha khôi phục điểm ảnh nền và AI cleanup làm sạch phần logo còn dư. Cấu hình được cân bằng ở mức 120% để tránh tạo mảng màu do xử lý quá mạnh.
+- Nếu mẫu logo chưa được nhận diện, ứng dụng tự chuyển sang FFmpeg delogo để giữ tương thích với video Google Vids cũ.
+- Tệp chỉ được thay thế sau khi ứng dụng xác nhận đầu ra giữ nguyên kích thước và thời lượng; âm thanh gốc được bảo toàn.
 
 ---
 
