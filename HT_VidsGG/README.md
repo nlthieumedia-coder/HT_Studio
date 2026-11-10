@@ -6,15 +6,15 @@
 
 ## ⬇️ Tải và cài đặt
 
-Phiên bản hiện tại: **3.0.8**
+Phiên bản hiện tại: **4.0.0**
 
-### [BẤM VÀO ĐÂY ĐỂ TẢI BỘ CÀI HT VIDS STUDIO 3.0.8 CHO WINDOWS x64](https://github.com/nlthieumedia-coder/HT_Studio/releases/download/v3.0.8/HT-Vids-Studio-Setup-3.0.8-Windows-x64.exe)
+### [BẤM VÀO ĐÂY ĐỂ TẢI BỘ CÀI HT VIDS STUDIO 4.0.0 CHO WINDOWS x64](https://github.com/nlthieumedia-coder/HT_Studio/releases/download/v4.0.0/HT-Vids-Studio-Setup-4.0.0-Windows-x64.exe)
 
-Nếu nút trên không hoạt động, dùng [máy chủ media dự phòng](https://media.githubusercontent.com/media/nlthieumedia-coder/HT_Studio/main/HT_VidsGG/dist/latest/HT-Vids-Studio-Setup-3.0.8-Windows-x64.exe). Xem đầy đủ nội dung phát hành tại [GitHub Release v3.0.8](https://github.com/nlthieumedia-coder/HT_Studio/releases/tag/v3.0.8). Các bản trước được lưu riêng trong [`dist/old`](dist/old) để đối chiếu khi cần.
+Nếu nút trên không hoạt động, dùng [máy chủ media dự phòng](https://media.githubusercontent.com/media/nlthieumedia-coder/HT_Studio/main/HT_VidsGG/dist/latest/HT-Vids-Studio-Setup-4.0.0-Windows-x64.exe). Xem đầy đủ nội dung phát hành tại [GitHub Release v4.0.0](https://github.com/nlthieumedia-coder/HT_Studio/releases/tag/v4.0.0). Các bản trước được lưu riêng trong [`dist/old`](dist/old) để đối chiếu khi cần.
 
-Mã SHA-256: `47954BFDAF076364A00730EF48A6942924C193FD20F63A07C0A70B43A024C7B6`
+Mã SHA-256: `565A722F86E01475F4247CF1E82B6185056D0681930E85CDC8DBF60E5FF8E2EC`
 
-1. Tải và chạy file `HT-Vids-Studio-Setup-3.0.8-Windows-x64.exe`.
+1. Tải và chạy file `HT-Vids-Studio-Setup-4.0.0-Windows-x64.exe`.
 2. Chọn thư mục cài đặt và hoàn tất các bước trong trình cài đặt.
 3. Mở **HT Vids Studio** từ shortcut Desktop hoặc menu Start.
 4. Nhập key bản quyền do HT Studio cung cấp.
@@ -115,6 +115,13 @@ Hướng dẫn chi tiết nằm trong [HUONG_DAN_SU_DUNG.md](HUONG_DAN_SU_DUNG.m
 > Người đang sử dụng 2.0.5 trở xuống cần tải 2.0.6 thủ công một lần. Từ 2.0.6 trở đi, ứng dụng mới có khả năng tự thông báo các phiên bản tiếp theo.
 
 > Các bản trước 3.0.1 chưa có bộ tải nền nên cần thực hiện luồng tải cũ một lần để chuyển tiếp. Từ 3.0.1 trở đi, toàn bộ quá trình tải và cài cập nhật diễn ra trong ứng dụng.
+
+## Phiên bản 4.0.0
+
+- Sửa triệt để lỗi video dài 10–20 giây bị đứng hình sau khoảng 8 giây trong khi âm thanh vẫn tiếp tục.
+- Chỉ dùng bộ xử lý reverse-alpha cho video tối đa 8 giây; video dài hơn tự động dùng FFmpeg trên toàn bộ thời lượng để không mất frame.
+- Giữ nguyên tốc độ khung hình và âm thanh gốc khi xóa logo, đồng thời kiểm tra riêng thời lượng luồng hình thay vì chỉ dựa vào thời lượng tổng của tệp.
+- Tự động từ chối kết quả bị thiếu frame hoặc luồng hình ngắn hơn bản gốc, tránh lưu nhầm video lỗi vào thư mục đầu ra.
 
 ## Phiên bản 3.0.8
 

@@ -1,13 +1,13 @@
 {
-  "latestVersion": "3.0.8",
-  "minimumSupportedVersion": "3.0.8",
-  "downloadUrl": "https://github.com/nlthieumedia-coder/HT_Studio/releases/download/v3.0.8/HT-Vids-Studio-Setup-3.0.8-Windows-x64.exe",
+  "latestVersion": "4.0.0",
+  "minimumSupportedVersion": "4.0.0",
+  "downloadUrl": "https://github.com/nlthieumedia-coder/HT_Studio/releases/download/v4.0.0/HT-Vids-Studio-Setup-4.0.0-Windows-x64.exe",
   "releaseNotes": [
-    "Chuyển bộ phân phối hàng đợi sang FIFO: task vào trước được xét chạy trước.",
-    "Khi tài khoản rảnh, hệ thống tự nhận task cũ nhất tương thích; nhiều tài khoản rảnh nhận lần lượt các task đầu hàng.",
-    "Ghi riêng thời điểm task vào hàng đợi để việc làm mới giao diện không đảo thứ tự; task chạy lại được đưa xuống cuối hàng.",
-    "Giữ tương thích với hàng đợi cũ và không để ưu tiên quota làm task mới vượt task cũ."
+    "Sửa lỗi video dài 10–20 giây bị đứng hình sau khoảng 8 giây trong khi âm thanh vẫn tiếp tục.",
+    "Video dài hơn 8 giây tự động dùng FFmpeg trên toàn bộ thời lượng để không mất frame.",
+    "Giữ nguyên tốc độ khung hình và âm thanh gốc khi xóa logo.",
+    "Tự động từ chối kết quả bị thiếu frame hoặc luồng hình ngắn hơn bản gốc."
   ],
   "publishedAt": "2026-11-10",
-  "sha256": "47954BFDAF076364A00730EF48A6942924C193FD20F63A07C0A70B43A024C7B6"
+  "sha256": "565A722F86E01475F4247CF1E82B6185056D0681930E85CDC8DBF60E5FF8E2EC"
 }
