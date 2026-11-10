@@ -6,15 +6,15 @@
 
 ## ⬇️ Tải và cài đặt
 
-Phiên bản hiện tại: **3.0.7**
+Phiên bản hiện tại: **3.0.8**
 
-### [BẤM VÀO ĐÂY ĐỂ TẢI BỘ CÀI HT VIDS STUDIO 3.0.7 CHO WINDOWS x64](https://github.com/nlthieumedia-coder/HT_Studio/releases/download/v3.0.7/HT-Vids-Studio-Setup-3.0.7-Windows-x64.exe)
+### [BẤM VÀO ĐÂY ĐỂ TẢI BỘ CÀI HT VIDS STUDIO 3.0.8 CHO WINDOWS x64](https://github.com/nlthieumedia-coder/HT_Studio/releases/download/v3.0.8/HT-Vids-Studio-Setup-3.0.8-Windows-x64.exe)
 
-Nếu nút trên không hoạt động, dùng [máy chủ media dự phòng](https://media.githubusercontent.com/media/nlthieumedia-coder/HT_Studio/main/HT_VidsGG/dist/latest/HT-Vids-Studio-Setup-3.0.7-Windows-x64.exe). Xem đầy đủ nội dung phát hành tại [GitHub Release v3.0.7](https://github.com/nlthieumedia-coder/HT_Studio/releases/tag/v3.0.7). Các bản trước được lưu riêng trong [`dist/old`](dist/old) để đối chiếu khi cần.
+Nếu nút trên không hoạt động, dùng [máy chủ media dự phòng](https://media.githubusercontent.com/media/nlthieumedia-coder/HT_Studio/main/HT_VidsGG/dist/latest/HT-Vids-Studio-Setup-3.0.8-Windows-x64.exe). Xem đầy đủ nội dung phát hành tại [GitHub Release v3.0.8](https://github.com/nlthieumedia-coder/HT_Studio/releases/tag/v3.0.8). Các bản trước được lưu riêng trong [`dist/old`](dist/old) để đối chiếu khi cần.
 
-Mã SHA-256: `BD5BD3A5B04F008BED79BAD1C8EC7B0C8B883C03294057EB1C04EE17050F5AAA`
+Mã SHA-256: `47954BFDAF076364A00730EF48A6942924C193FD20F63A07C0A70B43A024C7B6`
 
-1. Tải và chạy file `HT-Vids-Studio-Setup-3.0.7-Windows-x64.exe`.
+1. Tải và chạy file `HT-Vids-Studio-Setup-3.0.8-Windows-x64.exe`.
 2. Chọn thư mục cài đặt và hoàn tất các bước trong trình cài đặt.
 3. Mở **HT Vids Studio** từ shortcut Desktop hoặc menu Start.
 4. Nhập key bản quyền do HT Studio cung cấp.
@@ -40,7 +40,7 @@ Windows SmartScreen có thể cảnh báo khi bản phát hành chưa được k
 - Dán prompt nhiều dòng vào đúng một ô mà không tự sinh thêm task.
 - Tạo task chờ, chạy ngay hoặc chạy hàng loạt trên các tài khoản đang khả dụng.
 - Khi chạy, ứng dụng giữ nguyên tab hiện tại và đổi nút **Tạo video** thành **Dừng**; nút Dừng hủy toàn bộ task đang chờ hoặc đang chạy.
-- Tự phân phối hàng đợi; mỗi tài khoản chỉ xử lý một task tại một thời điểm.
+- Tự phân phối hàng đợi theo FIFO: task vào trước chạy trước; mỗi tài khoản chỉ xử lý một task tại một thời điểm.
 - Theo dõi tiến độ, xem lỗi, sửa và chạy lại task.
 - Tự tải video MP4; ưu tiên xóa watermark Gemini/Veo bằng AlphaJudge ML, reverse alpha và AI cleanup để hạn chế nhòe, đồng thời tự dùng chế độ tương thích khi cần.
 - Kho video, trình xem video và bảng thống kê theo ngày.
@@ -115,6 +115,13 @@ Hướng dẫn chi tiết nằm trong [HUONG_DAN_SU_DUNG.md](HUONG_DAN_SU_DUNG.m
 > Người đang sử dụng 2.0.5 trở xuống cần tải 2.0.6 thủ công một lần. Từ 2.0.6 trở đi, ứng dụng mới có khả năng tự thông báo các phiên bản tiếp theo.
 
 > Các bản trước 3.0.1 chưa có bộ tải nền nên cần thực hiện luồng tải cũ một lần để chuyển tiếp. Từ 3.0.1 trở đi, toàn bộ quá trình tải và cài cập nhật diễn ra trong ứng dụng.
+
+## Phiên bản 3.0.8
+
+- Chuyển bộ phân phối hàng đợi sang FIFO: task vào trạng thái chờ trước luôn được xét chạy trước task mới hơn.
+- Mỗi khi tài khoản rảnh, hệ thống tự nhận task cũ nhất tương thích; nhiều tài khoản rảnh nhận lần lượt các task đầu hàng.
+- Ghi riêng thời điểm task vào hàng đợi để việc làm mới giao diện hoặc chỉnh sửa không đảo thứ tự; task chạy lại được đưa xuống cuối hàng.
+- Giữ tương thích với task của phiên bản cũ bằng thời gian tạo và số thứ tự task, đồng thời không để ưu tiên quota làm task mới vượt task cũ.
 
 ## Phiên bản 3.0.7
 

@@ -133,6 +133,7 @@ Mỗi chiến dịch nên dùng một tên dễ nhận biết. Không tự ý di
 ## 6. QUẢN LÝ HÀNG ĐỢI ĐA LUỒNG (QUEUE AUTOMATION)
 
 - **Cơ chế tự phân tài khoản rảnh:** Khi bạn xếp hàng chục video vào tab **Hàng đợi**, hệ thống sẽ tự động tìm kiếm các tài khoản Google đang rảnh để chạy tác vụ.
+- **Thứ tự FIFO:** Task vào hàng đợi trước được xét chạy trước. Khi một tài khoản hoàn thành và rảnh, hệ thống tự lấy task cũ nhất mà tài khoản đó có thể xử lý; task bấm **Chạy lại** được đưa xuống cuối hàng.
 - **Không xung đột:** Mỗi tài khoản chạy trong môi trường trình duyệt tách biệt, đảm bảo tiến trình render độc lập.
 - **Các thao tác quản lý:**
   - **Bắt đầu:** Khởi động task đang ở trạng thái chờ (waiting).

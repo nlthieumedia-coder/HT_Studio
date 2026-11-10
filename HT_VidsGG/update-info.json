@@ -1,13 +1,13 @@
 {
-  "latestVersion": "3.0.7",
-  "minimumSupportedVersion": "3.0.7",
-  "downloadUrl": "https://github.com/nlthieumedia-coder/HT_Studio/releases/download/v3.0.7/HT-Vids-Studio-Setup-3.0.7-Windows-x64.exe",
+  "latestVersion": "3.0.8",
+  "minimumSupportedVersion": "3.0.8",
+  "downloadUrl": "https://github.com/nlthieumedia-coder/HT_Studio/releases/download/v3.0.8/HT-Vids-Studio-Setup-3.0.8-Windows-x64.exe",
   "releaseNotes": [
-    "Chuyển nút Kiểm tra phiên bản xuống dưới thông tin phiên bản ở cuối sidebar và thu gọn để không đè lên giao diện.",
-    "Thêm meme robot cà phê xuất hiện ngẫu nhiên mỗi 10–20 phút trong khoảng trống sidebar mà không khóa thao tác.",
-    "Bấm meme để mở mã QR cùng lời cảm ơn đóng góp; có thể đóng lời nhắc hoặc tạm ẩn trong 8 giờ.",
-    "Dọn event handler, CSS cũ và các tệp build tạm không còn cần thiết."
+    "Chuyển bộ phân phối hàng đợi sang FIFO: task vào trước được xét chạy trước.",
+    "Khi tài khoản rảnh, hệ thống tự nhận task cũ nhất tương thích; nhiều tài khoản rảnh nhận lần lượt các task đầu hàng.",
+    "Ghi riêng thời điểm task vào hàng đợi để việc làm mới giao diện không đảo thứ tự; task chạy lại được đưa xuống cuối hàng.",
+    "Giữ tương thích với hàng đợi cũ và không để ưu tiên quota làm task mới vượt task cũ."
   ],
   "publishedAt": "2026-11-10",
-  "sha256": "BD5BD3A5B04F008BED79BAD1C8EC7B0C8B883C03294057EB1C04EE17050F5AAA"
+  "sha256": "47954BFDAF076364A00730EF48A6942924C193FD20F63A07C0A70B43A024C7B6"
 }
