@@ -6,15 +6,15 @@
 
 ## ⬇️ Tải và cài đặt
 
-Phiên bản hiện tại: **4.0.0**
+Phiên bản hiện tại: **4.0.1**
 
-### [BẤM VÀO ĐÂY ĐỂ TẢI BỘ CÀI HT VIDS STUDIO 4.0.0 CHO WINDOWS x64](https://github.com/nlthieumedia-coder/HT_Studio/releases/download/v4.0.0/HT-Vids-Studio-Setup-4.0.0-Windows-x64.exe)
+### [BẤM VÀO ĐÂY ĐỂ TẢI BỘ CÀI HT VIDS STUDIO 4.0.1 CHO WINDOWS x64](https://media.githubusercontent.com/media/nlthieumedia-coder/HT_Studio/main/HT_VidsGG/dist/latest/HT-Vids-Studio-Setup-4.0.1-Windows-x64.exe)
 
-Nếu nút trên không hoạt động, dùng [máy chủ media dự phòng](https://media.githubusercontent.com/media/nlthieumedia-coder/HT_Studio/main/HT_VidsGG/dist/latest/HT-Vids-Studio-Setup-4.0.0-Windows-x64.exe). Xem đầy đủ nội dung phát hành tại [GitHub Release v4.0.0](https://github.com/nlthieumedia-coder/HT_Studio/releases/tag/v4.0.0). Các bản trước được lưu riêng trong [`dist/old`](dist/old) để đối chiếu khi cần.
+Nếu trình duyệt chưa tải ngay, hãy chờ Git LFS đồng bộ trong ít phút rồi thử lại. Mã nguồn phân phối và lịch sử phiên bản nằm tại [tag v4.0.1](https://github.com/nlthieumedia-coder/HT_Studio/tree/v4.0.1/HT_VidsGG). Các bản trước được lưu riêng trong [`dist/old`](dist/old) để đối chiếu khi cần.
 
-Mã SHA-256: `565A722F86E01475F4247CF1E82B6185056D0681930E85CDC8DBF60E5FF8E2EC`
+Mã SHA-256: `DBB98E6B6365E8A44A9DC8EE5FCB971D4E92D0A5309228D0B44E8FB4DE1798E1`
 
-1. Tải và chạy file `HT-Vids-Studio-Setup-4.0.0-Windows-x64.exe`.
+1. Tải và chạy file `HT-Vids-Studio-Setup-4.0.1-Windows-x64.exe`.
 2. Chọn thư mục cài đặt và hoàn tất các bước trong trình cài đặt.
 3. Mở **HT Vids Studio** từ shortcut Desktop hoặc menu Start.
 4. Nhập key bản quyền do HT Studio cung cấp.
@@ -80,6 +80,15 @@ Các nút thao tác trong box tài khoản sử dụng biểu tượng để gia
 - Kết nối Internet ổn định.
 - Tài khoản Google có quyền truy cập Google Vids và tính năng AI tương ứng.
 
+## Kiểm tra và chẩn đoán trên máy mới
+
+- Nút **Kiểm tra hệ thống** ở cuối sidebar kiểm tra Chrome/Edge, FFmpeg, FFprobe, công cụ xử lý logo, Windows Safe Storage, quyền ghi, dung lượng trống và kết nối mạng.
+- Ứng dụng tự kiểm tra khi khởi động và mở báo cáo nếu có lỗi chặn task.
+- Trước khi nhận task, ứng dụng thử quyền ghi của đúng thư mục đầu ra; task không được chạy nếu Windows hoặc antivirus đang chặn thư mục.
+- Thư mục xuất mặc định là `Downloads\HT Vids Studio`, không phụ thuộc đường dẫn trên máy phát triển.
+- Nút **Xuất chẩn đoán** tạo tệp ZIP chứa tình trạng hệ thống và lỗi task. ZIP tự ẩn email và đường dẫn hồ sơ người dùng; không chứa mật khẩu, cookie, token, prompt, ảnh tham chiếu hoặc video.
+- Profile và thông tin đăng nhập được mã hóa riêng trên từng máy. Không sao chép thư mục profile hoặc tệp credential giữa các máy.
+
 ## Dữ liệu và quyền riêng tư
 
 - Profile đăng nhập và trạng thái ứng dụng được lưu cục bộ trong AppData trên máy người dùng.
@@ -115,6 +124,15 @@ Hướng dẫn chi tiết nằm trong [HUONG_DAN_SU_DUNG.md](HUONG_DAN_SU_DUNG.m
 > Người đang sử dụng 2.0.5 trở xuống cần tải 2.0.6 thủ công một lần. Từ 2.0.6 trở đi, ứng dụng mới có khả năng tự thông báo các phiên bản tiếp theo.
 
 > Các bản trước 3.0.1 chưa có bộ tải nền nên cần thực hiện luồng tải cũ một lần để chuyển tiếp. Từ 3.0.1 trở đi, toàn bộ quá trình tải và cài cập nhật diễn ra trong ứng dụng.
+
+## Phiên bản 4.0.1
+
+- Thêm kiểm tra hệ thống khi khởi động và trước khi nhận task: trình duyệt, công cụ video, quyền ghi, dung lượng, mã hóa Windows và kết nối mạng.
+- Thêm nút **Xuất chẩn đoán** tạo ZIP an toàn, tự ẩn email và không chứa mật khẩu, cookie, token, prompt, ảnh tham chiếu hoặc video.
+- Sửa lỗi giá trị mặc định 3 giây của slider tạm khóa bị hiểu nhầm là hạn mức còn lại, khiến tài khoản vẫn dùng được bị tự động loại.
+- Phân task theo đúng thời lượng, độ phân giải và tỷ lệ; tài khoản đã khớp cấu hình được giữ cho task đến khi hoàn thành.
+- Hỗ trợ nhập prompt và ảnh hàng loạt trong chiến dịch, đồng thời giữ khả năng thêm 1–3 ảnh riêng cho từng task.
+- Dùng `Downloads\HT Vids Studio` làm thư mục xuất mặc định và kiểm tra quyền ghi trước khi chạy.
 
 ## Phiên bản 4.0.0
 

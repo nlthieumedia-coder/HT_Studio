@@ -1,13 +1,15 @@
 {
-  "latestVersion": "4.0.0",
-  "minimumSupportedVersion": "4.0.0",
-  "downloadUrl": "https://github.com/nlthieumedia-coder/HT_Studio/releases/download/v4.0.0/HT-Vids-Studio-Setup-4.0.0-Windows-x64.exe",
+  "latestVersion": "4.0.1",
+  "minimumSupportedVersion": "4.0.1",
+  "downloadUrl": "https://media.githubusercontent.com/media/nlthieumedia-coder/HT_Studio/main/HT_VidsGG/dist/latest/HT-Vids-Studio-Setup-4.0.1-Windows-x64.exe",
   "releaseNotes": [
-    "Sửa lỗi video dài 10–20 giây bị đứng hình sau khoảng 8 giây trong khi âm thanh vẫn tiếp tục.",
-    "Video dài hơn 8 giây tự động dùng FFmpeg trên toàn bộ thời lượng để không mất frame.",
-    "Giữ nguyên tốc độ khung hình và âm thanh gốc khi xóa logo.",
-    "Tự động từ chối kết quả bị thiếu frame hoặc luồng hình ngắn hơn bản gốc."
+    "Thêm kiểm tra hệ thống trước khi chạy: Chrome/Edge, FFmpeg, quyền ghi, dung lượng, mã hóa Windows và kết nối mạng.",
+    "Thêm nút Xuất chẩn đoán an toàn, tự ẩn email và không chứa mật khẩu, cookie, prompt, ảnh hoặc video.",
+    "Sửa lỗi slider tạm khóa bị hiểu nhầm là tài khoản chỉ còn 3 giây, khiến tài khoản Pro/Ultra bị loại sai.",
+    "Phân task theo đúng thời lượng, độ phân giải và tỷ lệ; khóa tài khoản đã khớp cấu hình cho tới khi hoàn thành.",
+    "Thêm nhập prompt và ảnh hàng loạt; mỗi task vẫn hỗ trợ tối đa 3 ảnh riêng hoặc dùng ảnh chung.",
+    "Đổi thư mục xuất mặc định sang Downloads\\HT Vids Studio và kiểm tra quyền ghi trước khi nhận task."
   ],
-  "publishedAt": "2026-11-10",
-  "sha256": "565A722F86E01475F4247CF1E82B6185056D0681930E85CDC8DBF60E5FF8E2EC"
+  "publishedAt": "2026-11-11",
+  "sha256": "DBB98E6B6365E8A44A9DC8EE5FCB971D4E92D0A5309228D0B44E8FB4DE1798E1"
 }

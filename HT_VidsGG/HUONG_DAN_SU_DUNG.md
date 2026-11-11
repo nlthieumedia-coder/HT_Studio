@@ -196,6 +196,16 @@ Mọi phiên bản mới đều là cập nhật bắt buộc. Popup cập nhậ
 ### ❓ Nút Donate dùng để làm gì?
 Nút **Donate** trên thanh tiêu đề mở popup chứa mã QR và thông tin chuyển khoản để bạn có thể tự nguyện ủng hộ quá trình phát triển HT Studio. Ngoài ra, một meme robot cà phê nhỏ sẽ xuất hiện ngẫu nhiên mỗi 10–20 phút trong khoảng trống sidebar; bấm vào meme để xem mã QR và lời cảm ơn, hoặc bấm `×` để đóng. Việc ủng hộ không bắt buộc và không ảnh hưởng đến chức năng hoặc quyền lợi của key bản quyền đã kích hoạt.
 
+### ❓ Máy khác chạy lỗi thì cần làm gì?
+
+1. Bấm **Kiểm tra hệ thống** ở cuối sidebar.
+2. Xử lý các mục màu đỏ như thiếu Chrome/Edge, thiếu công cụ video, không có quyền ghi hoặc ổ đĩa còn dưới 1 GB.
+3. Cập nhật Chrome/Edge nếu ứng dụng báo trình duyệt quá cũ.
+4. Đăng nhập lại từng tài khoản Google trên chính máy đang sử dụng; không sao chép profile hay tệp credential từ máy khác.
+5. Nếu lỗi vẫn còn, bấm **Xuất chẩn đoán** và gửi tệp ZIP cho bộ phận hỗ trợ. ZIP không chứa mật khẩu, cookie, token, prompt, ảnh hoặc video.
+
+Thư mục xuất mặc định trên mỗi máy là `Downloads\HT Vids Studio`. Ứng dụng sẽ kiểm tra quyền ghi trước khi nhận task.
+
 ### ❓ Làm sao để gửi lỗi cho tác giả xử lý nhanh nhất?
 Bạn hãy mở tab **Nhật ký**, sao chép đoạn log báo lỗi hoặc chụp ảnh màn hình, sau đó bấm nút **Hỗ trợ** ở thanh menu để gửi trực tiếp qua Zalo hoặc Telegram.
 
