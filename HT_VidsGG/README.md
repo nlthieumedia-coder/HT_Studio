@@ -6,15 +6,15 @@
 
 ## ⬇️ Tải và cài đặt
 
-Phiên bản hiện tại: **4.0.1**
+Phiên bản hiện tại: **4.0.2**
 
-### [BẤM VÀO ĐÂY ĐỂ TẢI BỘ CÀI HT VIDS STUDIO 4.0.1 CHO WINDOWS x64](https://media.githubusercontent.com/media/nlthieumedia-coder/HT_Studio/main/HT_VidsGG/dist/latest/HT-Vids-Studio-Setup-4.0.1-Windows-x64.exe)
+### [BẤM VÀO ĐÂY ĐỂ TẢI BỘ CÀI HT VIDS STUDIO 4.0.2 CHO WINDOWS x64](https://media.githubusercontent.com/media/nlthieumedia-coder/HT_Studio/main/HT_VidsGG/dist/latest/HT-Vids-Studio-Setup-4.0.2-Windows-x64.exe)
 
-Nếu trình duyệt chưa tải ngay, hãy chờ Git LFS đồng bộ trong ít phút rồi thử lại. Mã nguồn phân phối và lịch sử phiên bản nằm tại [tag v4.0.1](https://github.com/nlthieumedia-coder/HT_Studio/tree/v4.0.1/HT_VidsGG). Các bản trước được lưu riêng trong [`dist/old`](dist/old) để đối chiếu khi cần.
+Nếu trình duyệt chưa tải ngay, hãy chờ Git LFS đồng bộ trong ít phút rồi thử lại. Mã nguồn phân phối và lịch sử phiên bản nằm tại [tag v4.0.2](https://github.com/nlthieumedia-coder/HT_Studio/tree/v4.0.2/HT_VidsGG). Các bản trước được lưu riêng trong [`dist/old`](dist/old) để đối chiếu khi cần.
 
-Mã SHA-256: `DBB98E6B6365E8A44A9DC8EE5FCB971D4E92D0A5309228D0B44E8FB4DE1798E1`
+Mã SHA-256: `1C1ABA7D020F8638D387843AC407C5CFB197E36DC7F1D9A3431DB3E92FCA12C9`
 
-1. Tải và chạy file `HT-Vids-Studio-Setup-4.0.1-Windows-x64.exe`.
+1. Tải và chạy file `HT-Vids-Studio-Setup-4.0.2-Windows-x64.exe`.
 2. Chọn thư mục cài đặt và hoàn tất các bước trong trình cài đặt.
 3. Mở **HT Vids Studio** từ shortcut Desktop hoặc menu Start.
 4. Nhập key bản quyền do HT Studio cung cấp.
@@ -124,6 +124,15 @@ Hướng dẫn chi tiết nằm trong [HUONG_DAN_SU_DUNG.md](HUONG_DAN_SU_DUNG.m
 > Người đang sử dụng 2.0.5 trở xuống cần tải 2.0.6 thủ công một lần. Từ 2.0.6 trở đi, ứng dụng mới có khả năng tự thông báo các phiên bản tiếp theo.
 
 > Các bản trước 3.0.1 chưa có bộ tải nền nên cần thực hiện luồng tải cũ một lần để chuyển tiếp. Từ 3.0.1 trở đi, toàn bộ quá trình tải và cài cập nhật diễn ra trong ứng dụng.
+
+## Phiên bản 4.0.2
+
+- Sửa luồng cấu hình Google Vids để mở đúng menu độ phân giải, chọn chính xác `1080p`, nhận thanh thời lượng Unicode tiếng Việt và xác nhận đủ `15 giây · độ phân giải · tỷ lệ` trước khi tạo.
+- Chỉ phân task `1080p` cho tài khoản Pro/Ultra; tài khoản Thường có thông báo **Upgrade to use 1080p** được bỏ qua ngay, không còn mở và đóng trình duyệt hàng loạt.
+- Khóa tài khoản đã đạt `CONFIG_MATCHED` cho đúng task, tự khôi phục task sau khi ứng dụng khởi động lại và giữ task chờ khi tài khoản phù hợp đang bận.
+- Nhận diện đúng thumbnail và nút xóa ảnh tham chiếu trên giao diện tiếng Việt, tránh lỗi giả sau khi ảnh đã tải thành công.
+- Sửa luồng đăng nhập: không tắt tài khoản chỉ sau một lần chuyển hướng, tự bật lại và xóa lỗi cũ khi xác minh Pro/Ultra thành công.
+- Nhận diện chính xác cảnh báo đặt lại hạn mức của Google, không nhầm slider tạm khóa với khả năng tài khoản.
 
 ## Phiên bản 4.0.1
 

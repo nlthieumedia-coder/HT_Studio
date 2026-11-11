@@ -1,15 +1,15 @@
 {
-  "latestVersion": "4.0.1",
-  "minimumSupportedVersion": "4.0.1",
-  "downloadUrl": "https://media.githubusercontent.com/media/nlthieumedia-coder/HT_Studio/main/HT_VidsGG/dist/latest/HT-Vids-Studio-Setup-4.0.1-Windows-x64.exe",
+  "latestVersion": "4.0.2",
+  "minimumSupportedVersion": "4.0.2",
+  "downloadUrl": "https://media.githubusercontent.com/media/nlthieumedia-coder/HT_Studio/main/HT_VidsGG/dist/latest/HT-Vids-Studio-Setup-4.0.2-Windows-x64.exe",
   "releaseNotes": [
-    "Thêm kiểm tra hệ thống trước khi chạy: Chrome/Edge, FFmpeg, quyền ghi, dung lượng, mã hóa Windows và kết nối mạng.",
-    "Thêm nút Xuất chẩn đoán an toàn, tự ẩn email và không chứa mật khẩu, cookie, prompt, ảnh hoặc video.",
-    "Sửa lỗi slider tạm khóa bị hiểu nhầm là tài khoản chỉ còn 3 giây, khiến tài khoản Pro/Ultra bị loại sai.",
-    "Phân task theo đúng thời lượng, độ phân giải và tỷ lệ; khóa tài khoản đã khớp cấu hình cho tới khi hoàn thành.",
-    "Thêm nhập prompt và ảnh hàng loạt; mỗi task vẫn hỗ trợ tối đa 3 ảnh riêng hoặc dùng ảnh chung.",
-    "Đổi thư mục xuất mặc định sang Downloads\\HT Vids Studio và kiểm tra quyền ghi trước khi nhận task."
+    "Sửa cấu hình Google Vids: chọn đúng 1080p, nhận thanh thời lượng tiếng Việt và xác nhận đủ 15 giây, độ phân giải, tỷ lệ trước khi tạo.",
+    "Chỉ phân task 1080p cho tài khoản Pro/Ultra; tài khoản Thường được bỏ qua ngay khi Google yêu cầu nâng cấp.",
+    "Khóa tài khoản đã khớp cấu hình cho đúng task và tự khôi phục hàng chờ sau khi ứng dụng khởi động lại.",
+    "Nhận diện đúng ảnh tham chiếu đã tải trên giao diện tiếng Việt, tránh lỗi chờ ảnh giả.",
+    "Sửa luồng đăng nhập: xác minh hai lần trước khi tắt và tự bật lại tài khoản khi đăng nhập Pro/Ultra thành công.",
+    "Nhận diện đúng cảnh báo đặt lại hạn mức của Google, không loại sai tài khoản do slider tạm khóa."
   ],
   "publishedAt": "2026-11-11",
-  "sha256": "DBB98E6B6365E8A44A9DC8EE5FCB971D4E92D0A5309228D0B44E8FB4DE1798E1"
+  "sha256": "1C1ABA7D020F8638D387843AC407C5CFB197E36DC7F1D9A3431DB3E92FCA12C9"
 }
