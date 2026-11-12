@@ -17,7 +17,8 @@ Tài liệu này được tích hợp trực tiếp vào nút **Hướng dẫn**
 8. [Kho Video & Quản Lý File Đầu Ra](#8-kho-video--quản-lý-file-đầu-ra)
 9. [Nút Chuông Thông Báo & Xử Lý Nhanh Task Lỗi](#9-nút-chuông-thông-báo--xử-lý-nhanh-task-lỗi)
 10. [Câu Hỏi Thường Gặp & Xử Lý Sự Cố (FAQ)](#10-câu-hỏi-thường-gặp--xử-lý-sự-cố-faq)
-11. [Kênh Kết Nối & Hỗ Trợ Kỹ Thuật Trực Tiếp](#11-kênh-kết-nối--hỗ-trợ-kỹ-thuật-trực-tiếp)
+11. [Gửi Và Theo Dõi Phiếu Hỗ Trợ](#11-gửi-và-theo-dõi-phiếu-hỗ-trợ)
+12. [Kênh Kết Nối & Hỗ Trợ Kỹ Thuật Trực Tiếp](#12-kênh-kết-nối--hỗ-trợ-kỹ-thuật-trực-tiếp)
 
 ---
 
@@ -64,7 +65,7 @@ Chỉ mất chưa đầy 2 phút để thiết lập và nhận video hoàn ch�
    - Điền Email & Mật khẩu.
    - Tự động sinh mã 2FA 6 số thời gian thực từ khóa TOTP Secret Key và điền vào bước xác minh.
    - Kiểm tra gói Google Vids và lưu phiên đăng nhập vĩnh viễn.
-5. Tài khoản trùng email sẽ tự động được bỏ qua, không ghi đè mật khẩu và không mở lại profile Chrome. Gmail có khác biệt chữ hoa/thường, dấu chấm, hậu tố `+tag` hoặc miền `googlemail.com` vẫn được nhận diện là cùng một tài khoản.
+5. Tài khoản trùng email sẽ không được thêm lần nữa. Mật khẩu, khóa 2FA và email khôi phục mới sẽ cập nhật vào kho mã hóa của tài khoản đã có; hệ thống chỉ tự đăng nhập lại khi phiên cũ đã hết hạn. Gmail có khác biệt chữ hoa/thường, dấu chấm, hậu tố `+tag` hoặc miền `googlemail.com` vẫn được nhận diện là cùng một tài khoản.
 
 ### 2.3. Xử lý khi Google yêu cầu xác minh bảo mật (Captcha/Điện thoại)
 Nếu Google yêu cầu nhập Captcha hoặc bấm số trên điện thoại, bạn chỉ cần bấm nút **Mở Chrome** ở dòng tài khoản đó. Trình duyệt Chrome sẽ xuất hiện trên màn hình, bạn xác minh thủ công một lần rồi đóng cửa sổ lại.
@@ -207,11 +208,24 @@ Nút **Donate** trên thanh tiêu đề mở popup chứa mã QR và thông tin 
 Thư mục xuất mặc định trên mỗi máy là `Downloads\HT Vids Studio`. Ứng dụng sẽ kiểm tra quyền ghi trước khi nhận task.
 
 ### ❓ Làm sao để gửi lỗi cho tác giả xử lý nhanh nhất?
-Bạn hãy mở tab **Nhật ký**, sao chép đoạn log báo lỗi hoặc chụp ảnh màn hình, sau đó bấm nút **Hỗ trợ** ở thanh menu để gửi trực tiếp qua Zalo hoặc Telegram.
+Bạn hãy bấm **Hỗ trợ → Gửi phiếu hỗ trợ**, nhập mô tả, thêm ảnh hoặc bấm **Chụp cửa sổ ứng dụng**. Có thể bật tùy chọn gửi nhật ký chẩn đoán đã làm sạch. Phiếu và phản hồi của admin được đồng bộ qua Google Sheets; ứng dụng sẽ hiện popup khi trạng thái thay đổi.
 
 ---
 
-## 11. KÊNH KẾT NỐI & HỖ TRỢ KỸ THUẬT TRỰC TIẾP
+## 11. GỬI VÀ THEO DÕI PHIẾU HỖ TRỢ
+
+1. Bấm **Hỗ trợ** ở cuối sidebar rồi chọn **Gửi phiếu hỗ trợ**.
+2. Chọn loại lỗi và mức độ, nhập tiêu đề cùng mô tả chi tiết.
+3. Thêm tối đa 3 ảnh PNG/JPG/WEBP hoặc bấm **Chụp cửa sổ ứng dụng**.
+4. Kiểm tra tùy chọn nhật ký chẩn đoán rồi bấm **Gửi cho admin**.
+5. Mã phiếu xuất hiện ở cột **Phiếu của máy này**. Bấm **Làm mới** để kiểm tra ngay.
+6. Ứng dụng cũng tự kiểm tra mỗi 2 phút và khi bạn quay lại cửa sổ. Khi admin đổi trạng thái hoặc phản hồi, popup sẽ xuất hiện trên đúng máy đã gửi.
+
+Nhật ký gửi đi không chứa mật khẩu, cookie, khóa 2FA, token, prompt, ảnh tham chiếu hoặc video. Ảnh và nhật ký được lưu trong Google Drive của admin; Google Sheet chỉ lưu thông tin phiếu và đường dẫn nội bộ.
+
+---
+
+## 12. KÊNH KẾT NỐI & HỖ TRỢ KỸ THUẬT TRỰC TIẾP
 
 Khi cần giải đáp thắc mắc, yêu cầu nâng cấp tính năng hoặc hỗ trợ kỹ thuật, bạn có thể kết nối trực tiếp với tác giả qua hai kênh chính thức:
 

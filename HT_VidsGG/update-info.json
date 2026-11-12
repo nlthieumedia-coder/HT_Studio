@@ -1,15 +1,15 @@
 {
-  "latestVersion": "4.0.2",
-  "minimumSupportedVersion": "4.0.2",
-  "downloadUrl": "https://media.githubusercontent.com/media/nlthieumedia-coder/HT_Studio/main/HT_VidsGG/dist/latest/HT-Vids-Studio-Setup-4.0.2-Windows-x64.exe",
+  "latestVersion": "4.0.3",
+  "minimumSupportedVersion": "4.0.3",
+  "downloadUrl": "https://media.githubusercontent.com/media/nlthieumedia-coder/HT_Studio/main/HT_VidsGG/dist/latest/HT-Vids-Studio-Setup-4.0.3-Windows-x64.exe",
   "releaseNotes": [
-    "Sửa cấu hình Google Vids: chọn đúng 1080p, nhận thanh thời lượng tiếng Việt và xác nhận đủ 15 giây, độ phân giải, tỷ lệ trước khi tạo.",
-    "Chỉ phân task 1080p cho tài khoản Pro/Ultra; tài khoản Thường được bỏ qua ngay khi Google yêu cầu nâng cấp.",
-    "Khóa tài khoản đã khớp cấu hình cho đúng task và tự khôi phục hàng chờ sau khi ứng dụng khởi động lại.",
-    "Nhận diện đúng ảnh tham chiếu đã tải trên giao diện tiếng Việt, tránh lỗi chờ ảnh giả.",
-    "Sửa luồng đăng nhập: xác minh hai lần trước khi tắt và tự bật lại tài khoản khi đăng nhập Pro/Ultra thành công.",
-    "Nhận diện đúng cảnh báo đặt lại hạn mức của Google, không loại sai tài khoản do slider tạm khóa."
+    "Thêm trung tâm Phiếu hỗ trợ với mô tả lỗi, tối đa 3 ảnh và nhật ký chẩn đoán đã làm sạch.",
+    "Đồng bộ trạng thái và phản hồi admin qua tab Support_Tickets trong Google Sheets, đồng thời lưu tệp đính kèm trên Google Drive.",
+    "Hiển thị popup khi admin cập nhật phiếu; tự kiểm tra mỗi 2 phút và khi người dùng quay lại cửa sổ.",
+    "Cập nhật an toàn mật khẩu và khóa 2FA khi nhập trùng tài khoản, đồng thời tái sử dụng thông tin đã lưu cho phiên hết hạn.",
+    "Phân task theo đúng thời lượng, độ phân giải và tỷ lệ mà không tắt hàng loạt tài khoản theo một ngưỡng thời gian.",
+    "Dọn code thừa và chuyển kho mã hóa Windows sang API Electron mới để loại cảnh báo deprecated."
   ],
-  "publishedAt": "2026-11-11",
-  "sha256": "1C1ABA7D020F8638D387843AC407C5CFB197E36DC7F1D9A3431DB3E92FCA12C9"
+  "publishedAt": "2026-11-12",
+  "sha256": "C70466E662D09F993445E99F2CA7C95BBD7C08B358183DD319AEEC2A008F092F"
 }

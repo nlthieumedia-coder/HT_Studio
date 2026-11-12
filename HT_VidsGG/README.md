@@ -6,15 +6,15 @@
 
 ## ⬇️ Tải và cài đặt
 
-Phiên bản hiện tại: **4.0.2**
+Phiên bản hiện tại: **4.0.3**
 
-### [BẤM VÀO ĐÂY ĐỂ TẢI BỘ CÀI HT VIDS STUDIO 4.0.2 CHO WINDOWS x64](https://media.githubusercontent.com/media/nlthieumedia-coder/HT_Studio/main/HT_VidsGG/dist/latest/HT-Vids-Studio-Setup-4.0.2-Windows-x64.exe)
+### [BẤM VÀO ĐÂY ĐỂ TẢI BỘ CÀI HT VIDS STUDIO 4.0.3 CHO WINDOWS x64](https://media.githubusercontent.com/media/nlthieumedia-coder/HT_Studio/main/HT_VidsGG/dist/latest/HT-Vids-Studio-Setup-4.0.3-Windows-x64.exe)
 
-Nếu trình duyệt chưa tải ngay, hãy chờ Git LFS đồng bộ trong ít phút rồi thử lại. Mã nguồn phân phối và lịch sử phiên bản nằm tại [tag v4.0.2](https://github.com/nlthieumedia-coder/HT_Studio/tree/v4.0.2/HT_VidsGG). Các bản trước được lưu riêng trong [`dist/old`](dist/old) để đối chiếu khi cần.
+Nếu trình duyệt chưa tải ngay, hãy chờ Git LFS đồng bộ trong ít phút rồi thử lại. Mã nguồn phân phối và lịch sử phiên bản nằm tại [tag v4.0.3](https://github.com/nlthieumedia-coder/HT_Studio/tree/v4.0.3/HT_VidsGG). Các bản trước được lưu riêng trong [`dist/old`](dist/old) để đối chiếu khi cần.
 
-Mã SHA-256: `1C1ABA7D020F8638D387843AC407C5CFB197E36DC7F1D9A3431DB3E92FCA12C9`
+Mã SHA-256: `C70466E662D09F993445E99F2CA7C95BBD7C08B358183DD319AEEC2A008F092F`
 
-1. Tải và chạy file `HT-Vids-Studio-Setup-4.0.2-Windows-x64.exe`.
+1. Tải và chạy file `HT-Vids-Studio-Setup-4.0.3-Windows-x64.exe`.
 2. Chọn thư mục cài đặt và hoàn tất các bước trong trình cài đặt.
 3. Mở **HT Vids Studio** từ shortcut Desktop hoặc menu Start.
 4. Nhập key bản quyền do HT Studio cung cấp.
@@ -30,7 +30,7 @@ Windows SmartScreen có thể cảnh báo khi bản phát hành chưa được k
 - Kiểm tra gói Google AI của từng tài khoản hoặc kiểm tra hàng loạt.
 - Kiểm tra riêng hạn mức tạo video còn lại, không phụ thuộc chức năng kiểm tra gói.
 - Chạy các tác vụ kiểm tra bằng Chromium ẩn; đăng nhập và xác minh bảo mật vẫn sử dụng cửa sổ Chrome thông thường.
-- So sánh hạn mức của từng tài khoản với **thời lượng video đang yêu cầu**; tài khoản chỉ bị tạm tắt khi số giây còn lại không đủ.
+- So sánh hạn mức của từng tài khoản với **thời lượng video đang yêu cầu**; tài khoản không đủ được bỏ qua cho đúng task đó nhưng không bị tắt toàn cục.
 - Ưu tiên tài khoản có hạn mức khớp chính xác với thời lượng task và vẫn tiếp tục tạo khi Google hiển thị cảnh báo nhưng số dư còn đủ.
 - Nhập thời lượng video linh hoạt từ **5 đến 20 giây**; video 5–15 giây được tạo trực tiếp bằng một lượt, chỉ 16–20 giây mới cần Extend.
 - Hỗ trợ video dọc `9:16` và video ngang `16:9`; Canvas chỉ được đổi khi bắt đầu tạo video.
@@ -48,6 +48,7 @@ Windows SmartScreen có thể cảnh báo khi bản phát hành chưa được k
 - Có nút **Kiểm tra phiên bản** nhỏ gọn bên dưới thông tin phiên bản ở cuối sidebar; nếu không thao tác, ứng dụng vẫn tự kiểm tra khi khởi động, mỗi 5 phút, khi cửa sổ được focus và khi mạng kết nối lại.
 - Hỗ trợ đặt phiên bản tối thiểu bắt buộc; bản thấp hơn mức này bị khóa giao diện cho tới khi người dùng tải bản mới.
 - Nút **Donate** trên thanh tiêu đề và meme cà phê xuất hiện định kỳ trong sidebar mở nhanh mã QR ủng hộ HT Studio; việc ủng hộ hoàn toàn tự nguyện và không ảnh hưởng quyền lợi bản quyền.
+- Trung tâm **Phiếu hỗ trợ** gửi mô tả, tối đa 3 ảnh và nhật ký đã làm sạch lên Google Sheets/Drive; ứng dụng đồng bộ phản hồi và hiện popup khi admin cập nhật trạng thái.
 
 ## Quy trình sử dụng nhanh
 
@@ -69,8 +70,8 @@ Các nút thao tác trong box tài khoản sử dụng biểu tượng để gia
 - Chọn **Bật hàng loạt** hoặc **Tắt hàng loạt**; hệ thống tự bỏ qua tài khoản đang bận để không làm gián đoạn task.
 - Chọn **Kiểm tra gói hàng loạt** để cập nhật loại gói.
 - Chọn **Kiểm tra lượt hàng loạt** để cập nhật hạn mức tạo video.
-- Nếu hệ thống xác định tài khoản đã hết lượt hoặc không đủ số giây cho thời lượng đang chọn, tài khoản đó sẽ tự chuyển sang trạng thái tắt.
-- Tài khoản từng bị tự tắt vì ngưỡng quota sẽ được bật lại khi nhận task ngắn hơn mà số dư vẫn đủ; tài khoản do người dùng tắt thủ công không bị tự bật.
+- Kiểm tra lượt chỉ cập nhật bằng chứng hạn mức; hệ thống không dùng thời lượng đang chọn để tắt hàng loạt tài khoản.
+- Khi phân task, tài khoản được đối chiếu riêng theo thời lượng, độ phân giải và tỷ lệ của task đó.
 - Lỗi tạm thời do mạng, timeout hoặc giao diện Google thay đổi không được coi là bằng chứng tài khoản đã hết lượt.
 
 ## Yêu cầu hệ thống
@@ -87,6 +88,7 @@ Các nút thao tác trong box tài khoản sử dụng biểu tượng để gia
 - Trước khi nhận task, ứng dụng thử quyền ghi của đúng thư mục đầu ra; task không được chạy nếu Windows hoặc antivirus đang chặn thư mục.
 - Thư mục xuất mặc định là `Downloads\HT Vids Studio`, không phụ thuộc đường dẫn trên máy phát triển.
 - Nút **Xuất chẩn đoán** tạo tệp ZIP chứa tình trạng hệ thống và lỗi task. ZIP tự ẩn email và đường dẫn hồ sơ người dùng; không chứa mật khẩu, cookie, token, prompt, ảnh tham chiếu hoặc video.
+- Khi người dùng chủ động gửi phiếu hỗ trợ, ảnh được lưu trong Google Drive của admin và Sheet chỉ lưu liên kết; nhật ký chẩn đoán vẫn loại bỏ dữ liệu nhạy cảm như trên.
 - Profile và thông tin đăng nhập được mã hóa riêng trên từng máy. Không sao chép thư mục profile hoặc tệp credential giữa các máy.
 
 ## Dữ liệu và quyền riêng tư
@@ -124,6 +126,15 @@ Hướng dẫn chi tiết nằm trong [HUONG_DAN_SU_DUNG.md](HUONG_DAN_SU_DUNG.m
 > Người đang sử dụng 2.0.5 trở xuống cần tải 2.0.6 thủ công một lần. Từ 2.0.6 trở đi, ứng dụng mới có khả năng tự thông báo các phiên bản tiếp theo.
 
 > Các bản trước 3.0.1 chưa có bộ tải nền nên cần thực hiện luồng tải cũ một lần để chuyển tiếp. Từ 3.0.1 trở đi, toàn bộ quá trình tải và cài cập nhật diễn ra trong ứng dụng.
+
+## Phiên bản 4.0.3
+
+- Thêm trung tâm **Phiếu hỗ trợ**: người dùng gửi mô tả lỗi, tối đa 3 ảnh và nhật ký chẩn đoán đã làm sạch ngay trong ứng dụng.
+- Đồng bộ phiếu với tab `Support_Tickets` trong cùng Google Sheets quản lý bản quyền; ảnh và nhật ký được lưu riêng trên Google Drive của admin.
+- Tự kiểm tra phản hồi mỗi 2 phút và khi cửa sổ được focus; hiển thị popup khi admin cập nhật trạng thái hoặc trả lời.
+- Tài khoản trùng email không bị thêm lại nhưng mật khẩu, khóa 2FA và email khôi phục mới được cập nhật an toàn; phiên hết hạn có thể dùng thông tin đã lưu để đăng nhập lại.
+- Kiểm tra lượt không còn tắt hàng loạt tài khoản theo một ngưỡng thời lượng; mỗi task được phân riêng theo thời lượng, độ phân giải và tỷ lệ.
+- Dọn import và tham số IPC không dùng, chuyển kho mã hóa Windows sang API bất đồng bộ mới của Electron và giữ tương thích dữ liệu cũ.
 
 ## Phiên bản 4.0.2
 
