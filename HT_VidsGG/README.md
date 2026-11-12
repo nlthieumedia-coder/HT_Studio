@@ -6,15 +6,15 @@
 
 ## ⬇️ Tải và cài đặt
 
-Phiên bản hiện tại: **4.0.4**
+Phiên bản hiện tại: **4.0.5**
 
-### [BẤM VÀO ĐÂY ĐỂ TẢI BỘ CÀI HT VIDS STUDIO 4.0.4 CHO WINDOWS x64](https://media.githubusercontent.com/media/nlthieumedia-coder/HT_Studio/main/HT_VidsGG/dist/latest/HT-Vids-Studio-Setup-4.0.4-Windows-x64.exe)
+### [BẤM VÀO ĐÂY ĐỂ TẢI BỘ CÀI HT VIDS STUDIO 4.0.5 CHO WINDOWS x64](https://media.githubusercontent.com/media/nlthieumedia-coder/HT_Studio/main/HT_VidsGG/dist/latest/HT-Vids-Studio-Setup-4.0.5-Windows-x64.exe)
 
-Nếu trình duyệt chưa tải ngay, hãy chờ Git LFS đồng bộ trong ít phút rồi thử lại. Mã nguồn phân phối và lịch sử phiên bản nằm tại [tag v4.0.4](https://github.com/nlthieumedia-coder/HT_Studio/tree/v4.0.4/HT_VidsGG). Các bản trước được lưu riêng trong [`dist/old`](dist/old) để đối chiếu khi cần.
+Nếu trình duyệt chưa tải ngay, hãy chờ Git LFS đồng bộ trong ít phút rồi thử lại. Mã nguồn phân phối và lịch sử phiên bản nằm tại [tag v4.0.5](https://github.com/nlthieumedia-coder/HT_Studio/tree/v4.0.5/HT_VidsGG). Các bản trước được lưu riêng trong [`dist/old`](dist/old) để đối chiếu khi cần.
 
-Mã SHA-256: `5D7831F2C2145CF2977956309BEBBA36AF00EA5962B7B313EA58C7277C22E0F6`
+Mã SHA-256: `E87C08C055DCDC5833B70523F34D2FEDAD698A4B4368E4F55FCA606B883F6033`
 
-1. Tải và chạy file `HT-Vids-Studio-Setup-4.0.4-Windows-x64.exe`.
+1. Tải và chạy file `HT-Vids-Studio-Setup-4.0.5-Windows-x64.exe`.
 2. Chọn thư mục cài đặt và hoàn tất các bước trong trình cài đặt.
 3. Mở **HT Vids Studio** từ shortcut Desktop hoặc menu Start.
 4. Nhập key bản quyền do HT Studio cung cấp.
@@ -43,6 +43,7 @@ Windows SmartScreen có thể cảnh báo khi bản phát hành chưa được k
 - Khi chạy, ứng dụng giữ nguyên tab hiện tại và đổi nút **Tạo video** thành **Dừng**; nút Dừng hủy toàn bộ task đang chờ hoặc đang chạy.
 - Tự phân phối hàng đợi theo FIFO: task vào trước chạy trước; mỗi tài khoản chỉ xử lý một task tại một thời điểm.
 - Theo dõi tiến độ, xem lỗi, sửa và chạy lại task.
+- Tự nhận diện kết quả video theo giao diện Google Vids mới, xác minh video đã vào Canvas và dùng nguồn video đã tạo làm phương án dự phòng nếu bước xuất MP4 bị kẹt.
 - Tự tải video MP4; ưu tiên xóa watermark Gemini/Veo bằng AlphaJudge ML, reverse alpha và AI cleanup để hạn chế nhòe, đồng thời tự dùng chế độ tương thích khi cần.
 - Kho video, trình xem video và bảng thống kê theo ngày.
 - Kích hoạt bản quyền theo mã máy và kiểm tra trạng thái bản quyền từ xa.
@@ -127,6 +128,14 @@ Hướng dẫn chi tiết nằm trong [HUONG_DAN_SU_DUNG.md](HUONG_DAN_SU_DUNG.m
 > Người đang sử dụng 2.0.5 trở xuống cần tải 2.0.6 thủ công một lần. Từ 2.0.6 trở đi, ứng dụng mới có khả năng tự thông báo các phiên bản tiếp theo.
 
 > Các bản trước 3.0.1 chưa có bộ tải nền nên cần thực hiện luồng tải cũ một lần để chuyển tiếp. Từ 3.0.1 trở đi, toàn bộ quá trình tải và cài cập nhật diễn ra trong ứng dụng.
+
+## Phiên bản 4.0.5
+
+- Sửa lỗi video đã tạo xong nhưng task vẫn đứng ở bước **Đang tạo** do Google thay đổi nhãn truy cập của thẻ kết quả.
+- Xác minh video thực sự được chèn vào Canvas; tự thử lại tối đa 3 lần nếu thao tác Chèn chưa có hiệu lực.
+- Hỗ trợ cả menu tiếng Việt **Mở rộng video để lấp đầy cảnh** và menu tiếng Anh tương ứng.
+- Nếu Google đứng ở **Preparing download**, ứng dụng tự tải video nguồn đã tạo; kết quả vẫn được kiểm tra độ phân giải và thời lượng trước khi hoàn thành.
+- Đã kiểm chứng trực tiếp bằng task 15 giây, 1080×1920: task đi qua Canvas, tải MP4 và hoàn thành 100%.
 
 ## Phiên bản 4.0.4
 

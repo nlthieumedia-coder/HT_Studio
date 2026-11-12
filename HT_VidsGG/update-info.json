@@ -1,13 +1,13 @@
 {
-  "latestVersion": "4.0.4",
-  "minimumSupportedVersion": "4.0.4",
-  "downloadUrl": "https://media.githubusercontent.com/media/nlthieumedia-coder/HT_Studio/main/HT_VidsGG/dist/latest/HT-Vids-Studio-Setup-4.0.4-Windows-x64.exe",
+  "latestVersion": "4.0.5",
+  "minimumSupportedVersion": "4.0.5",
+  "downloadUrl": "https://media.githubusercontent.com/media/nlthieumedia-coder/HT_Studio/main/HT_VidsGG/dist/latest/HT-Vids-Studio-Setup-4.0.5-Windows-x64.exe",
   "releaseNotes": [
-    "Thêm nút Chạy lại task lỗi ngay trong từng chiến dịch ở tab Tạo video hàng loạt.",
-    "Có thể chọn một số dòng lỗi để chạy lại riêng, hoặc không chọn để chạy lại toàn bộ task lỗi và đã hủy của chiến dịch hiện tại.",
-    "Giữ nguyên prompt, ảnh tham chiếu, tỷ lệ, độ phân giải, thời lượng và thư mục xuất; không tạo lại video đã hoàn thành.",
-    "Dọn ảnh thử nghiệm, dữ liệu build và thành phần không còn được sử dụng."
+    "Sửa lỗi video đã tạo xong nhưng task vẫn đứng ở bước Đang tạo khi Google thay đổi nhãn của thẻ kết quả.",
+    "Xác minh video thực sự được chèn vào Canvas và tự thử lại tối đa 3 lần nếu thao tác Chèn chưa có hiệu lực.",
+    "Hỗ trợ menu tiếng Việt Mở rộng video để lấp đầy cảnh cùng giao diện tiếng Anh tương ứng.",
+    "Nếu Google đứng ở Preparing download, ứng dụng tự tải video nguồn và vẫn kiểm tra đầy đủ độ phân giải, thời lượng."
   ],
   "publishedAt": "2026-11-12",
-  "sha256": "5D7831F2C2145CF2977956309BEBBA36AF00EA5962B7B313EA58C7277C22E0F6"
+  "sha256": "E87C08C055DCDC5833B70523F34D2FEDAD698A4B4368E4F55FCA606B883F6033"
 }
