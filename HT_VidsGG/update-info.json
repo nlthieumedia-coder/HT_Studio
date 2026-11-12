@@ -1,15 +1,13 @@
 {
-  "latestVersion": "4.0.3",
-  "minimumSupportedVersion": "4.0.3",
-  "downloadUrl": "https://media.githubusercontent.com/media/nlthieumedia-coder/HT_Studio/main/HT_VidsGG/dist/latest/HT-Vids-Studio-Setup-4.0.3-Windows-x64.exe",
+  "latestVersion": "4.0.4",
+  "minimumSupportedVersion": "4.0.4",
+  "downloadUrl": "https://media.githubusercontent.com/media/nlthieumedia-coder/HT_Studio/main/HT_VidsGG/dist/latest/HT-Vids-Studio-Setup-4.0.4-Windows-x64.exe",
   "releaseNotes": [
-    "Thêm trung tâm Phiếu hỗ trợ với mô tả lỗi, tối đa 3 ảnh và nhật ký chẩn đoán đã làm sạch.",
-    "Đồng bộ trạng thái và phản hồi admin qua tab Support_Tickets trong Google Sheets, đồng thời lưu tệp đính kèm trên Google Drive.",
-    "Hiển thị popup khi admin cập nhật phiếu; tự kiểm tra mỗi 2 phút và khi người dùng quay lại cửa sổ.",
-    "Cập nhật an toàn mật khẩu và khóa 2FA khi nhập trùng tài khoản, đồng thời tái sử dụng thông tin đã lưu cho phiên hết hạn.",
-    "Phân task theo đúng thời lượng, độ phân giải và tỷ lệ mà không tắt hàng loạt tài khoản theo một ngưỡng thời gian.",
-    "Dọn code thừa và chuyển kho mã hóa Windows sang API Electron mới để loại cảnh báo deprecated."
+    "Thêm nút Chạy lại task lỗi ngay trong từng chiến dịch ở tab Tạo video hàng loạt.",
+    "Có thể chọn một số dòng lỗi để chạy lại riêng, hoặc không chọn để chạy lại toàn bộ task lỗi và đã hủy của chiến dịch hiện tại.",
+    "Giữ nguyên prompt, ảnh tham chiếu, tỷ lệ, độ phân giải, thời lượng và thư mục xuất; không tạo lại video đã hoàn thành.",
+    "Dọn ảnh thử nghiệm, dữ liệu build và thành phần không còn được sử dụng."
   ],
   "publishedAt": "2026-11-12",
-  "sha256": "C70466E662D09F993445E99F2CA7C95BBD7C08B358183DD319AEEC2A008F092F"
+  "sha256": "5D7831F2C2145CF2977956309BEBBA36AF00EA5962B7B313EA58C7277C22E0F6"
 }

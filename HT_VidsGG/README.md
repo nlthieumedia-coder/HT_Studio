@@ -6,15 +6,15 @@
 
 ## ⬇️ Tải và cài đặt
 
-Phiên bản hiện tại: **4.0.3**
+Phiên bản hiện tại: **4.0.4**
 
-### [BẤM VÀO ĐÂY ĐỂ TẢI BỘ CÀI HT VIDS STUDIO 4.0.3 CHO WINDOWS x64](https://media.githubusercontent.com/media/nlthieumedia-coder/HT_Studio/main/HT_VidsGG/dist/latest/HT-Vids-Studio-Setup-4.0.3-Windows-x64.exe)
+### [BẤM VÀO ĐÂY ĐỂ TẢI BỘ CÀI HT VIDS STUDIO 4.0.4 CHO WINDOWS x64](https://media.githubusercontent.com/media/nlthieumedia-coder/HT_Studio/main/HT_VidsGG/dist/latest/HT-Vids-Studio-Setup-4.0.4-Windows-x64.exe)
 
-Nếu trình duyệt chưa tải ngay, hãy chờ Git LFS đồng bộ trong ít phút rồi thử lại. Mã nguồn phân phối và lịch sử phiên bản nằm tại [tag v4.0.3](https://github.com/nlthieumedia-coder/HT_Studio/tree/v4.0.3/HT_VidsGG). Các bản trước được lưu riêng trong [`dist/old`](dist/old) để đối chiếu khi cần.
+Nếu trình duyệt chưa tải ngay, hãy chờ Git LFS đồng bộ trong ít phút rồi thử lại. Mã nguồn phân phối và lịch sử phiên bản nằm tại [tag v4.0.4](https://github.com/nlthieumedia-coder/HT_Studio/tree/v4.0.4/HT_VidsGG). Các bản trước được lưu riêng trong [`dist/old`](dist/old) để đối chiếu khi cần.
 
-Mã SHA-256: `C70466E662D09F993445E99F2CA7C95BBD7C08B358183DD319AEEC2A008F092F`
+Mã SHA-256: `5D7831F2C2145CF2977956309BEBBA36AF00EA5962B7B313EA58C7277C22E0F6`
 
-1. Tải và chạy file `HT-Vids-Studio-Setup-4.0.3-Windows-x64.exe`.
+1. Tải và chạy file `HT-Vids-Studio-Setup-4.0.4-Windows-x64.exe`.
 2. Chọn thư mục cài đặt và hoàn tất các bước trong trình cài đặt.
 3. Mở **HT Vids Studio** từ shortcut Desktop hoặc menu Start.
 4. Nhập key bản quyền do HT Studio cung cấp.
@@ -39,6 +39,7 @@ Windows SmartScreen có thể cảnh báo khi bản phát hành chưa được k
 - Quản lý nội dung theo **chiến dịch**; mỗi chiến dịch có thư mục độc lập để lưu cấu hình, ảnh và video đầu ra.
 - Dán prompt nhiều dòng vào đúng một ô mà không tự sinh thêm task.
 - Tạo task chờ, chạy ngay hoặc chạy hàng loạt trên các tài khoản đang khả dụng.
+- Chạy lại riêng các task lỗi hoặc đã hủy của chiến dịch hiện tại; có thể chọn một số dòng hoặc chạy lại toàn bộ mà không tạo lại video đã hoàn thành.
 - Khi chạy, ứng dụng giữ nguyên tab hiện tại và đổi nút **Tạo video** thành **Dừng**; nút Dừng hủy toàn bộ task đang chờ hoặc đang chạy.
 - Tự phân phối hàng đợi theo FIFO: task vào trước chạy trước; mỗi tài khoản chỉ xử lý một task tại một thời điểm.
 - Theo dõi tiến độ, xem lỗi, sửa và chạy lại task.
@@ -126,6 +127,13 @@ Hướng dẫn chi tiết nằm trong [HUONG_DAN_SU_DUNG.md](HUONG_DAN_SU_DUNG.m
 > Người đang sử dụng 2.0.5 trở xuống cần tải 2.0.6 thủ công một lần. Từ 2.0.6 trở đi, ứng dụng mới có khả năng tự thông báo các phiên bản tiếp theo.
 
 > Các bản trước 3.0.1 chưa có bộ tải nền nên cần thực hiện luồng tải cũ một lần để chuyển tiếp. Từ 3.0.1 trở đi, toàn bộ quá trình tải và cài cập nhật diễn ra trong ứng dụng.
+
+## Phiên bản 4.0.4
+
+- Thêm nút **Chạy lại task lỗi** ngay trong từng chiến dịch ở tab **Tạo video hàng loạt**.
+- Nếu chọn một số dòng lỗi, ứng dụng chỉ chạy lại các dòng đã chọn; nếu không chọn, toàn bộ task lỗi hoặc đã hủy của chiến dịch hiện tại được đưa xuống cuối hàng đợi.
+- Giữ nguyên prompt, ảnh tham chiếu, tỷ lệ, độ phân giải, thời lượng và thư mục xuất khi chạy lại; video đã hoàn thành không bị tạo lại.
+- Dọn ảnh thử nghiệm và dữ liệu build không còn được sử dụng, giảm thành phần thừa trong bộ cài.
 
 ## Phiên bản 4.0.3
 
