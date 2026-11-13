@@ -1,16 +1,37 @@
-# HT PageNew 1.0.3
+# HT PageNew
 
-HT PageNew là ứng dụng Windows dùng Chromium riêng cho từng hồ sơ để quản lý phiên xem Facebook Feed/Reels, Fanpage, lịch chạy và thông báo Telegram.
+**HT PageNew** là ứng dụng desktop dành cho Windows, dùng Chromium riêng cho từng hồ sơ để quản lý phiên xem Facebook Feed/Reels, Fanpage, lịch chạy và thông báo Telegram.
 
-Ứng dụng không lưu mật khẩu Facebook và không tự giải hoặc bỏ qua CAPTCHA/2FA. Người dùng đăng nhập, xác minh thủ công và chịu trách nhiệm sử dụng tài khoản đúng quyền hạn, chính sách của Facebook.
+> Đây là sản phẩm độc lập của HT Studio, không phải sản phẩm chính thức và không được Facebook/Meta tài trợ hoặc xác nhận.
 
-## 1. Cài đặt và cập nhật
+## ⬇️ Tải và cài đặt
 
-Trong bản phát hành trên GitHub, sử dụng bộ cài:
+Phiên bản hiện tại: **1.0.3**
 
-- `HT-PageNew-Setup-1.0.3-Windows-x64.exe`: bản cài đặt, phù hợp sử dụng lâu dài.
+### [BẤM VÀO ĐÂY ĐỂ TẢI BỘ CÀI HT PAGENEW 1.0.3 CHO WINDOWS x64](https://media.githubusercontent.com/media/nlthieumedia-coder/HT_Studio/main/HT_PageNew/release/HT-PageNew-Setup-1.0.3-Windows-x64.exe)
 
-### Nội dung mới trong phiên bản 1.0.3
+Mã SHA-256: `E8C887E08BDDE1F2C8CBD84F2E097C20BDABEE2B708D89683849B679B24278BB`
+
+1. Tải và chạy file `HT-PageNew-Setup-1.0.3-Windows-x64.exe`.
+2. Chọn thư mục cài đặt và hoàn tất các bước trong trình cài đặt.
+3. Mở **HT PageNew** từ shortcut Desktop hoặc menu Start.
+4. Sao chép mã máy và nhập key bản quyền do HT Studio cung cấp.
+5. Tạo hồ sơ, đăng nhập Facebook thủ công và cấu hình Page hoặc lịch chạy.
+
+Windows SmartScreen có thể cảnh báo khi bản phát hành chưa được ký Code Signing. Chỉ chọn **More info → Run anyway** khi file được tải từ repository chính thức của HT Studio.
+
+## Chức năng chính
+
+- Quản lý nhiều hồ sơ Facebook bằng các thư mục Chromium độc lập.
+- Cấu hình Trang cá nhân, Fanpage, proxy và thời lượng chạy riêng cho từng hồ sơ.
+- Chạy Feed/Reels ngay hoặc tự động theo nhiều khung giờ đã lên lịch.
+- Điều khiển và nhận thông báo qua Telegram.
+- Kích hoạt bản quyền theo mã máy, kiểm tra trạng thái key từ xa và hỗ trợ thu hồi khi cần.
+- Kiểm tra phiên bản trên GitHub, tải bộ cài và xác minh SHA-256 trước khi cập nhật.
+- Gửi phiếu hỗ trợ kèm ảnh chụp và nhận phản hồi của admin ngay trong ứng dụng.
+- Tích hợp trung tâm Hướng dẫn, Liên hệ admin, Donate và lời nhắc ủng hộ tự nguyện.
+
+## Phiên bản 1.0.3
 
 - Đồng bộ màu sắc, kích thước, sidebar, topbar, bảng và biểu mẫu với HT Vids Studio.
 - Chuyển toàn bộ popup Hướng dẫn, Hỗ trợ, Donate và Kiểm tra phiên bản sang giao diện HT Vids Studio.
@@ -19,6 +40,16 @@ Trong bản phát hành trên GitHub, sử dụng bộ cài:
 - Hoàn thiện quản lý key và phiếu hỗ trợ dùng chung Google Sheets với HT Vids Studio.
 - Giữ cơ chế kiểm tra phiên bản, tải bản cập nhật và xác minh SHA-256 trước khi cài đặt.
 - Sửa nhãn phiên bản để luôn hiển thị phiên bản HT PageNew thay vì phiên bản Electron khi chạy ứng dụng.
+
+## Yêu cầu hệ thống
+
+- Windows 10 hoặc Windows 11 x64.
+- Kết nối Internet ổn định.
+- Tối thiểu 1 GB dung lượng ổ đĩa trống cho ứng dụng và dữ liệu hồ sơ.
+- Tài khoản Facebook hợp lệ; người dùng tự quản lý quyền truy cập Trang cá nhân/Fanpage.
+- Proxy và Telegram là tùy chọn, chỉ cần thiết khi người dùng bật các chức năng tương ứng.
+
+Ứng dụng không lưu mật khẩu Facebook và không tự giải hoặc bỏ qua CAPTCHA/2FA. Người dùng đăng nhập, xác minh thủ công và chịu trách nhiệm sử dụng tài khoản đúng quyền hạn, chính sách của Facebook.
 
 Khi cập nhật bản mới:
 
@@ -29,7 +60,7 @@ Khi cập nhật bản mới:
 
 Dữ liệu hồ sơ Chromium nằm trong vùng dữ liệu người dùng của Windows, không nằm trong thư mục cài đặt. Không tự ý sao chép hoặc dùng chung một hồ sơ trên hai máy.
 
-## 2. Tạo hồ sơ và đăng nhập Facebook
+## Tạo hồ sơ và đăng nhập Facebook
 
 1. Mở **Hồ sơ tài khoản** → **Thêm Hồ Sơ Mới**.
 2. Nhập tên hồ sơ và proxy nếu sử dụng.
@@ -40,7 +71,7 @@ Dữ liệu hồ sơ Chromium nằm trong vùng dữ liệu người dùng của
 
 Mỗi hồ sơ có thư mục Chromium độc lập. Không mở cùng một hồ sơ bằng nhiều tiến trình Chromium cùng lúc.
 
-## 3. Cấu hình Fanpage
+## Cấu hình Fanpage
 
 1. Tại **Hồ sơ tài khoản**, bấm **Cấu hình Page**.
 2. Nhập đúng tên hiển thị và đường dẫn Facebook của Page.
@@ -50,7 +81,7 @@ Phần này chỉ lưu tên và link Page; lịch được cấu hình riêng tr
 
 Tài khoản Facebook phải có quyền truy cập Page và Page phải xuất hiện trong **See all profiles/Xem tất cả trang cá nhân**.
 
-## 4. Chạy ngay
+## Chạy ngay
 
 1. Chọn **Trang cá nhân** hoặc Fanpage trong dòng hồ sơ.
 2. Chọn thời lượng.
@@ -59,7 +90,7 @@ Tài khoản Facebook phải có quyền truy cập Page và Page phải xuất 
 
 Khi chạy Fanpage, ứng dụng chỉ bắt đầu cuộn sau khi xác nhận đã chuyển đúng danh tính Page. Nếu không xác nhận được, phiên sẽ dừng để tránh chạy nhầm tài khoản. Bấm **Dừng ngay** nếu muốn kết thúc sớm.
 
-## 5. Thêm, sửa và xóa lịch
+## Thêm, sửa và xóa lịch
 
 ### Thêm lịch
 
@@ -92,13 +123,13 @@ Chỉ khung giờ được chọn bị xóa; các lịch khác của cùng Trang
 - Không có phiên khác đang sử dụng cùng hồ sơ.
 - Ứng dụng không chạy bù lịch đã bỏ lỡ khi máy hoặc ứng dụng tắt.
 
-## 6. Nhật ký và theo dõi
+## Nhật ký và theo dõi
 
 Tab **Lịch đã lên** hiển thị lịch theo ngày/khung giờ. Tab **Nhật ký hoạt động** ghi hồ sơ, danh tính, thời điểm bắt đầu/kết thúc và nguyên nhân dừng.
 
 Nhật ký không ghi cookie, token hoặc mật khẩu Facebook/proxy. Khi báo lỗi, nên chụp lại dòng nhật ký mới nhất và thời điểm xảy ra lỗi.
 
-## 7. Telegram
+## Telegram
 
 ### Kích hoạt
 
@@ -123,7 +154,7 @@ Bot dùng nút chọn, không yêu cầu nhớ tên Page:
 
 Lịch thêm/sửa/xóa từ Telegram được lưu vào cùng dữ liệu của ứng dụng. Mở hoặc bấm **Làm mới** để kiểm tra giao diện sau khi thao tác từ bot.
 
-## 8. Xử lý sự cố
+## Xử lý sự cố
 
 ### Proxy yêu cầu đăng nhập hoặc mất kết nối
 
@@ -150,21 +181,21 @@ Lịch thêm/sửa/xóa từ Telegram được lưu vào cùng dữ liệu của
 - Kiểm tra proxy có tải được video hay không.
 - Phiên ngắn một phút có thể chưa tới giai đoạn Reels; dùng phiên thử ít nhất năm phút.
 
-## 9. Sao lưu và an toàn dữ liệu
+## Sao lưu và an toàn dữ liệu
 
 - Không chia sẻ thư mục hồ sơ Chromium, Bot Token, proxy hoặc thông tin đăng nhập.
 - Không xóa dữ liệu ứng dụng nếu chưa sao lưu và chưa xác định rõ mục đích.
 - Trước cập nhật lớn, ghi lại danh sách hồ sơ, Page và lịch quan trọng.
 - Luôn dừng phiên trước khi tắt máy hoặc cập nhật ứng dụng.
 
-## 10. Quy ước phiên bản
+## Quy ước phiên bản
 
 Phiên bản tăng lần lượt `1.0.1` đến `1.0.9`, sau đó chuyển sang `2.0.1` đến `2.0.9`, rồi `3.0.1` và tiếp tục tương tự.
 
-## 11. Kiểm tra trước khi sử dụng thực tế
+## Kiểm tra trước khi sử dụng thực tế
 
 Trước khi sử dụng thực tế, hãy kiểm tra đăng nhập, proxy, danh sách Page, lịch chạy, Telegram và nhật ký trên một tài khoản thử nghiệm. Kết quả build kỹ thuật không thay thế kiểm tra vận hành thực tế.
-# Dịch vụ nền tảng HT Studio
+## Dịch vụ nền tảng HT Studio
 
 HT PageNew tích hợp các chức năng dùng chung từ HT Vids Studio:
 
@@ -176,4 +207,16 @@ HT PageNew tích hợp các chức năng dùng chung từ HT Vids Studio:
 
 Dịch vụ bản quyền và Google Sheets do HT Studio quản lý; người dùng không cần triển khai máy chủ riêng.
 
-Khi phát hành phiên bản mới, build bằng `npm.cmd run dist`, tải bộ cài NSIS lên repository, tính SHA-256 và cập nhật `update-info.json`. Trường `downloadUrl` phải trỏ đúng tên `HT-PageNew-Setup-<version>-Windows-x64.exe`.
+## Bản quyền
+
+Mỗi key được liên kết với một mã máy. Ứng dụng xác minh trạng thái khi khởi động, khi cửa sổ được focus và định kỳ trong quá trình sử dụng. Hãy liên hệ HT Studio khi đổi máy hoặc cần cấp lại bản quyền.
+
+## Hỗ trợ
+
+- **Zalo:** 0357 642 647 — Nguyễn Lê Trung Hiếu
+- **Telegram:** [@NLTH_MEDIA](https://t.me/NLTH_MEDIA)
+- Có thể mở **Hỗ trợ** trong ứng dụng để gửi phiếu kèm tối đa 3 ảnh và nhận phản hồi từ admin.
+
+## Giấy phép
+
+Phần mềm thương mại, bảo lưu mọi quyền. Không được sao chép, bán lại, dịch ngược hoặc phân phối lại khi chưa có sự cho phép bằng văn bản của HT Studio.

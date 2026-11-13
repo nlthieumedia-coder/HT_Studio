@@ -6,17 +6,28 @@ Bộ ứng dụng desktop Windows chính thức của **HT Studio**.
 
 ## ⬇️ Tải ứng dụng
 
-### HT Vids Studio 3.0.8
+### HT Vids Studio 5.0.1
 
 Tự động hóa quy trình tạo video AI trên Google Vids, quản lý nhiều tài khoản, hàng đợi và tải video thành phẩm.
 
-**[BẤM VÀO ĐÂY ĐỂ TẢI HT VIDS STUDIO 3.0.8 CHO WINDOWS x64](https://github.com/nlthieumedia-coder/HT_Studio/releases/download/v3.0.8/HT-Vids-Studio-Setup-3.0.8-Windows-x64.exe)**
+**[BẤM VÀO ĐÂY ĐỂ TẢI HT VIDS STUDIO 5.0.1 CHO WINDOWS x64](https://media.githubusercontent.com/media/nlthieumedia-coder/HT_Studio/main/HT_VidsGG/dist/latest/HT-Vids-Studio-Setup-5.0.1-Windows-x64.exe)**
 
 - [Thông tin chi tiết](./HT_VidsGG/README.md)
 - [Hướng dẫn sử dụng](./HT_VidsGG/HUONG_DAN_SU_DUNG.md)
-- SHA-256: `47954BFDAF076364A00730EF48A6942924C193FD20F63A07C0A70B43A024C7B6`
-- Phiên bản 3.0.8 chuyển hàng đợi sang FIFO: task vào trước chạy trước, tài khoản rảnh tự nhận task cũ nhất tương thích.
+- SHA-256: `9A8B7D9B79754A7D14C9DCD02D62489780D327C53CC2EBDE16EF630C15174FF2`
+- Phiên bản 5.0.1 hoàn thiện quy trình tạo video AI, hàng đợi và quản lý nhiều tài khoản.
 - Ứng dụng tải và cài đặt cập nhật trong nền, đồng thời bắt buộc nâng cấp khi có bản mới.
+
+### HT PageNew 1.0.3
+
+Quản lý nhiều hồ sơ Facebook, Trang cá nhân/Fanpage, phiên xem Feed/Reels, lịch tự động và thông báo Telegram.
+
+**[BẤM VÀO ĐÂY ĐỂ TẢI HT PAGENEW 1.0.3 CHO WINDOWS x64](https://media.githubusercontent.com/media/nlthieumedia-coder/HT_Studio/main/HT_PageNew/release/HT-PageNew-Setup-1.0.3-Windows-x64.exe)**
+
+- [Thông tin chi tiết và hướng dẫn sử dụng](./HT_PageNew/README.md)
+- SHA-256: `E8C887E08BDDE1F2C8CBD84F2E097C20BDABEE2B708D89683849B679B24278BB`
+- Kích hoạt key theo mã máy, kiểm tra phiên bản và cập nhật tự động qua GitHub.
+- Tích hợp Hướng dẫn, Donate, liên hệ admin bằng QR Zalo/Telegram và phiếu hỗ trợ trong ứng dụng.
 
 ### HT Downloader 2.0.3
 
@@ -33,13 +44,15 @@ Tải và quét video đa nền tảng từ TikTok, YouTube, Facebook, Instagram
 - Windows 10 hoặc Windows 11, kiến trúc 64-bit.
 - Kết nối Internet ổn định.
 - Google Chrome đối với HT Vids Studio.
+- Tài khoản Facebook hợp lệ đối với HT PageNew.
 - Tài khoản và quyền truy cập dịch vụ tương ứng do người dùng tự quản lý.
 
 ## Cấu trúc repository
 
 | Thư mục | Nội dung |
 | --- | --- |
-| [`HT_VidsGG`](./HT_VidsGG/) | Tài liệu, thông tin cập nhật và bản portable mới nhất của HT Vids Studio. |
+| [`HT_VidsGG`](./HT_VidsGG/) | Tài liệu, thông tin cập nhật và bộ cài mới nhất của HT Vids Studio. |
+| [`HT_PageNew`](./HT_PageNew/) | Tài liệu, thông tin cập nhật và bộ cài mới nhất của HT PageNew. |
 | [`HT_Downloader`](./HT_Downloader/) | Tài liệu và bộ cài HT Downloader. |
 
 Các bản phát hành cũ, file khởi động dành cho môi trường phát triển, ảnh logo rời và dữ liệu tạm không được giữ trong repository công khai.
