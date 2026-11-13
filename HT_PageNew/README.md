@@ -18,6 +18,7 @@ Trong bản phát hành trên GitHub, sử dụng bộ cài:
 - Bổ sung popup liên hệ admin bằng mã QR Zalo và Telegram ngay tại màn hình kích hoạt.
 - Hoàn thiện quản lý key và phiếu hỗ trợ dùng chung Google Sheets với HT Vids Studio.
 - Giữ cơ chế kiểm tra phiên bản, tải bản cập nhật và xác minh SHA-256 trước khi cài đặt.
+- Sửa nhãn phiên bản để luôn hiển thị phiên bản HT PageNew thay vì phiên bản Electron khi chạy ứng dụng.
 
 Khi cập nhật bản mới:
 

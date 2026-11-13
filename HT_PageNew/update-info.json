@@ -3,11 +3,12 @@
   "minimumSupportedVersion": "1.0.3",
   "downloadUrl": "https://media.githubusercontent.com/media/nlthieumedia-coder/HT_Studio/main/HT_PageNew/release/HT-PageNew-Setup-1.0.3-Windows-x64.exe",
   "releaseNotes": [
+    "Sửa nhãn phiên bản để hiển thị đúng HT PageNew v1.0.3 thay vì phiên bản Electron.",
     "Đồng bộ giao diện chính và toàn bộ popup với HT Vids Studio.",
     "Cập nhật màn hình kiểm tra HWID, xác minh và kích hoạt bản quyền.",
     "Bổ sung liên hệ admin bằng QR Zalo và Telegram tại màn hình kích hoạt.",
     "Hoàn thiện hướng dẫn, donate, phiếu hỗ trợ và kiểm tra phiên bản."
   ],
   "publishedAt": "2026-11-13",
-  "sha256": "83FA38D713324A07D710AD0478929206BB0E42403D5B1AF6832830BAF51E948B"
+  "sha256": "E8C887E08BDDE1F2C8CBD84F2E097C20BDABEE2B708D89683849B679B24278BB"
 }
