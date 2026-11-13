@@ -1,13 +1,13 @@
 {
-  "latestVersion": "4.0.7",
-  "minimumSupportedVersion": "4.0.7",
-  "downloadUrl": "https://media.githubusercontent.com/media/nlthieumedia-coder/HT_Studio/main/HT_VidsGG/dist/latest/HT-Vids-Studio-Setup-4.0.7-Windows-x64.exe",
+  "latestVersion": "4.0.8",
+  "minimumSupportedVersion": "4.0.8",
+  "downloadUrl": "https://media.githubusercontent.com/media/nlthieumedia-coder/HT_Studio/main/HT_VidsGG/dist/latest/HT-Vids-Studio-Setup-4.0.8-Windows-x64.exe",
   "releaseNotes": [
-    "Phân phối công bằng: tài khoản chưa dùng hoặc ít được giao task được ưu tiên trước.",
-    "Khi có đủ task, tất cả tài khoản tương thích đều nhận task ngay trong vòng phân phối đầu tiên.",
-    "Tài khoản đã khớp cấu hình chỉ thử lại một lần; nếu vẫn lỗi, task tự chuyển sang tài khoản phù hợp khác.",
-    "Task chờ tài khoản thay thế đang bận thay vì kết thúc lỗi sớm."
+    "Sửa lỗi bấm Thêm ảnh cho từng prompt nhưng ứng dụng chuyển sang màn hình kích hoạt bản quyền.",
+    "Không kiểm tra lại bản quyền chỉ vì đóng hộp chọn ảnh hoặc thư mục; kiểm tra định kỳ vẫn hoạt động.",
+    "Giữ phiên đã xác minh khi máy chủ bản quyền mất kết nối tạm thời.",
+    "Ngăn nhiều lượt kiểm tra bản quyền chạy trùng và che giao diện chiến dịch."
   ],
   "publishedAt": "2026-11-13",
-  "sha256": "EA18380345DB18357F036FC2EB1463410488AE53FEB5A9BE22E03AD632EECEBF"
+  "sha256": "0DC81BA4F749CC0241C0133BBB45B5DA9777BC4E54B0483C2788BE7BAE031A8D"
 }
