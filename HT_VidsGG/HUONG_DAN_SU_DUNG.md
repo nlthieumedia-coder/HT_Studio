@@ -34,7 +34,8 @@ Chỉ mất chưa đầy 2 phút để thiết lập và nhận video hoàn ch�
   - Chuyển sang tab **Tạo video**.
   - Kéo thả hoặc chọn tối đa 3 ảnh nhân vật/sản phẩm (JPG/PNG). Hệ thống sẽ tự gán nhãn: `@Image1`, `@Image2`, `@Image3`.
 - **Bước 3: Soạn kịch bản & Cấu hình video**
-  - Với video **5–15 giây**, chỉ cần nhập kịch bản vào ô Prompt ban đầu. Khi chọn 15 giây, ứng dụng tự kéo thanh thời lượng của Google Vids lên 15s và tạo một video duy nhất.
+  - Chọn nhanh 5s, 10s, 15s, 20s hoặc nhập một số nguyên **tùy chỉnh từ 5 đến 20 giây**. Ứng dụng cấu hình đúng số giây này trên Google Vids.
+  - Với video **5–15 giây**, chỉ cần nhập kịch bản vào ô Prompt ban đầu. Ứng dụng tự kéo thanh thời lượng của Google Vids đến đúng số giây đã chọn và tạo một video duy nhất.
   - Với video **16–20 giây**, nhập thêm kịch bản nối cảnh vào ô Prompt Extend.
   - Chọn tỉ lệ khung hình: **9:16 (Dọc TikTok/Reels/Shorts)** hoặc **16:9 (Ngang YouTube)**.
   - Chọn độ phân giải (720p hoặc 1080p) và tích chọn **Tự động xóa watermark Veo**.
@@ -118,7 +119,7 @@ Tab **Tạo video hàng loạt** dùng để chuẩn bị nhiều video trên c�
 1. Bấm **Tạo mới**, nhập tên chiến dịch và chọn thư mục gốc. Ứng dụng tạo một thư mục riêng cho chiến dịch, bên trong có cấu hình chiến dịch, ảnh tham chiếu và video đầu ra.
 2. Bấm **Thêm video** để tạo dòng mới. Mỗi dòng tương ứng với một video và có prompt, ảnh tham chiếu, tỷ lệ khung hình, độ phân giải, thời lượng cùng trạng thái riêng. Có thể chọn tối đa 3 ảnh JPG, PNG hoặc WEBP, mỗi ảnh không quá 10 MB. Khi thêm ảnh, ô này hiển thị **Đang thêm ảnh…** rồi cập nhật thumbnail mà không tải lại toàn bộ bảng.
 3. Có thể dán một prompt dài gồm nhiều đoạn hoặc nhiều dòng trực tiếp vào ô prompt. Toàn bộ nội dung vẫn nằm trong dòng hiện tại và không tự sinh task mới.
-4. Dùng phần **Cài đặt mặc định** để áp dụng nhanh tỷ lệ, độ phân giải, thời lượng, tùy chọn xóa watermark và thư mục xuất cho các video được chọn. Sau đó vẫn có thể sửa riêng từng dòng.
+4. Dùng phần **Cài đặt mặc định** để áp dụng nhanh tỷ lệ, độ phân giải, thời lượng, tùy chọn xóa watermark và thư mục xuất cho các video được chọn. Mục thời lượng có lựa chọn **Tùy chỉnh** để nhập số nguyên từ 5 đến 20 giây; từng dòng cũng có thể đặt một thời lượng tùy chỉnh riêng.
 5. Bấm **Thêm vào hàng đợi** để lưu các video sẵn sàng vào hàng chờ, hoặc bấm **Tạo video** để chạy ngay.
 6. Khi bắt đầu chạy, ứng dụng không chuyển sang tab **Hàng đợi**. Nút tạo đổi thành nút **Dừng** màu đỏ để thể hiện trạng thái đang xử lý.
 7. Bấm **Dừng** nếu muốn hủy toàn bộ task đang chờ và đang chạy. Các tiến trình trình duyệt liên quan sẽ được đóng và chiến dịch được mở khóa để chỉnh sửa tiếp.

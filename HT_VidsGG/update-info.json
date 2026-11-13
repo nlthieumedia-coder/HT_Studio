@@ -1,13 +1,13 @@
 {
-  "latestVersion": "4.0.9",
-  "minimumSupportedVersion": "4.0.9",
-  "downloadUrl": "https://media.githubusercontent.com/media/nlthieumedia-coder/HT_Studio/main/HT_VidsGG/dist/latest/HT-Vids-Studio-Setup-4.0.9-Windows-x64.exe",
+  "latestVersion": "5.0.1",
+  "minimumSupportedVersion": "5.0.1",
+  "downloadUrl": "https://media.githubusercontent.com/media/nlthieumedia-coder/HT_Studio/main/HT_VidsGG/dist/latest/HT-Vids-Studio-Setup-5.0.1-Windows-x64.exe",
   "releaseNotes": [
-    "Sửa lỗi nút Thêm ảnh của từng prompt nhận hiệu ứng bấm nhưng không mở hộp chọn file.",
-    "Hàm khởi tạo bảng không còn dừng khi một nút tùy chọn đã bị loại khỏi giao diện.",
-    "Hộp chọn ảnh được gắn trực tiếp với cửa sổ HT Vids Studio, không mở ẩn phía sau ứng dụng.",
-    "Giới hạn tối đa 3 ảnh cho mỗi prompt và thêm kiểm thử hồi quy listener giao diện."
+    "Thêm ô nhập thời lượng tùy chỉnh từ 5 đến 20 giây tại tab Tạo video.",
+    "Tạo video hàng loạt hỗ trợ thời lượng tùy chỉnh cho cấu hình mặc định và từng task.",
+    "Giữ chính xác thời lượng khi lưu chiến dịch, phân phối tài khoản và cấu hình Google Vids.",
+    "Video 5–15 giây tạo trực tiếp; video 16–20 giây tự động dùng Create và Extend."
   ],
   "publishedAt": "2026-11-13",
-  "sha256": "94185FC91F3E1F5FED180D50FF67A995BD7E7DF569482C97E6E2EC6C2B8D309B"
+  "sha256": "9A8B7D9B79754A7D14C9DCD02D62489780D327C53CC2EBDE16EF630C15174FF2"
 }

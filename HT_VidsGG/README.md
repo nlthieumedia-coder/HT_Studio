@@ -6,15 +6,15 @@
 
 ## ⬇️ Tải và cài đặt
 
-Phiên bản hiện tại: **4.0.9**
+Phiên bản hiện tại: **5.0.1**
 
-### [BẤM VÀO ĐÂY ĐỂ TẢI BỘ CÀI HT VIDS STUDIO 4.0.9 CHO WINDOWS x64](https://media.githubusercontent.com/media/nlthieumedia-coder/HT_Studio/main/HT_VidsGG/dist/latest/HT-Vids-Studio-Setup-4.0.9-Windows-x64.exe)
+### [BẤM VÀO ĐÂY ĐỂ TẢI BỘ CÀI HT VIDS STUDIO 5.0.1 CHO WINDOWS x64](https://media.githubusercontent.com/media/nlthieumedia-coder/HT_Studio/main/HT_VidsGG/dist/latest/HT-Vids-Studio-Setup-5.0.1-Windows-x64.exe)
 
-Nếu trình duyệt chưa tải ngay, hãy chờ Git LFS đồng bộ trong ít phút rồi thử lại. Mã nguồn phân phối và lịch sử phiên bản nằm tại [tag v4.0.9](https://github.com/nlthieumedia-coder/HT_Studio/tree/v4.0.9/HT_VidsGG). Các bản trước được lưu riêng trong [`dist/old`](dist/old) để đối chiếu khi cần.
+Nếu trình duyệt chưa tải ngay, hãy chờ Git LFS đồng bộ trong ít phút rồi thử lại. Mã nguồn phân phối và lịch sử phiên bản nằm tại [tag v5.0.1](https://github.com/nlthieumedia-coder/HT_Studio/tree/v5.0.1/HT_VidsGG). Các bản trước được lưu riêng trong [`dist/old`](dist/old) để đối chiếu khi cần.
 
-Mã SHA-256: `94185FC91F3E1F5FED180D50FF67A995BD7E7DF569482C97E6E2EC6C2B8D309B`
+Mã SHA-256: `9A8B7D9B79754A7D14C9DCD02D62489780D327C53CC2EBDE16EF630C15174FF2`
 
-1. Tải và chạy file `HT-Vids-Studio-Setup-4.0.9-Windows-x64.exe`.
+1. Tải và chạy file `HT-Vids-Studio-Setup-5.0.1-Windows-x64.exe`.
 2. Chọn thư mục cài đặt và hoàn tất các bước trong trình cài đặt.
 3. Mở **HT Vids Studio** từ shortcut Desktop hoặc menu Start.
 4. Nhập key bản quyền do HT Studio cung cấp.
@@ -128,6 +128,13 @@ Hướng dẫn chi tiết nằm trong [HUONG_DAN_SU_DUNG.md](HUONG_DAN_SU_DUNG.m
 > Người đang sử dụng 2.0.5 trở xuống cần tải 2.0.6 thủ công một lần. Từ 2.0.6 trở đi, ứng dụng mới có khả năng tự thông báo các phiên bản tiếp theo.
 
 > Các bản trước 3.0.1 chưa có bộ tải nền nên cần thực hiện luồng tải cũ một lần để chuyển tiếp. Từ 3.0.1 trở đi, toàn bộ quá trình tải và cài cập nhật diễn ra trong ứng dụng.
+
+## Phiên bản 5.0.1
+
+- Thêm ô nhập thời lượng tùy chỉnh từ **5 đến 20 giây** tại tab **Tạo video**, bên cạnh các mốc chọn nhanh 5s, 10s, 15s và 20s.
+- Tab **Tạo video hàng loạt** hỗ trợ thời lượng tùy chỉnh cho cả cấu hình mặc định lẫn từng dòng task.
+- Thời lượng tùy chỉnh được giữ chính xác khi lưu chiến dịch, phân phối tài khoản và cấu hình thanh thời lượng trên Google Vids.
+- Video 5–15 giây được tạo trực tiếp; video 16–20 giây tự động chia thành Create và Extend để đạt đúng tổng thời lượng yêu cầu.
 
 ## Phiên bản 4.0.9
 
