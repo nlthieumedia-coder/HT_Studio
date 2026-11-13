@@ -30,7 +30,7 @@ Keep the certificate and password outside the repository. `REQUIRE_SIGNING=1` ma
 - Chrome stable only, then Edge stable only.
 - Defender enabled; do not add exclusions.
 - Windows user name and output path containing Vietnamese characters.
-- Standard, Pro and Ultra Google accounts.
+- Standard, Pro, Ultra and Domain Google accounts.
 - 5, 10, 15 and 20 seconds; 720p and 1080p; portrait and landscape.
 - No image and 1–3 reference images.
 - Watermark removal enabled and disabled.

@@ -6,15 +6,15 @@
 
 ## ⬇️ Tải và cài đặt
 
-Phiên bản hiện tại: **4.0.5**
+Phiên bản hiện tại: **4.0.6**
 
-### [BẤM VÀO ĐÂY ĐỂ TẢI BỘ CÀI HT VIDS STUDIO 4.0.5 CHO WINDOWS x64](https://media.githubusercontent.com/media/nlthieumedia-coder/HT_Studio/main/HT_VidsGG/dist/latest/HT-Vids-Studio-Setup-4.0.5-Windows-x64.exe)
+### [BẤM VÀO ĐÂY ĐỂ TẢI BỘ CÀI HT VIDS STUDIO 4.0.6 CHO WINDOWS x64](https://media.githubusercontent.com/media/nlthieumedia-coder/HT_Studio/main/HT_VidsGG/dist/latest/HT-Vids-Studio-Setup-4.0.6-Windows-x64.exe)
 
-Nếu trình duyệt chưa tải ngay, hãy chờ Git LFS đồng bộ trong ít phút rồi thử lại. Mã nguồn phân phối và lịch sử phiên bản nằm tại [tag v4.0.5](https://github.com/nlthieumedia-coder/HT_Studio/tree/v4.0.5/HT_VidsGG). Các bản trước được lưu riêng trong [`dist/old`](dist/old) để đối chiếu khi cần.
+Nếu trình duyệt chưa tải ngay, hãy chờ Git LFS đồng bộ trong ít phút rồi thử lại. Mã nguồn phân phối và lịch sử phiên bản nằm tại [tag v4.0.6](https://github.com/nlthieumedia-coder/HT_Studio/tree/v4.0.6/HT_VidsGG). Các bản trước được lưu riêng trong [`dist/old`](dist/old) để đối chiếu khi cần.
 
-Mã SHA-256: `E87C08C055DCDC5833B70523F34D2FEDAD698A4B4368E4F55FCA606B883F6033`
+Mã SHA-256: `B9C1859D6534ABC50C154CFC249AF62E9496CB86C22BC9284675362E4EF6E423`
 
-1. Tải và chạy file `HT-Vids-Studio-Setup-4.0.5-Windows-x64.exe`.
+1. Tải và chạy file `HT-Vids-Studio-Setup-4.0.6-Windows-x64.exe`.
 2. Chọn thư mục cài đặt và hoàn tất các bước trong trình cài đặt.
 3. Mở **HT Vids Studio** từ shortcut Desktop hoặc menu Start.
 4. Nhập key bản quyền do HT Studio cung cấp.
@@ -56,7 +56,7 @@ Windows SmartScreen có thể cảnh báo khi bản phát hành chưa được k
 
 1. Vào tab **Tài khoản** và thêm một hoặc nhiều tài khoản Google.
 2. Mở Chrome để đăng nhập nếu tài khoản chưa có phiên đăng nhập hợp lệ.
-3. Dùng biểu tượng **Kiểm tra gói** để đọc loại tài khoản Standard, Pro hoặc Ultra.
+3. Dùng biểu tượng **Kiểm tra gói** để đọc loại tài khoản Standard, Pro, Ultra hoặc Domain.
 4. Dùng biểu tượng **Kiểm tra lượt** để đọc khả năng và số giây tạo video còn lại.
 5. Vào **Tạo video** để tạo một video hoặc **Tạo video hàng loạt** để làm việc theo chiến dịch và danh sách nhiều dòng.
 6. Nhập prompt, thời lượng, tỷ lệ khung hình, độ phân giải và ảnh tham chiếu nếu cần.
@@ -128,6 +128,13 @@ Hướng dẫn chi tiết nằm trong [HUONG_DAN_SU_DUNG.md](HUONG_DAN_SU_DUNG.m
 > Người đang sử dụng 2.0.5 trở xuống cần tải 2.0.6 thủ công một lần. Từ 2.0.6 trở đi, ứng dụng mới có khả năng tự thông báo các phiên bản tiếp theo.
 
 > Các bản trước 3.0.1 chưa có bộ tải nền nên cần thực hiện luồng tải cũ một lần để chuyển tiếp. Từ 3.0.1 trở đi, toàn bộ quá trình tải và cài cập nhật diễn ra trong ứng dụng.
+
+## Phiên bản 4.0.6
+
+- Hàng đợi tự dùng toàn bộ tài khoản phù hợp và tiếp tục chạy các task còn lại mà không cần bấm chạy thủ công.
+- Khi Google từ chối nội dung hoặc người dùng đóng trình duyệt, task tự gỡ khóa khỏi tài khoản cũ và chuyển sang tài khoản chưa thử tiếp theo.
+- Nhận diện email ngoài `@gmail.com` và `@googlemail.com` là tài khoản **Domain**, hiển thị thống kê riêng và cho phép nhận task nếu Google Vids hỗ trợ.
+- Dọn luồng thêm nhanh tài khoản giả lập và điều kiện kiểm tra tài khoản cứng không còn sử dụng.
 
 ## Phiên bản 4.0.5
 

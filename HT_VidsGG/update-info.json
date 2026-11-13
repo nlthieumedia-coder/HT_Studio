@@ -1,13 +1,13 @@
 {
-  "latestVersion": "4.0.5",
-  "minimumSupportedVersion": "4.0.5",
-  "downloadUrl": "https://media.githubusercontent.com/media/nlthieumedia-coder/HT_Studio/main/HT_VidsGG/dist/latest/HT-Vids-Studio-Setup-4.0.5-Windows-x64.exe",
+  "latestVersion": "4.0.6",
+  "minimumSupportedVersion": "4.0.6",
+  "downloadUrl": "https://media.githubusercontent.com/media/nlthieumedia-coder/HT_Studio/main/HT_VidsGG/dist/latest/HT-Vids-Studio-Setup-4.0.6-Windows-x64.exe",
   "releaseNotes": [
-    "Sửa lỗi video đã tạo xong nhưng task vẫn đứng ở bước Đang tạo khi Google thay đổi nhãn của thẻ kết quả.",
-    "Xác minh video thực sự được chèn vào Canvas và tự thử lại tối đa 3 lần nếu thao tác Chèn chưa có hiệu lực.",
-    "Hỗ trợ menu tiếng Việt Mở rộng video để lấp đầy cảnh cùng giao diện tiếng Anh tương ứng.",
-    "Nếu Google đứng ở Preparing download, ứng dụng tự tải video nguồn và vẫn kiểm tra đầy đủ độ phân giải, thời lượng."
+    "Hàng đợi tự dùng toàn bộ tài khoản phù hợp và tiếp tục chạy các task còn lại mà không cần bấm chạy thủ công.",
+    "Khi Google từ chối nội dung hoặc người dùng đóng trình duyệt, task tự chuyển sang tài khoản chưa thử tiếp theo.",
+    "Nhận diện email ngoài Gmail là tài khoản Domain, hiển thị thống kê riêng và cho phép nhận task nếu Google Vids hỗ trợ.",
+    "Dọn luồng thêm nhanh tài khoản giả lập và điều kiện kiểm tra tài khoản cứng không còn sử dụng."
   ],
-  "publishedAt": "2026-11-12",
-  "sha256": "E87C08C055DCDC5833B70523F34D2FEDAD698A4B4368E4F55FCA606B883F6033"
+  "publishedAt": "2026-11-13",
+  "sha256": "B9C1859D6534ABC50C154CFC249AF62E9496CB86C22BC9284675362E4EF6E423"
 }
