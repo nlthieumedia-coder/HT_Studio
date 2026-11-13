@@ -1,13 +1,13 @@
 {
-  "latestVersion": "4.0.8",
-  "minimumSupportedVersion": "4.0.8",
-  "downloadUrl": "https://media.githubusercontent.com/media/nlthieumedia-coder/HT_Studio/main/HT_VidsGG/dist/latest/HT-Vids-Studio-Setup-4.0.8-Windows-x64.exe",
+  "latestVersion": "4.0.9",
+  "minimumSupportedVersion": "4.0.9",
+  "downloadUrl": "https://media.githubusercontent.com/media/nlthieumedia-coder/HT_Studio/main/HT_VidsGG/dist/latest/HT-Vids-Studio-Setup-4.0.9-Windows-x64.exe",
   "releaseNotes": [
-    "Sửa lỗi bấm Thêm ảnh cho từng prompt nhưng ứng dụng chuyển sang màn hình kích hoạt bản quyền.",
-    "Không kiểm tra lại bản quyền chỉ vì đóng hộp chọn ảnh hoặc thư mục; kiểm tra định kỳ vẫn hoạt động.",
-    "Giữ phiên đã xác minh khi máy chủ bản quyền mất kết nối tạm thời.",
-    "Ngăn nhiều lượt kiểm tra bản quyền chạy trùng và che giao diện chiến dịch."
+    "Sửa lỗi nút Thêm ảnh của từng prompt nhận hiệu ứng bấm nhưng không mở hộp chọn file.",
+    "Hàm khởi tạo bảng không còn dừng khi một nút tùy chọn đã bị loại khỏi giao diện.",
+    "Hộp chọn ảnh được gắn trực tiếp với cửa sổ HT Vids Studio, không mở ẩn phía sau ứng dụng.",
+    "Giới hạn tối đa 3 ảnh cho mỗi prompt và thêm kiểm thử hồi quy listener giao diện."
   ],
   "publishedAt": "2026-11-13",
-  "sha256": "0DC81BA4F749CC0241C0133BBB45B5DA9777BC4E54B0483C2788BE7BAE031A8D"
+  "sha256": "94185FC91F3E1F5FED180D50FF67A995BD7E7DF569482C97E6E2EC6C2B8D309B"
 }
