@@ -6,15 +6,15 @@
 
 ## ⬇️ Tải và cài đặt
 
-Phiên bản hiện tại: **4.0.6**
+Phiên bản hiện tại: **4.0.7**
 
-### [BẤM VÀO ĐÂY ĐỂ TẢI BỘ CÀI HT VIDS STUDIO 4.0.6 CHO WINDOWS x64](https://media.githubusercontent.com/media/nlthieumedia-coder/HT_Studio/main/HT_VidsGG/dist/latest/HT-Vids-Studio-Setup-4.0.6-Windows-x64.exe)
+### [BẤM VÀO ĐÂY ĐỂ TẢI BỘ CÀI HT VIDS STUDIO 4.0.7 CHO WINDOWS x64](https://media.githubusercontent.com/media/nlthieumedia-coder/HT_Studio/main/HT_VidsGG/dist/latest/HT-Vids-Studio-Setup-4.0.7-Windows-x64.exe)
 
-Nếu trình duyệt chưa tải ngay, hãy chờ Git LFS đồng bộ trong ít phút rồi thử lại. Mã nguồn phân phối và lịch sử phiên bản nằm tại [tag v4.0.6](https://github.com/nlthieumedia-coder/HT_Studio/tree/v4.0.6/HT_VidsGG). Các bản trước được lưu riêng trong [`dist/old`](dist/old) để đối chiếu khi cần.
+Nếu trình duyệt chưa tải ngay, hãy chờ Git LFS đồng bộ trong ít phút rồi thử lại. Mã nguồn phân phối và lịch sử phiên bản nằm tại [tag v4.0.7](https://github.com/nlthieumedia-coder/HT_Studio/tree/v4.0.7/HT_VidsGG). Các bản trước được lưu riêng trong [`dist/old`](dist/old) để đối chiếu khi cần.
 
-Mã SHA-256: `B9C1859D6534ABC50C154CFC249AF62E9496CB86C22BC9284675362E4EF6E423`
+Mã SHA-256: `EA18380345DB18357F036FC2EB1463410488AE53FEB5A9BE22E03AD632EECEBF`
 
-1. Tải và chạy file `HT-Vids-Studio-Setup-4.0.6-Windows-x64.exe`.
+1. Tải và chạy file `HT-Vids-Studio-Setup-4.0.7-Windows-x64.exe`.
 2. Chọn thư mục cài đặt và hoàn tất các bước trong trình cài đặt.
 3. Mở **HT Vids Studio** từ shortcut Desktop hoặc menu Start.
 4. Nhập key bản quyền do HT Studio cung cấp.
@@ -128,6 +128,13 @@ Hướng dẫn chi tiết nằm trong [HUONG_DAN_SU_DUNG.md](HUONG_DAN_SU_DUNG.m
 > Người đang sử dụng 2.0.5 trở xuống cần tải 2.0.6 thủ công một lần. Từ 2.0.6 trở đi, ứng dụng mới có khả năng tự thông báo các phiên bản tiếp theo.
 
 > Các bản trước 3.0.1 chưa có bộ tải nền nên cần thực hiện luồng tải cũ một lần để chuyển tiếp. Từ 3.0.1 trở đi, toàn bộ quá trình tải và cài cập nhật diễn ra trong ứng dụng.
+
+## Phiên bản 4.0.7
+
+- Phân phối công bằng theo mức sử dụng: tài khoản chưa dùng hoặc ít được giao task được ưu tiên trước.
+- Với số task bằng hoặc lớn hơn số tài khoản tương thích, tất cả tài khoản đều nhận task ngay trong vòng phân phối đầu tiên.
+- Tài khoản đã khớp cấu hình chỉ tự thử lại một lần khi gặp lỗi tạm thời; nếu vẫn thất bại, task tự gỡ khóa và chuyển sang tài khoản phù hợp khác.
+- Tài khoản khác đang bận vẫn được xem là phương án thay thế; task chờ tài khoản đó rảnh thay vì kết thúc lỗi sớm.
 
 ## Phiên bản 4.0.6
 

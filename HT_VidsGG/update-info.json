@@ -1,13 +1,13 @@
 {
-  "latestVersion": "4.0.6",
-  "minimumSupportedVersion": "4.0.6",
-  "downloadUrl": "https://media.githubusercontent.com/media/nlthieumedia-coder/HT_Studio/main/HT_VidsGG/dist/latest/HT-Vids-Studio-Setup-4.0.6-Windows-x64.exe",
+  "latestVersion": "4.0.7",
+  "minimumSupportedVersion": "4.0.7",
+  "downloadUrl": "https://media.githubusercontent.com/media/nlthieumedia-coder/HT_Studio/main/HT_VidsGG/dist/latest/HT-Vids-Studio-Setup-4.0.7-Windows-x64.exe",
   "releaseNotes": [
-    "Hàng đợi tự dùng toàn bộ tài khoản phù hợp và tiếp tục chạy các task còn lại mà không cần bấm chạy thủ công.",
-    "Khi Google từ chối nội dung hoặc người dùng đóng trình duyệt, task tự chuyển sang tài khoản chưa thử tiếp theo.",
-    "Nhận diện email ngoài Gmail là tài khoản Domain, hiển thị thống kê riêng và cho phép nhận task nếu Google Vids hỗ trợ.",
-    "Dọn luồng thêm nhanh tài khoản giả lập và điều kiện kiểm tra tài khoản cứng không còn sử dụng."
+    "Phân phối công bằng: tài khoản chưa dùng hoặc ít được giao task được ưu tiên trước.",
+    "Khi có đủ task, tất cả tài khoản tương thích đều nhận task ngay trong vòng phân phối đầu tiên.",
+    "Tài khoản đã khớp cấu hình chỉ thử lại một lần; nếu vẫn lỗi, task tự chuyển sang tài khoản phù hợp khác.",
+    "Task chờ tài khoản thay thế đang bận thay vì kết thúc lỗi sớm."
   ],
   "publishedAt": "2026-11-13",
-  "sha256": "B9C1859D6534ABC50C154CFC249AF62E9496CB86C22BC9284675362E4EF6E423"
+  "sha256": "EA18380345DB18357F036FC2EB1463410488AE53FEB5A9BE22E03AD632EECEBF"
 }
