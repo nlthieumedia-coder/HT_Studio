@@ -124,6 +124,7 @@ Tab **Tạo video hàng loạt** dùng để chuẩn bị nhiều video trên c�
 6. Khi bắt đầu chạy, ứng dụng không chuyển sang tab **Hàng đợi**. Nút tạo đổi thành nút **Dừng** màu đỏ để thể hiện trạng thái đang xử lý.
 7. Bấm **Dừng** nếu muốn hủy toàn bộ task đang chờ và đang chạy. Các tiến trình trình duyệt liên quan sẽ được đóng và chiến dịch được mở khóa để chỉnh sửa tiếp.
 8. Khi chiến dịch có dòng **Lỗi** hoặc **Đã hủy**, bấm **Chạy lại task lỗi**. Nếu đang chọn các dòng lỗi, ứng dụng chỉ chạy lại những dòng đó; nếu không chọn, toàn bộ task lỗi của chiến dịch hiện tại được đưa xuống cuối hàng đợi. Các video đã hoàn thành không bị tạo lại.
+9. Cụm nút cuối mỗi dòng cho phép điều khiển riêng: **Chạy** đưa một task vào hàng đợi hoặc chạy lại task lỗi; **Dừng** kết thúc task đang chạy nhưng giữ lại để chạy lại; **Hủy** gỡ task khỏi hàng đợi và mở khóa dòng để chỉnh sửa. Các thao tác này không ảnh hưởng những task khác.
 
 Trong lúc xử lý, cột **Trạng thái** của mỗi dòng cập nhật trực tiếp từ hàng đợi, gồm bản nháp, đang chờ, đang tạo theo phần trăm, hoàn thành hoặc lỗi. Thanh bước phía trên hiển thị tiến độ trung bình của chiến dịch; bước **3. Kiểm tra & tạo** sáng khi đang chạy và chuyển dấu hoàn thành khi tất cả video đã xong.
 
@@ -137,6 +138,7 @@ Mỗi chiến dịch nên dùng một tên dễ nhận biết. Không tự ý di
 
 - **Cơ chế tự phân tài khoản rảnh:** Khi bạn xếp hàng chục video vào tab **Hàng đợi**, hệ thống sẽ tự động tìm kiếm các tài khoản Google đang rảnh để chạy tác vụ.
 - **Thứ tự FIFO:** Task vào hàng đợi trước được xét chạy trước. Khi một tài khoản hoàn thành và rảnh, hệ thống tự lấy task cũ nhất mà tài khoản đó có thể xử lý; task bấm **Chạy lại** được đưa xuống cuối hàng.
+- **Tự duy trì liên tục:** Hệ thống kiểm tra lại hàng đợi mỗi 15 giây trong khi còn task chờ, nhờ đó tự nhận tài khoản vừa rảnh ngay cả khi một tín hiệu cập nhật bị bỏ lỡ.
 - **Không xung đột:** Mỗi tài khoản chạy trong môi trường trình duyệt tách biệt, đảm bảo tiến trình render độc lập.
 - **Các thao tác quản lý:**
   - **Bắt đầu:** Khởi động task đang ở trạng thái chờ (waiting).

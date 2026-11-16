@@ -1,13 +1,13 @@
 {
-  "latestVersion": "5.0.1",
-  "minimumSupportedVersion": "5.0.1",
-  "downloadUrl": "https://media.githubusercontent.com/media/nlthieumedia-coder/HT_Studio/main/HT_VidsGG/dist/latest/HT-Vids-Studio-Setup-5.0.1-Windows-x64.exe",
+  "latestVersion": "5.0.2",
+  "minimumSupportedVersion": "5.0.2",
+  "downloadUrl": "https://media.githubusercontent.com/media/nlthieumedia-coder/HT_Studio/main/HT_VidsGG/dist/latest/HT-Vids-Studio-Setup-5.0.2-Windows-x64.exe",
   "releaseNotes": [
-    "Thêm ô nhập thời lượng tùy chỉnh từ 5 đến 20 giây tại tab Tạo video.",
-    "Tạo video hàng loạt hỗ trợ thời lượng tùy chỉnh cho cấu hình mặc định và từng task.",
-    "Giữ chính xác thời lượng khi lưu chiến dịch, phân phối tài khoản và cấu hình Google Vids.",
-    "Video 5–15 giây tạo trực tiếp; video 16–20 giây tự động dùng Create và Extend."
+    "Đưa toàn bộ chiến dịch vào hàng đợi một lần và tự tiếp tục khi tài khoản rảnh.",
+    "Thêm nút Chạy, Dừng và Hủy riêng cho từng task trong bảng chiến dịch.",
+    "Watchdog hàng đợi 15 giây khôi phục tự động nếu tín hiệu cập nhật bị bỏ lỡ.",
+    "Sửa lỗi hai thẻ Donate hiển thị đồng thời trong sidebar."
   ],
-  "publishedAt": "2026-11-13",
-  "sha256": "9A8B7D9B79754A7D14C9DCD02D62489780D327C53CC2EBDE16EF630C15174FF2"
+  "publishedAt": "2026-11-16",
+  "sha256": "005AB2DC5C10CA8FFBF8125B6F8135D5D769A0DEE123D5FC7D21D3BC4F2EF36B"
 }

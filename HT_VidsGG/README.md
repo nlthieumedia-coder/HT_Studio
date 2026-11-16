@@ -6,15 +6,15 @@
 
 ## ⬇️ Tải và cài đặt
 
-Phiên bản hiện tại: **5.0.1**
+Phiên bản hiện tại: **5.0.2**
 
-### [BẤM VÀO ĐÂY ĐỂ TẢI BỘ CÀI HT VIDS STUDIO 5.0.1 CHO WINDOWS x64](https://media.githubusercontent.com/media/nlthieumedia-coder/HT_Studio/main/HT_VidsGG/dist/latest/HT-Vids-Studio-Setup-5.0.1-Windows-x64.exe)
+### [BẤM VÀO ĐÂY ĐỂ TẢI BỘ CÀI HT VIDS STUDIO 5.0.2 CHO WINDOWS x64](https://media.githubusercontent.com/media/nlthieumedia-coder/HT_Studio/main/HT_VidsGG/dist/latest/HT-Vids-Studio-Setup-5.0.2-Windows-x64.exe)
 
-Nếu trình duyệt chưa tải ngay, hãy chờ Git LFS đồng bộ trong ít phút rồi thử lại. Mã nguồn phân phối và lịch sử phiên bản nằm tại [tag v5.0.1](https://github.com/nlthieumedia-coder/HT_Studio/tree/v5.0.1/HT_VidsGG). Các bản trước được lưu riêng trong [`dist/old`](dist/old) để đối chiếu khi cần.
+Nếu trình duyệt chưa tải ngay, hãy chờ Git LFS đồng bộ trong ít phút rồi thử lại. Mã nguồn phân phối và lịch sử phiên bản nằm tại [tag v5.0.2](https://github.com/nlthieumedia-coder/HT_Studio/tree/v5.0.2/HT_VidsGG). Các bản trước được lưu riêng trong [`dist/old`](dist/old) để đối chiếu khi cần.
 
-Mã SHA-256: `9A8B7D9B79754A7D14C9DCD02D62489780D327C53CC2EBDE16EF630C15174FF2`
+Mã SHA-256: `005AB2DC5C10CA8FFBF8125B6F8135D5D769A0DEE123D5FC7D21D3BC4F2EF36B`
 
-1. Tải và chạy file `HT-Vids-Studio-Setup-5.0.1-Windows-x64.exe`.
+1. Tải và chạy file `HT-Vids-Studio-Setup-5.0.2-Windows-x64.exe`.
 2. Chọn thư mục cài đặt và hoàn tất các bước trong trình cài đặt.
 3. Mở **HT Vids Studio** từ shortcut Desktop hoặc menu Start.
 4. Nhập key bản quyền do HT Studio cung cấp.
@@ -39,6 +39,8 @@ Windows SmartScreen có thể cảnh báo khi bản phát hành chưa được k
 - Quản lý nội dung theo **chiến dịch**; mỗi chiến dịch có thư mục độc lập để lưu cấu hình, ảnh và video đầu ra.
 - Dán prompt nhiều dòng vào đúng một ô mà không tự sinh thêm task.
 - Tạo task chờ, chạy ngay hoặc chạy hàng loạt trên các tài khoản đang khả dụng.
+- Gửi nguyên chiến dịch vào hàng đợi trong một lần; hàng đợi tự đánh thức định kỳ và tiếp tục nhận task khi tài khoản rảnh.
+- Mỗi dòng trong chiến dịch có nút **Chạy**, **Dừng** và **Hủy** riêng, không làm gián đoạn các task khác.
 - Chạy lại riêng các task lỗi hoặc đã hủy của chiến dịch hiện tại; có thể chọn một số dòng hoặc chạy lại toàn bộ mà không tạo lại video đã hoàn thành.
 - Khi chạy, ứng dụng giữ nguyên tab hiện tại và đổi nút **Tạo video** thành **Dừng**; nút Dừng hủy toàn bộ task đang chờ hoặc đang chạy.
 - Tự phân phối hàng đợi theo FIFO: task vào trước chạy trước; mỗi tài khoản chỉ xử lý một task tại một thời điểm.
@@ -128,6 +130,13 @@ Hướng dẫn chi tiết nằm trong [HUONG_DAN_SU_DUNG.md](HUONG_DAN_SU_DUNG.m
 > Người đang sử dụng 2.0.5 trở xuống cần tải 2.0.6 thủ công một lần. Từ 2.0.6 trở đi, ứng dụng mới có khả năng tự thông báo các phiên bản tiếp theo.
 
 > Các bản trước 3.0.1 chưa có bộ tải nền nên cần thực hiện luồng tải cũ một lần để chuyển tiếp. Từ 3.0.1 trở đi, toàn bộ quá trình tải và cài cập nhật diễn ra trong ứng dụng.
+
+## Phiên bản 5.0.2
+
+- Gửi toàn bộ task hợp lệ của chiến dịch vào hàng đợi theo một giao dịch, tránh để các dòng cuối chỉ đứng ở trạng thái **Hợp lệ**.
+- Bổ sung watchdog 15 giây để hàng đợi tự tiếp tục khi tài khoản rảnh, kể cả khi một tín hiệu cập nhật bị bỏ lỡ.
+- Thêm nút **Chạy**, **Dừng** và **Hủy** riêng ở cuối từng dòng; dừng hoặc hủy một task không ảnh hưởng các task khác.
+- Sửa hai thẻ Donate hiển thị cạnh nhau; lời nhắc định kỳ nay thay thế thẻ cố định tại cùng vị trí và thẻ cố định mở được mã QR.
 
 ## Phiên bản 5.0.1
 
