@@ -6,15 +6,15 @@
 
 ## ⬇️ Tải và cài đặt
 
-Phiên bản hiện tại: **5.0.2**
+Phiên bản hiện tại: **5.0.3**
 
-### [BẤM VÀO ĐÂY ĐỂ TẢI BỘ CÀI HT VIDS STUDIO 5.0.2 CHO WINDOWS x64](https://media.githubusercontent.com/media/nlthieumedia-coder/HT_Studio/main/HT_VidsGG/dist/latest/HT-Vids-Studio-Setup-5.0.2-Windows-x64.exe)
+### [BẤM VÀO ĐÂY ĐỂ TẢI BỘ CÀI HT VIDS STUDIO 5.0.3 CHO WINDOWS x64](https://media.githubusercontent.com/media/nlthieumedia-coder/HT_Studio/main/HT_VidsGG/dist/latest/HT-Vids-Studio-Setup-5.0.3-Windows-x64.exe)
 
-Nếu trình duyệt chưa tải ngay, hãy chờ Git LFS đồng bộ trong ít phút rồi thử lại. Mã nguồn phân phối và lịch sử phiên bản nằm tại [tag v5.0.2](https://github.com/nlthieumedia-coder/HT_Studio/tree/v5.0.2/HT_VidsGG). Các bản trước được lưu riêng trong [`dist/old`](dist/old) để đối chiếu khi cần.
+Nếu trình duyệt chưa tải ngay, hãy chờ Git LFS đồng bộ trong ít phút rồi thử lại. Mã nguồn phân phối và lịch sử phiên bản nằm tại [tag v5.0.3](https://github.com/nlthieumedia-coder/HT_Studio/tree/v5.0.3/HT_VidsGG). Các bản trước được lưu riêng trong [`dist/old`](dist/old) để đối chiếu khi cần.
 
-Mã SHA-256: `005AB2DC5C10CA8FFBF8125B6F8135D5D769A0DEE123D5FC7D21D3BC4F2EF36B`
+Mã SHA-256: `4C19183E50B367D6CD50C7AD497C9A84A686EDFC94877AF952047D670A4D1C8B`
 
-1. Tải và chạy file `HT-Vids-Studio-Setup-5.0.2-Windows-x64.exe`.
+1. Tải và chạy file `HT-Vids-Studio-Setup-5.0.3-Windows-x64.exe`.
 2. Chọn thư mục cài đặt và hoàn tất các bước trong trình cài đặt.
 3. Mở **HT Vids Studio** từ shortcut Desktop hoặc menu Start.
 4. Nhập key bản quyền do HT Studio cung cấp.
@@ -130,6 +130,13 @@ Hướng dẫn chi tiết nằm trong [HUONG_DAN_SU_DUNG.md](HUONG_DAN_SU_DUNG.m
 > Người đang sử dụng 2.0.5 trở xuống cần tải 2.0.6 thủ công một lần. Từ 2.0.6 trở đi, ứng dụng mới có khả năng tự thông báo các phiên bản tiếp theo.
 
 > Các bản trước 3.0.1 chưa có bộ tải nền nên cần thực hiện luồng tải cũ một lần để chuyển tiếp. Từ 3.0.1 trở đi, toàn bộ quá trình tải và cài cập nhật diễn ra trong ứng dụng.
+
+## Phiên bản 5.0.3
+
+- Khi một tài khoản không đáp ứng thời lượng video, ứng dụng tự thử lại đúng một lần trên chính tài khoản đó để xác minh.
+- Sau lần thử thứ hai, ứng dụng ghi nhớ thời lượng tối đa có bằng chứng rõ ràng và tự chuyển task sang tài khoản phù hợp khác.
+- Tài khoản đã được xác định không đủ thời lượng sẽ không bị chọn lại cho task vượt khả năng, nhưng vẫn có thể xử lý các video ngắn hơn.
+- Phân biệt giới hạn thời lượng của model với hạn mức tạo video theo tháng để tránh lưu sai khả năng tài khoản sau khi quota được làm mới.
 
 ## Phiên bản 5.0.2
 

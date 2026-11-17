@@ -139,6 +139,7 @@ Mỗi chiến dịch nên dùng một tên dễ nhận biết. Không tự ý di
 - **Cơ chế tự phân tài khoản rảnh:** Khi bạn xếp hàng chục video vào tab **Hàng đợi**, hệ thống sẽ tự động tìm kiếm các tài khoản Google đang rảnh để chạy tác vụ.
 - **Thứ tự FIFO:** Task vào hàng đợi trước được xét chạy trước. Khi một tài khoản hoàn thành và rảnh, hệ thống tự lấy task cũ nhất mà tài khoản đó có thể xử lý; task bấm **Chạy lại** được đưa xuống cuối hàng.
 - **Tự duy trì liên tục:** Hệ thống kiểm tra lại hàng đợi mỗi 15 giây trong khi còn task chờ, nhờ đó tự nhận tài khoản vừa rảnh ngay cả khi một tín hiệu cập nhật bị bỏ lỡ.
+- **Ghi nhớ khả năng thời lượng:** Nếu tài khoản không tạo được đúng số giây task yêu cầu, hệ thống thử lại đúng một lần trên cùng tài khoản. Nếu lần thứ hai vẫn không đáp ứng, ứng dụng ghi nhớ giới hạn có bằng chứng, chuyển task sang tài khoản phù hợp khác và không chọn lại tài khoản cũ cho task vượt khả năng. Tài khoản đó vẫn có thể chạy video ngắn hơn.
 - **Không xung đột:** Mỗi tài khoản chạy trong môi trường trình duyệt tách biệt, đảm bảo tiến trình render độc lập.
 - **Các thao tác quản lý:**
   - **Bắt đầu:** Khởi động task đang ở trạng thái chờ (waiting).
