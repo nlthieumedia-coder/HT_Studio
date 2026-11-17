@@ -1,13 +1,13 @@
 {
-  "latestVersion": "5.0.4",
-  "minimumSupportedVersion": "5.0.4",
-  "downloadUrl": "https://media.githubusercontent.com/media/nlthieumedia-coder/HT_Studio/main/HT_VidsGG/dist/latest/HT-Vids-Studio-Setup-5.0.4-Windows-x64.exe",
+  "latestVersion": "5.0.5",
+  "minimumSupportedVersion": "5.0.5",
+  "downloadUrl": "https://media.githubusercontent.com/media/nlthieumedia-coder/HT_Studio/main/HT_VidsGG/dist/latest/HT-Vids-Studio-Setup-5.0.5-Windows-x64.exe",
   "releaseNotes": [
-    "Đồng bộ cơ chế bản quyền V2 giữa ứng dụng và máy chủ cấp key.",
-    "Loại bỏ hoàn toàn salt V1 và các master key cũ khỏi bộ cài.",
-    "Sửa công cụ tạo key theo HWID và bổ sung kiểm thử chống hồi quy V1.",
-    "Bắt buộc nâng cấp từ 5.0.3 để kích hoạt được các key V2 mới."
+    "Thêm lịch sử tối đa 12 chiến dịch gần đây ngay tại tab Tạo video hàng loạt.",
+    "Mở lại chiến dịch bằng một lần bấm mà không cần chọn thư mục trong máy.",
+    "Tự loại bỏ các thư mục chiến dịch đã mất hoặc có dữ liệu không còn hợp lệ.",
+    "Cho phép bỏ một mục khỏi lịch sử mà không xóa thư mục và dữ liệu chiến dịch."
   ],
   "publishedAt": "2026-11-17",
-  "sha256": "A12A88906DEBA110F897C38A688E319C5AA90570968F7DC8ADFDCD69AA86FF06"
+  "sha256": "E1ACFE1E5C2B7E58A140A0F8BFFD0261EB982F04D01B30390FCA6A2B3F1AAAA8"
 }
