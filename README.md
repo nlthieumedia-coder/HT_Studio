@@ -6,16 +6,16 @@ Bộ ứng dụng desktop Windows chính thức của **HT Studio**.
 
 ## ⬇️ Tải ứng dụng
 
-### HT Vids Studio 5.0.3
+### HT Vids Studio 5.0.4
 
 Tự động hóa quy trình tạo video AI trên Google Vids, quản lý nhiều tài khoản, hàng đợi và tải video thành phẩm.
 
-**[BẤM VÀO ĐÂY ĐỂ TẢI HT VIDS STUDIO 5.0.3 CHO WINDOWS x64](https://media.githubusercontent.com/media/nlthieumedia-coder/HT_Studio/main/HT_VidsGG/dist/latest/HT-Vids-Studio-Setup-5.0.3-Windows-x64.exe)**
+**[BẤM VÀO ĐÂY ĐỂ TẢI HT VIDS STUDIO 5.0.4 CHO WINDOWS x64](https://media.githubusercontent.com/media/nlthieumedia-coder/HT_Studio/main/HT_VidsGG/dist/latest/HT-Vids-Studio-Setup-5.0.4-Windows-x64.exe)**
 
 - [Thông tin chi tiết](./HT_VidsGG/README.md)
 - [Hướng dẫn sử dụng](./HT_VidsGG/HUONG_DAN_SU_DUNG.md)
-- SHA-256: `4C19183E50B367D6CD50C7AD497C9A84A686EDFC94877AF952047D670A4D1C8B`
-- Phiên bản 5.0.3 cải thiện phân phối task theo khả năng thời lượng của từng tài khoản và tự chuyển sang tài khoản phù hợp khi cần.
+- SHA-256: `A12A88906DEBA110F897C38A688E319C5AA90570968F7DC8ADFDCD69AA86FF06`
+- Phiên bản 5.0.4 đồng bộ bản quyền V2, loại bỏ hoàn toàn key V1 và master key cũ khỏi bộ cài.
 - Ứng dụng tải và cài đặt cập nhật trong nền, đồng thời bắt buộc nâng cấp khi có bản mới.
 
 ### HT PageNew 1.0.3
