@@ -11,7 +11,7 @@
 - **Chất lượng gốc cao nhất**: Tự động ghép nối video và âm thanh độ nét cao, xuất định dạng chuẩn MP4 tương thích mọi thiết bị.
 - **Quản lý danh sách trực quan**: Bộ lọc thông minh (*Tất cả, Chờ tải, Hoàn tất, Lỗi*) cùng thanh tìm kiếm và hiển thị tiến trình tải trực tiếp.
 - **Phím tắt tiện lợi**: `Ctrl + A` để chọn tất cả video, phím `Delete` để hủy chọn nhanh.
-- **Kết nối tài khoản TikTok**: Đăng nhập an toàn qua WebView để lấy cookie cho các video riêng tư hoặc giới hạn độ tuổi.
+- **Kết nối tài khoản TikTok và Instagram**: Đăng nhập an toàn qua cửa sổ riêng để lấy cookie cho nội dung yêu cầu xác thực.
 - **Bản quyền an toàn**: Khóa cứng bản quyền theo mã phần cứng thiết bị (HWID).
 - **Hỗ trợ kỹ thuật 24/7**: Tích hợp sẵn hộp thoại kết nối hỗ trợ trực tiếp qua mã QR Zalo và Telegram.
 
@@ -40,4 +40,4 @@
 
 ## Phiên bản
 
-Phiên bản phát hành hiện tại: **v2.0.3**
+Phiên bản phát hành hiện tại: **v2.0.4**

@@ -1,4 +1,4 @@
-# CẨM NANG HƯỚNG DẪN SỬ DỤNG - HT DOWNLOADER v2.0.3
+# CẨM NANG HƯỚNG DẪN SỬ DỤNG - HT DOWNLOADER v2.0.4
 
 Chào mừng bạn đến với **HT Downloader** – Phần mềm tải và quản lý video đa luồng chất lượng cao từ **HT Studio**.
 
@@ -8,7 +8,7 @@ Chào mừng bạn đến với **HT Downloader** – Phần mềm tải và qu�
 1. [Cài Đặt & Kích Hoạt Bản Quyền](#1-cài-đặt--kích-hoạt-bản-quyền)
 2. [Cách Quét & Tải Video Hàng Loạt](#2-cách-quét--tải-video-hàng-loạt)
 3. [Nền Tảng Hỗ Trợ (TikTok, YouTube, Facebook, Reels...)](#3-nền-tảng-hỗ-trợ-tiktok-youtube-facebook-reels)
-4. [Đăng Nhập Tài Khoản TikTok (Tùy Chọn)](#4-đăng-nhập-tài-khoản-tiktok-tùy-chọn)
+4. [Đăng Nhập Tài Khoản TikTok / Instagram (Tùy Chọn)](#4-đăng-nhập-tài-khoản-tiktok--instagram-tùy-chọn)
 5. [Tùy Chỉnh Thư Mục Lưu & Định Dạng Tải](#5-tùy-chỉnh-thư-mục-lưu--định-dạng-tải)
 6. [Phím Tắt Tiện Ích](#6-phím-tắt-tiện-ích)
 7. [Kênh Hỗ Trợ Kỹ Thuật 24/7](#7-kênh-hỗ-trợ-kỹ-thuật-247)
@@ -56,12 +56,12 @@ HT Downloader sử dụng công nghệ phân tích đa luồng hiện đại h�
 
 ---
 
-## 4. ĐĂNG NHẬP TÀI KHOẢN TIKTOK (TÙY CHỌN)
+## 4. ĐĂNG NHẬP TÀI KHOẢN TIKTOK / INSTAGRAM (TÙY CHỌN)
 
-- Để tải video ở độ phân giải cao nhất hoặc tải video riêng tư / giới hạn khu vực, bạn nên kết nối tài khoản TikTok.
-- Nhấn nút **Đăng nhập TikTok** ở góc trên bên phải thanh tiêu đề.
+- Để tải nội dung yêu cầu xác thực hoặc khi nền tảng giới hạn truy cập ẩn danh, bạn nên kết nối tài khoản tương ứng.
+- Nhấn nút **TikTok** hoặc **Instagram** ở góc trên bên phải thanh tiêu đề.
 - Cửa sổ đăng nhập an toàn sẽ mở ra, tiến hành đăng nhập bình thường rồi đóng cửa sổ.
-- Ứng dụng sẽ hiển thị trạng thái `TikTok: Đã kết nối`.
+- Nút nền tảng chuyển sang màu xanh và có dấu `✓` khi đã kết nối. Cookie của mỗi nền tảng được lưu riêng và chỉ gửi tới đúng nền tảng đó.
 
 ---
 
