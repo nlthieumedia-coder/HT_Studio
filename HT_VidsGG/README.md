@@ -6,14 +6,14 @@
 
 ## Tải phiên bản mới nhất
 
-Phiên bản hiện tại: **5.0.5** dành cho **Windows 10/11 x64**.
+Phiên bản hiện tại: **5.0.7** dành cho **Windows 10/11 x64**.
 
-### [TẢI HT VIDS STUDIO 5.0.5](https://media.githubusercontent.com/media/nlthieumedia-coder/HT_Studio/main/HT_VidsGG/dist/latest/HT-Vids-Studio-Setup-5.0.5-Windows-x64.exe)
+### [TẢI HT VIDS STUDIO 5.0.7](https://media.githubusercontent.com/media/nlthieumedia-coder/HT_Studio/main/HT_VidsGG/dist/latest/HT-Vids-Studio-Setup-5.0.7-Windows-x64.exe)
 
-- Tên bộ cài: `HT-Vids-Studio-Setup-5.0.5-Windows-x64.exe`
-- SHA-256: `E1ACFE1E5C2B7E58A140A0F8BFFD0261EB982F04D01B30390FCA6A2B3F1AAAA8`
+- Tên bộ cài: `HT-Vids-Studio-Setup-5.0.7-Windows-x64.exe`
+- SHA-256: `6D2A28DDCF248EA18DA8103E3C6995EFB1BE2F82F34221AD1360EA21402C6197`
 
-Nếu liên kết chưa tải ngay, hãy chờ Git LFS đồng bộ trong ít phút rồi thử lại. Tài liệu của bản phát hành nằm tại [tag v5.0.5](https://github.com/nlthieumedia-coder/HT_Studio/tree/v5.0.5/HT_VidsGG).
+Nếu liên kết chưa tải ngay, hãy chờ Git LFS đồng bộ trong ít phút rồi thử lại. Tài liệu của bản phát hành nằm tại [tag v5.0.7](https://github.com/nlthieumedia-coder/HT_Studio/tree/v5.0.7/HT_VidsGG).
 
 ## Ứng dụng làm được gì?
 
@@ -32,7 +32,7 @@ Nếu liên kết chưa tải ngay, hãy chờ Git LFS đồng bộ trong ít ph
 ## Cài đặt
 
 1. Tải bộ cài từ liên kết ở trên.
-2. Chạy file `HT-Vids-Studio-Setup-5.0.5-Windows-x64.exe`.
+2. Chạy file `HT-Vids-Studio-Setup-5.0.7-Windows-x64.exe`.
 3. Chọn thư mục cài đặt và hoàn tất trình cài đặt.
 4. Mở **HT Vids Studio** từ Desktop hoặc menu Start.
 5. Kích hoạt bản quyền, sau đó thêm tài khoản Google để bắt đầu.
@@ -48,7 +48,7 @@ Bản phát hành hiện chưa được ký Code Signing nên Windows có thể 
 Bạn có thể kiểm tra mã SHA-256 bằng PowerShell:
 
 ```powershell
-Get-FileHash .\HT-Vids-Studio-Setup-5.0.5-Windows-x64.exe -Algorithm SHA256
+Get-FileHash .\HT-Vids-Studio-Setup-5.0.7-Windows-x64.exe -Algorithm SHA256
 ```
 
 ## Kích hoạt bản quyền
@@ -142,15 +142,15 @@ Bạn có thể đổi thư mục đầu ra trong phần cấu hình. Hãy bảo
 
 Khi có bản mới, ứng dụng hiển thị nội dung thay đổi, tải bộ cài trong nền, kiểm tra dung lượng và SHA-256 trước khi cài đặt. Các phiên bản quá cũ có thể bị yêu cầu cập nhật trước khi tiếp tục sử dụng.
 
-## Điểm mới trong phiên bản 5.0.5
+## Điểm mới trong phiên bản 5.0.7
 
-- Hiển thị tối đa 12 chiến dịch gần đây ngay tại tab **Tạo video hàng loạt**.
-- Mở lại chiến dịch bằng một lần bấm mà không cần chọn thư mục.
-- Có nút **Lịch sử** để chuyển nhanh giữa các chiến dịch.
-- Tự loại bỏ thư mục chiến dịch đã mất hoặc tệp `campaign.json` không còn hợp lệ.
-- Cho phép bỏ mục khỏi lịch sử mà không xóa dữ liệu chiến dịch trong máy.
+- Mở Google Vids qua trang chủ ổn định và tự tạo video trống cho từng profile.
+- Kiểm tra trực tiếp thanh **Video duration** trong trình duyệt hiển thị.
+- Báo đúng thời lượng Google thực sự chấp nhận sau khi áp dụng hạn mức tài khoản, không nhầm giới hạn kỹ thuật 15 giây.
+- Bỏ qua trạng thái tải tạm thời 3 giây và xuất nhật ký TXT cho từng tài khoản.
+- Tự chụp màn hình trình duyệt khi task tạo video gặp lỗi để người dùng xem lại nguyên nhân.
 
-Xem tài liệu đúng bản phát hành tại [v5.0.5](https://github.com/nlthieumedia-coder/HT_Studio/tree/v5.0.5/HT_VidsGG). Các bản cũ được lưu trong [`dist/old`](dist/old).
+Xem tài liệu đúng bản phát hành tại [v5.0.7](https://github.com/nlthieumedia-coder/HT_Studio/tree/v5.0.7/HT_VidsGG). Các bản cũ được lưu trong [`dist/old`](dist/old).
 
 ## Hướng dẫn và hỗ trợ
 

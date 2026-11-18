@@ -1,13 +1,13 @@
 {
-  "latestVersion": "5.0.5",
-  "minimumSupportedVersion": "5.0.5",
-  "downloadUrl": "https://media.githubusercontent.com/media/nlthieumedia-coder/HT_Studio/main/HT_VidsGG/dist/latest/HT-Vids-Studio-Setup-5.0.5-Windows-x64.exe",
+  "latestVersion": "5.0.7",
+  "minimumSupportedVersion": "5.0.7",
+  "downloadUrl": "https://media.githubusercontent.com/media/nlthieumedia-coder/HT_Studio/main/HT_VidsGG/dist/latest/HT-Vids-Studio-Setup-5.0.7-Windows-x64.exe",
   "releaseNotes": [
-    "Thêm lịch sử tối đa 12 chiến dịch gần đây ngay tại tab Tạo video hàng loạt.",
-    "Mở lại chiến dịch bằng một lần bấm mà không cần chọn thư mục trong máy.",
-    "Tự loại bỏ các thư mục chiến dịch đã mất hoặc có dữ liệu không còn hợp lệ.",
-    "Cho phép bỏ một mục khỏi lịch sử mà không xóa thư mục và dữ liệu chiến dịch."
+    "Mở Google Vids qua trang chủ ổn định và tự tạo video trống cho từng profile.",
+    "Kiểm tra trực tiếp thanh Video duration và báo giá trị Google thực sự chấp nhận theo hạn mức tài khoản.",
+    "Không còn nhầm giới hạn kỹ thuật 15 giây hoặc trạng thái tải tạm thời 3 giây là thời lượng khả dụng.",
+    "Tự chụp màn hình trình duyệt khi task tạo video lỗi và xuất nhật ký kiểm tra tài khoản dạng TXT."
   ],
-  "publishedAt": "2026-11-17",
-  "sha256": "E1ACFE1E5C2B7E58A140A0F8BFFD0261EB982F04D01B30390FCA6A2B3F1AAAA8"
+  "publishedAt": "2026-11-18",
+  "sha256": "6D2A28DDCF248EA18DA8103E3C6995EFB1BE2F82F34221AD1360EA21402C6197"
 }
