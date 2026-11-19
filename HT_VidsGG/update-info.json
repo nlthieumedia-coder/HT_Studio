@@ -1,13 +1,15 @@
 {
-  "latestVersion": "5.0.7",
-  "minimumSupportedVersion": "5.0.7",
-  "downloadUrl": "https://media.githubusercontent.com/media/nlthieumedia-coder/HT_Studio/main/HT_VidsGG/dist/latest/HT-Vids-Studio-Setup-5.0.7-Windows-x64.exe",
+  "latestVersion": "5.0.9",
+  "minimumSupportedVersion": "5.0.9",
+  "downloadUrl": "https://media.githubusercontent.com/media/nlthieumedia-coder/HT_Studio/main/HT_VidsGG/dist/latest/HT-Vids-Studio-Setup-5.0.9-Windows-x64.exe",
   "releaseNotes": [
-    "Mở Google Vids qua trang chủ ổn định và tự tạo video trống cho từng profile.",
-    "Kiểm tra trực tiếp thanh Video duration và báo giá trị Google thực sự chấp nhận theo hạn mức tài khoản.",
-    "Không còn nhầm giới hạn kỹ thuật 15 giây hoặc trạng thái tải tạm thời 3 giây là thời lượng khả dụng.",
-    "Tự chụp màn hình trình duyệt khi task tạo video lỗi và xuất nhật ký kiểm tra tài khoản dạng TXT."
+    "Dùng ngay các tài khoản đã kiểm tra và phù hợp khi chạy task, không kiểm tra Google Vids thêm một lần trước khi tạo.",
+    "Tự đọc thời lượng trong prompt và cấu hình Create/Extend theo tổng thời lượng 5–20 giây.",
+    "Chuẩn hóa luồng vids.new, Canvas, AI Video, tải ảnh, nhập prompt, cấu hình thời lượng/độ phân giải và tải MP4.",
+    "Chuyển cấu hình hẹn giờ kiểm tra tài khoản vào cửa sổ popup gọn hơn.",
+    "Sửa tương thích schema Gemini cho chức năng tự tạo caption.",
+    "Dọn mã giao diện cũ và bổ sung kiểm thử hồi quy cho tab Tài khoản và tab Tạo video."
   ],
-  "publishedAt": "2026-11-18",
-  "sha256": "6D2A28DDCF248EA18DA8103E3C6995EFB1BE2F82F34221AD1360EA21402C6197"
+  "publishedAt": "2026-11-19",
+  "sha256": "E11D8775D0EDF73B9CD867AB883A3BFF9A55A93A2372C97B508B4EBD92CE255E"
 }

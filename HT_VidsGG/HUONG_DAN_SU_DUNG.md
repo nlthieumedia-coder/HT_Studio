@@ -40,7 +40,7 @@ Chỉ mất chưa đầy 2 phút để thiết lập và nhận video hoàn ch�
   - Chọn tỉ lệ khung hình: **9:16 (Dọc TikTok/Reels/Shorts)** hoặc **16:9 (Ngang YouTube)**.
   - Chọn độ phân giải (720p hoặc 1080p) và tích chọn **Tự động xóa watermark Veo**.
 - **Bước 4: Bắt đầu tạo video**
-  - Bấm nút **Tạo video 20 giây & tải xuống** để chạy ngay.
+  - Bấm nút **Tạo video 20 giây & tải xuống** để hệ thống dùng ngay các tài khoản đã kiểm tra và còn phù hợp.
   - Hoặc bấm **Thêm vào hàng đợi** để hệ thống chạy ngầm liên tục nhiều video.
 
 ---
